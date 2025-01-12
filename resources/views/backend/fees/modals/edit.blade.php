@@ -1,0 +1,71 @@
+<!-- Modal edit -->
+<div class="modal fade" id="modal-fees-edit-ajax" tabindex="-1" aria-labelledby="modal-fees-edit-ajaxLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <form class="row g-3 needs-validation form-submit-ajax" method="POST" action="{{ route('admins.fees.update', $fee->id) }}" data-reload="#load-data-ajax-fees">
+            @csrf
+            @method('PUT')
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-fees-edit-ajaxLabel">Sửa khóa học</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        @if($course_user_id)
+                        <input type="hidden" name="course_user_id" value="{{ $course_user_id }}">
+                        @else
+                        <div class="col-md-6 mb-3">
+                            <label for="course_user_id2">Chọn học viên - khóa học</label>
+                            <select name="course_user_id" id="course_user_id2" class="form-control single-select">
+                                @foreach ($courseUsers as $courseUser)
+                                <option value="{{ $courseUser->id }}" {{ $fee->course_user_id == $courseUser->id ? 'selected' : '' }}>{{ $courseUser->user->name }} - {{
+                                    $courseUser->course->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        @endif
+                        <div class="col-md-6 mb-3">
+                            <label for="amount">Số tiền</label>
+                            <input type="number" name="amount" id="amount" class="form-control" required value="{{ $fee->amount }}">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="payment_date">Ngày nạp</label>
+                            <input type="date" name="payment_date" id="payment_date" class="form-control" required value="{{ \Carbon\Carbon::parse($fee->payment_date)->format('Y-m-d') }}">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="admin_id2">Người thu</label>
+                            <select name="admin_id" id="admin_id2" class="form-control single-select">
+                                @foreach ($admins as $admin)
+                                <option value="{{ $admin->id }}"{{ $fee->admin_id == $admin->id ? 'selected' : '' }} >{{ $admin->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="note">Ghi chú</label>
+                            <textarea name="note" id="note" class="form-control">{{ $fee->note }}</textarea>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="is_received">Tiền đã về công ty</label>
+                            <select name="is_received" id="is_received" class="form-control">
+                                <option value="0" {{ $fee->is_received == 0 ? 'selected' : '' }}>Chưa về</option>
+                                <option value="1" {{ $fee->is_received == 1 ? 'selected' : '' }}>Đã về</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light px-5 mr-2" data-dismiss="modal">
+                        <i class="bx bx-window-close me-1"></i>
+                        Hủy
+                    </button>
+                    <button type="submit" class="btn btn-primary px-5">
+                        <i class="bx bx-save me-1"></i>
+                        Lưu
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
