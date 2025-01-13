@@ -18,11 +18,9 @@
                         @else
                         <div class="col-md-6 mb-3">
                             <label for="course_user_id2">Chọn học viên - khóa học</label>
-                            <select name="course_user_id" id="course_user_id2" class="form-control single-select">
-                                @foreach ($courseUsers as $courseUser)
-                                <option value="{{ $courseUser->id }}" {{ $fee->course_user_id == $courseUser->id ? 'selected' : '' }}>{{ $courseUser->user->name }} - {{
-                                    $courseUser->course->name }}</option>
-                                @endforeach
+                            <select class="select2-ajax-single form-control" name="course_user_id" data-selected-id="{{ $fee->course_user_id }}"
+                                data-placeholder="Chọn học viên - khóa học"
+                                data-url="{{ route('admins.course-user.list') }}" >
                             </select>
                         </div>
                         @endif
@@ -36,10 +34,9 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="admin_id2">Người thu</label>
-                            <select name="admin_id" id="admin_id2" class="form-control single-select">
-                                @foreach ($admins as $admin)
-                                <option value="{{ $admin->id }}"{{ $fee->admin_id == $admin->id ? 'selected' : '' }} >{{ $admin->name }}</option>
-                                @endforeach
+                            <select class="select2-ajax-single form-control" name="admin_id" data-selected-id="{{ $fee->admin_id }}"
+                                data-placeholder="Chọn người thu"
+                                data-url="{{ route('admins.admins.list', ['role'=> ROLE_FEE]) }}" >
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">

@@ -54,6 +54,10 @@
                             <input type="date" name="end_date" id="end_date" class="form-control" value="{{ \Carbon\Carbon::parse($course->end_date)->format('Y-m-d') }}" required>
                         </div>
                         <div class="col-md-6 mb-3">
+                            <label for="tuition_fee" class="form-label">Học phí</label>
+                            <input type="number" name="tuition_fee" id="tuition_fee" class="form-control" value="{{ old('tuition_fee', $course->tuition_fee) }}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
                             <label for="number_students" class="form-label">Số lượng học viên</label>
                             <input type="number" name="number_students" id="number_students" class="form-control" value="{{ $course->number_students }}">
                         </div>

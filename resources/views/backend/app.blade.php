@@ -23,6 +23,12 @@
     <link rel="stylesheet" href="{{ asset('backend/assets/plugins/notifications/css/lobibox.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <!-- loader-->
+
+    <script>
+        var obj_config = {
+            limit: "{{ LIMIT }}",
+        };
+    </script>
     @FilemanagerScript
     <link href="{{ asset('backend/assets/css/pace.min.css') }}" rel="stylesheet" />
     <script src="{{ asset('backend/assets/js/pace.min.js') }}"></script>

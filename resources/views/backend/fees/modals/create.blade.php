@@ -12,16 +12,14 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        @if (isset($courseUser))
-                        <input type="hidden" name="course_user_id" value="{{ $courseUser->id }}">
+                        @if ($course_user_id)
+                        <input type="hidden" name="course_user_id" value="{{ $course_user_id }}">
                         @else
                         <div class="col-md-6 mb-3">
                             <label for="course_user_id">Chọn học viên - khóa học</label>
-                            <select name="course_user_id" id="course_user_id" class="form-control single-select">
-                                @foreach ($courseUsers as $courseUser2)
-                                <option value="{{ $courseUser2->id }}">{{ $courseUser2->user->name }} - {{
-                                    $courseUser2->course->name }}</option>
-                                @endforeach
+                            <select class="select2-ajax-single form-control" name="course_user_id" data-selected-id=""
+                                data-placeholder="Chọn học viên - khóa học"
+                                data-url="{{ route('admins.course-user.list') }}" >
                             </select>
                         </div>
                         @endif
@@ -35,10 +33,9 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="admin_id">Người thu</label>
-                            <select name="admin_id" id="admin_id" class="form-control single-select">
-                                @foreach ($admins as $admin)
-                                <option value="{{ $admin->id }}">{{ $admin->name }}</option>
-                                @endforeach
+                            <select class="select2-ajax-single form-control" name="admin_id" data-selected-id=""
+                                data-placeholder="Chọn người thu"
+                                data-url="{{ route('admins.admins.list', ['role'=> ROLE_FEE]) }}" >
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">

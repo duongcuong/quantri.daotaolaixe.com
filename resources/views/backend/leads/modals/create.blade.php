@@ -16,7 +16,7 @@
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label for="user_id">Chọn học viên(Nếu có)</label>
-                            <select class="select2-ajax-single form-control" name="user_id"  data-selected-id="" data-placeholder="Chọn học viên" data-url="{{ route('admins.users.list') }}" id="change-hoc-vien" data-limit="{{ LIMIT }}">
+                            <select class="select2-ajax-single form-control" name="user_id"  data-selected-id="" data-placeholder="Chọn học viên" data-url="{{ route('admins.users.list') }}" id="change-hoc-vien" >
                             </select>
                         </div>
                         <div class="form-group col-md-6">
@@ -54,7 +54,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="assigned_to">Người phụ trách</label>
-                            <select class="select2-ajax-single form-control" name="assigned_to"  data-selected-id="" data-placeholder="Chọn người phụ trách" data-url="{{ route('admins.admins.list', ['role'=> ROLE_SALE]) }}" data-limit="{{ LIMIT }}">
+                            <select class="select2-ajax-single form-control" name="assigned_to"  data-selected-id="" data-placeholder="Chọn người phụ trách" data-url="{{ route('admins.admins.list', ['role'=> ROLE_SALE]) }}" >
                             </select>
                         </div>
                         <div class="form-group col-md-6">

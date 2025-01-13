@@ -1,7 +1,9 @@
 <!-- Modal add -->
-<div class="modal fade" id="modal-courses-create-ajax" tabindex="-1" aria-labelledby="modal-courses-create-ajax" aria-hidden="true">
+<div class="modal fade" id="modal-courses-create-ajax" tabindex="-1" aria-labelledby="modal-courses-create-ajax"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
-        <form class="row g-3 needs-validation form-submit-ajax" method="POST" action="{{ route('admins.courses.store') }}" data-reload="#load-data-ajax-courses">
+        <form class="row g-3 needs-validation form-submit-ajax" method="POST"
+            action="{{ route('admins.courses.store') }}" data-reload="#load-data-ajax-courses">
             @csrf
             <div class="modal-content">
                 <div class="modal-header">
@@ -24,7 +26,8 @@
                             <label for="rank" class="form-label">Hạng</label>
                             <select name="rank" id="rank" class="form-control single-select">
                                 @foreach (listRanks() as $key => $value)
-                                    <option value="{{ $key }}" {{ $key == old('rank') ? 'selected' : '' }}>{{ $value }}</option>
+                                <option value="{{ $key }}" {{ $key==old('rank') ? 'selected' : '' }}>{{ $value }}
+                                </option>
                                 @endforeach
                             </select>
                         </div>
@@ -32,7 +35,8 @@
                             <label for="rank_gp" class="form-label">Hạng GP</label>
                             <select name="rank_gp" id="rank_gp" class="form-control single-select">
                                 @foreach (listRanks() as $key => $value)
-                                    <option value="{{ $key }}" {{ $key == old('rank_gp') ? 'selected' : '' }}>{{ $value }}</option>
+                                <option value="{{ $key }}" {{ $key==old('rank_gp') ? 'selected' : '' }}>{{ $value }}
+                                </option>
                                 @endforeach
                             </select>
                         </div>
@@ -51,6 +55,10 @@
                         <div class="col-md-6 mb-3">
                             <label for="end_date" class="form-label">Ngày kết thúc</label>
                             <input type="date" name="end_date" id="end_date" class="form-control" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="tuition_fee" class="form-label">Học phí</label>
+                            <input type="number" name="tuition_fee" id="tuition_fee" class="form-control" required>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="number_students" class="form-label">Số học viên</label>

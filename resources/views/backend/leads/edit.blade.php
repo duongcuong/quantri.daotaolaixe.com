@@ -19,8 +19,8 @@ Sửa lead
         </div>
     </div>
     <div class="ml-auto">
-        {{-- @if (Auth::user()->hasPermission('admins.teachers.index')) --}}
-        <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.teachers.index') }}" data-toggle="tooltip"
+        {{-- @if (Auth::user()->hasPermission('admins.leads.index')) --}}
+        <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.leads.index') }}" data-toggle="tooltip"
             title="Quay về trang quản lý lead &#9194;"><i class="bx bx-rewind"></i>Quay lại</a>
         {{-- @endif --}}
     </div>
@@ -38,7 +38,7 @@ Sửa lead
                             <select class="select2-ajax-single form-control" name="user_id"
                                 data-selected-id="{{ $lead->user_id }}" data-placeholder="Chọn học viên"
                                 data-url="{{ route('admins.users.list') }}" id="change-hoc-vien"
-                                data-limit="{{ LIMIT }}">
+                                >
                             </select>
                         </div>
                         <div class="form-group col-md-6">
@@ -94,7 +94,7 @@ Sửa lead
                         <select class="select2-ajax-single form-control" name="assigned_to"
                             data-selected-id="{{ $lead->assigned_to }}" data-placeholder="Chọn người phụ trách"
                             data-url="{{ route('admins.admins.list', ['role'=> ROLE_SALE]) }}"
-                            data-limit="{{ LIMIT }}">
+                            >
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary"><i class="bx bxs-save mr-1"></i>Lưu</button>

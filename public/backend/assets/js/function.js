@@ -125,11 +125,12 @@ function resetSelectAjax(type = null) {
         var _this = $(this);
         var placeholder = _this.data("placeholder");
         var url = _this.data("url");
-        var limit = _this.data("limit");
+        var limit = obj_config.limit;
         var selected_id = _this.attr("data-selected-id");
         _this.select2({
             theme: "bootstrap4",
             placeholder: placeholder,
+            allowClear: true,
             language: {
                 inputTooShort: function () {
                     return "Vui lòng nhập ít nhất 1 ký tự";

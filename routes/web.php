@@ -40,6 +40,7 @@ Route::prefix('admin')->as('admins.')->group(function () {
 
         //course
         Route::get('courses/data', [CourseController::class, 'data'])->name('courses.data');
+        Route::get('courses/list', [CourseController::class, 'list'])->name('courses.list');
         Route::resource('courses', CourseController::class);
 
         Route::get('users/list', [UserController::class, 'list'])->name('users.list');
@@ -48,6 +49,7 @@ Route::prefix('admin')->as('admins.')->group(function () {
 
         // course-user
         Route::get('course-user/data', [CourseUserController::class, 'data'])->name('course-user.data');
+        Route::get('course-user/list', [CourseUserController::class, 'list'])->name('course-user.list');
         Route::resource('course-user', CourseUserController::class);
 
         // fees

@@ -17,25 +17,30 @@ class CourseUserController extends Controller
     {
         $users = User::all();
         $courses = Course::all();
-        return view('backend.course-user.index', compact( 'users', 'courses'));
+        return view('backend.course-user.index', compact('users', 'courses'));
     }
 
     public function create()
     {
-        $users = User::all();
-        $courses = Course::all();
-        return view('backend.course-user.modals.create', compact('users', 'courses'));
+        return view('backend.course-user.create');
     }
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'user_id' => 'required|exists:users,id',
             'course_id' => 'required|exists:courses,id',
-            'basic_status' => 'required|integer|in:0,1,2',
-            'shape_status' => 'required|integer|in:0,1,2',
-            'road_status' => 'required|integer|in:0,1,2',
-            'chip_status' => 'required|integer|in:0,1,2',
+            'contract_date' => 'nullable|date',
+            'theory_exam' => 'nullable|boolean',
+            'practice_exam' => 'nullable|boolean',
+            'graduation_exam' => 'nullable|boolean',
+            'graduation_date' => 'nullable|date',
+            'teacher_id' => 'nullable|exists:admins,id',
+            'practice_field' => 'nullable|string|max:255',
+            'note' => 'nullable|string',
+            'health_check_date' => 'nullable|date',
+            'sale_id' => 'nullable|exists:admins,id',
+            'exam_date' => 'nullable|date',
             'user_id' => [
                 'required',
                 'exists:users,id',
@@ -47,18 +52,17 @@ class CourseUserController extends Controller
             'user_id.unique' => 'The selected user is already enrolled in this course.',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
-
         CourseUser::create($request->all());
 
-        return response()->json(['success' => 'Thêm thành công.']);
+        toastr()->success('Thêm thành công');
+        return redirect()->route('admins.course-user.index')->with('success', 'Course User created successfully.');
+
+        // return response()->json(['success' => 'Thêm thành công.']);
     }
 
     public function show(CourseUser $courseUser)
     {
-        $courseUsers = CourseUser::with('user', 'course')->get();
+        $courseUsers = CourseUser::with('user', 'course', 'teacher', 'sale')->get();
         $admins = Admin::where('status', 1)->get();
 
         $courseUser->loadSum('fees', 'amount');
@@ -68,21 +72,25 @@ class CourseUserController extends Controller
 
     public function edit(CourseUser $courseUser)
     {
-        $users = User::all();
-        $courses = Course::all();
-        return view('backend.course-user.modals.edit', compact('courseUser', 'users', 'courses'));
+        return view('backend.course-user.edit', compact('courseUser'));
     }
 
     public function update(Request $request, CourseUser $courseUser)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'user_id' => 'required|exists:users,id',
             'course_id' => 'required|exists:courses,id',
-            'basic_status' => 'required|integer|in:0,1,2',
-            'shape_status' => 'required|integer|in:0,1,2',
-            'road_status' => 'required|integer|in:0,1,2',
-            'chip_status' => 'required|integer|in:0,1,2',
-            'status' => 'required|integer|in:0,1',
+            'contract_date' => 'nullable|date',
+            'theory_exam' => 'nullable|boolean',
+            'practice_exam' => 'nullable|boolean',
+            'graduation_exam' => 'nullable|boolean',
+            'graduation_date' => 'nullable|date',
+            'teacher_id' => 'nullable|exists:admins,id',
+            'practice_field' => 'nullable|string|max:255',
+            'note' => 'nullable|string',
+            'health_check_date' => 'nullable|date',
+            'sale_id' => 'nullable|exists:admins,id',
+            'exam_date' => 'nullable|date',
             'user_id' => [
                 'required',
                 'exists:users,id',
@@ -95,13 +103,12 @@ class CourseUserController extends Controller
             'user_id.unique' => 'The selected user is already enrolled in this course.',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
-
         $courseUser->update($request->all());
 
-        return response()->json(['success' => 'Cập nhật thành công.']);
+        toastr()->success('Cập nhật thành công');
+        return redirect()->route('admins.course-user.index')->with('success', 'Course User updated successfully.');
+
+        // return response()->json(['success' => 'Cập nhật thành công.']);
     }
 
     public function destroy(CourseUser $courseUser)
@@ -112,7 +119,7 @@ class CourseUserController extends Controller
 
     public function data(Request $request)
     {
-        $query = CourseUser::with('user', 'course')->orderBy('id', 'desc');
+        $query = CourseUser::with('user', 'course', 'teacher', 'sale')->orderBy('id', 'desc');
 
         if ($request->has('course_id') && $request->course_id != '') {
             $query->where('course_id', $request->course_id);
@@ -149,5 +156,38 @@ class CourseUserController extends Controller
         }
 
         return view('backend.course-user.index', compact('courseUsers'));
+    }
+
+    public function list(Request $request)
+    {
+        $query = CourseUser::with('user', 'course')->orderBy('id', 'desc');
+
+        if ($request->has('id')) {
+            $query->where('id', $request->id);
+        }
+
+        if ($request->has('q')) {
+            $searchText = $request->q;
+            $query->where(function ($q) use ($searchText) {
+                $q->whereHas('course', function ($q) use ($searchText) {
+                    $q->where('name', 'like', '%' . $searchText . '%');
+                })->orWhereHas('user', function ($q) use ($searchText) {
+                    $q->where('name', 'like', '%' . $searchText . '%');
+                });
+            });
+        }
+
+        $courseUsers = $query->paginate(LIMIT);
+
+        // Thêm thuộc tính name vào từng item của $courseUsers
+        foreach ($courseUsers as $courseUser) {
+            $courseUser->name = $courseUser->user->name . ' - ' . $courseUser->course->name;
+        }
+
+        if ($request->ajax()) {
+            return response()->json([
+                'datas' => $courseUsers
+            ]);
+        }
     }
 }

@@ -4,8 +4,10 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-define('LIMIT', 5);
+define('LIMIT', 10);
 define('ROLE_SALE', 'sale,quan-ly-sales');
+define('ROLE_FEE', 'sale,quan-ly-sales');
+define('ROLE_TEACHER', 'giao-vien');
 
 if (!function_exists('uploadImage')) {
     function uploadImage($file, $folder = "uploads")
@@ -131,7 +133,9 @@ function listStatusCourseUser()
     $statuses = [
         '0' => 'Chưa học',
         '1' => 'Đang học',
-        '2' => 'Hoàn thành'
+        '2' => 'Chờ thi',
+        '3' => 'Thi lại',
+        '4' => 'Đã đỗ',
     ];
     return $statuses;
 }
@@ -141,12 +145,18 @@ function getStatusCourseUser($status)
     $statuses = listStatusCourseUser();
     switch ($status) {
         case 0:
-            return '<span class="badge badge-danger">' . $statuses[$status] . '</span>';
+            return '<span class="badge badge-secondary">' . $statuses[$status] . '</span>';
             break;
         case 1:
-            return '<span class="badge badge-warning">' . $statuses[$status] . '</span>';
+            return '<span class="badge badge-primary">' . $statuses[$status] . '</span>';
             break;
         case 2:
+            return '<span class="badge badge-info">' . $statuses[$status] . '</span>';
+            break;
+        case 3:
+            return '<span class="badge badge-warning">' . $statuses[$status] . '</span>';
+            break;
+        case 4:
             return '<span class="badge badge-success">' . $statuses[$status] . '</span>';
             break;
         default:
@@ -188,7 +198,8 @@ function listLevels()
     ];
 }
 
-function getLevel($level){
+function getLevel($level)
+{
     $levels = listLevels();
     switch ($level) {
         case 'high':
@@ -198,12 +209,13 @@ function getLevel($level){
             return '<span class="badge badge-warning">' . $levels[$level] . '</span>';
             break;
         default:
-        return '<span class="badge badge-secondary">' . $levels[$level] . '</span>';
+            return '<span class="badge badge-secondary">' . $levels[$level] . '</span>';
             break;
     }
 }
 
-function listStatusActivities(){
+function listStatusActivities()
+{
     return [
         'pending' => 'Đang chờ',
         'in_progress' => 'Đang thực hiện',
@@ -212,7 +224,8 @@ function listStatusActivities(){
     ];
 }
 
-function getStatusActivities($status){
+function getStatusActivities($status)
+{
     $statuss = listLevels();
     switch ($status) {
         case 'pending':
@@ -225,7 +238,16 @@ function getStatusActivities($status){
             return '<span class="badge badge-success">' . $statuss[$status] . '</span>';
             break;
         default:
-        return '<span class="badge badge-secondary">' . $statuss[$status] . '</span>';
+            return '<span class="badge badge-secondary">' . $statuss[$status] . '</span>';
             break;
+    }
+}
+
+function getTickTrueOrFalse($value)
+{
+    if ($value == 1) {
+        return '<i class="text-success bx bx-check-circle"></i>';
+    } else {
+        return '<i class="text-danger bx bx-x-circle"></i>';
     }
 }

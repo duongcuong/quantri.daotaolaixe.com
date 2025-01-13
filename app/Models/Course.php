@@ -21,6 +21,7 @@ class Course extends Model
         'number_students',
         'decision_kg',
         'duration',
+        'tuition_fee',
         'status',
     ];
 

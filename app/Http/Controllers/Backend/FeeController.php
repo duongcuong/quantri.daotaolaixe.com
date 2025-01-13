@@ -11,18 +11,16 @@ use Illuminate\Support\Facades\Validator;
 
 class FeeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $courseUsers = CourseUser::with('user', 'course')->get();
-        $admins = Admin::where('status', 1)->get();
-        return view('backend.fees.index', compact('courseUsers', 'admins'));
+        $course_user_id = $request->has('course_user_id') ? $request->course_user_id : '';
+        return view('backend.fees.index', compact( 'course_user_id'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        $admins = Admin::where('status', 1)->get();
-        $courseUsers = CourseUser::with('user', 'course')->get();
-        return view('backend.fees.modals.create', compact('courseUsers', 'admins'));
+        $course_user_id = $request->has('course_user_id') ? $request->course_user_id : '';
+        return view('backend.fees.modals.create', compact( 'course_user_id'));
     }
 
     public function store(Request $request)
@@ -47,10 +45,8 @@ class FeeController extends Controller
 
     public function edit(Fee $fee, Request $request)
     {
-        $courseUsers = CourseUser::with('user', 'course')->get();
-        $admins = Admin::where('status', 1)->get();
         $course_user_id = $request->has('course_user_id') ? $request->course_user_id : '';
-        return view('backend.fees.modals.edit', compact('fee', 'courseUsers', 'admins', 'course_user_id'));
+        return view('backend.fees.modals.edit', compact('fee', 'course_user_id'));
     }
 
     public function update(Request $request, Fee $fee)

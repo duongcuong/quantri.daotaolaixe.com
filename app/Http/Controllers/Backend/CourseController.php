@@ -33,7 +33,8 @@ class CourseController extends Controller
             'end_date' => 'required|date',
             'number_students' => 'nullable|integer',
             'decision_kg' => 'nullable|string|max:255',
-            'duration' => 'nullable|integer'
+            'duration' => 'nullable|integer',
+            'tuition_fee' => 'required|integer'
         ]);
 
         if ($validator->fails()) {
@@ -68,7 +69,8 @@ class CourseController extends Controller
             'end_date' => 'required|date',
             'number_students' => 'nullable|integer',
             'decision_kg' => 'nullable|string|max:255',
-            'duration' => 'nullable|integer'
+            'duration' => 'nullable|integer',
+            'tuition_fee' => 'required|integer'
         ]);
 
         if ($validator->fails()) {
@@ -95,5 +97,26 @@ class CourseController extends Controller
         }
 
         return view('backend.courses.index', compact('courses'));
+    }
+
+    public function list(Request $request)
+    {
+        $query = Course::orderBy('id', 'desc');
+
+        if ($request->has('id')) {
+            $query->where('id', $request->id);
+        }
+
+        if ($request->has('q')) {
+            $query->where('name', 'like', '%' . $request->q . '%');
+        }
+
+        $courses = $query->paginate(LIMIT);
+
+        if ($request->ajax()) {
+            return response()->json([
+                'datas' => $courses
+            ]);
+        }
     }
 }

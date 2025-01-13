@@ -13,6 +13,7 @@
             <th>Số HS</th>
             <th>QĐKG</th>
             <th>Thời gian</th>
+            <th>Học phí</th>
             <th class="fixed-column text-center">Hành động</th>
         </tr>
     </thead>
@@ -35,6 +36,7 @@
             <td>{{ $course->number_students }}</td>
             <td>{{ $course->decision_kg }}</td>
             <td>{{ $course->duration }}</td>
+            <td>{{ number_format($course->tuition_fee) }}</td>
             <td class="fixed-column text-center">
                 <a href="{{ route('admins.courses.edit', $course->id) }}" class="btn btn-warning btn-sm mr-2 btn-edit-ajax" data-cs-modal="#modal-courses-edit-ajax">
                     <i class="bx bx-edit"></i>

@@ -36,7 +36,7 @@ Tạo lead
                             <label for="user_id">Chọn học viên(Nếu có)</label>
                             <select class="select2-ajax-single form-control" name="user_id" data-selected-id=""
                                 data-placeholder="Chọn học viên" data-url="{{ route('admins.users.list') }}"
-                                id="change-hoc-vien" data-limit="{{ LIMIT }}">
+                                id="change-hoc-vien" >
                             </select>
                         </div>
                         <div class="form-group col-md-6">
@@ -92,7 +92,7 @@ Tạo lead
                         <select class="select2-ajax-single form-control" name="assigned_to" data-selected-id=""
                             data-placeholder="Chọn người phụ trách"
                             data-url="{{ route('admins.admins.list', ['role'=> ROLE_SALE]) }}"
-                            data-limit="{{ LIMIT }}">
+                            >
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary"><i class="bx bxs-save mr-1"></i>Lưu</button>

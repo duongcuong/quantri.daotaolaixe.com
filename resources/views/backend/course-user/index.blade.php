@@ -20,7 +20,7 @@ Tất cả Khoá học - Học Viên
     </div>
     <div class="ml-auto">
         {{-- @if (Auth::user()->hasPermission('admins.course-user.index')) --}}
-        <a class="btn btn-outline-primary btn-sm btn-create-ajax" href="{{ route('admins.course-user.create') }}" data-cs-modal="#modal-course-user-create-ajax" title="Thêm mới"><i class="bx bx-plus"></i>Thêm mới</a>
+        <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.course-user.create') }}" title="Thêm mới"><i class="bx bx-plus"></i>Thêm mới</a>
         {{-- @endif --}}
     </div>
 </div>
@@ -46,7 +46,7 @@ Tất cả Khoá học - Học Viên
                     <select name="status" id="status22" class="form-control single-select"
                         data-placeholder="Chọn trạng thái" data-allow-clear="true">
                         <option value=""></option>
-                        @foreach (listStatus() as $key => $item)
+                        @foreach (listStatusCourseUser() as $key => $item)
                         <option value="{{ $key }}">{{ $item }}</option>
                         @endforeach
                     </select>
