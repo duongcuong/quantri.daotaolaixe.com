@@ -3,11 +3,13 @@
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-define('LIMIT', 10);
-define('ROLE_SALE', 'sale,quan-ly-sales');
+define('LIMIT', 20);
+define('ROLE_SALES', 'sale,quan-ly-sales');
 define('ROLE_FEE', 'sale,quan-ly-sales');
 define('ROLE_TEACHER', 'giao-vien');
+define('ROLE_SALE', 'sale');
 
 if (!function_exists('uploadImage')) {
     function uploadImage($file, $folder = "uploads")
@@ -250,4 +252,42 @@ function getTickTrueOrFalse($value)
     } else {
         return '<i class="text-danger bx bx-x-circle"></i>';
     }
+}
+
+function getMoney($money)
+{
+    if(!$money) return '0 <sup>đ</sup>';
+    return number_format($money, 0, ',', '.') . ' <sup>đ</sup>';
+}
+
+function getMoneyConThieu($total, $paid)
+{
+    if(!$total) return '0 <sup>đ</sup>';
+
+    if($total - $paid <= 0) {
+        return '<span class="badge badge-success">Đã thanh toán</span>';
+    }
+
+    return '<span class="badge badge-danger">' . number_format($total - $paid, 0, ',', '.') . ' <sup>đ</sup></span>';
+}
+
+function getDateByExcel($date)
+{
+    if(!$date) return null;
+
+    return Date::excelToDateTimeObject($date)->format('Y-m-d');
+}
+
+function getDateTimeStamp($timestamp, $format = 'Y-m-d')
+{
+    if (!$timestamp) return null;
+
+    return \Carbon\Carbon::parse($timestamp)->format($format);
+
+}
+
+function getNumberCsExcel($number){
+    if(!$number) return 0;
+    $numberTmp = preg_replace('/\D/', '', $number);
+    return $numberTmp ? $numberTmp : 0;
 }

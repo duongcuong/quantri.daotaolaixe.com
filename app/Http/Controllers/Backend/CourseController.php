@@ -25,16 +25,16 @@ class CourseController extends Controller
         $validator = Validator::make($request->all(), [
             'code' => 'required|string|max:255|unique:courses',
             'name' => 'required|string|max:255|unique:courses',
-            'rank' => 'required|string|max:255',
-            'rank_gp' => 'required|string|max:255',
-            'number_bc' => 'required|string|max:255',
-            'date_bci' => 'required|date',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date',
+            'rank' => 'nullable|string|max:255',
+            'rank_gp' => 'nullable|string|max:255',
+            'number_bc' => 'nullable|string|max:255',
+            'date_bci' => 'nullable|date',
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date',
             'number_students' => 'nullable|integer',
             'decision_kg' => 'nullable|string|max:255',
             'duration' => 'nullable|integer',
-            'tuition_fee' => 'required|integer'
+            'tuition_fee' => 'nullable|integer'
         ]);
 
         if ($validator->fails()) {
@@ -61,16 +61,16 @@ class CourseController extends Controller
         $validator = Validator::make($request->all(), [
             'code' => 'required|string|max:255|unique:courses,code,' . $course->id,
             'name' => 'required|string|max:255|unique:courses,name,' . $course->id,
-            'rank' => 'required|string|max:255',
-            'rank_gp' => 'required|string|max:255',
-            'number_bc' => 'required|string|max:255',
-            'date_bci' => 'required|date',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date',
+            'rank' => 'nullable|string|max:255',
+            'rank_gp' => 'nullable|string|max:255',
+            'number_bc' => 'nullable|string|max:255',
+            'date_bci' => 'nullable|date',
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date',
             'number_students' => 'nullable|integer',
             'decision_kg' => 'nullable|string|max:255',
             'duration' => 'nullable|integer',
-            'tuition_fee' => 'required|integer'
+            'tuition_fee' => 'nullable|integer'
         ]);
 
         if ($validator->fails()) {
@@ -108,10 +108,14 @@ class CourseController extends Controller
         }
 
         if ($request->has('q')) {
-            $query->where('name', 'like', '%' . $request->q . '%');
+            $query->where('code', 'like', '%' . $request->q . '%');
         }
 
         $courses = $query->paginate(LIMIT);
+
+        foreach ($courses as $course) {
+            $course->name = $course->code;
+        }
 
         if ($request->ajax()) {
             return response()->json([

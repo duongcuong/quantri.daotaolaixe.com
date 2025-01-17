@@ -42,36 +42,40 @@ All user
                 </thead>
                 <tbody>
                     @foreach ($admins as $admin)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>
-                                <img src="{{ getImageUpload($admin->thumbnail, 'admins', 'small') }}" alt="Avatar" class="avatar" width="50" height="50">
-                                {{ $admin->name }}
-                            </td>
-                            <td>{{ $admin->email }}</td>
-                            <td>
-                                @foreach ($admin->roles as $role)
-                                    <span class="badge badge-info mr-1">{{ $role->name }}</span>
-                                @endforeach
-                            </td>
-                            <td>{{ $admin->created_at->format('d/m/Y') }}</td>
-                            <td> {!! getStatus($admin->status) !!}</td>
-                            <td>
-                                {{-- <a href="{{ route('admins.admins.show', $admin->id) }}" class="">
-                                    <i class="bx lni-eye"></i>
-                                </a> --}}
-                                <a href="{{ route('admins.admins.edit', $admin->id) }}" class="btn btn-warning btn-sm mr-2">
-                                    <i class="bx bx-edit"></i>
-                                </a>
-                                <form action="{{ route('admins.admins.destroy', $admin->id) }}" method="POST" style="display:inline-block;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm delete-btn">
-                                        <i class="bx bx-trash"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>
+                            <img src="{{ getImageUpload($admin->thumbnail, 'admins', 'small') }}" alt="Avatar"
+                                class="avatar" width="50" height="50">
+                            {{ $admin->name }}
+                        </td>
+                        <td>{{ $admin->email }}</td>
+                        <td>
+                            @foreach ($admin->roles as $role)
+                            <span class="badge badge-info mr-1">{{ $role->name }}</span>
+                            @endforeach
+                        </td>
+                        <td>{{ $admin->created_at->format('d/m/Y') }}</td>
+                        <td> {!! getStatus($admin->status) !!}</td>
+                        <td>
+                            {{-- <a href="{{ route('admins.admins.show', $admin->id) }}" class="">
+                                <i class="bx lni-eye"></i>
+                            </a> --}}
+                            @if ($admin->id !== 1)
+                            <a href="{{ route('admins.admins.edit', $admin->id) }}" class="btn btn-warning btn-sm mr-2">
+                                <i class="bx bx-edit"></i>
+                            </a>
+                            <form action="{{ route('admins.admins.destroy', $admin->id) }}" method="POST"
+                                style="display:inline-block;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm delete-btn">
+                                    <i class="bx bx-trash"></i>
+                                </button>
+                            </form>
+                            @endif
+                        </td>
+                    </tr>
                     @endforeach
                 </tbody>
             </table>
@@ -83,5 +87,3 @@ All user
 @endsection
 @push('js')
 @endpush
-
-

@@ -44,12 +44,16 @@ Tạo giáo viên
                         </div>
                         <div class="form-group col-md-6">
                             <label for="gender">Giới tính</label>
-                            <select name="gender" id="gender" class="form-control" required>
+                            <select name="gender" id="gender" class="form-control">
                                 @foreach (listGenders() as $key => $item)
                                 <option value="{{ $key }}" {{ old('gender', 0)==$key ? 'selected' : '' }}>{{ $item }}
                                 </option>
                                 @endforeach
                             </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="phone">Số điện thoại</label>
+                            <input type="text" name="phone" id="phone" class="form-control" value="{{ old('phone') }}">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="dob">Ngày sinh</label>
@@ -79,7 +83,7 @@ Tạo giáo viên
                             <input type="text" name="license" id="license" class="form-control"
                                 value="{{ old('license') }}">
                         </div>
-                        <div class="form-group col-md-6">
+                        {{-- <div class="form-group col-md-6">
                             <label for="card_name">Tên thẻ</label>
                             <input type="text" name="card_name" id="card_name" class="form-control"
                                 value="{{ old('card_name') }}">
@@ -88,7 +92,7 @@ Tạo giáo viên
                             <label for="card_number">Số thẻ</label>
                             <input type="text" name="card_number" id="card_number" class="form-control"
                                 value="{{ old('card_number') }}">
-                        </div>
+                        </div> --}}
                         <div class="form-group col-md-6">
                             <label for="status">Trạng thái</label>
                             <select name="status" id="status" class="form-control" required>

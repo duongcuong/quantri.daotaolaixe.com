@@ -336,7 +336,7 @@ $(function () {
         });
     });
 
-    $(document).on("click", ".pagination a", function (e) {
+    $(document).on("click", ".load-data-ajax .pagination a", function (e) {
         e.preventDefault();
         var url = $(this).attr("href");
         var elReload = $(this).closest(".load-data-ajax").attr("data-reload");

@@ -1,6 +1,6 @@
 @extends('backend.app')
 @section('title')
-Xem chi tiết {{ $courseUser->course->code }} - {{ $courseUser->course->name }}
+Xem chi tiết {{ $courseUser->course->code }}
 @endsection
 @push('css')
 @endpush
@@ -13,8 +13,7 @@ Xem chi tiết {{ $courseUser->course->code }} - {{ $courseUser->course->name }}
                     <li class="breadcrumb-item"><a href="{{ route('admins.dashboard') }}"><i
                                 class='bx bx-home-alt'></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ $courseUser->course->code }} - {{
-                        $courseUser->course->name }}</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ $courseUser->course->code }}</li>
                 </ol>
             </nav>
         </div>
@@ -26,7 +25,7 @@ Xem chi tiết {{ $courseUser->course->code }} - {{ $courseUser->course->name }}
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h5>Thông tin <strong>{{ $courseUser->course->code }} - {{ $courseUser->course->name }}</strong>
+                    <h5>Thông tin <strong>{{ $courseUser->course->code }}</strong>
                     </h5>
                     <table class="table table-bordered table-sm">
                         <tr>
@@ -38,8 +37,8 @@ Xem chi tiết {{ $courseUser->course->code }} - {{ $courseUser->course->name }}
                         </tr>
 
                         <tr>
-                            <th colspan="2">Mã ĐK / Khóa</th>
-                            <td>{{ $courseUser->course->code }} / {{ $courseUser->course->name }}</td>
+                            <th colspan="2">Mã ĐK</th>
+                            <td>{{ $courseUser->course->code }}</td>
                         </tr>
 
                         <tr>

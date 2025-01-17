@@ -93,7 +93,7 @@ Sửa lead
                         <label for="assigned_to">Người phụ trách</label>
                         <select class="select2-ajax-single form-control" name="assigned_to"
                             data-selected-id="{{ $lead->assigned_to }}" data-placeholder="Chọn người phụ trách"
-                            data-url="{{ route('admins.admins.list', ['role'=> ROLE_SALE]) }}"
+                            data-url="{{ route('admins.admins.list', ['role'=> ROLE_SALES]) }}"
                             >
                         </select>
                     </div>

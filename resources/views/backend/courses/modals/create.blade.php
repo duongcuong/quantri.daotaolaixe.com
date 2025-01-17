@@ -19,10 +19,6 @@
                             <input type="text" name="code" id="code" class="form-control" required>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="name" class="form-label">Tên khóa học</label>
-                            <input type="text" name="name" id="name" class="form-control" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
                             <label for="rank" class="form-label">Hạng</label>
                             <select name="rank" id="rank" class="form-control single-select">
                                 @foreach (listRanks() as $key => $value)
@@ -58,7 +54,7 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="tuition_fee" class="form-label">Học phí</label>
-                            <input type="number" name="tuition_fee" id="tuition_fee" class="form-control" required>
+                            <input type="number" name="tuition_fee" id="tuition_fee" class="form-control">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="number_students" class="form-label">Số học viên</label>

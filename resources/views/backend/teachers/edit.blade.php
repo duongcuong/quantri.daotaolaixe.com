@@ -53,6 +53,10 @@ Sửa giáo viên
                             </select>
                         </div>
                         <div class="form-group col-md-6">
+                            <label for="phone">Số điện thoại</label>
+                            <input type="text" name="phone" id="phone" class="form-control" value="{{ old('phone', $teacher->phone) }}">
+                        </div>
+                        <div class="form-group col-md-6">
                             <label for="dob">Ngày sinh</label>
                             <input type="date" name="dob" id="dob" class="form-control"
                                 value="{{ old('dob', $teacher->dob) }}">
@@ -81,7 +85,7 @@ Sửa giáo viên
                             <input type="text" name="license" id="license" class="form-control"
                                 value="{{ old('license', $teacher->license) }}">
                         </div>
-                        <div class="form-group col-md-6">
+                        {{-- <div class="form-group col-md-6">
                             <label for="card_name">Tên thẻ</label>
                             <input type="text" name="card_name" id="card_name" class="form-control"
                                 value="{{ old('card_name', $teacher->card_name) }}">
@@ -90,7 +94,7 @@ Sửa giáo viên
                             <label for="card_number">Số thẻ</label>
                             <input type="text" name="card_number" id="card_number" class="form-control"
                                 value="{{ old('card_number', $teacher->card_number) }}">
-                        </div>
+                        </div> --}}
                         <div class="form-group col-md-6">
                             <label for="status">Trạng thái</label>
                             <select name="status" id="status" class="form-control" required>

@@ -19,6 +19,7 @@ Tất cả Khoá học - Học Viên
         </div>
     </div>
     <div class="ml-auto">
+        <a class="btn btn-outline-info btn-sm mr-2" href="{{ route('admins.course-user.import') }}" title="Import"><i class="lni lni-cloud-upload mr-1"></i>Import file</a>
         {{-- @if (Auth::user()->hasPermission('admins.course-user.index')) --}}
         <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.course-user.create') }}" title="Thêm mới"><i class="bx bx-plus"></i>Thêm mới</a>
         {{-- @endif --}}
@@ -37,7 +38,7 @@ Tất cả Khoá học - Học Viên
                         @foreach ($courses as $course)
                         <option value="{{ $course->id }}" {{ $course->id == request()->course_id ?
                             'selected' :
-                            '' }}>{{ $course->name }}</option>
+                            '' }}>{{ $course->code }}</option>
                         @endforeach
                     </select>
                 </div>

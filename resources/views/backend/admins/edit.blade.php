@@ -44,6 +44,24 @@ Sửa người dùng
                                 value="{{ old('email', $admin->email) }}" required>
                         </div>
                         <div class="form-group col-md-6">
+                            <label for="gender">Giới tính</label>
+                            <select name="gender" id="gender" class="form-control" required>
+                                @foreach (listGenders() as $key => $item)
+                                <option value="{{ $key }}" {{ old('gender', $admin->gender)== $key ? 'selected' : ''
+                                    }}>{{ $item }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="phone">Số điện thoại</label>
+                            <input type="text" name="phone" id="phone" class="form-control" value="{{ old('phone', $admin->phone) }}">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="dob">Ngày sinh</label>
+                            <input type="date" name="dob" id="dob" class="form-control"
+                                value="{{ old('dob', $admin->dob) }}">
+                        </div>
+                        <div class="form-group col-md-6">
                             <label for="password">Mật khẩu</label>
                             <input type="password" name="password" id="password" class="form-control">
                         </div>

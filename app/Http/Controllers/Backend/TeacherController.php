@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Hash;
 
 class TeacherController extends Controller
 {
-    public static $roleTeacher = 'giao-vien';
     public function index()
     {
         $teachers = Admin::orderBy('created_at', 'desc')->whereHas('roles', function ($query) {
@@ -31,14 +30,15 @@ class TeacherController extends Controller
             'email' => 'required|string|email|max:255|unique:admins',
             'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'gender' => 'nullable|integer|in:0,1,2',
+            'phone' => 'nullable|string|max:20',
             'dob' => 'nullable|date',
             'identity_card' => 'nullable|string|max:255|unique:admins',
             'address' => 'nullable|string|max:255',
             'rank' => 'nullable|array',
             'rank.*' => 'nullable|string|max:255',
             'license' => 'nullable|string|max:255',
-            'card_name' => 'nullable|string|max:255',
-            'card_number' => 'nullable|string|max:255',
+            // 'card_name' => 'nullable|string|max:255',
+            // 'card_number' => 'nullable|string|max:255',
             'status' => 'required|integer|in:0,1',
         ]);
         $data = $request->all();
@@ -51,7 +51,7 @@ class TeacherController extends Controller
             $data['thumbnail'] = $thumbnailPath;
 
         $admin = Admin::create($data);
-        $admin->roles()->attach(Role::where('slug', self::$roleTeacher)->first());
+        $admin->roles()->attach(Role::where('slug', ROLE_TEACHER)->first());
 
         toastr()->success('Thêm thành công');
         return redirect()->route('admins.teachers.index')->with('success', 'Teacher created successfully.');
@@ -73,15 +73,16 @@ class TeacherController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:admins,email,' . $teacher->id,
             'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'gender' => 'required|integer|in:0,1,2',
+            'gender' => 'nullable|integer|in:0,1,2',
+            'phone' => 'nullable|string|max:20',
             'dob' => 'nullable|date',
             'identity_card' => 'nullable|string|max:255',
             'address' => 'nullable|string|max:255',
             'rank' => 'nullable|array',
             'rank.*' => 'nullable|string|max:255',
             'license' => 'nullable|string|max:255',
-            'card_name' => 'nullable|string|max:255',
-            'card_number' => 'nullable|string|max:255',
+            // 'card_name' => 'nullable|string|max:255',
+            // 'card_number' => 'nullable|string|max:255',
             'status' => 'required|integer|in:0,1',
         ]);
 

@@ -34,6 +34,7 @@ Tất cả học viên
                         <th>STT</th>
                         <th>Avatar</th>
                         <th>Họ tên</th>
+                        <th>SĐT</th>
                         <th>Giới tính</th>
                         <th>Ngày sinh</th>
                         <th>CMT/CCCD</th>
@@ -51,6 +52,7 @@ Tất cả học viên
                         <td><img src="{{ getImageUpload($user->thumbnail, 'users', 'small') }}" alt="Avatar" class="avatar"
                                 width="50"></td>
                         <td>{{ $user->name }}</td>
+                        <td>{{ $user->phone }}</td>
                         <td>{{ $user->gender == 0 ? 'Nam' : ($user->gender == 1 ? 'Nữ' : 'Khác') }}</td>
                         <td>{{ $user->dob }}</td>
                         <td>{{ $user->identity_card }}</td>

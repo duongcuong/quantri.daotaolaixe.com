@@ -50,6 +50,8 @@ Route::prefix('admin')->as('admins.')->group(function () {
         // course-user
         Route::get('course-user/data', [CourseUserController::class, 'data'])->name('course-user.data');
         Route::get('course-user/list', [CourseUserController::class, 'list'])->name('course-user.list');
+        Route::get('course-user/import', [CourseUserController::class, 'import'])->name('course-user.import');
+        Route::post('course-user/import-file', [CourseUserController::class, 'importFile'])->name('course-user.importFile');
         Route::resource('course-user', CourseUserController::class);
 
         // fees

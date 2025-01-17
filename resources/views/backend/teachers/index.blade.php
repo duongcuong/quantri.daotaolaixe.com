@@ -40,8 +40,9 @@ Tất cả giáo viên
                         <th>Địa chỉ</th>
                         <th>Hạng</th>
                         <th>GPLX</th>
-                        <th>Tên thẻ</th>
-                        <th>Số thẻ</th>
+                        <th>SĐT</th>
+                        {{-- <th>Tên thẻ</th>
+                        <th>Số thẻ</th> --}}
                         <th>Trạng thái</th>
                         <th class="fixed-column text-center">Hành động</th>
                     </tr>
@@ -59,8 +60,9 @@ Tất cả giáo viên
                         <td>{{ $teacher->address }}</td>
                         <td>{!! getRank($teacher->rank) !!}</td>
                         <td>{{ $teacher->license }}</td>
-                        <td>{{ $teacher->card_name }}</td>
-                        <td>{{ $teacher->card_number }}</td>
+                        <td>{{ $teacher->phone }}</td>
+                        {{-- <td>{{ $teacher->card_name }}</td>
+                        <td>{{ $teacher->card_number }}</td> --}}
                         <td>{!! getStatus($teacher->status) !!}</td>
                         <td class="fixed-column text-center">
                             <a href="{{ route('admins.teachers.edit', $teacher->id) }}" class="btn btn-warning btn-sm mr-2">

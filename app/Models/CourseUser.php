@@ -28,6 +28,9 @@ class CourseUser extends Model
         'hours',
         'km',
         'status',
+        'ngay_khai_giang',
+        'ngay_be_giang',
+        'ngay_hoc_cabin'
     ];
 
     /**

@@ -21,6 +21,9 @@
     <link href="{{ asset('backend/assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('backend/assets/plugins/select2/css/select2-bootstrap4.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('backend/assets/plugins/notifications/css/lobibox.min.css') }}" />
+
+    {{-- <link rel="stylesheet" href="{{ asset('backend/assets/plugins/fancy-file-uploader/fancy_fileupload.css') }}" /> --}}
+
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <!-- loader-->
 
@@ -122,6 +125,11 @@
 	<script src="{{ asset('backend/assets/plugins/notifications/js/lobibox.min.js') }}"></script>
 	<script src="{{ asset('backend/assets/plugins/notifications/js/notifications.min.js') }}"></script>
 	<script src="{{ asset('backend/assets/plugins/notifications/js/notification-custom-script.js') }}"></script>
+
+    {{-- <script src="{{ asset('backend/assets/plugins/fancy-file-uploader/jquery.ui.widget.js') }}"></script>
+    <script src="{{ asset('backend/assets/plugins/fancy-file-uploader/jquery.fileupload.js') }}"></script>
+    <script src="{{ asset('backend/assets/plugins/fancy-file-uploader/jquery.iframe-transport.js') }}"></script>
+    <script src="{{ asset('backend/assets/plugins/fancy-file-uploader/jquery.fancy-fileupload.js') }}"></script> --}}
 
     <script src="{{ asset('backend/assets/js/function.js') }}"></script>
 

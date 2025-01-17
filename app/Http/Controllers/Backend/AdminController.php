@@ -39,6 +39,9 @@ class AdminController extends Controller
         $admin = Admin::create([
             'name' => $request->name,
             'email' => $request->email,
+            'phone' => $request->phone,
+            'gender' => $request->gender,
+            'dob' => $request->dob,
             'password' => Hash::make($request->password),
             'status' => $request->status,
             'thumbnail' => $thumbnailPath,
@@ -80,6 +83,9 @@ class AdminController extends Controller
         $admin->update([
             'name' => $request->name,
             'email' => $request->email,
+            'phone' => $request->phone,
+            'gender' => $request->gender,
+            'dob' => $request->dob,
             'password' => $request->password ? Hash::make($request->password) : $admin->password,
             'status' => $request->status,
             'thumbnail' => $thumbnailPath,

@@ -42,6 +42,10 @@ Tạo học viên
                                 required>
                         </div>
                         <div class="form-group col-md-6">
+                            <label for="phone">SĐT</label>
+                            <input type="text" name="phone" id="phone" class="form-control" value="{{ old('phone') }}">
+                        </div>
+                        <div class="form-group col-md-6">
                             <label for="gender">Giới tính</label>
                             <select name="gender" id="gender" class="form-control" required>
                                 @foreach (listGenders() as $key => $item)

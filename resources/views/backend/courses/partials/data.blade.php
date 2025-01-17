@@ -3,7 +3,6 @@
         <tr>
             <th>STT</th>
             <th>Mã</th>
-            <th>Tên khoá</th>
             <th>Hạng</th>
             <th>Hạng GP</th>
             <th>Số BC</th>
@@ -26,7 +25,6 @@
                     {{ $course->code }}
                 </a>
             </td>
-            <td>{{ $course->name }}</td>
             <td>{{ $course->rank }}</td>
             <td>{{ $course->rank_gp }}</td>
             <td>{{ $course->number_bc }}</td>
@@ -36,7 +34,7 @@
             <td>{{ $course->number_students }}</td>
             <td>{{ $course->decision_kg }}</td>
             <td>{{ $course->duration }}</td>
-            <td>{{ number_format($course->tuition_fee) }}</td>
+            <td>{!! getMoney($course->tuition_fee) !!}</td>
             <td class="fixed-column text-center">
                 <a href="{{ route('admins.courses.edit', $course->id) }}" class="btn btn-warning btn-sm mr-2 btn-edit-ajax" data-cs-modal="#modal-courses-edit-ajax">
                     <i class="bx bx-edit"></i>
