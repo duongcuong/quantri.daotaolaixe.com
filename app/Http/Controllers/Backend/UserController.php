@@ -127,7 +127,13 @@ class UserController extends Controller
 
     public function data(Request $request)
     {
-        $users = User::orderBy('created_at', 'desc')->paginate(LIMIT); // Sử dụng phân trang với 10 mục mỗi trang
+        $query = User::orderBy('created_at', 'desc'); // Sử dụng phân trang với 10 mục mỗi trang
+
+        if ($request->has('name') && $request->name) {
+            $query->where('name', 'like', '%' . $request->name . '%');
+        }
+
+        $users = $query->paginate(LIMIT);
 
         if ($request->ajax()) {
             return view('backend.users.partials.data', compact('users'))->render();

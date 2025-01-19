@@ -4,7 +4,6 @@
             <th>#</th>
             <th>Họ tên</th>
             <th>Người phụ trách</th>
-            <th>Name</th>
             <th>Email</th>
             <th>SĐT</th>
             <th>Nguồn</th>
@@ -19,7 +18,6 @@
             <td>{{ $loop->iteration }}</td>
             <td>{{ $lead->name }}</td>
             <td>{{ $lead->assignedTo->name }}</td>
-            <td>{{ $lead->name }}</td>
             <td>{{ $lead->email }}</td>
             <td>{{ $lead->phone }}</td>
             <td>{{ $lead->source }}</td>

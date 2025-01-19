@@ -103,9 +103,15 @@ class TeacherController extends Controller
 
     public function data(Request $request)
     {
-        $teachers = Admin::orderBy('created_at', 'desc')->whereHas('roles', function ($query) {
+        $query = Admin::orderBy('created_at', 'desc')->whereHas('roles', function ($query) {
             $query->where('slug', 'giao-vien');
-        })->paginate(LIMIT); // Sử dụng phân trang với 10 mục mỗi trang
+        }); // Sử dụng phân trang với 10 mục mỗi trang
+
+        if ($request->has('name') && $request->name) {
+            $query->where('name', 'like', '%' . $request->name . '%');
+        }
+
+        $teachers = $query->paginate(LIMIT);
 
         if ($request->ajax()) {
             return view('backend.teachers.partials.data', compact('teachers'))->render();

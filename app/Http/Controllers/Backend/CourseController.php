@@ -90,7 +90,13 @@ class CourseController extends Controller
 
     public function data(Request $request)
     {
-        $courses = Course::orderBy('id', 'desc')->paginate(LIMIT);
+        $query = Course::orderBy('id', 'desc');
+
+        if ($request->has('code') && $request->code) {
+            $query->where('code', 'like', '%' . $request->code . '%');
+        }
+
+        $courses = $query->paginate(LIMIT);
 
         if ($request->ajax()) {
             return view('backend.courses.partials.data', compact('courses'))->render();

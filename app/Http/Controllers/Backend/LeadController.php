@@ -90,7 +90,17 @@ class LeadController extends Controller
 
     public function data(Request $request)
     {
-        $leads = Lead::with(['user', 'assignedTo'])->orderBy('id', 'desc')->paginate(LIMIT);
+        $query = Lead::with(['user', 'assignedTo'])->orderBy('id', 'desc');
+
+        if ($request->has('name') && $request->name) {
+            $query->where('name', 'like', '%' . $request->name . '%');
+        }
+
+        if ($request->has('assigned_to') && $request->assigned_to) {
+            $query->where('assigned_to', $request->assigned_to);
+        }
+
+        $leads = $query->paginate(LIMIT);
 
         if ($request->ajax()) {
             return view('backend.leads.partials.data', compact('leads'))->render();

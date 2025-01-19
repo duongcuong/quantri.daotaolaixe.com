@@ -20,7 +20,8 @@ Tất cả Leads
     </div>
     <div class="ml-auto">
         {{-- @if (Auth::user()->hasPermission('admins.leads.index')) --}}
-        <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.leads.create') }}" title="Thêm mới"><i class="bx bx-plus"></i>Thêm mới</a>
+        <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.leads.create') }}" title="Thêm mới"><i
+                class="bx bx-plus"></i>Thêm mới</a>
         {{-- @endif --}}
     </div>
 </div>
@@ -33,7 +34,37 @@ Tất cả Leads
 
 <div class="card radius-15">
     <div class="card-body">
-        <div class="table-responsive mt-1 mb-1 load-data-ajax" data-url="{{ route('admins.leads.data') }}" id="load-data-ajax-leads" data-search="#search-form-leads">
+        <form data-reload="#load-data-ajax-leads" id="search-form-leads" class="mb-3 form-search-submit">
+            <div class="row">
+                <div class="form-group col-sm-6 col-md-3">
+                    <label for="name" class="mr-2">Tên</label>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Nhập tên">
+                </div>
+                <div class="form-group col-sm-6 col-md-3">
+                    <label for="course_id" class="mr-2">Người phụ trách</label>
+                    <select class="select2-ajax-single form-control" name="assigned_to" data-selected-id=""
+                        data-placeholder="Chọn Người phụ trách"
+                        data-url="{{ route('admins.admins.list', ['role'=> ROLE_SALES]) }}">
+                    </select>
+
+                </div>
+                <div class="form-group col-sm-6 col-md-3">
+                    <label for="status22" class="mr-2 opacity-0">Hành động </label><br>
+                    <button type="submit" class="btn btn-primary">
+                        <span class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true"
+                            style="display: none"></span>
+                        Tìm kiếm
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card radius-15">
+    <div class="card-body">
+        <div class="table-responsive mt-1 mb-1 load-data-ajax" data-url="{{ route('admins.leads.data') }}"
+            id="load-data-ajax-leads" data-search="#search-form-leads">
             <div class="loading-overlay">
                 <div class="loading-spinner"></div>
             </div>

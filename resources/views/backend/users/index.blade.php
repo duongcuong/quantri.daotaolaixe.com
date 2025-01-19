@@ -25,6 +25,28 @@ Tất cả học viên
         {{-- @endif --}}
     </div>
 </div>
+
+<div class="card radius-15">
+    <div class="card-body">
+        <form data-reload="#load-data-ajax-users" id="search-form-users" class="mb-3 form-search-submit">
+            <div class="row">
+                <div class="form-group col-sm-6 col-md-3">
+                    <label for="name" class="mr-2">Tên học viên</label>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Nhập tên học viên">
+                </div>
+                <div class="form-group col-sm-6 col-md-3">
+                    <label for="status22" class="mr-2 opacity-0">Hành động </label><br>
+                    <button type="submit" class="btn btn-primary">
+                        <span class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true"
+                            style="display: none"></span>
+                        Tìm kiếm
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
 <div class="card radius-15">
     <div class="card-body">
         <div class="table-responsive mt-1 mb-1 load-data-ajax" data-url="{{ route('admins.users.data') }}" id="load-data-ajax-users" data-search="#search-form-users">
