@@ -19,9 +19,11 @@ Tất cả Khoá học - Học Viên
         </div>
     </div>
     <div class="ml-auto">
-        <a class="btn btn-outline-info btn-sm mr-2" href="{{ route('admins.course-user.import') }}" title="Import"><i class="lni lni-cloud-upload mr-1"></i>Import file</a>
+        <a class="btn btn-outline-info btn-sm mr-2" href="{{ route('admins.course-user.import') }}" title="Import"><i
+                class="lni lni-cloud-upload mr-1"></i>Import file</a>
         {{-- @if (Auth::user()->hasPermission('admins.course-user.index')) --}}
-        <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.course-user.create') }}" title="Thêm mới"><i class="bx bx-plus"></i>Thêm mới</a>
+        <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.course-user.create') }}" title="Thêm mới"><i
+                class="bx bx-plus"></i>Thêm mới</a>
         {{-- @endif --}}
     </div>
 </div>
@@ -31,16 +33,24 @@ Tất cả Khoá học - Học Viên
         <form data-reload="#load-data-ajax-course-user" id="search-form-course-user" class="mb-3 form-search-submit">
             <div class="row">
                 <div class="form-group col-sm-6 col-md-3">
-                    <label for="course_id_search" class="mr-2">Khóa học</label>
-                    <select name="course_id" id="course_id_search" class="form-control single-select"
-                        data-placeholder="Chọn khóa học" data-allow-clear="true">
-                        <option value=""></option>
-                        @foreach ($courses as $course)
-                        <option value="{{ $course->id }}" {{ $course->id == request()->course_id ?
-                            'selected' :
-                            '' }}>{{ $course->code }}</option>
-                        @endforeach
+                    <label for="course_id" class="mr-2">Khóa học</label>
+                    <select class="select2-ajax-single form-control" name="course_id" data-selected-id=""
+                        data-placeholder="Chọn khoá học" data-url="{{ route('admins.courses.list') }}">
                     </select>
+
+                </div>
+                <div class="form-group col-sm-6 col-md-3">
+                    <label for="course_id" class="mr-2">Giáo viên</label>
+                    <select class="select2-ajax-single form-control" name="teacher_id" data-selected-id=""
+                        data-placeholder="Chọn giáo viên"
+                        data-url="{{ route('admins.admins.list', ['role'=> ROLE_TEACHER]) }}">
+                    </select>
+
+                </div>
+                <div class="form-group col-sm-6 col-md-3">
+                    <label for="search_text" class="mr-2">Họ tên / Mã ĐK / Số CMT</label>
+                    <input type="text" name="search_text" id="search_text" class="form-control"
+                        placeholder="Nhập thông tin">
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="status22" class="mr-2">Trạng thái</label>
@@ -53,15 +63,11 @@ Tất cả Khoá học - Học Viên
                     </select>
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
-                    <label for="search_text" class="mr-2">Họ tên / Mã ĐK / Số CMT</label>
-                    <input type="text" name="search_text" id="search_text" class="form-control"
-                        placeholder="Nhập thông tin">
-                </div>
-                <div class="form-group col-sm-6 col-md-3">
                     <label for="card_name" class="mr-2">ID thẻ</label>
                     <input type="text" name="card_name" id="card_name" class="form-control" placeholder="Nhập ID thẻ">
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
+                    <label for="status22" class="mr-2 opacity-0">Hành động </label><br>
                     <button type="submit" class="btn btn-primary">
                         <span class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true"
                             style="display: none"></span>
@@ -75,7 +81,8 @@ Tất cả Khoá học - Học Viên
 
 <div class="card radius-15">
     <div class="card-body">
-        <div class="table-responsive mt-1 mb-1 load-data-ajax" data-url="{{ route('admins.course-user.data') }}" id="load-data-ajax-course-user" data-search="#search-form-course-user">
+        <div class="table-responsive mt-1 mb-1 load-data-ajax" data-url="{{ route('admins.course-user.data') }}"
+            id="load-data-ajax-course-user" data-search="#search-form-course-user">
             <div class="loading-overlay">
                 <div class="loading-spinner"></div>
             </div>

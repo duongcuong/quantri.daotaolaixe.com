@@ -11,11 +11,7 @@ class TeacherController extends Controller
 {
     public function index()
     {
-        $teachers = Admin::orderBy('created_at', 'desc')->whereHas('roles', function ($query) {
-            $query->where('slug', 'giao-vien');
-        })->paginate(LIMIT); // Sử dụng phân trang với 10 mục mỗi trang
-
-        return view('backend.teachers.index', compact('teachers'));
+        return view('backend.teachers.index');
     }
 
     public function create()
@@ -103,5 +99,18 @@ class TeacherController extends Controller
         $teacher->delete();
         toastr()->success('Xoá người dùng thành công');
         return redirect()->route('admins.teachers.index')->with('success', 'Teacher deleted successfully.');
+    }
+
+    public function data(Request $request)
+    {
+        $teachers = Admin::orderBy('created_at', 'desc')->whereHas('roles', function ($query) {
+            $query->where('slug', 'giao-vien');
+        })->paginate(LIMIT); // Sử dụng phân trang với 10 mục mỗi trang
+
+        if ($request->ajax()) {
+            return view('backend.teachers.partials.data', compact('teachers'))->render();
+        }
+
+        return view('backend.teachers.index', compact('teachers'));
     }
 }

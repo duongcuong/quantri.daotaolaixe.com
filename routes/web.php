@@ -36,6 +36,8 @@ Route::prefix('admin')->as('admins.')->group(function () {
         Route::resource('roles', RoleController::class);
         Route::resource('permissions', PermissionController::class);
         Route::resource('modules', ModuleController::class);
+
+        Route::get('teachers/data', [TeacherController::class, 'data'])->name('teachers.data');
         Route::resource('teachers', TeacherController::class);
 
         //course
@@ -45,6 +47,7 @@ Route::prefix('admin')->as('admins.')->group(function () {
 
         Route::get('users/list', [UserController::class, 'list'])->name('users.list');
         Route::get('users/{id}/detail', [UserController::class, 'detail'])->name('users.detail');
+        Route::get('users/data', [UserController::class, 'data'])->name('users.data');
         Route::resource('users', UserController::class);
 
         // course-user
@@ -84,4 +87,3 @@ Route::prefix('auth')->group(function () {
 //     Route::get('/{provider}', [LoginController::class, 'redirectToProvider'])->name('provider');
 //     Route::get('/{provider}/callback', [LoginController::class, 'redirectToProviderCallback'])->name('providercallback');
 // });
-

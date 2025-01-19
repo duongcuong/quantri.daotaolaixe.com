@@ -11,6 +11,7 @@
             <th rowspan="2">Số CMT</th>
             <th rowspan="2">Id thẻ</th>
             <th rowspan="2">Số thẻ</th>
+            <th rowspan="2">Giáo viên</th>
             <th rowspan="2">Ngày khai giảng</th>
             <th rowspan="2">Ngày bế giảng</th>
             <th colspan="3" class="text-center">
@@ -53,6 +54,8 @@
             <td>{{ $courseUser->user->identity_card }}</td>
             <td>{{ $courseUser->user->card_name }}</td>
             <td>{{ $courseUser->user->card_number }}</td>
+
+            <td>{{ $courseUser->teacher->name }}</td>
 
             <td>{{ getDateTimeStamp($courseUser->ngay_khai_giang, 'd/m/Y') }}</td>
             <td>{{ getDateTimeStamp($courseUser->ngay_be_giang, 'd/m/Y') }}</td>

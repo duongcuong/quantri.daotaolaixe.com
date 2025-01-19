@@ -134,6 +134,10 @@ class CourseUserController extends Controller
             $query->where('course_id', $request->course_id);
         }
 
+        if ($request->has('teacher_id') && $request->teacher_id != '') {
+            $query->where('teacher_id', $request->teacher_id);
+        }
+
         if ($request->has('status') && $request->status != '') {
             $query->where('status', $request->status);
         }

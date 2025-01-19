@@ -25,9 +25,31 @@ Tất cả lịch sử nạp học phí
         {{-- @endif --}}
     </div>
 </div>
+
 <div class="card radius-15">
     <div class="card-body">
-        <div class="table-responsive mt-1 mb-1 load-data-ajax" data-url="{{ route('admins.fees.data') }}" id="load-data-ajax-fees" data-search="">
+        <form data-reload="#load-data-ajax-fees" id="search-form-fees" class="mb-3 form-search-submit">
+            <div class="row">
+                <div class="form-group col-sm-6 col-md-3">
+                    <label for="payment_date" class="mr-2">Tháng năm</label>
+                    <input type="month" id="payment_date" name="payment_date" class="form-control">
+                </div>
+                <div class="form-group col-sm-6 col-md-3">
+                    <label for="status22" class="mr-2 opacity-0">Hành động </label><br>
+                    <button type="submit" class="btn btn-primary">
+                        <span class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true"
+                            style="display: none"></span>
+                        Tìm kiếm
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card radius-15">
+    <div class="card-body">
+        <div class="table-responsive mt-1 mb-1 load-data-ajax" data-url="{{ route('admins.fees.data') }}" id="load-data-ajax-fees" data-search="#search-form-fees">
             <div class="loading-overlay"><div class="loading-spinner"></div></div>
         </div>
     </div>

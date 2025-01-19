@@ -72,6 +72,14 @@ Xem chi tiết {{ $courseUser->user->name }} - {{ $courseUser->course->code }}
                             <td>{{ $courseUser->user->card_number }}</td>
                         </tr>
                         <tr>
+                            <th colspan="2">Giáo viên</th>
+                            <td>{{ $courseUser->teacher->name }}</td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Nhân viên Sale</th>
+                            <td>{{ $courseUser->sale->name }}</td>
+                        </tr>
+                        <tr>
                             <th colspan="2">Ngày khai giảng</th>
                             <td>{{ getDateTimeStamp($courseUser->ngay_khai_giang, 'd/m/Y') }}</td>
                         </tr>

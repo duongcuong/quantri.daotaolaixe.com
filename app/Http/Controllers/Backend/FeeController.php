@@ -8,6 +8,7 @@ use App\Models\Fee;
 use App\Models\CourseUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 class FeeController extends Controller
 {
@@ -78,6 +79,12 @@ class FeeController extends Controller
     public function data(Request $request)
     {
         $query = Fee::with('courseUser.user', 'courseUser.course')->orderBy('id', 'desc');
+
+        if ($request->has('payment_date') && $request->payment_date) {
+            $monthYear = Carbon::createFromFormat('Y-m', $request->payment_date);
+            $query->whereYear('payment_date', $monthYear->year)
+                  ->whereMonth('payment_date', $monthYear->month);
+        }
 
         if ($request->has('course_user_id') && $request->course_user_id != '') {
             $query->where('course_user_id', $request->course_user_id);

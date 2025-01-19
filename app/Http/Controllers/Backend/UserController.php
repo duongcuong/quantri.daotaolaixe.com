@@ -12,9 +12,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::orderBy('created_at', 'desc')->paginate(LIMIT); // Sử dụng phân trang với 10 mục mỗi trang
-
-        return view('backend.users.index', compact('users'));
+        return view('backend.users.index');
     }
 
     public function create()
@@ -125,5 +123,16 @@ class UserController extends Controller
         }
 
         return response()->json($user);
+    }
+
+    public function data(Request $request)
+    {
+        $users = User::orderBy('created_at', 'desc')->paginate(LIMIT); // Sử dụng phân trang với 10 mục mỗi trang
+
+        if ($request->ajax()) {
+            return view('backend.users.partials.data', compact('users'))->render();
+        }
+
+        return view('backend.users.index', compact('users'));
     }
 }
