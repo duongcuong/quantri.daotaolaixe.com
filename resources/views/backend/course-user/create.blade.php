@@ -35,17 +35,13 @@ Tạo Khoá Học - User
                         <div class="form-group col-md-6">
                             <label for="user_id">Chọn học viên</label>
                             <select class="select2-ajax-single form-control" name="user_id" data-selected-id=""
-                                data-placeholder="Chọn học viên"
-                                data-url="{{ route('admins.users.list') }}"
-                                >
+                                data-placeholder="Chọn học viên" data-url="{{ route('admins.users.list') }}">
                             </select>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="course_id">Chọn khóa học</label>
-                            <select class="select2-ajax-single form-control"  name="course_id" data-selected-id=""
-                                data-placeholder="Chọn khóa học"
-                                data-url="{{ route('admins.courses.list') }}"
-                                >
+                            <select class="select2-ajax-single form-control" name="course_id" data-selected-id=""
+                                data-placeholder="Chọn khóa học" data-url="{{ route('admins.courses.list') }}">
                             </select>
                         </div>
 
@@ -111,6 +107,18 @@ Tạo Khoá Học - User
                                 value="{{ old('exam_date') }}" />
                         </div>
                         <div class="form-group col-md-6">
+                            <label for="exam_field_id" class="d-flex justify-content-between">
+                                <span>Sân thi</span>
+                                <a class="btn-create-ajax"
+                                    href="{{ route('admins.exam-fields.create') }}"
+                                    data-cs-modal="#modal-exam-fields-create-ajax" title="Thêm mới"><i
+                                        class="bx bx-plus"></i>Thêm sân thi</a>
+                            </label>
+                            <select class="select2-ajax-single form-control" name="exam_field_id" data-selected-id=""
+                                data-placeholder="Chọn sân thi" data-url="{{ route('admins.exam-fields.list') }}">
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
                             <label for="ngay_khai_giang">Ngày khai giảng</label>
                             <input type="date" name="ngay_khai_giang" id="ngay_khai_giang" class="form-control"
                                 value="{{ old('ngay_khai_giang') }}" />
@@ -159,15 +167,14 @@ Tạo Khoá Học - User
                         <label for="teacher_id">Giáo viên hướng dẫn</label>
                         <select class="select2-ajax-single form-control" name="teacher_id" data-selected-id=""
                             data-placeholder="Chọn giáo viên"
-                            data-url="{{ route('admins.admins.list', ['role'=> ROLE_TEACHER]) }}"
-                            >
+                            data-url="{{ route('admins.admins.list', ['role'=> ROLE_TEACHER]) }}">
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="sale_id">Nhân viên Sale</label>
                         <select class="select2-ajax-single form-control" name="sale_id" data-selected-id=""
                             data-placeholder="Chọn nhân viên Sale"
-                            data-url="{{ route('admins.admins.list', ['role'=> ROLE_SALES]) }}" >
+                            data-url="{{ route('admins.admins.list', ['role'=> ROLE_SALES]) }}">
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary"><i class="bx bxs-save mr-1"></i>Lưu</button>

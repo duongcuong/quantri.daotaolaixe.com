@@ -2,7 +2,9 @@
 
 namespace App;
 
+use App\Http\Controllers\Backend\ExamFieldController;
 use App\Http\Controllers\Backend\ModuleController;
+use App\Http\Controllers\Backend\NotificationController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\AdminController;
@@ -14,11 +16,14 @@ use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\Auth\UserLoginController;
 use App\Http\Controllers\Backend\ActivityController;
+use App\Http\Controllers\Backend\ActivityLogController;
+use App\Http\Controllers\Backend\CalendarController;
 use App\Http\Controllers\Backend\CourseController;
 use App\Http\Controllers\Backend\CourseUserController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\FeeController;
 use App\Http\Controllers\Backend\LeadController;
+use App\Http\Controllers\Backend\LeadSourceController;
 use App\Http\Controllers\Backend\TeacherController;
 use App\Http\Controllers\Backend\UserController;
 
@@ -61,12 +66,34 @@ Route::prefix('admin')->as('admins.')->group(function () {
         Route::get('fees/data', [FeeController::class, 'data'])->name('fees.data');
         Route::resource('fees', FeeController::class);
 
+        // calendars
+        Route::get('calendars/data', [CalendarController::class, 'data'])->name('calendars.data');
+        Route::resource('calendars', CalendarController::class);
+
+        // exam field
+        Route::get('exam-fields/list', [ExamFieldController::class, 'list'])->name('exam-fields.list');
+        Route::get('exam-fields/data', [ExamFieldController::class, 'data'])->name('exam-fields.data');
+        Route::resource('exam-fields', ExamFieldController::class);
+
+        // Lead source
+        Route::get('lead-sources/list', [LeadSourceController::class, 'list'])->name('lead-sources.list');
+        Route::get('lead-sources/data', [LeadSourceController::class, 'data'])->name('lead-sources.data');
+        Route::resource('lead-sources', LeadSourceController::class);
+
         // Lead
         Route::get('leads/data', [LeadController::class, 'data'])->name('leads.data');
+        Route::get('leads/list', [LeadController::class, 'list'])->name('leads.list');
         Route::resource('leads', LeadController::class);
 
         //Activiti
         Route::resource('activities', ActivityController::class);
+
+        // notification
+        Route::get('notifications/read/{id}', [NotificationController::class, 'markAsRead'])->name('notifications.read');
+        Route::get('notifications/load', [NotificationController::class, 'loadMore'])->name('notifications.load');
+
+        //Log
+        Route::get('activity-logs', [ActivityLogController::class, 'index'])->name('activity-logs.index');
     });
 });
 

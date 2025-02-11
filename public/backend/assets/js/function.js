@@ -184,7 +184,7 @@ function resetSelectAjax(type = null) {
                 data.datas.data.forEach(function (item) {
                     // Create the option and append to Select2
                     var option = new Option(item.name, item.id, true, true);
-                    _this.append(option).trigger("change", {isAjax: false});
+                    _this.append(option).trigger("change", { isAjax: false });
                 });
 
                 // Manually trigger the `select2:select` event for the first item
@@ -329,6 +329,9 @@ $(function () {
         $spinner.show();
         $button.prop("disabled", true);
 
+        let _url = $(".load-data-ajax").attr("data-url");
+        $(".load-data-ajax").data("url", _url);
+
         loadDataAjax($elReload, function () {
             // Ẩn spinner và bỏ disabled button sau khi gọi AJAX xong
             $spinner.hide();
@@ -390,8 +393,8 @@ $(function () {
     });
 
     function removeAllModals() {
-        $('.modal').each(function() {
-            $(this).modal('hide'); // Ẩn modal
+        $(".modal").each(function () {
+            $(this).modal("hide"); // Ẩn modal
             $(this).remove(); // Xóa modal khỏi DOM
         });
     }
@@ -506,25 +509,51 @@ $(function () {
     });
 
     // Thay đổi học viên
-    $("body").on("change", "#change-hoc-vien", function (e, extraData = {isAjax: true}) {
-        var userId = $(this).val();
-        if (userId && extraData.isAjax) {
-            $.ajax({
-                url: `/admin/users/${userId}/detail`,
-                type: "GET",
-                success: function (data) {
-                    $("#name").val(data.name);
-                    $("#email").val(data.email);
-                    $("#phone").val(data.phone);
-                    $("#address").val(data.address);
-                    $("#description").val(data.description);
-                    $("#dob").val(data.dob);
-                },
-                error: function () {
-                    alert("Failed to fetch user details.");
-                },
+    $("body").on(
+        "change",
+        "#change-hoc-vien",
+        function (e, extraData = { isAjax: true }) {
+            var userId = $(this).val();
+            if (userId && extraData.isAjax) {
+                $.ajax({
+                    url: `/admin/users/${userId}/detail`,
+                    type: "GET",
+                    success: function (data) {
+                        $("#name").val(data.name);
+                        $("#email").val(data.email);
+                        $("#phone").val(data.phone);
+                        $("#address").val(data.address);
+                        $("#description").val(data.description);
+                        $("#dob").val(data.dob);
+                    },
+                    error: function () {
+                        alert("Failed to fetch user details.");
+                    },
+                });
+            }
+        }
+    );
+
+    function loadStatusCalendar() {
+        var type = $(".type-calendars:checked").val();
+        if (!type) {
+            type = $(".type-calendars").val();
+        }
+
+        var statusSelect = $("#status-calendar");
+        statusSelect.empty();
+
+        if (statusCalendars[type]) {
+            $.each(statusCalendars[type], function (key, value) {
+                statusSelect.append(
+                    '<option value="' + key + '">' + value + "</option>"
+                );
             });
         }
+    }
+
+    $("body").on("change", ".type-calendars", function () {
+        loadStatusCalendar();
     });
 
     // old =============

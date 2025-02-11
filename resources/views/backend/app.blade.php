@@ -94,6 +94,10 @@
         <!-- end footer -->
     </div>
 
+    <script>
+        var statusCalendars = @json(listStatusCalendars());
+    </script>
+
     <!--start switcher-->
     {{-- @include('backend.partials.switcher') --}}
     <!--end switcher-->
@@ -135,6 +139,44 @@
 
     <!--vuejs-->
     <script src="{{ asset('js/vue.js') }}"></script>
+
+    {{-- Notification  --}}
+    <script>
+        $(document).ready(function() {
+            var page = 1;
+            var hasMoreData = true;
+
+            // Load thông báo đầu tiên khi trang được tải
+            loadMoreNotifications(page);
+
+            $('#notification-list').on('scroll', function() {
+                if (hasMoreData && $(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight) {
+                    page++;
+                    loadMoreNotifications(page);
+                }
+            });
+
+            function loadMoreNotifications(page) {
+                $.ajax({
+                    url: '{{ route("admins.notifications.load") }}?page=' + page,
+                    type: 'get',
+                    beforeSend: function() {
+                        // Show loading spinner or message
+                    }
+                })
+                .done(function(data) {
+                    if (data.html == "") {
+                        hasMoreData = false;
+                        return;
+                    }
+                    $('#notification-list').append(data.html);
+                })
+                .fail(function(jqXHR, ajaxOptions, thrownError) {
+                    console.log('Server error occurred');
+                });
+            }
+        });
+    </script>
 
     <!-- App JS -->
     <script src="{{ asset('backend/assets/js/app.js') }}"></script>

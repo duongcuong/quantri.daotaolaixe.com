@@ -133,6 +133,7 @@ Xem chi tiết {{ $courseUser->user->name }} - {{ $courseUser->course->code }}
     </div>
 </div>
 
+@include('backend.course-user.partials.calendars')
 @include('backend.course-user.partials.fees')
 
 @endsection

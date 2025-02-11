@@ -36,43 +36,51 @@ Sửa lead
                         <div class="form-group col-md-6">
                             <label for="user_id">Chọn học viên(Nếu có)</label>
                             <select class="select2-ajax-single form-control" name="user_id"
-                                data-selected-id="{{ $lead->user_id }}" data-placeholder="Chọn học viên"
+                                data-selected-id="{{ old('user_id', $lead->user_id) }}" data-placeholder="Chọn học viên"
                                 data-url="{{ route('admins.users.list') }}" id="change-hoc-vien"
                                 >
                             </select>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="name">Họ tên</label>
-                            <input type="text" name="name" id="name" class="form-control" value="{{ $lead->name }}"
+                            <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $lead->name) }}"
                                 required>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="email">Email</label>
-                            <input type="email" name="email" id="email" class="form-control" value="{{ $lead->email }}">
+                            <input type="email" name="email" id="email" class="form-control" value="{{ old('email', $lead->email) }}">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="phone">SĐT</label>
-                            <input type="text" name="phone" id="phone" class="form-control" value="34334343">
+                            <input type="text" name="phone" id="phone" class="form-control" value="{{ old('phone', $lead->phone) }}">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="address">Địa chỉ</label>
                             <input type="text" name="address" id="address" class="form-control"
-                                value="{{ $lead->address }}">
+                                value="{{ old('address', $lead->address) }}">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="dob">Ngày sinh</label>
-                            <input type="date" name="dob" id="dob" class="form-control" value="{{ $lead->dob }}">
+                            <input type="date" name="dob" id="dob" class="form-control" value="{{ old('dob', getDateTimeStamp($lead->dob)) }}">
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="source">Nguồn</label>
-                            <input type="text" name="source" id="source" class="form-control"
-                                value="{{ $lead->source }}">
+                            <label for="lead_source_id" class="d-flex justify-content-between">
+                                <span>Sân thi</span>
+                                <a class="btn-create-ajax"
+                                    href="{{ route('admins.lead-sources.create') }}"
+                                    data-cs-modal="#modal-lead-sources-create-ajax" title="Thêm mới"><i
+                                        class="bx bx-plus"></i>Thêm nguồn</a>
+                            </label>
+                            <select class="select2-ajax-single form-control" name="lead_source_id"
+                                data-selected-id="{{ old('lead_source_id', $lead->lead_source_id) }}" data-placeholder="Chọn nguồn"
+                                data-url="{{ route('admins.lead-sources.list') }}">
+                            </select>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="interest_level">Mức độ quan tâm</label>
                             <select name="interest_level" id="interest_level" class="form-control">
                                 @foreach (listLevels() as $key => $item)
-                                <option value="{{ $key }}" {{ $lead->interest_level == $key ? 'selected' : '' }}>{{
+                                <option value="{{ $key }}" {{ old('interest_level', $lead->interest_level) == $key ? 'selected' : '' }}>{{
                                     $item }}</option>
                                 @endforeach
                             </select>
@@ -80,7 +88,7 @@ Sửa lead
                         <div class="form-group col-md-6">
                             <label for="description">Ghi chú</label>
                             <textarea name="description" id="description"
-                                class="form-control">{{ $lead->description }}</textarea>
+                                class="form-control">{{ old('description', $lead->description) }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -92,7 +100,7 @@ Sửa lead
                     <div class="form-group">
                         <label for="assigned_to">Người phụ trách</label>
                         <select class="select2-ajax-single form-control" name="assigned_to"
-                            data-selected-id="{{ $lead->assigned_to }}" data-placeholder="Chọn người phụ trách"
+                            data-selected-id="{{ old('assigned_to', $lead->assigned_to) }}" data-placeholder="Chọn người phụ trách"
                             data-url="{{ route('admins.admins.list', ['role'=> ROLE_SALES]) }}"
                             >
                         </select>

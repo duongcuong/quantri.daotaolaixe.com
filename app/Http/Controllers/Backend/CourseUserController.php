@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\Course;
 use App\Models\CourseUser;
+use App\Models\ExamField;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -22,9 +23,9 @@ class CourseUserController extends Controller
 {
     public function index()
     {
-        $users = User::all();
-        $courses = Course::all();
-        return view('backend.course-user.index', compact('users', 'courses'));
+        $practiceFields = CourseUser::select('practice_field')->distinct()->pluck('practice_field');
+        $examFields = ExamField::all();
+        return view('backend.course-user.index', compact('practiceFields', 'examFields'));
     }
 
     public function create()
@@ -60,7 +61,9 @@ class CourseUserController extends Controller
             'user_id.unique' => 'The selected user is already enrolled in this course.',
         ]);
 
-        CourseUser::create($request->all());
+        $courseUser = CourseUser::create($request->all());
+
+        event(new \App\Events\RecordActionEvent('added', $courseUser));
 
         toastr()->success('Thêm thành công');
         return redirect()->route('admins.course-user.index')->with('success', 'Course User created successfully.');
@@ -114,6 +117,8 @@ class CourseUserController extends Controller
 
         $courseUser->update($request->all());
 
+        event(new \App\Events\RecordActionEvent('updated', $courseUser));
+
         toastr()->success('Cập nhật thành công');
         return redirect()->route('admins.course-user.index')->with('success', 'Course User updated successfully.');
 
@@ -123,6 +128,8 @@ class CourseUserController extends Controller
     public function destroy(CourseUser $courseUser)
     {
         $courseUser->delete();
+
+        event(new \App\Events\RecordActionEvent('delete', $courseUser));
         return response()->json(['success' => 'Course User deleted successfully.']);
     }
 
@@ -136,6 +143,25 @@ class CourseUserController extends Controller
 
         if ($request->has('teacher_id') && $request->teacher_id != '') {
             $query->where('teacher_id', $request->teacher_id);
+        }
+
+        if ($request->has('exam_field_id') && $request->exam_field_id != '') {
+            $query->where('exam_field_id', $request->exam_field_id);
+        }
+
+        if ($request->has('contract_day') && $request->contract_day) {
+            $contractDay = $request->contract_day;
+            if ($request->has('contract_month') && $request->contract_month) {
+                $contractMonthYear = $request->contract_month;
+            } else {
+                $contractMonthYear = now()->format('Y-m');
+            }
+            $date = Carbon::createFromFormat('Y-m-d', $contractMonthYear . '-' . $contractDay);
+            $query->whereDate('contract_date', $date);
+        } elseif ($request->has('contract_month') && $request->contract_month) {
+            $contractMonthYear = Carbon::createFromFormat('Y-m', $request->contract_month);
+            $query->whereYear('contract_date', $contractMonthYear->year)
+                  ->whereMonth('contract_date', $contractMonthYear->month);
         }
 
         if ($request->has('status') && $request->status != '') {
@@ -157,6 +183,16 @@ class CourseUserController extends Controller
         if ($request->has('card_name') && $request->card_name != '') {
             $query->whereHas('user', function ($q) use ($request) {
                 $q->where('card_name', 'like', "%{$request->card_name}%");
+            });
+        }
+
+        if ($request->has('tuition_status') && $request->tuition_status != '') {
+            $query->whereHas('fees', function ($q) use ($request) {
+                if ($request->tuition_status == 'paid') {
+                    $q->havingRaw('SUM(amount) >= course_users.tuition_fee');
+                } else {
+                    $q->havingRaw('SUM(amount) < course_users.tuition_fee');
+                }
             });
         }
 
@@ -314,7 +350,6 @@ class CourseUserController extends Controller
                         if ($saleRole) {
                             $sale->roles()->syncWithoutDetaching([$saleRole->id]);
                         }
-
                     }
 
                     if (empty($khoa)) {

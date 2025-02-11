@@ -20,7 +20,7 @@
             <td>{{ $lead->assignedTo->name }}</td>
             <td>{{ $lead->email }}</td>
             <td>{{ $lead->phone }}</td>
-            <td>{{ $lead->source }}</td>
+            <td>{{ optional($lead->leadSource)->name ?? 'N/A' }}</td>
             <td>{!! getLevel($lead->interest_level) !!}</td>
             {{-- <td>{{ ucfirst($lead->status) }}</td> --}}
             <td class="fixed-column text-center">

@@ -30,7 +30,8 @@ class CourseUser extends Model
         'status',
         'ngay_khai_giang',
         'ngay_be_giang',
-        'ngay_hoc_cabin'
+        'ngay_hoc_cabin',
+        'exam_field_id'
     ];
 
     /**
@@ -68,5 +69,21 @@ class CourseUser extends Model
     public function sale()
     {
         return $this->belongsTo(Admin::class, 'sale_id');
+    }
+
+    /**
+     * Get the exam field that owns the course user.
+     */
+    public function examField()
+    {
+        return $this->belongsTo(ExamField::class);
+    }
+
+    /**
+     * Get the exam field that owns the course user.
+     */
+    public function leadSource()
+    {
+        return $this->belongsTo(LeadSource::class);
     }
 }

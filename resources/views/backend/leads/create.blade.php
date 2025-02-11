@@ -34,7 +34,7 @@ Tạo lead
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label for="user_id">Chọn học viên(Nếu có)</label>
-                            <select class="select2-ajax-single form-control" name="user_id" data-selected-id=""
+                            <select class="select2-ajax-single form-control" name="user_id" data-selected-id="{{ old('user_id') }}"
                                 data-placeholder="Chọn học viên" data-url="{{ route('admins.users.list') }}"
                                 id="change-hoc-vien" >
                             </select>
@@ -61,10 +61,20 @@ Tạo lead
                             <label for="dob">Ngày sinh</label>
                             <input type="date" name="dob" id="dob" class="form-control" value="{{ old('dob') }}">
                         </div>
+
                         <div class="form-group col-md-6">
-                            <label for="source">Nguồn</label>
-                            <input type="text" name="source" id="source" class="form-control">
+                            <label for="lead_source_id" class="d-flex justify-content-between">
+                                <span>Nguồn</span>
+                                <a class="btn-create-ajax"
+                                    href="{{ route('admins.lead-sources.create') }}"
+                                    data-cs-modal="#modal-lead-sources-create-ajax" title="Thêm mới"><i
+                                        class="bx bx-plus"></i>Thêm nguồn</a>
+                            </label>
+                            <select class="select2-ajax-single form-control" name="lead_source_id" data-selected-id="{{ old('lead_source_id') }}"
+                                data-placeholder="Chọn nguồn" data-url="{{ route('admins.lead-sources.list') }}">
+                            </select>
                         </div>
+
                         <div class="form-group col-md-6">
                             <label for="interest_level">Mức độ quan tâm</label>
                             <select name="interest_level" id="interest_level" class="form-control">
@@ -89,7 +99,7 @@ Tạo lead
                 <div class="card-body">
                     <div class="form-group">
                         <label for="assigned_to">Người phụ trách</label>
-                        <select class="select2-ajax-single form-control" name="assigned_to" data-selected-id=""
+                        <select class="select2-ajax-single form-control" name="assigned_to" data-selected-id="{{ old('assigned_to') }}"
                             data-placeholder="Chọn người phụ trách"
                             data-url="{{ route('admins.admins.list', ['role'=> ROLE_SALES]) }}"
                             >

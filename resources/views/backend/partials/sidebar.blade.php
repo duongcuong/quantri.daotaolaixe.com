@@ -36,6 +36,14 @@
         {{-- @endif --}}
         <!--End Sales-->
 
+        <li class="{{ Request::is('admin/calendars/*') ? 'mm-active' : '' }}">
+            <a href="{{ route('admins.calendars.index') }}">
+                <div class="parent-icon icon-color-11"><i class="bx bx-calendar-check"></i>
+                </div>
+                <div class="menu-title">Calendars</div>
+            </a>
+        </li>
+
         <!--Giáo viên-->
         <li class="menu-label">Quản lý Giáo viên</li>
         {{-- @if (Auth::user()->hasPermission('admins.teachers.index') ||
@@ -87,9 +95,9 @@
                     <a href="{{ route('admins.users.index') }}"><i class="bx bx-star"></i>Quản lý học viên</a>
                 </li>
 
-                <li
-                    class="{{ Request::is('admin/course-user/*') ? 'mm-active' : '' }}">
-                    <a href="{{ route('admins.course-user.index') }}"><i class="bx bx-star"></i>Danh sách học viên - Khoá học</a>
+                <li class="{{ Request::is('admin/course-user/*') ? 'mm-active' : '' }}">
+                    <a href="{{ route('admins.course-user.index') }}"><i class="bx bx-star"></i>Danh sách học viên -
+                        Khoá học</a>
                 </li>
 
                 <li
@@ -181,7 +189,8 @@
             </ul>
         </li>
 
-        {{-- @if (Auth::user()->hasPermission('admins.roles.index') || Auth::user()->hasPermission('admins.roles.create')) --}}
+        {{-- @if (Auth::user()->hasPermission('admins.roles.index') ||
+        Auth::user()->hasPermission('admins.roles.create')) --}}
         <li class="{{ Request::is('admin/roles/*') ? 'mm-active' : '' }}">
             <a class="has-arrow" href="javascript:;">
                 <div class="parent-icon icon-color-5"><i class="bx bx-shield-quarter"></i>
@@ -209,6 +218,42 @@
 
         <!--System-->
         <li class="menu-label">Hệ thống</li>
+
+        <li>
+            <a class="has-arrow" href="javascript:;">
+                <div class="parent-icon icon-color-11"><i
+                    class="bx bx-cog"></i>
+                </div>
+                <div class="menu-title">Quản lý cài đặt</div>
+            </a>
+            <ul>
+
+                <li
+                    class="{{ Request::is('admin/exam-fields') || Request::is('admin/exam-fields/create') || Request::is('admin/exam-fields/*/edit') ? 'mm-active' : '' }}">
+                    <a href="{{ route('admins.exam-fields.index') }}"><i class="bx bx-star"></i>Quản lý sân thi</a>
+                </li>
+
+                <li
+                    class="{{ Request::is('admin/lead-sources') || Request::is('admin/lead-sources/create') || Request::is('admin/lead-sources/*/edit') ? 'mm-active' : '' }}">
+                    <a href="{{ route('admins.lead-sources.index') }}"><i class="bx bx-star"></i>Quản lý Lead source</a>
+                </li>
+
+                {{-- @if (Auth::user()->hasPermission('admins.teachers.create')) --}}
+                {{-- <li class="{{ Request::is('admin/teachers/create') ? 'mm-active' : '' }}">
+                    <a href="{{ route('admins.teachers.index') }}"><i class="bx bx-star"></i>Danh sách học viên</a>
+                </li> --}}
+                {{-- @endif --}}
+            </ul>
+        </li>
+
+        <li class="{{ Request::is('admin/activity-logs/*') ? 'mm-active' : '' }}">
+            <a href="{{ route('admins.activity-logs.index') }}">
+                <div class="parent-icon icon-color-11"><i class="bx bx-history"></i>
+                </div>
+                <div class="menu-title">Log hệ thống</div>
+            </a>
+        </li>
+
         {{-- @if (Auth::user()->hasPermission('app.settings.general') ||
         Auth::user()->hasPermission('app.settings.appearance') ||
         Auth::user()->hasPermission('app.settings.database') ||

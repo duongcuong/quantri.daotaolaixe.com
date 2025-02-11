@@ -27,8 +27,10 @@
 
                 <li class="nav-item dropdown dropdown-lg">
                     <a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" href="javascript:;"
-                        data-toggle="dropdown"> <i class="bx bx-bell vertical-align-middle"></i>
-                        <span class="msg-count" id="msg-count">..</span>
+                        data-toggle="dropdown" aria-expanded="false"> <i class="bx bx-bell vertical-align-middle"></i>
+                        <span class="msg-count">
+                            {{ auth()->guard('admin')->user()->unreadNotifications->count() }}
+                        </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a href="javascript:;">
@@ -36,11 +38,11 @@
                                 <p class="msg-header-subtitle">Thông báo mới</p>
                             </div>
                         </a>
-                        <div class="header-notifications-list" id="notification-list">
+                        <div class="header-notifications-list ps ps--active-y" id="notification-list">
 
                         </div>
                         <a href="javascript:;">
-                            <div class="text-center msg-footer">Dach sách các thông báo</div>
+                            <div class="text-center msg-footer">View All Notifications</div>
                         </a>
                     </div>
                 </li>
@@ -55,22 +57,22 @@
                                     Người dùng
                                 </p>
                             </div>
-                            <img class="user-img" alt="user avatar" src="{{ getImageUpload(Auth::guard('admin')->user()->thumbnail, 'admins', 'medium') }}">
+                            <img class="user-img" alt="user avatar"
+                                src="{{ getImageUpload(Auth::guard('admin')->user()->thumbnail, 'admins', 'medium') }}">
                         </div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                         @if (Auth::guard('admin')->user()->hasPermission('app.profile.update'))
-                            <a class="dropdown-item" href="{{ route('app.profile.index') }}"><i
-                                    class="bx bx-edit"></i><span>Chỉnh sửa người dùng</span></a>
+                        <a class="dropdown-item" href="{{ route('app.profile.index') }}"><i
+                                class="bx bx-edit"></i><span>Chỉnh sửa người dùng</span></a>
                         @endif
 
                         @if (Auth::guard('admin')->user()->hasPermission('app.profile.password'))
-                            <a class="dropdown-item" href="{{ route('app.profile.password.change') }}"><i
-                                    class="bx bx-lock"></i><span>Thay đổi mật khẩu</span></a>
+                        <a class="dropdown-item" href="{{ route('app.profile.password.change') }}"><i
+                                class="bx bx-lock"></i><span>Thay đổi mật khẩu</span></a>
                         @endif
 
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
+                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();"><i
                                 class="bx bx-power-off"></i><span>Đăng xuất</span></a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

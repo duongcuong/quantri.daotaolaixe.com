@@ -61,6 +61,9 @@ All user
                             {{-- <a href="{{ route('admins.admins.show', $admin->id) }}" class="">
                                 <i class="bx lni-eye"></i>
                             </a> --}}
+                            <a href="{{ route('admins.admins.show', $admin->id) }}" class="btn btn-primary btn-sm mr-2">
+                                <i class="lni lni-eye"></i>
+                            </a>
                             @if ($admin->id !== 1)
                             <a href="{{ route('admins.admins.edit', $admin->id) }}" class="btn btn-warning btn-sm mr-2">
                                 <i class="bx bx-edit"></i>

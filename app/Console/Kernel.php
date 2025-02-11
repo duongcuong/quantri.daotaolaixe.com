@@ -26,8 +26,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         // $schedule->command('inspire')->everyMinute()->appendOutputTo('danhngon.txt');
-        $schedule->command('pig:update-status')->dailyAt('05:00');
-        $schedule->command('pig:notification')->dailyAt('06:00');
+        $schedule->command('check:tuition-fee')->dailyAt('05:00');
+        $schedule->command('send:pending-emails')->everyMinute();
         // $schedule->command('pig:update-status')->everyMinute();
 
     }

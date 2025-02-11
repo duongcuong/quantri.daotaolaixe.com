@@ -6,6 +6,7 @@
             <th rowspan="2">Mã ĐK</th>
             <th rowspan="2">Hạng</th>
             <th rowspan="2">Họ tên</th>
+            <th rowspan="2">Ngày kí hợp đồng</th>
             <th rowspan="2">Ngày sinh</th>
             <th rowspan="2">Giới tính</th>
             <th rowspan="2">Số CMT</th>
@@ -48,6 +49,7 @@
             <td>{{ $courseUser->course->code }}</td>
             <td>{{ $courseUser->course->rank }}</td>
             <td>{{ $courseUser->user->name }}</td>
+            <td>{{ getDateTimeStamp($courseUser->contract_date, 'd/m/Y') }}</td>
             <td>{{ \Carbon\Carbon::parse($courseUser->user->dob)->format('d/m/Y') }}</td>
             <td>{{ $courseUser->user->gender == 0 ? 'Nam' : ($courseUser->user->gender == 1 ? 'Nữ' : 'Khác')
                 }}</td>
@@ -68,7 +70,7 @@
             <td>{{ number_format($courseUser->hours) }}</td>
             <td>{!! getMoney($courseUser->tuition_fee) !!}</td>
             <td>{!! getMoney($courseUser->fees_sum_amount) !!}</td>
-            <td>{!! getMoneyConThieu($courseUser->fees_sum_amount, $courseUser->fees_sum_amount) !!}</td>
+            <td>{!! getMoneyConThieu($courseUser->tuition_fee, $courseUser->fees_sum_amount) !!}</td>
             <td>{!! getStatusCourseUser($courseUser->status) !!}</td>
             <td class="fixed-column text-center">
                 <a href="{{ route('admins.course-user.show', $courseUser->id) }}" class="btn btn-primary btn-sm mr-1">

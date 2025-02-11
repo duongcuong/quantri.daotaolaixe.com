@@ -21,6 +21,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.2",
         "maatwebsite/excel": "^3.1",
+        "spatie/laravel-activitylog": "^4.10",
         "spatie/laravel-backup": "^6.16",
         "yoeunes/toastr": "^1.2"
     },

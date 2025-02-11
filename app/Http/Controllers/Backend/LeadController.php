@@ -88,9 +88,30 @@ class LeadController extends Controller
         return redirect()->route('leads.index')->with('success', 'Lead deleted successfully.');
     }
 
+    public function list(Request $request)
+    {
+        $query = User::orderBy('id', 'desc');
+
+        if ($request->has('id')) {
+            $query->where('id', $request->id);
+        }
+
+        if ($request->has('q')) {
+            $query->where('name', 'like', '%' . $request->q . '%');
+        }
+
+        $users = $query->paginate(LIMIT);
+
+        if ($request->ajax()) {
+            return response()->json([
+                'datas' => $users
+            ]);
+        }
+    }
+
     public function data(Request $request)
     {
-        $query = Lead::with(['user', 'assignedTo'])->orderBy('id', 'desc');
+        $query = Lead::with(['user', 'assignedTo', 'leadSource'])->orderBy('id', 'desc');
 
         if ($request->has('name') && $request->name) {
             $query->where('name', 'like', '%' . $request->name . '%');

@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin;
 use App\Models\Fee;
-use App\Models\CourseUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
@@ -88,6 +86,12 @@ class FeeController extends Controller
 
         if ($request->has('course_user_id') && $request->course_user_id != '') {
             $query->where('course_user_id', $request->course_user_id);
+        }
+
+        if ($request->has('student_name') && $request->student_name) {
+            $query->whereHas('courseUser.user', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->student_name . '%');
+            });
         }
 
         $fees = $query->paginate(LIMIT);

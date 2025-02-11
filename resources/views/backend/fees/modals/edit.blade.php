@@ -6,7 +6,7 @@
             @method('PUT')
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modal-fees-edit-ajaxLabel">Sửa khóa học</h5>
+                    <h5 class="modal-title" id="modal-fees-edit-ajaxLabel">Sửa học phí</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

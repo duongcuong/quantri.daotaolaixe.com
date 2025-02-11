@@ -35,18 +35,16 @@ Sửa Khoá học - Học Viên
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label for="user_id">Chọn học viên</label>
-                            <select class="select2-ajax-single form-control" name="user_id" data-selected-id="{{ $courseUser->user_id }}"
-                                data-placeholder="Chọn học viên"
-                                data-url="{{ route('admins.users.list') }}"
-                                >
+                            <select class="select2-ajax-single form-control" name="user_id"
+                                data-selected-id="{{ $courseUser->user_id }}" data-placeholder="Chọn học viên"
+                                data-url="{{ route('admins.users.list') }}">
                             </select>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="course_id">Chọn khóa học</label>
-                            <select class="select2-ajax-single form-control" name="course_id" data-selected-id="{{ $courseUser->course_id }}"
-                                data-placeholder="Chọn khóa học"
-                                data-url="{{ route('admins.courses.list') }}"
-                                >
+                            <select class="select2-ajax-single form-control" name="course_id"
+                                data-selected-id="{{ $courseUser->course_id }}" data-placeholder="Chọn khóa học"
+                                data-url="{{ route('admins.courses.list') }}">
                             </select>
                         </div>
                     </div>
@@ -79,7 +77,8 @@ Sửa Khoá học - Học Viên
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="tuition_fee" class="form-label">Học phí</label>
-                            <input type="number" name="tuition_fee" id="tuition_fee" class="form-control" value="{{ old('tuition_fee', $courseUser->tuition_fee) }}">
+                            <input type="number" name="tuition_fee" id="tuition_fee" class="form-control"
+                                value="{{ old('tuition_fee', $courseUser->tuition_fee) }}">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="practice_field">Sân tập</label>
@@ -98,12 +97,26 @@ Sửa Khoá học - Học Viên
                         </div>
                         <div class="form-group col-md-6">
                             <label for="km">Km</label>
-                            <input type="text" name="km" id="km" class="form-control" value="{{ old('km', $courseUser->km) }}" />
+                            <input type="text" name="km" id="km" class="form-control"
+                                value="{{ old('km', $courseUser->km) }}" />
                         </div>
                         <div class="form-group col-md-6">
                             <label for="exam_date">Ngày thi</label>
                             <input type="date" name="exam_date" id="exam_date" class="form-control"
                                 value="{{ old('exam_date', \Carbon\Carbon::parse($courseUser->exam_date)->format('Y-m-d')) }}" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="exam_field_id" class="d-flex justify-content-between">
+                                <span>Sân thi</span>
+                                <a class="btn-create-ajax"
+                                    href="{{ route('admins.exam-fields.create') }}"
+                                    data-cs-modal="#modal-exam-fields-create-ajax" title="Thêm mới"><i
+                                        class="bx bx-plus"></i>Thêm sân thi</a>
+                            </label>
+                            <select class="select2-ajax-single form-control" name="exam_field_id"
+                                data-selected-id="{{ $courseUser->exam_field_id }}" data-placeholder="Chọn sân thi"
+                                data-url="{{ route('admins.exam-fields.list') }}">
+                            </select>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="ngay_khai_giang">Ngày khai giảng</label>
@@ -121,24 +134,21 @@ Sửa Khoá học - Học Viên
                                 value="{{ old('ngay_hoc_cabin', getDateTimeStamp($courseUser->ngay_hoc_cabin)) }}" />
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="exam_date">Ngày thi</label>
-                            <input type="date" name="exam_date" id="exam_date" class="form-control"
-                                value="{{ old('exam_date', \Carbon\Carbon::parse($courseUser->exam_date)->format('Y-m-d')) }}" />
-                        </div>
-                        <div class="form-group col-md-6">
                             <label for="contract_date">Ngày kí hợp đồng</label>
                             <input type="date" name="contract_date" id="contract_date" class="form-control"
                                 value="{{ old('contract_date', \Carbon\Carbon::parse($courseUser->contract_date)->format('Y-m-d')) }}" />
                         </div>
                         <div class="form-group col-md-12">
                             <label for="note">Ghi chú</label>
-                            <textarea name="note" id="note" class="form-control">{{ old('note', $courseUser->note) }}</textarea>
+                            <textarea name="note" id="note"
+                                class="form-control">{{ old('note', $courseUser->note) }}</textarea>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="status">Trạng thái</label>
                             <select name="status" id="status" class="form-control" required>
                                 @foreach (listStatusCourseUser() as $key => $item)
-                                <option value="{{ $key }}" {{ old('status', $courseUser->status)==$key ? 'selected' : '' }}>{{ $item }}
+                                <option value="{{ $key }}" {{ old('status', $courseUser->status)==$key ? 'selected' : ''
+                                    }}>{{ $item }}
                                 </option>
                                 @endforeach
                             </select>
@@ -157,17 +167,16 @@ Sửa Khoá học - Học Viên
                 <div class="card-body">
                     <div class="form-group">
                         <label for="teacher_id">Giáo viên hướng dẫn</label>
-                        <select class="select2-ajax-single form-control" name="teacher_id" data-selected-id="{{ $courseUser->teacher_id }}"
-                            data-placeholder="Chọn giáo viên"
-                            data-url="{{ route('admins.admins.list', ['role'=> ROLE_TEACHER]) }}"
-                            >
+                        <select class="select2-ajax-single form-control" name="teacher_id"
+                            data-selected-id="{{ $courseUser->teacher_id }}" data-placeholder="Chọn giáo viên"
+                            data-url="{{ route('admins.admins.list', ['role'=> ROLE_TEACHER]) }}">
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="sale_id">Nhân viên Sale</label>
-                        <select class="select2-ajax-single form-control" name="sale_id" data-selected-id="{{ $courseUser->sale_id }}"
-                            data-placeholder="Chọn nhân viên Sale"
-                            data-url="{{ route('admins.admins.list', ['role'=> ROLE_SALES]) }}" >
+                        <select class="select2-ajax-single form-control" name="sale_id"
+                            data-selected-id="{{ $courseUser->sale_id }}" data-placeholder="Chọn nhân viên Sale"
+                            data-url="{{ route('admins.admins.list', ['role'=> ROLE_SALES]) }}">
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary"><i class="bx bxs-save mr-1"></i>Lưu</button>
@@ -177,6 +186,7 @@ Sửa Khoá học - Học Viên
     </div>
 </form>
 
+@include('backend.course-user.partials.calendars')
 @include('backend.course-user.partials.fees')
 
 @endsection

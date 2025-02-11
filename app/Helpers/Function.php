@@ -10,6 +10,9 @@ define('ROLE_SALES', 'sale,quan-ly-sales');
 define('ROLE_FEE', 'sale,quan-ly-sales');
 define('ROLE_TEACHER', 'giao-vien');
 define('ROLE_SALE', 'sale');
+define('ROLE_ADMIN', 'admin');
+define('ROLE_SUPERADMIN', 'super-admin');
+define('NOTIFI_FEE', 25);
 
 if (!function_exists('uploadImage')) {
     function uploadImage($file, $folder = "uploads")
@@ -256,15 +259,15 @@ function getTickTrueOrFalse($value)
 
 function getMoney($money)
 {
-    if(!$money) return '0 <sup>đ</sup>';
+    if (!$money) return '0 <sup>đ</sup>';
     return number_format($money, 0, ',', '.') . ' <sup>đ</sup>';
 }
 
 function getMoneyConThieu($total, $paid)
 {
-    if(!$total) return '0 <sup>đ</sup>';
+    if (!$total) return '0 <sup>đ</sup>';
 
-    if($total - $paid <= 0) {
+    if ($total - $paid <= 0) {
         return '<span class="badge badge-success">Đã thanh toán</span>';
     }
 
@@ -273,7 +276,7 @@ function getMoneyConThieu($total, $paid)
 
 function getDateByExcel($date)
 {
-    if(!$date) return null;
+    if (!$date) return null;
 
     return Date::excelToDateTimeObject($date)->format('Y-m-d');
 }
@@ -283,11 +286,173 @@ function getDateTimeStamp($timestamp, $format = 'Y-m-d')
     if (!$timestamp) return null;
 
     return \Carbon\Carbon::parse($timestamp)->format($format);
-
 }
 
-function getNumberCsExcel($number){
-    if(!$number) return 0;
+function getNumberCsExcel($number)
+{
+    if (!$number) return 0;
     $numberTmp = preg_replace('/\D/', '', $number);
     return $numberTmp ? $numberTmp : 0;
+}
+
+function listTypeCalendars()
+{
+    return [
+        'task' => 'Công việc',
+        'meeting' => 'Họp',
+        'call' => 'Gọi',
+        'exam_schedule' => 'Lịch học, thi',
+    ];
+}
+
+function getTypeCalendar($type)
+{
+    $types = listTypeCalendars();
+    switch ($type) {
+        case 'task':
+            return '<span class="text-danger">' . $types[$type] . '</span>';
+            break;
+        case 'meeting':
+            return '<span class="text-warning">' . $types[$type] . '</span>';
+            break;
+        case 'call':
+            return '<span class="text-success">' . $types[$type] . '</span>';
+            break;
+        case 'exam_schedule':
+            return '<span class="text-info">' . $types[$type] . '</span>';
+            break;
+        default:
+            return '';
+            break;
+    }
+}
+
+function listStatusCalendars()
+{
+    return [
+        'task' => [
+            0 => 'Chưa bắt đầu',
+            1 => 'Đang tiến hành',
+            2 => 'Hoàn thành',
+            3 => 'Hoãn lại',
+        ],
+        'meeting' => [
+            10 => 'Đã lên lịch',
+            11 => 'Đang diễn ra',
+            12 => 'Hoàn thành',
+            13 => 'Đã hủy',
+        ],
+        'call' => [
+            20 => 'Đã lên kế hoạch',
+            21 => 'Đã thực hiện',
+            22 => 'Không thực hiện',
+        ],
+        'exam_schedule' => [
+            30 => 'Đang chờ',
+            31 => 'Hoàn thành',
+            32 => 'Thi lại',
+        ],
+        // Add other types and their statuses as needed
+    ];
+}
+
+function getStatusCalendarByType($type, $status)
+{
+    $statuses = listStatusCalendars();
+    switch ($status) {
+        case '0':
+            return '<span class="badge badge-info">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '1':
+            return '<span class="badge badge-primary">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '2':
+            return '<span class="badge badge-success">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '3':
+            return '<span class="badge badge-warning">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '10':
+            return '<span class="badge badge-info">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '11':
+            return '<span class="badge badge-primary">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '12':
+            return '<span class="badge badge-success">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '13':
+            return '<span class="badge badge-secondary">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '20':
+            return '<span class="badge badge-success">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '21':
+            return '<span class="badge badge-info">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '22':
+            return '<span class="badge badge-secondary">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '30':
+            return '<span class="badge badge-warning">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '31':
+            return '<span class="badge badge-success">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '32':
+            return '<span class="badge badge-danger">' . $statuses[$type][$status] . '</span>';
+            break;
+        default:
+            return "";
+            break;
+    }
+}
+
+function listPriorities()
+{
+    return [
+        'Low' => 'Thấp',
+        'Medium' => 'Trung bình',
+        'High' => 'Cao',
+        'Urgent' => 'Khẩn cấp',
+    ];
+}
+
+function getPriority($priority)
+{
+    $priorities = listPriorities();
+    switch ($priority) {
+        case 'Urgent':
+            return '<span class="badge badge-danger">' . $priorities[$priority] . '</span>';
+            break;
+        case 'High':
+            return '<span class="badge badge-warning">' . $priorities[$priority] . '</span>';
+            break;
+        case 'Medium':
+            return '<span class="badge badge-info">' . $priorities[$priority] . '</span>';
+            break;
+        default:
+            return '<span class="badge badge-secondary">' . $priorities[$priority] . '</span>';
+            break;
+    }
+}
+
+function listDurations()
+{
+    return [
+        '300' => '5 phút',
+        '600' => '10 phút',
+        '900' => '15 phút',
+        '1800' => '30 phút',
+        '2700' => '45 phút',
+        '3600' => '1 giờ',
+        '7200' => '2 giờ',
+        '10800' => '3 giờ',
+    ];
+}
+
+function getDuration($duration)
+{
+    $durations = listDurations();
+    return '<span class="badge badge-secondary">'.$durations[$duration].'</span>' ?? '';
 }

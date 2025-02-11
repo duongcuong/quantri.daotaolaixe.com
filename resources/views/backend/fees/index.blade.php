@@ -35,6 +35,10 @@ Tất cả lịch sử nạp học phí
                     <input type="month" id="payment_date" name="payment_date" class="form-control">
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
+                    <label for="student_name" class="mr-2">Tên học viên</label>
+                    <input type="text" id="student_name" name="student_name" class="form-control">
+                </div>
+                <div class="form-group col-sm-6 col-md-3">
                     <label for="status22" class="mr-2 opacity-0">Hành động </label><br>
                     <button type="submit" class="btn btn-primary">
                         <span class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true"

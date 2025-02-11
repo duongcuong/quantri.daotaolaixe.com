@@ -34,8 +34,10 @@ Tất cả Khoá học - Học Viên
             <div class="row">
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="course_id" class="mr-2">Khóa học</label>
-                    <select class="select2-ajax-single form-control" name="course_id" data-selected-id=""
-                        data-placeholder="Chọn khoá học" data-url="{{ route('admins.courses.list') }}">
+                    <input type="hidden" name="course_id" id="course_id_input" value="{{ request()->course_id }}">
+                    <select class="select2-ajax-single form-control" id="course_id_search"
+                        data-selected-id="{{ request()->course_id }}" data-placeholder="Chọn khoá học"
+                        data-url="{{ route('admins.courses.list') }}">
                     </select>
 
                 </div>
@@ -45,7 +47,26 @@ Tất cả Khoá học - Học Viên
                         data-placeholder="Chọn giáo viên"
                         data-url="{{ route('admins.admins.list', ['role'=> ROLE_TEACHER]) }}">
                     </select>
-
+                </div>
+                <div class="form-group col-sm-6 col-md-6">
+                    <label for="contract_date">Ngày ký hợp đồng</label>
+                    <div class="date-time-cs">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <select id="contract_day" name="contract_day" class="form-control single-select"
+                                    data-placeholder="Chọn ngày" data-allow-clear="true">
+                                    <option value="">Chọn ngày</option>
+                                    @for ($day = 1; $day <= 31; $day++) <option value="{{ $day }}">{{ $day }}
+                                        </option>
+                                        @endfor
+                                </select>
+                            </div>
+                            <div class="col-md-8">
+                                <input type="month" id="contract_month" name="contract_month" class="form-control"
+                                    placeholder="Chọn ngày">
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="search_text" class="mr-2">Họ tên / Mã ĐK / Số CMT</label>
@@ -65,6 +86,24 @@ Tất cả Khoá học - Học Viên
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="card_name" class="mr-2">ID thẻ</label>
                     <input type="text" name="card_name" id="card_name" class="form-control" placeholder="Nhập ID thẻ">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="exam_field_id">Sân thi</label>
+                    <select name="exam_field_id" id="exam_field_id" class="form-control single-select"
+                        data-placeholder="Chọn sân thi" data-allow-clear="true">
+                        <option></option>
+                        @foreach ($examFields as $examField)
+                        <option value="{{ $examField->id }}"> {{ $examField->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="tuition_status" class="mr-2">Trạng thái học phí</label>
+                    <select name="tuition_status" id="tuition_status" class="form-control">
+                        <option value="">Chọn trạng thái</option>
+                        <option value="paid">Đã đóng đủ</option>
+                        <option value="unpaid">Chưa đóng đủ</option>
+                    </select>
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="status22" class="mr-2 opacity-0">Hành động </label><br>
@@ -92,4 +131,19 @@ Tất cả Khoá học - Học Viên
 
 @endsection
 @push('js')
+<script>
+    jQuery(document).ready(function() {
+        $('#course_id_search').on('change input', function() {
+            var selectedValue = $(this).val();
+            $('#course_id_input').val(selectedValue);
+        });
+
+        // Nếu bạn muốn cập nhật input khi xóa giá trị trong select
+        $('#course_id_search').on('input', function() {
+            if ($(this).val() === '') {
+                $('#course_id_input').val('');
+            }
+        });
+    });
+</script>
 @endpush

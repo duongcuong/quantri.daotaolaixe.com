@@ -46,4 +46,14 @@ class Admin extends Authenticatable
         }
         return false;
     }
+
+    public function hasRole($roles)
+    {
+        foreach ($this->roles as $role) {
+            if (in_array($role->slug, (array) $roles)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
