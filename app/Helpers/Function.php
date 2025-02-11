@@ -12,7 +12,7 @@ define('ROLE_TEACHER', 'giao-vien');
 define('ROLE_SALE', 'sale');
 define('ROLE_ADMIN', 'admin');
 define('ROLE_SUPERADMIN', 'super-admin');
-define('NOTIFI_FEE', 25);
+define('NOTIFI_FEE', 30);
 
 if (!function_exists('uploadImage')) {
     function uploadImage($file, $folder = "uploads")

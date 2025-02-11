@@ -26,7 +26,6 @@ class CheckTuitionFee extends Command
                 $query->havingRaw('MIN(payment_date) = ?', [Carbon::now()->subDays(NOTIFI_FEE)->toDateString()])
                       ->havingRaw('SUM(amount) < course_users.tuition_fee');
             })
-            ->limit(1)
             ->get();
 
         // Lấy tất cả các user thuộc role admin và super-admin
