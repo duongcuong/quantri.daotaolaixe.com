@@ -24,6 +24,7 @@ use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\FeeController;
 use App\Http\Controllers\Backend\LeadController;
 use App\Http\Controllers\Backend\LeadSourceController;
+use App\Http\Controllers\Backend\SaleController;
 use App\Http\Controllers\Backend\TeacherController;
 use App\Http\Controllers\Backend\UserController;
 
@@ -44,6 +45,9 @@ Route::prefix('admin')->as('admins.')->group(function () {
 
         Route::get('teachers/data', [TeacherController::class, 'data'])->name('teachers.data');
         Route::resource('teachers', TeacherController::class);
+
+        Route::get('sales/data', [SaleController::class, 'data'])->name('sales.data');
+        Route::resource('sales', SaleController::class);
 
         //course
         Route::get('courses/data', [CourseController::class, 'data'])->name('courses.data');

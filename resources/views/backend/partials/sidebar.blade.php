@@ -44,6 +44,14 @@
             </a>
         </li>
 
+        <li class="{{ Request::is('admin/sales/*') ? 'mm-active' : '' }}">
+            <a href="{{ route('admins.sales.index') }}">
+                <div class="parent-icon icon-color-5"><i class="bx bx-group"></i>
+                </div>
+                <div class="menu-title">Danh sách sale</div>
+            </a>
+        </li>
+
         <!--Giáo viên-->
         <li class="menu-label">Quản lý Giáo viên</li>
         {{-- @if (Auth::user()->hasPermission('admins.teachers.index') ||

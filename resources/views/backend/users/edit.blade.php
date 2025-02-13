@@ -105,6 +105,9 @@ Sửa học viên
         </div>
     </div>
 </form>
+
+@include('backend.users.partials.course-user')
+
 @endsection
 @push('js')
 @endpush

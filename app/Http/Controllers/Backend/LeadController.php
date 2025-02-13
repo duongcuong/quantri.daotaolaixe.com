@@ -90,7 +90,7 @@ class LeadController extends Controller
 
     public function list(Request $request)
     {
-        $query = User::orderBy('id', 'desc');
+        $query = Lead::orderBy('id', 'desc');
 
         if ($request->has('id')) {
             $query->where('id', $request->id);

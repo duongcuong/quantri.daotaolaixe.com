@@ -7,12 +7,35 @@ use App\Models\Calendar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class CalendarController extends Controller
 {
     public function index(Request $request)
     {
-        return view('backend.calendars.index');
+        $userId = Auth::guard('admin')->id();
+
+        $calendars = Calendar::query();
+
+        if (Auth::guard('admin')->check()) {
+            $calendars = $calendars->where(function ($query) use ($userId) {
+                $query->where('admin_id', $userId)
+                    ->orWhereHas('lead', function ($query) use ($userId) {
+                        $query->where('assigned_to', $userId);
+                    });
+            });
+        } else {
+            $calendars = $calendars->where(function ($query) use ($userId) {
+                $query->where('user_id', $userId)
+                      ->orWhereHas('courseUser', function ($query) use ($userId) {
+                          $query->where('user_id', $userId);
+                      });
+            });
+        }
+
+        $calendars = $calendars->get();
+
+        return view('backend.calendars.index', compact('calendars'));
     }
 
     public function create(Request $request)

@@ -7,16 +7,16 @@ use App\Http\Controllers\Controller;
 use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
 
-class TeacherController extends Controller
+class SaleController extends Controller
 {
     public function index()
     {
-        return view('backend.teachers.index');
+        return view('backend.sales.index');
     }
 
     public function create()
     {
-        return view('backend.teachers.create');
+        return view('backend.sales.create');
     }
 
     public function store(Request $request)
@@ -28,13 +28,7 @@ class TeacherController extends Controller
             'gender' => 'nullable|integer|in:0,1,2',
             'phone' => 'nullable|string|max:20',
             'dob' => 'nullable|date',
-            'identity_card' => 'nullable|string|max:255|unique:admins',
             'address' => 'nullable|string|max:255',
-            'rank' => 'nullable|array',
-            'rank.*' => 'nullable|string|max:255',
-            'license' => 'nullable|string|max:255',
-            // 'card_name' => 'nullable|string|max:255',
-            // 'card_number' => 'nullable|string|max:255',
             'status' => 'required|integer|in:0,1',
         ]);
         $data = $request->all();
@@ -47,27 +41,27 @@ class TeacherController extends Controller
             $data['thumbnail'] = $thumbnailPath;
 
         $admin = Admin::create($data);
-        $admin->roles()->attach(Role::where('slug', ROLE_TEACHER)->first());
+        $admin->roles()->attach(Role::where('slug', ROLE_SALE)->first());
 
         toastr()->success('Thêm thành công');
-        return redirect()->route('admins.teachers.index')->with('success', 'Teacher created successfully.');
+        return redirect()->route('admins.sales.index')->with('success', 'Sale created successfully.');
     }
 
-    public function show(Admin $teacher)
+    public function show(Admin $sale)
     {
-        return view('backend.teachers.show', compact('teacher'));
+        return view('backend.sales.show', compact('sale'));
     }
 
-    public function edit(Admin $teacher)
+    public function edit(Admin $sale)
     {
-        return view('backend.teachers.edit', compact('teacher'));
+        return view('backend.sales.edit', compact('sale'));
     }
 
-    public function update(Request $request, Admin $teacher)
+    public function update(Request $request, Admin $sale)
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:admins,email,' . $teacher->id,
+            'email' => 'required|string|email|max:255|unique:admins,email,' . $sale->id,
             'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'gender' => 'nullable|integer|in:0,1,2',
             'phone' => 'nullable|string|max:20',
@@ -88,35 +82,35 @@ class TeacherController extends Controller
         $thumbnailPath = $request->hasFile('thumbnail') ? uploadImage($request->file('thumbnail'), 'admins') : null;
         $data['thumbnail'] = $thumbnailPath;
 
-        $teacher->update($data);
+        $sale->update($data);
 
         toastr()->success('Cập nhật thành công');
-        return redirect()->route('admins.teachers.index')->with('success', 'Teacher updated successfully.');
+        return redirect()->route('admins.sales.index')->with('success', 'Sale updated successfully.');
     }
 
-    public function destroy(Admin $teacher)
+    public function destroy(Admin $sale)
     {
-        $teacher->delete();
+        $sale->delete();
         toastr()->success('Xoá người dùng thành công');
-        return redirect()->route('admins.teachers.index')->with('success', 'Teacher deleted successfully.');
+        return redirect()->route('admins.sales.index')->with('success', 'Sale deleted successfully.');
     }
 
     public function data(Request $request)
     {
         $query = Admin::orderBy('created_at', 'desc')->whereHas('roles', function ($query) {
-            $query->where('slug', ROLE_TEACHER);
+            $query->where('slug', ROLE_SALE);
         }); // Sử dụng phân trang với 10 mục mỗi trang
 
         if ($request->has('name') && $request->name) {
             $query->where('name', 'like', '%' . $request->name . '%');
         }
 
-        $teachers = $query->paginate(LIMIT);
+        $sales = $query->paginate(LIMIT);
 
         if ($request->ajax()) {
-            return view('backend.teachers.partials.data', compact('teachers'))->render();
+            return view('backend.sales.partials.data', compact('sales'))->render();
         }
 
-        return view('backend.teachers.index', compact('teachers'));
+        return view('backend.sales.index', compact('sales'));
     }
 }

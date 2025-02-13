@@ -31,7 +31,10 @@
             <td>{{ $user->card_number }}</td>
             <td>{!! getStatus($user->status) !!}</td>
             <td class="fixed-column text-center">
-                <a href="{{ route('admins.users.edit', $user->id) }}" class="btn btn-warning btn-sm mr-2">
+                <a href="{{ route('admins.users.show', $user->id) }}" class="btn btn-primary btn-sm mr-1">
+                    <i class="lni lni-eye"></i>
+                </a>
+                <a href="{{ route('admins.users.edit', $user->id) }}" class="btn btn-warning btn-sm mr-1">
                     <i class="bx bx-edit"></i>
                 </a>
                 <form action="{{ route('admins.users.destroy', $user->id) }}" method="POST"

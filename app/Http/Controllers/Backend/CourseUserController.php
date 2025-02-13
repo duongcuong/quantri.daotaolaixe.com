@@ -137,6 +137,10 @@ class CourseUserController extends Controller
     {
         $query = CourseUser::with('user', 'course', 'teacher', 'sale')->orderBy('id', 'desc');
 
+        if ($request->has('user_id') && $request->user_id != '') {
+            $query->where('user_id', $request->user_id);
+        }
+
         if ($request->has('course_id') && $request->course_id != '') {
             $query->where('course_id', $request->course_id);
         }

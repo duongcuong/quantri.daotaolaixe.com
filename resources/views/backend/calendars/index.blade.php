@@ -20,8 +20,7 @@ Tất cả Lịch
     </div>
     <div class="ml-auto">
         {{-- @if (Auth::user()->hasPermission('admins.calendars.index')) --}}
-        <a class="btn btn-outline-primary btn-sm btn-create-ajax"
-            href="{{ route('admins.calendars.create') }}"
+        <a class="btn btn-outline-primary btn-sm btn-create-ajax" href="{{ route('admins.calendars.create') }}"
             data-cs-modal="#modal-calendars-create-ajax" title="Thêm mới"><i class="bx bx-plus"></i>Thêm mới</a>
         {{-- @endif --}}
     </div>
@@ -29,36 +28,99 @@ Tất cả Lịch
 
 <div class="card radius-15">
     <div class="card-body">
-        <form data-reload="#load-data-ajax-calendars" id="search-form-calendars" class="mb-3 form-search-submit">
-            <div class="row">
-                <div class="form-group col-sm-6 col-md-3">
-                    <label for="payment_date" class="mr-2">Tháng năm</label>
-                    <input type="month" id="payment_date" name="payment_date" class="form-control">
-                </div>
-                <div class="form-group col-sm-6 col-md-3">
-                    <label for="status22" class="mr-2 opacity-0">Hành động </label><br>
-                    <button type="submit" class="btn btn-primary">
-                        <span class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true"
-                            style="display: none"></span>
-                        Tìm kiếm
-                    </button>
-                </div>
-            </div>
-        </form>
+        <div class="table-responsive">
+            <div id='calendar'></div>
+        </div>
     </div>
 </div>
 
-<div class="card radius-15">
+{{-- <div class="card radius-15">
     <div class="card-body">
-        <div class="table-responsive mt-1 mb-1 load-data-ajax"
-            data-url="{{ route('admins.calendars.data') }}" id="load-data-ajax-calendars"
-            data-search="#search-form-calendars">
+        <div class="table-responsive mt-1 mb-1 load-data-ajax" data-url="{{ route('admins.calendars.data') }}"
+            id="load-data-ajax-calendars" data-search="#search-form-calendars">
             <div class="loading-overlay">
                 <div class="loading-spinner"></div>
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 @endsection
 @push('js')
+<script>
+    function getColorByType(type, isPast) {
+        if (isPast) {
+            return 'gray'; // Màu sắc cho lịch đã qua
+        }
+        switch (type) {
+            case 'task':
+                return 'red';
+            case 'meeting':
+                return 'blue';
+            case 'call':
+                return 'green';
+            case 'exam_schedule':
+                return 'orange';
+            default:
+                return 'gray';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+            },
+            initialView: 'dayGridMonth',
+            navLinks: true,
+            selectable: true,
+            nowIndicator: true,
+            dayMaxEvents: true,
+            editable: true,
+            businessHours: true,
+            events: [
+                @foreach ($calendars as $calendar)
+                {
+                    id: '{{ $calendar->id }}',
+                    title: '{{ $calendar->name }}',
+                    start: '{{ $calendar->date_start }}',
+                    end: '{{ $calendar->date_end }}',
+                    color: getColorByType('{{ $calendar->type }}', new Date('{{ $calendar->date_end }}') < new Date())
+                },
+                @endforeach
+            ],
+            dateClick: function(info) {
+                var createButton = $('<button/>', {
+                    class: 'btn-create-ajax',
+                    style: 'display:none;',
+                    href: '{{ route('admins.calendars.create') }}',
+                    'data-cs-modal': '#modal-calendars-create-ajax',
+                }).appendTo('body');
+                createButton.trigger('click');
+                createButton.remove();
+            },
+            eventClick: function(info) {
+                if (new Date(info.event.end) < new Date()) {
+                    alertError('Không thể chỉnh sửa lịch đã qua.');
+                    return;
+                }
+                var editButton = $('<button/>', {
+                    class: 'btn-edit-ajax',
+                    style: 'display:none;',
+                    href: '/admin/calendars/' + info.event.id + '/edit',
+                    'data-cs-modal': '#modal-calendars-edit-ajax'
+                }).appendTo('body');
+
+                editButton.trigger('click');
+                editButton.remove();
+
+            }
+        });
+        calendar.render();
+    });
+
+
+</script>
 @endpush
