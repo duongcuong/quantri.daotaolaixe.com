@@ -556,6 +556,15 @@ $(function () {
         loadStatusCalendar();
     });
 
+    $("body").on('change', 'input[name="loai_hoc"]', function (e) {
+        var loai_hoc = $(this).val();
+        if (loai_hoc == 'chay_dat') {
+            $(this).closest("form").find("#row-km").show();
+        } else {
+            $(this).closest("form").find("#row-km").hide();
+        }
+    });
+
     // old =============
 
     resetPickadate();
