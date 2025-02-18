@@ -186,7 +186,8 @@ Sửa Khoá học - Học Viên
     </div>
 </form>
 
-@include('backend.course-user.partials.calendars')
+@include('backend.course-user.partials.exam_schedule')
+@include('backend.course-user.partials.class_schedule')
 @include('backend.course-user.partials.fees')
 
 @endsection

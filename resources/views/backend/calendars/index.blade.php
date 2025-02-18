@@ -20,8 +20,13 @@ Tất cả Lịch
     </div>
     <div class="ml-auto">
         {{-- @if (Auth::user()->hasPermission('admins.calendars.index')) --}}
-        <a class="btn btn-outline-primary btn-sm btn-create-ajax" href="{{ route('admins.calendars.create') }}"
-            data-cs-modal="#modal-calendars-create-ajax" title="Thêm mới"><i class="bx bx-plus"></i>Thêm mới</a>
+        @foreach (listTypeCalendars() as $key => $item)
+        <a class="btn btn-outline-primary btn-sm btn-create-ajax mr-2" href="{{ route('admins.calendars.create', ["type" => $key]) }}"
+            data-cs-modal="#modal-calendars-create-ajax" title="Thêm mới">
+            <i class="bx bx-plus"></i>
+            Thêm {!! $item !!}
+        </a>
+        @endforeach
         {{-- @endif --}}
     </div>
 </div>
@@ -34,7 +39,7 @@ Tất cả Lịch
     </div>
 </div>
 
-{{-- <div class="card radius-15">
+<div class="card radius-15">
     <div class="card-body">
         <div class="table-responsive mt-1 mb-1 load-data-ajax" data-url="{{ route('admins.calendars.data') }}"
             id="load-data-ajax-calendars" data-search="#search-form-calendars">
@@ -43,7 +48,7 @@ Tất cả Lịch
             </div>
         </div>
     </div>
-</div> --}}
+</div>
 @endsection
 @push('js')
 <script>
@@ -121,6 +126,14 @@ Tất cả Lịch
         calendar.render();
     });
 
+    $(document).on('change', 'input[name="loai_hoc"]', function (e) {
+        var loai_hoc = $(this).val();
+        if (loai_hoc == 'chay_dat') {
+            $(this).closest("form").find("#row-km").show();
+        } else {
+            $(this).closest("form").find("#row-km").hide();
+        }
+    });
 
 </script>
 @endpush

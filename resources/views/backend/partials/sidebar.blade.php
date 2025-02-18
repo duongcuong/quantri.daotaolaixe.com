@@ -238,7 +238,7 @@
 
                 <li
                     class="{{ Request::is('admin/exam-fields') || Request::is('admin/exam-fields/create') || Request::is('admin/exam-fields/*/edit') ? 'mm-active' : '' }}">
-                    <a href="{{ route('admins.exam-fields.index') }}"><i class="bx bx-star"></i>Quản lý sân thi</a>
+                    <a href="{{ route('admins.exam-fields.index') }}"><i class="bx bx-star"></i>Quản lý sân học và thi</a>
                 </li>
 
                 <li

@@ -299,9 +299,10 @@ function listTypeCalendars()
 {
     return [
         'task' => 'Công việc',
-        'meeting' => 'Họp',
-        'call' => 'Gọi',
-        'exam_schedule' => 'Lịch học, thi',
+        'meeting' => 'Lịch họp',
+        'call' => 'Lịch gọi',
+        'class_schedule' => 'Lịch học',
+        'exam_schedule' => 'Lịch thi',
     ];
 }
 
@@ -320,6 +321,9 @@ function getTypeCalendar($type)
             break;
         case 'exam_schedule':
             return '<span class="text-info">' . $types[$type] . '</span>';
+            break;
+        case 'class_schedule':
+            return '<span class="text-primary">' . $types[$type] . '</span>';
             break;
         default:
             return '';
@@ -351,6 +355,13 @@ function listStatusCalendars()
             30 => 'Đang chờ',
             31 => 'Hoàn thành',
             32 => 'Thi lại',
+        ],
+        'class_schedule' => [
+            40 => 'Đang chờ',
+            41 => 'Đang học',
+            42 => 'Hoàn thành',
+            43 => 'Thiếu giáo viên',
+            44 => 'Huỷ ca',
         ],
         // Add other types and their statuses as needed
     ];
@@ -400,6 +411,24 @@ function getStatusCalendarByType($type, $status)
             return '<span class="badge badge-success">' . $statuses[$type][$status] . '</span>';
             break;
         case '32':
+            return '<span class="badge badge-danger">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '33':
+            return '<span class="badge badge-secondary">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '40':
+            return '<span class="badge badge-warning">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '41':
+            return '<span class="badge badge-info">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '42':
+            return '<span class="badge badge-success">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '43':
+            return '<span class="badge badge-secondary">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '44':
             return '<span class="badge badge-danger">' . $statuses[$type][$status] . '</span>';
             break;
         default:
@@ -455,4 +484,42 @@ function getDuration($duration)
 {
     $durations = listDurations();
     return '<span class="badge badge-secondary">'.$durations[$duration].'</span>' ?? '';
+}
+
+function listLoaiHocs()
+{
+    return [
+        'ly_thuyet' => 'Lý thuyết',
+        'thuc_hanh' => 'Thực hành',
+        'mo_phong' => 'Mô phỏng',
+        'duong_truong' => 'Đường trường',
+        'chay_dat' => 'Chạy DAT',
+    ];
+}
+
+function getLoaiHoc($loaiHoc)
+{
+    $loaiHocs = listLoaiHocs();
+    return '<span class="badge badge-secondary">'.$loaiHocs[$loaiHoc].'</span>' ?? '';
+}
+
+function listLoaiThis()
+{
+    return [
+        'thi_thuc_hanh' => 'Thi thực hành',
+        'thi_ly_thuyet' => 'Thi lý thuyết',
+        'thi_mo_phong' => 'Thi mô phỏng',
+        'thi_duong_truong' => 'Thi đường trường'
+    ];
+}
+
+function getLoaiThi($loaiThi)
+{
+    if(!$loaiThi) return '';
+    $loaiHocs = listLoaiThis();
+    $result = [];
+    foreach ($loaiThi as $item) {
+        $result[] = $loaiHocs[$item] ?? '';
+    }
+    return implode(', ', $result);
 }

@@ -51,7 +51,6 @@ class CalendarController extends Controller
             'type' => 'required|string',
             'date_start' => 'required|date',
             'date_end' => 'required|date|after_or_equal:date_start',
-            'duration' => 'required|integer',
             'admin_id' => 'nullable|exists:admins,id',
             'user_id' => 'nullable|exists:users,id',
             'course_user_id' => 'nullable|exists:course_users,id',
@@ -59,8 +58,8 @@ class CalendarController extends Controller
         ]);
 
         $validator->after(function ($validator) use ($request) {
-            if (!$request->admin_id && !$request->user_id && !$request->course_user_id && !$request->lead_id) {
-                $validator->errors()->add('admin_id', 'You must select at least one of admin_id, user_id, course_user_id, or lead_id.');
+            if (!$request->admin_id && !$request->user_id && !$request->course_user_id && !$request->lead_id && !$request->teacher_id) {
+                $validator->errors()->add('admin_id', 'You must select at least one of admin_id, user_id, course_user_id, teacher_id, or lead_id.');
             }
         });
 
@@ -68,7 +67,8 @@ class CalendarController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        Calendar::create($request->all());
+        $calendar = Calendar::create($request->all());
+        $calendar->created_by = Auth::guard('admin')->id();
 
         return response()->json(['success' => 'Thêm thành công.']);
     }
@@ -85,7 +85,6 @@ class CalendarController extends Controller
             'type' => 'required|string',
             'date_start' => 'required|date',
             'date_end' => 'required|date|after_or_equal:date_start',
-            'duration' => 'required|integer',
             'admin_id' => 'nullable|exists:admins,id',
             'user_id' => 'nullable|exists:users,id',
             'course_user_id' => 'nullable|exists:course_users,id',
