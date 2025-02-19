@@ -126,7 +126,7 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             @endif
 
             @if (!request()->has('show_column') || in_array('san', $columns))
-            <td>{{ $calendar->examField->name }}</td>
+            <td>{{ $calendar->examField->name ?? '' }}</td>
             @endif
 
             @if (!request()->has('show_column') || in_array('course_code', $columns))
