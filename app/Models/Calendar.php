@@ -31,7 +31,8 @@ class Calendar extends Model
         'loai_hoc',
         'km',
         'so_xe',
-        'loai_thi'
+        'loai_thi',
+        'diem_don'
     ];
 
     protected $casts = [

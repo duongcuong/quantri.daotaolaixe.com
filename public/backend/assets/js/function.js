@@ -565,6 +565,15 @@ $(function () {
         }
     });
 
+    $("body").on('change', '.status-calendar', function (e) {
+        let status = $(this).val();
+        if (status == obj_config.status_calendar_cancel) {
+            $(this).closest("form").find(".reason-cancel").show();
+        } else {
+            $(this).closest("form").find(".reason-cancel").hide();
+        }
+    });
+
     // old =============
 
     resetPickadate();

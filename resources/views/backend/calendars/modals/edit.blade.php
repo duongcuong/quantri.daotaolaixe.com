@@ -69,6 +69,12 @@
                                         value="{{ $calendar->km }}" />
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label for="diem_don">Điểm đón</label>
+                                    <textarea name="diem_don" id="diem_don" class="form-control">{{ $calendar->diem_don }}</textarea>
+                                </div>
+                            </div>
                             @endif
                             @if ($calendar->type == 'exam_schedule')
                             <div class="border radius-10 p-15 mb-3">
@@ -129,7 +135,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="status">Trạng thái</label>
-                                    <select name="status" id="status-calendar" class="form-control" required>
+                                    <select name="status" id="status-calendar" class="form-control status-calendar" required>
                                         @php
                                         $listStatusCalendars = listStatusCalendars();
                                         $listStatusCalendars = $listStatusCalendars[$calendar->type] ?? [];
@@ -141,6 +147,12 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                @if ($calendar->status == STATUS_CALENDAR_CANCEL)
+                                <div class="form-group col-md-12 reason-cancel" id="reason-cancel">
+                                    <label for="reason">Lý do huỷ ca</label>
+                                    <textarea name="reason" id="reason" class="form-control">{{ $calendar->reason }}</textarea>
+                                </div>
+                                @endif
                                 <div class="form-group col-md-12">
                                     <label for="description">Mô tả</label>
                                     <textarea name="description" id="description"

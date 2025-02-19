@@ -17,13 +17,20 @@ class CalendarController extends Controller
 
         $calendars = Calendar::query();
 
+        if(Auth::guard('admin')->check() && !Auth::guard('admin')->user()->hasRole([ROLE_ADMIN, ROLE_SUPERADMIN])) {
+
+        }
+
         if (Auth::guard('admin')->check()) {
-            $calendars = $calendars->where(function ($query) use ($userId) {
-                $query->where('admin_id', $userId)
-                    ->orWhereHas('lead', function ($query) use ($userId) {
-                        $query->where('assigned_to', $userId);
-                    });
-            });
+            if(!Auth::guard('admin')->user()->hasRole([ROLE_ADMIN, ROLE_SUPERADMIN])){
+                $calendars = $calendars->where(function ($query) use ($userId) {
+                    $query->where('admin_id', $userId)
+                        ->orWhere('teacher_id', $userId)
+                        ->orWhereHas('lead', function ($query) use ($userId) {
+                            $query->where('assigned_to', $userId);
+                        });
+                });
+            }
         } else {
             $calendars = $calendars->where(function ($query) use ($userId) {
                 $query->where('user_id', $userId)

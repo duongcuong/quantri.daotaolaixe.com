@@ -21,10 +21,10 @@ Tất cả Lịch
     <div class="ml-auto">
         {{-- @if (Auth::user()->hasPermission('admins.calendars.index')) --}}
         @foreach (listTypeCalendars() as $key => $item)
-        <a class="btn btn-outline-primary btn-sm btn-create-ajax mr-2" href="{{ route('admins.calendars.create', ["type" => $key]) }}"
+        <a class="btn btn-outline-primary btn-sm btn-create-ajax mr-2 mb-2" href="{{ route('admins.calendars.create', ["type" => $key]) }}"
             data-cs-modal="#modal-calendars-create-ajax" title="Thêm mới">
             <i class="bx bx-plus"></i>
-            Thêm {!! $item !!}
+            {!! $item !!}
         </a>
         @endforeach
         {{-- @endif --}}

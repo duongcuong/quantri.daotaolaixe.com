@@ -30,6 +30,7 @@
     <script>
         var obj_config = {
             limit: "{{ LIMIT }}",
+            status_calendar_cancel: "{{ STATUS_CALENDAR_CANCEL }}",
         };
     </script>
     @FilemanagerScript

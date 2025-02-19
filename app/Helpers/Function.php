@@ -4,6 +4,7 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
+use Carbon\Carbon;
 
 define('LIMIT', 20);
 define('ROLE_SALES', 'sale,quan-ly-sales');
@@ -13,6 +14,7 @@ define('ROLE_SALE', 'sale');
 define('ROLE_ADMIN', 'admin');
 define('ROLE_SUPERADMIN', 'super-admin');
 define('NOTIFI_FEE', 30);
+define('STATUS_CALENDAR_CANCEL', 44);
 
 if (!function_exists('uploadImage')) {
     function uploadImage($file, $folder = "uploads")
@@ -499,6 +501,7 @@ function listLoaiHocs()
 
 function getLoaiHoc($loaiHoc)
 {
+    if(!$loaiHoc) return '';
     $loaiHocs = listLoaiHocs();
     return '<span class="badge badge-secondary">'.$loaiHocs[$loaiHoc].'</span>' ?? '';
 }
@@ -513,13 +516,40 @@ function listLoaiThis()
     ];
 }
 
+function listLoaiThiRutGons()
+{
+    return [
+        'thi_thuc_hanh' => 'TH',
+        'thi_ly_thuyet' => 'LT',
+        'thi_mo_phong' => 'MP',
+        'thi_duong_truong' => 'ĐT'
+    ];
+}
+
 function getLoaiThi($loaiThi)
 {
     if(!$loaiThi) return '';
-    $loaiHocs = listLoaiThis();
+    $loaiHocs = listLoaiThiRutGons();
     $result = [];
     foreach ($loaiThi as $item) {
-        $result[] = $loaiHocs[$item] ?? '';
+        if($loaiHocs[$item]){
+            $result[] = '<span class="badge badge-secondary mr-1 mb-1">'.$loaiHocs[$item].'</span>';
+        }
     }
-    return implode(', ', $result);
+    return implode('', $result);
+}
+
+function formatDateTimeVn($dateTime) {
+    if (!$dateTime) return '';
+    $date = Carbon::parse($dateTime);
+    $dayOfWeek = [
+        'Sunday' => 'Chủ nhật',
+        'Monday' => 'Thứ 2',
+        'Tuesday' => 'Thứ 3',
+        'Wednesday' => 'Thứ 4',
+        'Thursday' => 'Thứ 5',
+        'Friday' => 'Thứ 6',
+        'Saturday' => 'Thứ 7',
+    ];
+    return $date->format('d/m/Y') . ' ' . $dayOfWeek[$date->format('l')] . ', ' . '<strong>'.$date->format('H\hi').'</strong>';
 }

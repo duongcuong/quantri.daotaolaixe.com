@@ -25,6 +25,26 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <th>Ngày kết thúc</th>
             @endif
 
+            @if (!request()->has('show_column') || in_array('name_hocvien', $columns))
+            <th>Học viên</th>
+            @endif
+
+            @if (!request()->has('show_column') || in_array('dob', $columns))
+            <th>Ngày sinh</th>
+            @endif
+
+            @if (!request()->has('show_column') || in_array('diem_don', $columns))
+            <th>Điểm đón</th>
+            @endif
+
+            @if (!request()->has('show_column') || in_array('san', $columns))
+            <th>Sân</th>
+            @endif
+
+            @if (!request()->has('show_column') || in_array('course_code', $columns))
+            <th>Khoá học</th>
+            @endif
+
             @if (!request()->has('show_column') || in_array('loai_thi', $columns))
             <th>Môn thi</th>
             @endif
@@ -51,10 +71,6 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
 
             @if (!request()->has('show_column') || in_array('admin_id', $columns))
             <th>Người phụ trách</th>
-            @endif
-
-            @if (!request()->has('show_column') || in_array('user_id', $columns))
-            <th>Học viên</th>
             @endif
 
             @if (!request()->has('show_column') || in_array('teacher_id', $columns))
@@ -90,15 +106,35 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             @endif
 
             @if (!request()->has('show_column') || in_array('date_start', $columns))
-            <td>{{ getDateTimeStamp($calendar->date_start, 'd/m/Y') }}</td>
+            <td>{!! formatDateTimeVn($calendar->date_start) !!}</td>
             @endif
 
             @if (!request()->has('show_column') || in_array('date_end', $columns))
-            <td>{{ getDateTimeStamp($calendar->date_end, 'd/m/Y') }}</td>
+            <td>{!! formatDateTimeVn($calendar->date_end) !!}</td>
+            @endif
+
+            @if (!request()->has('show_column') || in_array('name_hocvien', $columns))
+            <td>{{ $calendar->courseUser->user->name ?? '' }}</td>
+            @endif
+
+            @if (!request()->has('show_column') || in_array('dob', $columns))
+            <td>{{ $calendar->courseUser && $calendar->courseUser->user ? getDateTimeStamp($calendar->courseUser->user->dob, 'd/m/Y') : "" }}</td>
+            @endif
+
+            @if (!request()->has('show_column') || in_array('diem_don', $columns))
+            <td>{{ $calendar->diem_don }}</td>
+            @endif
+
+            @if (!request()->has('show_column') || in_array('san', $columns))
+            <td>{{ $calendar->examField->name }}</td>
+            @endif
+
+            @if (!request()->has('show_column') || in_array('course_code', $columns))
+            <td>{{ $calendar->courseUser->course->code ?? '' }}</td>
             @endif
 
             @if (!request()->has('show_column') || in_array('loai_thi', $columns))
-            <td>{{ getLoaiThi($calendar->loai_thi) }}</td>
+            <td>{!! getLoaiThi($calendar->loai_thi) !!}</td>
             @endif
 
             @if (!request()->has('show_column') || in_array('loai_hoc', $columns))
@@ -123,10 +159,6 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
 
             @if (!request()->has('show_column') || in_array('admin_id', $columns))
             <td>{{ $calendar->admin->name ?? '' }}</td>
-            @endif
-
-            @if (!request()->has('show_column') || in_array('user_id', $columns))
-            <td>{{ $calendar->user->name ?? '' }}</td>
             @endif
 
             @if (!request()->has('show_column') || in_array('teacher_id', $columns))
