@@ -62,6 +62,7 @@ class CalendarController extends Controller
             'user_id' => 'nullable|exists:users,id',
             'course_user_id' => 'nullable|exists:course_users,id',
             'lead_id' => 'nullable|exists:leads,id',
+            'so_gio_chay_duoc' => 'nullable|regex:/^\d{2}:\d{2}$/',
         ]);
 
         $validator->after(function ($validator) use ($request) {
@@ -96,6 +97,7 @@ class CalendarController extends Controller
             'user_id' => 'nullable|exists:users,id',
             'course_user_id' => 'nullable|exists:course_users,id',
             'lead_id' => 'nullable|exists:leads,id',
+            'so_gio_chay_duoc' => 'nullable|regex:/^\d{2}:\d{2}$/',
         ]);
 
         $validator->after(function ($validator) use ($request) {
@@ -133,6 +135,10 @@ class CalendarController extends Controller
 
         if ($request->has('priority') && $request->priority) {
             $query->where('priority', $request->priority);
+        }
+
+        if ($request->has('loai_hoc') && $request->loai_hoc) {
+            $query->where('loai_hoc', $request->loai_hoc);
         }
 
         if ($request->has('course_user_id') && $request->course_user_id) {

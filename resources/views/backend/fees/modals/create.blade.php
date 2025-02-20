@@ -12,8 +12,8 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        @if ($course_user_id)
-                        <input type="hidden" name="course_user_id" value="{{ $course_user_id }}">
+                        @if (request()->has('course_user_id') && request()->course_user_id)
+                        <input type="hidden" name="course_user_id" value="{{ request()->course_user_id }}">
                         @else
                         <div class="col-md-6 mb-3">
                             <label for="course_user_id">Chọn học viên - khóa học</label>

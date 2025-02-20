@@ -281,3 +281,22 @@
     word-wrap: break-word;
     text-wrap: auto;
 }
+
+/* scroll fixed  */
+.scrollbar-container {
+    position: sticky;
+    bottom: 37px;
+    width: 100%;
+    z-index: 10;
+    display: none; /* Ẩn đi nếu không cần */
+}
+
+.scrollbar {
+    overflow-x: auto;
+    white-space: nowrap;
+    width: 100%;
+}
+
+.scroll-content {
+    height: 15px;
+}

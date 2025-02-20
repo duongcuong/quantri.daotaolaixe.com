@@ -90,16 +90,16 @@ Sửa Khoá học - Học Viên
                             <input type="date" name="health_check_date" id="health_check_date" class="form-control"
                                 value="{{ old('health_check_date', \Carbon\Carbon::parse($courseUser->health_check_date)->format('Y-m-d')) }}" />
                         </div>
-                        <div class="form-group col-md-6">
+                        {{-- <div class="form-group col-md-6">
                             <label for="hours">Giờ</label>
                             <input type="text" name="hours" id="hours" class="form-control"
                                 value="{{ old('hours', $courseUser->hours) }}" />
-                        </div>
-                        <div class="form-group col-md-6">
+                        </div> --}}
+                        {{-- <div class="form-group col-md-6">
                             <label for="km">Km</label>
                             <input type="text" name="km" id="km" class="form-control"
                                 value="{{ old('km', $courseUser->km) }}" />
-                        </div>
+                        </div> --}}
                         <div class="form-group col-md-6">
                             <label for="exam_date">Ngày thi</label>
                             <input type="date" name="exam_date" id="exam_date" class="form-control"

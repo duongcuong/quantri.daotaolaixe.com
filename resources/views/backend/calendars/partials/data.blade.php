@@ -57,6 +57,10 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <th>Km</th>
             @endif
 
+            @if (!request()->has('show_column') || in_array('so_gio_chay_duoc', $columns))
+            <th>Giờ</th>
+            @endif
+
             @if (!request()->has('show_column') || in_array('tuition_fee', $columns))
             <th>Học phí</th>
             @endif
@@ -145,6 +149,10 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <td>{!! number_format($calendar->km) !!}</td>
             @endif
 
+            @if (!request()->has('show_column') || in_array('so_gio_chay_duoc', $columns))
+            <td>{!! $calendar->so_gio_chay_duoc !!}</td>
+            @endif
+
             @if (!request()->has('show_column') || in_array('tuition_fee', $columns))
             <td>{!! getMoney($calendar->tuition_fee) !!}</td>
             @endif
@@ -174,7 +182,7 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             @endif
 
             <td class="fixed-column text-center">
-                <a href="{{ route('admins.calendars.edit', $calendar->id) }}"
+                <a href="{{ route('admins.calendars.edit', ['calendar' => $calendar->id, 'reload' => request()->reload]) }}"
                     class="btn btn-warning btn-sm mr-2 btn-edit-ajax" data-cs-modal="#modal-calendars-edit-ajax">
                     <i class="bx bx-edit"></i>
                 </a>

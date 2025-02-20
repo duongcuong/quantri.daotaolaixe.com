@@ -66,8 +66,26 @@
             <td class="text-center fs-5">{!! getTickTrueOrFalse($courseUser->practice_exam) !!}</td>
             <td class="text-center fs-5">{!! getTickTrueOrFalse($courseUser->graduation_exam) !!}</td>
 
-            <td>{{ number_format($courseUser->km) }}</td>
-            <td>{{ number_format($courseUser->hours) }}</td>
+            <td>
+                @if ($courseUser->calendars_sum_km > 0)
+                <a class="btn-show-list-ajax"
+                    href="{{ route('admins.calendars.data', ['course_user_id' => $courseUser->id, 'type' => 'class_schedule', 'loai_hoc' => 'chay_dat', 'show_column' => 'name,date_start,date_end,name_hocvien,km,so_gio_chay_duoc']) }}"
+                    data-cs-modal="#modal-dat-calendars-ajax" data-reload="#load-data-ajax-dat-calendars">{{
+                    getFormattedSoGioChayDuocAttribute($courseUser->calendars_sum_so_gio_chay_duoc) }}</a>
+                @else
+                {{ getFormattedSoGioChayDuocAttribute($courseUser->calendars_sum_so_gio_chay_duoc) }}
+                @endif
+            </td>
+            <td>
+                @if ($courseUser->calendars_sum_km > 0)
+                <a class="btn-show-list-ajax"
+                    href="{{ route('admins.calendars.data', ['course_user_id' => $courseUser->id, 'type' => 'class_schedule', 'loai_hoc' => 'chay_dat', 'show_column' => 'name,date_start,date_end,name_hocvien,km,so_gio_chay_duoc']) }}"
+                    data-cs-modal="#modal-dat-calendars-ajax" data-reload="#load-data-ajax-dat-calendars">{{
+                    number_format($courseUser->calendars_sum_km) }}</a>
+                @else
+                {{ number_format($courseUser->calendars_sum_km) }}
+                @endif
+            </td>
             <td>{!! getMoney($courseUser->tuition_fee) !!}</td>
             <td>{!! getMoney($courseUser->fees_sum_amount) !!}</td>
             <td>{!! getMoneyConThieu($courseUser->tuition_fee, $courseUser->fees_sum_amount) !!}</td>
@@ -79,8 +97,8 @@
                 <a href="{{ route('admins.course-user.edit', $courseUser->id) }}" class="btn btn-warning btn-sm mr-1">
                     <i class="bx bx-edit"></i>
                 </a>
-                <form action="{{ route('admins.course-user.destroy', $courseUser->id) }}" class="delete-form-ajax" method="POST"
-                    style="display:inline-block;">
+                <form action="{{ route('admins.course-user.destroy', $courseUser->id) }}" class="delete-form-ajax"
+                    method="POST" style="display:inline-block;">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger btn-sm delete-btn">

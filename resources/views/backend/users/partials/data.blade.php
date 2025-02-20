@@ -12,6 +12,7 @@
             <th>Tên thẻ</th>
             <th>Số thẻ</th>
             <th>Trạng thái</th>
+            <th>Ngày hoạt động</th>
             <th class="fixed-column text-center">Hành động</th>
         </tr>
     </thead>
@@ -30,6 +31,7 @@
             <td>{{ $user->card_name }}</td>
             <td>{{ $user->card_number }}</td>
             <td>{!! getStatus($user->status) !!}</td>
+            <td>{{ getDateTimeStamp($user->created_at, 'd/m/Y') }}</td>
             <td class="fixed-column text-center">
                 <a href="{{ route('admins.users.show', $user->id) }}" class="btn btn-primary btn-sm mr-1">
                     <i class="lni lni-eye"></i>

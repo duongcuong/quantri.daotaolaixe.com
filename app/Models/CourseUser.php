@@ -86,4 +86,9 @@ class CourseUser extends Model
     {
         return $this->belongsTo(LeadSource::class);
     }
+
+    public function calendars()
+    {
+        return $this->hasMany(Calendar::class);
+    }
 }

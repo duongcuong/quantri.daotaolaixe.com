@@ -1,6 +1,6 @@
 @extends('backend.app')
 @section('title')
-Tất cả học viên
+Tất cả lịch sát hạch
 @endsection
 @push('css')
 @endpush
@@ -13,14 +13,14 @@ Tất cả học viên
                     <li class="breadcrumb-item"><a href="{{ route('admins.dashboard') }}"><i
                                 class='bx bx-home-alt'></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Học viên</li>
+                    <li class="breadcrumb-item active" aria-current="page">Lịch thi sát hạch</li>
                 </ol>
             </nav>
         </div>
     </div>
     <div class="ml-auto">
-        {{-- @if (Auth::user()->hasPermission('admins.users.index')) --}}
-        <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.users.create') }}" data-toggle="tooltip"
+        {{-- @if (Auth::user()->hasPermission('admins.exam-schedules.index')) --}}
+        <a class="btn btn-outline-primary btn-sm btn-create-ajax" href="{{ route('admins.exam-schedules.create') }}" data-cs-modal="#modal-exam-schedules-create-ajax"
             title="Thêm mới"><i class="bx bx-plus"></i>Thêm mới</a>
         {{-- @endif --}}
     </div>
@@ -28,15 +28,11 @@ Tất cả học viên
 
 <div class="card radius-15">
     <div class="card-body">
-        <form data-reload="#load-data-ajax-users" id="search-form-users" class="mb-3 form-search-submit">
+        <form data-reload="#load-data-ajax-exam-schedules" id="search-form-exam-schedules" class="mb-3 form-search-submit">
             <div class="row">
                 <div class="form-group col-sm-6 col-md-3">
-                    <label for="name" class="mr-2">Tên học viên</label>
-                    <input type="text" id="name" name="name" class="form-control" placeholder="Nhập tên học viên">
-                </div>
-                <div class="form-group col-sm-6 col-md-3">
-                    <label for="created_at" class="mr-2">Thời gian hoạt động</label>
-                    <input type="month" id="created_at" name="created_at" class="form-control">
+                    <label for="payment_date" class="mr-2">Tháng năm</label>
+                    <input type="month" id="payment_date" name="payment_date" class="form-control">
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="status22" class="mr-2 opacity-0">Hành động </label><br>
@@ -53,14 +49,11 @@ Tất cả học viên
 
 <div class="card radius-15">
     <div class="card-body">
-        <div class="table-responsive mt-1 mb-1 load-data-ajax" data-url="{{ route('admins.users.data') }}" id="load-data-ajax-users" data-search="#search-form-users">
-            <div class="loading-overlay">
-                <div class="loading-spinner"></div>
-            </div>
+        <div class="table-responsive mt-1 mb-1 load-data-ajax" data-url="{{ route('admins.exam-schedules.data') }}" id="load-data-ajax-exam-schedules" data-search="#search-form-exam-schedules">
+            <div class="loading-overlay"><div class="loading-spinner"></div></div>
         </div>
     </div>
 </div>
-
 @endsection
 @push('js')
 @endpush

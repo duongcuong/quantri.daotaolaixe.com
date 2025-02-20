@@ -77,12 +77,16 @@ class CourseUserController extends Controller
         $admins = Admin::where('status', 1)->get();
 
         $courseUser->loadSum('fees', 'amount');
+        $courseUser->loadSum('calendars', 'km');
+        $courseUser->loadSum('calendars', 'so_gio_chay_duoc');
 
         return view('backend.course-user.show', compact('courseUser', 'courseUsers', 'admins'));
     }
 
     public function edit(CourseUser $courseUser)
     {
+        $courseUser->loadSum('calendars', 'km');
+        $courseUser->loadSum('calendars', 'so_gio_chay_duoc');
         return view('backend.course-user.edit', compact('courseUser'));
     }
 
@@ -165,7 +169,7 @@ class CourseUserController extends Controller
         } elseif ($request->has('contract_month') && $request->contract_month) {
             $contractMonthYear = Carbon::createFromFormat('Y-m', $request->contract_month);
             $query->whereYear('contract_date', $contractMonthYear->year)
-                  ->whereMonth('contract_date', $contractMonthYear->month);
+                ->whereMonth('contract_date', $contractMonthYear->month);
         }
 
         if ($request->has('status') && $request->status != '') {
@@ -200,7 +204,8 @@ class CourseUserController extends Controller
             });
         }
 
-        $courseUsers = $query->withSum('fees', 'amount');
+        $courseUsers = $query->withSum('fees', 'amount')->withSum('calendars', 'km')
+            ->withSum('calendars', 'so_gio_chay_duoc');
 
         $courseUsers = $query->paginate(LIMIT);
 

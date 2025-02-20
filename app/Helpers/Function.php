@@ -123,11 +123,12 @@ function listRanks()
     ];
 }
 
-function getRank($rank = '')
+function getRank($rank = '', $json = true)
 {
     if (!$rank) return '';
-
-    $rank = json_decode($rank);
+    if ($json){
+        $rank = json_decode($rank);
+    }
 
     $ranks = listRanks();
     return implode(' ', array_map(function ($item) use ($ranks) {
@@ -485,7 +486,7 @@ function listDurations()
 function getDuration($duration)
 {
     $durations = listDurations();
-    return '<span class="badge badge-secondary">'.$durations[$duration].'</span>' ?? '';
+    return '<span class="badge badge-secondary">' . $durations[$duration] . '</span>' ?? '';
 }
 
 function listLoaiHocs()
@@ -495,15 +496,16 @@ function listLoaiHocs()
         'thuc_hanh' => 'Thực hành',
         'mo_phong' => 'Mô phỏng',
         'duong_truong' => 'Đường trường',
+        'cabin' => 'Cabin',
         'chay_dat' => 'Chạy DAT',
     ];
 }
 
 function getLoaiHoc($loaiHoc)
 {
-    if(!$loaiHoc) return '';
+    if (!$loaiHoc) return '';
     $loaiHocs = listLoaiHocs();
-    return '<span class="badge badge-secondary">'.$loaiHocs[$loaiHoc].'</span>' ?? '';
+    return '<span class="badge badge-secondary">' . $loaiHocs[$loaiHoc] . '</span>' ?? '';
 }
 
 function listLoaiThis()
@@ -528,18 +530,19 @@ function listLoaiThiRutGons()
 
 function getLoaiThi($loaiThi)
 {
-    if(!$loaiThi) return '';
+    if (!$loaiThi) return '';
     $loaiHocs = listLoaiThiRutGons();
     $result = [];
     foreach ($loaiThi as $item) {
-        if($loaiHocs[$item]){
-            $result[] = '<span class="badge badge-secondary mr-1 mb-1">'.$loaiHocs[$item].'</span>';
+        if ($loaiHocs[$item]) {
+            $result[] = '<span class="badge badge-secondary mr-1 mb-1">' . $loaiHocs[$item] . '</span>';
         }
     }
     return implode('', $result);
 }
 
-function formatDateTimeVn($dateTime) {
+function formatDateTimeVn($dateTime)
+{
     if (!$dateTime) return '';
     $date = Carbon::parse($dateTime);
     $dayOfWeek = [
@@ -551,5 +554,16 @@ function formatDateTimeVn($dateTime) {
         'Friday' => 'Thứ 6',
         'Saturday' => 'Thứ 7',
     ];
-    return $date->format('d/m/Y') . ' ' . $dayOfWeek[$date->format('l')] . ', ' . '<strong>'.$date->format('H\hi').'</strong>';
+    return $date->format('d/m/Y') . ' ' . $dayOfWeek[$date->format('l')] . ', ' . '<strong>' . $date->format('H\hi') . '</strong>';
+}
+
+function getFormattedSoGioChayDuocAttribute($value)
+{
+    if ($value === null) {
+        return "00:00";
+    }
+    $totalMinutes = $value;
+    $hours = intdiv($totalMinutes, 60);
+    $minutes = $totalMinutes % 60;
+    return sprintf('%02d:%02d', $hours, $minutes);
 }

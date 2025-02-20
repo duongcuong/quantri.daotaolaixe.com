@@ -107,11 +107,11 @@ Xem chi tiết {{ $courseUser->user->name }} - {{ $courseUser->course->code }}
                         <tr>
                             <th rowspan="2">Phiên học</th>
                             <th>Giờ</th>
-                            <td>{{ $courseUser->km }}</td>
+                            <td>{{ getFormattedSoGioChayDuocAttribute($courseUser->calendars_sum_so_gio_chay_duoc) }}</td>
                         </tr>
                         <tr>
                             <th>Km</th>
-                            <td>{{ $courseUser->hours }}</td>
+                            <td>{{ $courseUser->calendars_sum_km }}</td>
                         </tr>
                         <tr>
                             <th colspan="2">Tổng học phí phải đóng</th>

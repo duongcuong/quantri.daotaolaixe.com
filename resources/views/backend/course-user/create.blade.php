@@ -92,15 +92,15 @@ Tạo Khoá Học - User
                                 value="{{ old('health_check_date') }}" />
                         </div>
 
-                        <div class="form-group col-md-6">
+                        {{-- <div class="form-group col-md-6">
                             <label for="hours">Giờ</label>
                             <input type="text" name="hours" id="hours" class="form-control"
                                 value="{{ old('hours', 0) }}" />
-                        </div>
-                        <div class="form-group col-md-6">
+                        </div> --}}
+                        {{-- <div class="form-group col-md-6">
                             <label for="km">Km</label>
                             <input type="text" name="km" id="km" class="form-control" value="{{ old('km', 0) }}" />
-                        </div>
+                        </div> --}}
                         <div class="form-group col-md-6">
                             <label for="exam_date">Ngày thi</label>
                             <input type="date" name="exam_date" id="exam_date" class="form-control"

@@ -32,7 +32,8 @@ class Calendar extends Model
         'km',
         'so_xe',
         'loai_thi',
-        'diem_don'
+        'diem_don',
+        'so_gio_chay_duoc'
     ];
 
     protected $casts = [
@@ -69,5 +70,27 @@ class Calendar extends Model
     public function teacher()
     {
         return $this->belongsTo(Admin::class, 'teacher_id');
+    }
+
+    public function getSoGioChayDuocAttribute($value)
+    {
+        if ($value === null) {
+            return null;
+        }
+
+        $hours = intdiv($value, 60);
+        $minutes = $value % 60;
+
+        return sprintf('%02d:%02d', $hours, $minutes);
+    }
+
+    public function setSoGioChayDuocAttribute($value)
+    {
+        if ($value === null) {
+            $this->attributes['so_gio_chay_duoc'] = null;
+        } else {
+            list($hours, $minutes) = sscanf($value, '%d:%d');
+            $this->attributes['so_gio_chay_duoc'] = $hours * 60 + $minutes;
+        }
     }
 }

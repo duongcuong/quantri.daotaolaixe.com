@@ -133,6 +133,12 @@ class UserController extends Controller
             $query->where('name', 'like', '%' . $request->name . '%');
         }
 
+        if ($request->has('created_at') && $request->created_at) {
+            $date = \Carbon\Carbon::createFromFormat('Y-m', $request->created_at);
+            $query->whereMonth('created_at', $date->month)
+                  ->whereYear('created_at', $date->year);
+        }
+
         $users = $query->paginate(LIMIT);
 
         if ($request->ajax()) {

@@ -3,7 +3,7 @@
     aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <form class="row g-3 needs-validation form-submit-ajax" method="POST"
-            action="{{ route('admins.calendars.store') }}" data-reload="#load-data-ajax-calendars">
+            action="{{ route('admins.calendars.store') }}" data-reload="#{{ request()->reload ?? 'load-data-ajax-calendars'}}">
             @csrf
             <div class="modal-content">
                 <div class="modal-header">
@@ -58,17 +58,25 @@
                                     @endforeach
                                 </div>
                             </div>
-                            <div class="row" id="row-km" style="display: none;">
-                                <div class="form-group col-md-6">
-                                    <label for="km">Km</label>
-                                    <input type="text" name="km" id="km" class="form-control"
-                                        value="{{ old('km', 0) }}" />
+                            <div class="border radius-10 p-15 mb-3" id="show-select-dat" style="display: none;">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="km">Km</label>
+                                        <input type="text" name="km" id="km" class="form-control"
+                                            value="{{ old('km', 0) }}" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="so_gio_chay_duoc">Số giờ chạy được</label>
+                                        <input type="text" name="so_gio_chay_duoc" id="so_gio_chay_duoc"
+                                            class="form-control" placeholder="HH:MM">
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-12">
                                     <label for="diem_don">Điểm đón</label>
-                                    <textarea name="diem_don" id="diem_don" class="form-control">{{ old('diem_don') }}</textarea>
+                                    <textarea name="diem_don" id="diem_don"
+                                        class="form-control">{{ old('diem_don') }}</textarea>
                                 </div>
                             </div>
                             @endif
@@ -127,7 +135,8 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="status">Trạng thái</label>
-                                    <select name="status" id="status-calendar" class="form-control status-calendar" required>
+                                    <select name="status" id="status-calendar" class="form-control status-calendar"
+                                        required>
                                         @foreach (listStatusCalendars()[request()->type] as $key => $item)
                                         <option value="{{ $key }}">{{ $item }}</option>
                                         @endforeach
@@ -135,7 +144,8 @@
                                 </div>
 
                                 @if (request()->type == 'class_schedule')
-                                <div class="form-group col-md-12 reason-cancel" id="reason-cancel" style="display: none;">
+                                <div class="form-group col-md-12 reason-cancel" id="reason-cancel"
+                                    style="display: none;">
                                     <label for="reason">Lý do huỷ ca</label>
                                     <textarea name="reason" id="reason" class="form-control"></textarea>
                                 </div>

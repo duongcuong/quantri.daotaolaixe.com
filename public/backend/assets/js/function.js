@@ -303,6 +303,7 @@ $(function () {
                 data: data,
                 success: function (response) {
                     $this.html(response);
+                    addClassTableResponsive();
                     if (typeof callback === "function") {
                         callback();
                     }
@@ -393,7 +394,7 @@ $(function () {
     });
 
     function removeAllModals() {
-        $(".modal").each(function () {
+        $(".modal:not(.no-remove)").each(function () {
             $(this).modal("hide"); // Ẩn modal
             $(this).remove(); // Xóa modal khỏi DOM
         });
@@ -418,6 +419,18 @@ $(function () {
                 console.error("Error loading create modal:", xhr);
             },
         });
+    });
+
+    $(document).on("click", ".btn-show-list-ajax", function (e) {
+        e.preventDefault();
+        removeAllModals();
+        var elmModal = $(this).attr("data-cs-modal");
+        var $elReload = $(this).attr("data-reload");
+        var $url = $(this).attr("href");
+        $($elReload).addClass("load-data-ajax");
+        $(elmModal).find(".load-data-ajax").data("url", $url);
+        loadDataAjax($elReload);
+        $(elmModal).modal("show");
     });
 
     $(document).on("click", ".btn-edit-ajax", function (e) {
@@ -556,16 +569,16 @@ $(function () {
         loadStatusCalendar();
     });
 
-    $("body").on('change', 'input[name="loai_hoc"]', function (e) {
+    $("body").on("change", 'input[name="loai_hoc"]', function (e) {
         var loai_hoc = $(this).val();
-        if (loai_hoc == 'chay_dat') {
-            $(this).closest("form").find("#row-km").show();
+        if (loai_hoc == "chay_dat") {
+            $(this).closest("form").find("#show-select-dat").show();
         } else {
-            $(this).closest("form").find("#row-km").hide();
+            $(this).closest("form").find("#show-select-dat").hide();
         }
     });
 
-    $("body").on('change', '.status-calendar', function (e) {
+    $("body").on("change", ".status-calendar", function (e) {
         let status = $(this).val();
         if (status == obj_config.status_calendar_cancel) {
             $(this).closest("form").find(".reason-cancel").show();
@@ -573,6 +586,43 @@ $(function () {
             $(this).closest("form").find(".reason-cancel").hide();
         }
     });
+
+    function addClassTableResponsive() {
+        $(".table-responsive").each(function () {
+            let tableResponsive = $(this);
+            tableResponsive.next(".scrollbar-container").remove();
+
+            // Kiểm tra nếu bảng có thanh cuộn ngang
+            if (
+                tableResponsive.get(0).scrollWidth >
+                tableResponsive.innerWidth()
+            ) {
+                // Tạo thanh cuộn ngang bên dưới
+                let scrollbarContainer = $(
+                    '<div class="scrollbar-container"><div class="scrollbar"><div class="scroll-content"></div></div></div>'
+                );
+                tableResponsive.after(scrollbarContainer);
+
+                let scrollbar = scrollbarContainer.find(".scrollbar");
+                let scrollContent = scrollbarContainer.find(".scroll-content");
+
+                // Đặt chiều rộng thanh cuộn ngang bằng với bảng
+                scrollContent.width(tableResponsive.get(0).scrollWidth);
+                scrollbarContainer.show();
+
+                // Đồng bộ cuộn ngang
+                scrollbar.on("scroll", function () {
+                    tableResponsive.scrollLeft($(this).scrollLeft());
+                });
+
+                tableResponsive.on("scroll", function () {
+                    scrollbar.scrollLeft($(this).scrollLeft());
+                });
+            }
+        });
+    }
+
+    addClassTableResponsive();
 
     // old =============
 

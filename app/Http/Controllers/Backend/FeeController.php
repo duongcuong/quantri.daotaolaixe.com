@@ -12,14 +12,12 @@ class FeeController extends Controller
 {
     public function index(Request $request)
     {
-        $course_user_id = $request->has('course_user_id') ? $request->course_user_id : '';
-        return view('backend.fees.index', compact( 'course_user_id'));
+        return view('backend.fees.index');
     }
 
     public function create(Request $request)
     {
-        $course_user_id = $request->has('course_user_id') ? $request->course_user_id : '';
-        return view('backend.fees.modals.create', compact( 'course_user_id'));
+        return view('backend.fees.modals.create');
     }
 
     public function store(Request $request)
@@ -44,8 +42,7 @@ class FeeController extends Controller
 
     public function edit(Fee $fee, Request $request)
     {
-        $course_user_id = $request->has('course_user_id') ? $request->course_user_id : '';
-        return view('backend.fees.modals.edit', compact('fee', 'course_user_id'));
+        return view('backend.fees.modals.edit', compact('fee'));
     }
 
     public function update(Request $request, Fee $fee)

@@ -21,6 +21,7 @@ use App\Http\Controllers\Backend\CalendarController;
 use App\Http\Controllers\Backend\CourseController;
 use App\Http\Controllers\Backend\CourseUserController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\ExamScheduleController;
 use App\Http\Controllers\Backend\FeeController;
 use App\Http\Controllers\Backend\LeadController;
 use App\Http\Controllers\Backend\LeadSourceController;
@@ -98,6 +99,10 @@ Route::prefix('admin')->as('admins.')->group(function () {
 
         //Log
         Route::get('activity-logs', [ActivityLogController::class, 'index'])->name('activity-logs.index');
+
+        // exam-schedules
+        Route::get('exam-schedules/data', [ExamScheduleController::class, 'data'])->name('exam-schedules.data');
+        Route::resource('exam-schedules', ExamScheduleController::class);
     });
 });
 

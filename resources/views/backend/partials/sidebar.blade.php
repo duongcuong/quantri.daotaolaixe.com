@@ -113,6 +113,11 @@
                     <a href="{{ route('admins.fees.index') }}"><i class="bx bx-star"></i>Lịch sử nạp học phí</a>
                 </li>
 
+                <li
+                    class="{{ Request::is('admin/exam-schedules/*') ? 'mm-active' : '' }}">
+                    <a href="{{ route('admins.exam-schedules.index') }}"><i class="bx bx-calendar-exclamation"></i>Lịch thi sát hạch</a>
+                </li>
+
                 {{-- @if (Auth::user()->hasPermission('admins.teachers.create')) --}}
                 {{-- <li class="{{ Request::is('admin/teachers/create') ? 'mm-active' : '' }}">
                     <a href="{{ route('admins.teachers.index') }}"><i class="bx bx-star"></i>Danh sách học viên</a>
