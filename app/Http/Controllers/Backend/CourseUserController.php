@@ -139,6 +139,10 @@ class CourseUserController extends Controller
 
     public function data(Request $request)
     {
+        // Lưu các giá trị bộ lọc vào session
+        $filters = $request->all();
+        session(['course_user_filters' => $filters]);
+
         $query = CourseUser::with('user', 'course', 'teacher', 'sale')->orderBy('id', 'desc');
 
         if ($request->has('user_id') && $request->user_id != '') {

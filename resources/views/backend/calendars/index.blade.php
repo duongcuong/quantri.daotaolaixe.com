@@ -82,7 +82,7 @@ Tất cả Lịch
             navLinks: true,
             selectable: true,
             nowIndicator: true,
-            dayMaxEvents: true,
+            // dayMaxEvents: true,
             editable: true,
             businessHours: true,
             events: [

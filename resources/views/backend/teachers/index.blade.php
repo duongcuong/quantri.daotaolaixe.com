@@ -32,7 +32,7 @@ Tất cả giáo viên
             <div class="row">
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="name" class="mr-2">Tên</label>
-                    <input type="text" id="name" name="name" class="form-control" placeholder="Nhập tên">
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Nhập tên" value="{{ session('teacher_filters.name') }}">
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="status22" class="mr-2 opacity-0">Hành động </label><br>

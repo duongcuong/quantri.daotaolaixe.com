@@ -32,11 +32,11 @@ Tất cả học viên
             <div class="row">
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="name" class="mr-2">Tên học viên</label>
-                    <input type="text" id="name" name="name" class="form-control" placeholder="Nhập tên học viên">
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Nhập tên học viên" value="{{ session('user_filters.name') }}">
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="created_at" class="mr-2">Thời gian hoạt động</label>
-                    <input type="month" id="created_at" name="created_at" class="form-control">
+                    <input type="month" id="created_at" name="created_at" value="{{ session('user_filters.created_at') }}" class="form-control">
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="status22" class="mr-2 opacity-0">Hành động </label><br>

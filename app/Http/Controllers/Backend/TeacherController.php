@@ -103,6 +103,10 @@ class TeacherController extends Controller
 
     public function data(Request $request)
     {
+        // Lưu các giá trị bộ lọc vào session
+        $filters = $request->all();
+        session(['teacher_filters' => $filters]);
+
         $query = Admin::orderBy('created_at', 'desc')->whereHas('roles', function ($query) {
             $query->where('slug', ROLE_TEACHER);
         }); // Sử dụng phân trang với 10 mục mỗi trang

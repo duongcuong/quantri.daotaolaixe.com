@@ -34,16 +34,16 @@ Tất cả Khoá học - Học Viên
             <div class="row">
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="course_id" class="mr-2">Khóa học</label>
-                    <input type="hidden" name="course_id" id="course_id_input" value="{{ request()->course_id }}">
+                    <input type="hidden" name="course_id" id="course_id_input" value="{{ request()->course_id ?? session('course_user_filters.course_id') }}">
                     <select class="select2-ajax-single form-control" id="course_id_search"
-                        data-selected-id="{{ request()->course_id }}" data-placeholder="Chọn khoá học"
+                        data-selected-id="{{ request()->course_id ?? session('course_user_filters.course_id') }}" data-placeholder="Chọn khoá học"
                         data-url="{{ route('admins.courses.list') }}">
                     </select>
 
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="course_id" class="mr-2">Giáo viên</label>
-                    <select class="select2-ajax-single form-control" name="teacher_id" data-selected-id=""
+                    <select class="select2-ajax-single form-control" name="teacher_id" data-selected-id="{{ session('course_user_filters.teacher_id') }}"
                         data-placeholder="Chọn giáo viên"
                         data-url="{{ route('admins.admins.list', ['role'=> ROLE_TEACHER]) }}">
                     </select>
@@ -56,14 +56,14 @@ Tất cả Khoá học - Học Viên
                                 <select id="contract_day" name="contract_day" class="form-control single-select"
                                     data-placeholder="Chọn ngày" data-allow-clear="true">
                                     <option value="">Chọn ngày</option>
-                                    @for ($day = 1; $day <= 31; $day++) <option value="{{ $day }}">{{ $day }}
+                                    @for ($day = 1; $day <= 31; $day++) <option value="{{ $day }}" {{ session('course_user_filters.contract_day') == $day ? 'selected' : '' }}>{{ $day }}
                                         </option>
                                         @endfor
                                 </select>
                             </div>
                             <div class="col-md-8">
                                 <input type="month" id="contract_month" name="contract_month" class="form-control"
-                                    placeholder="Chọn ngày">
+                                    placeholder="Chọn ngày" value="{{ session('course_user_filters.contract_month') }}">
                             </div>
                         </div>
                     </div>
@@ -71,7 +71,7 @@ Tất cả Khoá học - Học Viên
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="search_text" class="mr-2">Họ tên / Mã ĐK / Số CMT</label>
                     <input type="text" name="search_text" id="search_text" class="form-control"
-                        placeholder="Nhập thông tin">
+                        placeholder="Nhập thông tin" value="{{ session('course_user_filters.search_text') }}">
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="status22" class="mr-2">Trạng thái</label>
@@ -79,13 +79,13 @@ Tất cả Khoá học - Học Viên
                         data-placeholder="Chọn trạng thái" data-allow-clear="true">
                         <option value=""></option>
                         @foreach (listStatusCourseUser() as $key => $item)
-                        <option value="{{ $key }}">{{ $item }}</option>
+                        <option value="{{ $key }}" {{ session('course_user_filters.status') === "$key" ? 'selected' : '' }}>{{ $item }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="card_name" class="mr-2">ID thẻ</label>
-                    <input type="text" name="card_name" id="card_name" class="form-control" placeholder="Nhập ID thẻ">
+                    <input type="text" name="card_name" id="card_name" class="form-control" placeholder="Nhập ID thẻ" value="{{ session('course_user_filters.card_name') }}">
                 </div>
                 <div class="form-group col-md-3">
                     <label for="exam_field_id">Sân thi</label>
@@ -93,7 +93,7 @@ Tất cả Khoá học - Học Viên
                         data-placeholder="Chọn sân thi" data-allow-clear="true">
                         <option></option>
                         @foreach ($examFields as $examField)
-                        <option value="{{ $examField->id }}"> {{ $examField->name }}</option>
+                        <option value="{{ $examField->id }}" {{ session('course_user_filters.card_name') == $examField->id ? 'selected' : '' }}> {{ $examField->name }}</option>
                         @endforeach
                     </select>
                 </div>

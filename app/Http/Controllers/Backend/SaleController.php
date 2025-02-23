@@ -97,6 +97,10 @@ class SaleController extends Controller
 
     public function data(Request $request)
     {
+        // Lưu các giá trị bộ lọc vào session
+        $filters = $request->only(['name', 'created_at']);
+        session(['sale_filters' => $filters]);
+
         $query = Admin::orderBy('created_at', 'desc')->whereHas('roles', function ($query) {
             $query->where('slug', ROLE_SALE);
         }); // Sử dụng phân trang với 10 mục mỗi trang

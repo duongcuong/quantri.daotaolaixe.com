@@ -24,7 +24,7 @@ class CourseController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'code' => 'required|string|max:255|unique:courses',
-            'name' => 'required|string|max:255|unique:courses',
+            // 'name' => 'required|string|max:255|unique:courses',
             'rank' => 'nullable|string|max:255',
             'rank_gp' => 'nullable|string|max:255',
             'number_bc' => 'nullable|string|max:255',
@@ -60,7 +60,7 @@ class CourseController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'code' => 'required|string|max:255|unique:courses,code,' . $course->id,
-            'name' => 'required|string|max:255|unique:courses,name,' . $course->id,
+            // 'name' => 'required|string|max:255|unique:courses,name,' . $course->id,
             'rank' => 'nullable|string|max:255',
             'rank_gp' => 'nullable|string|max:255',
             'number_bc' => 'nullable|string|max:255',

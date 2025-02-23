@@ -26,7 +26,7 @@
                         @endif
                         <div class="col-md-6 mb-3">
                             <label for="amount">Số tiền</label>
-                            <input type="number" name="amount" id="amount" class="form-control" required value="{{ $fee->amount }}">
+                            <input type="text" name="amount" id="amount" class="form-control thousand-text" required value="{{ $fee->amount }}">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="payment_date">Ngày nạp</label>

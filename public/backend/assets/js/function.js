@@ -270,6 +270,82 @@ function deleteImage(event) {
     document.getElementById("fileInput").value = "";
 }
 
+function formatCsNumerics(input) {
+    var value = input.val();
+    var decimalPlaces = 2; // Số lượng số sau dấu thập phân
+
+    // Loại bỏ tất cả các ký tự không phải số hoặc dấu chấm
+    value = value.replace(/[^0-9.]/g, "");
+
+    // Đảm bảo chỉ có một dấu chấm
+    var parts = value.split(".");
+    if (parts.length > 2) {
+        value = parts[0] + "." + parts.slice(1).join("");
+    }
+
+    // Giới hạn số lượng số sau dấu thập phân
+    if (parts.length > 1 && parts[1].length > decimalPlaces) {
+        parts[1] = parts[1].substring(0, decimalPlaces);
+        value = parts.join(".");
+    }
+
+    // Định dạng hàng ngàn
+    var integerPart = parts[0];
+    var decimalPart = parts.length > 1 ? "." + parts[1] : "";
+    integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+    var formattedValue = integerPart + decimalPart;
+    input.val(formattedValue);
+
+    // Cập nhật giá trị cho input ẩn
+    var hiddenInput = input.siblings('input[type="hidden"]');
+    hiddenInput.val(value.replace(/,/g, ""));
+    return formattedValue;
+}
+
+function formatCsThousands(input) {
+    var value = input.val();
+
+    // Loại bỏ tất cả các ký tự không phải số
+    value = value.replace(/[^0-9]/g, "");
+
+    // Định dạng hàng ngàn
+    value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+    input.val(value);
+
+    // Cập nhật giá trị cho input ẩn
+    var hiddenInput = input.siblings('input[type="hidden"]');
+    hiddenInput.val(value.replace(/,/g, ""));
+    return value;
+}
+
+function resetNumericText() {
+    jQuery(".numeric-text, .thousand-text").each(function () {
+        var input = jQuery(this);
+        var name = input.attr("name");
+        var value = input.val();
+        input.siblings('input[type="hidden"]').remove();
+
+        // Nếu input có giá trị, tiến hành định dạng tương ứng
+        if (value) {
+            if (input.hasClass('numeric-text')) {
+                value = formatCsNumerics(input);
+            } else if (input.hasClass('thousand-text')) {
+                value = formatCsThousands(input);
+            }
+            input.val(value);
+        }
+
+        // Tạo input ẩn và cập nhật giá trị đã định dạng
+        input.removeAttr('name');
+        input.attr('data-name', name);
+        input.after('<input type="hidden" name="' + name + '" value="' + value.replace(/,/g, '') + '">');
+    });
+}
+
+resetNumericText();
+
 $(function () {
     function initializeSelect2() {
         $(".single-select").each(function () {
@@ -414,6 +490,7 @@ $(function () {
                 $(elmModal).modal("show");
                 initializeSelect2();
                 resetSelectAjax();
+                resetNumericText();
             },
             error: function (xhr) {
                 console.error("Error loading create modal:", xhr);
@@ -447,6 +524,7 @@ $(function () {
                 $(elmModal).modal("show");
                 initializeSelect2();
                 resetSelectAjax();
+                resetNumericText();
             },
             error: function (xhr) {
                 console.error("Error loading edit modal:", xhr);
@@ -624,241 +702,15 @@ $(function () {
 
     addClassTableResponsive();
 
-    // old =============
-
-    resetPickadate();
     resetSelectAjax();
 
-    applyDateRangePicker();
-
-    function resetMaxDate(_this) {
-        let oestrous_day = _this
-            .parents("form")
-            .find('input[name="oestrous_day"]');
-        let breeding_date_first = _this
-            .parents("form")
-            .find('input[name="breeding_date_first"]');
-        let breeding_date_second = _this
-            .parents("form")
-            .find('input[name="breeding_date_second"]');
-        let expected_pregnancy_day = _this
-            .parents("form")
-            .find('input[name="expected_pregnancy_day"]');
-        let pregnancy_day = _this
-            .parents("form")
-            .find('input[name="pregnancy_day"]');
-        let expected_birth_date = _this
-            .parents("form")
-            .find('input[name="expected_birth_date"]');
-
-        let oestrous_day_val = convertDateVnToEn(oestrous_day.val());
-        let breeding_date_first_val = convertDateVnToEn(
-            breeding_date_first.val()
-        );
-        let breeding_date_second_val = convertDateVnToEn(
-            breeding_date_second.val()
-        );
-        let expected_pregnancy_day_val = convertDateVnToEn(
-            expected_pregnancy_day.val()
-        );
-        let expected_birth_date_val = convertDateVnToEn(
-            expected_birth_date.val()
-        );
-        let pregnancy_day_val = convertDateVnToEn(pregnancy_day.val());
-
-        if (oestrous_day_val) {
-            breeding_date_first.attr("min", oestrous_day_val);
-            breeding_date_second.attr("min", oestrous_day_val);
-            expected_pregnancy_day.attr("min", oestrous_day_val);
-            pregnancy_day.attr("min", oestrous_day_val);
-            expected_birth_date.attr("min", oestrous_day_val);
-
-            breeding_date_second.attr("min", breeding_date_first_val);
-            breeding_date_second.attr("max", expected_pregnancy_day_val);
-
-            expected_pregnancy_day.attr(
-                "min",
-                breeding_date_second_val
-                    ? breeding_date_second_val
-                    : breeding_date_first_val
-            );
-            expected_pregnancy_day.attr("max", expected_birth_date_val);
-
-            pregnancy_day.attr(
-                "min",
-                breeding_date_second_val
-                    ? breeding_date_second_val
-                    : breeding_date_first_val
-            );
-            pregnancy_day.attr("max", expected_birth_date_val);
-
-            expected_birth_date.attr("min", pregnancy_day_val);
-            expected_birth_date.attr("max", pregnancy_day_val);
-        }
-
-        if (breeding_date_first_val) {
-            breeding_date_second.attr("min", breeding_date_first_val);
-            expected_pregnancy_day.attr("min", breeding_date_first_val);
-            expected_birth_date.attr("min", breeding_date_first_val);
-        }
-
-        if (breeding_date_second_val) {
-            expected_pregnancy_day.attr("min", breeding_date_second_val);
-            expected_birth_date.attr("min", breeding_date_second_val);
-        }
-
-        if (expected_pregnancy_day_val) {
-            expected_birth_date.attr("min", expected_pregnancy_day_val);
-        }
-
-        if (
-            new Date(breeding_date_first_val) >=
-            new Date(breeding_date_first_val)
-        )
-            resetPickadate();
-    }
-
-    //change date pickadater
-    $(document).on("change", 'input[name="oestrous_day"]', function (e) {
-        let oestrousDay = $(this).val();
-        $(this)
-            .parents("form")
-            .find('input[name="breeding_date_first"]')
-            .val(caculatorDayByDate(oestrousDay, 5));
-        $(this)
-            .parents("form")
-            .find('input[name="breeding_date_second"]')
-            .val(caculatorDayByDate(oestrousDay, 5));
-        $(this)
-            .parents("form")
-            .find('input[name="expected_pregnancy_day"]')
-            .val(
-                caculatorDayByDate(
-                    $(this)
-                        .parents("form")
-                        .find('input[name="breeding_date_first"]')
-                        .val(),
-                    20
-                )
-            );
-        $(this)
-            .parents("form")
-            .find('input[name="expected_birth_date"]')
-            .val(
-                caculatorDayByDate(
-                    $(this)
-                        .parents("form")
-                        .find('input[name="expected_pregnancy_day"]')
-                        .val(),
-                    114
-                )
-            );
-
-        resetMaxDate($(this));
+    $("body").on("input", '.numeric-text', function (e) {
+        var input = $(this);
+        formatCsNumerics(input);
     });
 
-    // change breeding date first
-    $(document).on("change", 'input[name="breeding_date_first"]', function (e) {
-        $(this)
-            .parents("form")
-            .find('input[name="expected_pregnancy_day"]')
-            .val(
-                caculatorDayByDate(
-                    $(this)
-                        .parents("form")
-                        .find('input[name="breeding_date_first"]')
-                        .val(),
-                    20
-                )
-            );
-        $(this)
-            .parents("form")
-            .find('input[name="expected_birth_date"]')
-            .val(
-                caculatorDayByDate(
-                    $(this)
-                        .parents("form")
-                        .find('input[name="expected_pregnancy_day"]')
-                        .val(),
-                    114
-                )
-            );
-
-        resetMaxDate($(this));
-    });
-
-    // change breeding date first
-    $(document).on(
-        "change",
-        'input[name="expected_pregnancy_day"]',
-        function (e) {
-            $(this)
-                .parents("form")
-                .find('input[name="expected_birth_date"]')
-                .val(
-                    caculatorDayByDate(
-                        $(this)
-                            .parents("form")
-                            .find('input[name="expected_pregnancy_day"]')
-                            .val(),
-                        114
-                    )
-                );
-
-            resetMaxDate($(this));
-        }
-    );
-
-    // change breeding date first
-    $(document).on("change", 'input[name="birthday"]', function (e) {
-        $(this)
-            .parents("form")
-            .find('input[name="weaning_date"]')
-            .val(
-                caculatorDayByDate(
-                    $(this)
-                        .parents("form")
-                        .find('input[name="birthday"]')
-                        .val(),
-                    28
-                )
-            );
-
-        resetMaxDate($(this));
-    });
-
-    $(document).on("click", 'button[type="reset"]', function (e) {
-        $(this)
-            .parents("form")
-            .find(".single-select")
-            .val(null)
-            .trigger("change");
-        $(this)
-            .parents("form")
-            .find(".select2-ajax-single")
-            .val(null)
-            .trigger("change");
-    });
-
-    $(document).on("change", ".datepicker-from", function (e) {
-        let fromDate = $(this).val();
-        let toDate = $(this).parents("tr").find(".datepicker-to").val();
-
-        if (
-            toDate &&
-            new Date(convertDateVnToEn(fromDate)) >
-                new Date(convertDateVnToEn(toDate))
-        ) {
-            $(this).parents("tr").find(".datepicker-to").val("");
-        }
-
-        if (fromDate) {
-            let newA = $(this)
-                .parents("tr")
-                .find(".datepicker-to")
-                .pickadate({ format: "dd/mm/yyyy" })
-                .pickadate("picker");
-            newA.set("min", fromDate);
-        }
+    $("body").on("input", '.thousand-text', function (e) {
+        var input = $(this);
+        formatCsThousands(input);
     });
 });

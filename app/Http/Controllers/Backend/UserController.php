@@ -127,6 +127,10 @@ class UserController extends Controller
 
     public function data(Request $request)
     {
+        // Lưu các giá trị bộ lọc vào session
+        $filters = $request->only(['name', 'created_at']);
+        session(['user_filters' => $filters]);
+
         $query = User::orderBy('created_at', 'desc'); // Sử dụng phân trang với 10 mục mỗi trang
 
         if ($request->has('name') && $request->name) {
@@ -136,7 +140,7 @@ class UserController extends Controller
         if ($request->has('created_at') && $request->created_at) {
             $date = \Carbon\Carbon::createFromFormat('Y-m', $request->created_at);
             $query->whereMonth('created_at', $date->month)
-                  ->whereYear('created_at', $date->year);
+                ->whereYear('created_at', $date->year);
         }
 
         $users = $query->paginate(LIMIT);
