@@ -713,4 +713,73 @@ $(function () {
         var input = $(this);
         formatCsThousands(input);
     });
+
+    $("body").on("click", '.btn-outline-danger', function (e) {
+        $('#modal-leads-convert-ajax').modal('show');
+    });
+
+    $("body").on("change", '.select-option-type-user-lead', function (e) {
+        $('.box-lead-exist-user').hide();
+        $('.box-lead-not-user').hide();
+        if ($(this).val() == 1) {
+            $('.box-lead-exist-user').show();
+        } else {
+            $('.box-lead-not-user').show();
+        }
+    });
+
+    $("body").on("change", '.select-option-type-course-lead', function (e) {
+        $('.box-lead-exist-course').hide();
+        $('.box-lead-not-course').hide();
+        if ($(this).val() == 1) {
+            $('.box-lead-exist-course').show();
+        } else {
+            $('.box-lead-not-course').show();
+        }
+    });
+
+    $(document).on("submit", ".form-submit-ajax-convert-lead", function (e) {
+        e.preventDefault();
+        var $form = $(this);
+        var url = $form.attr("action");
+        var method = $form.attr("method");
+        var data = $form.serialize();
+
+        $.ajax({
+            url: url,
+            method: method,
+            data: data,
+            success: function (response) {
+                if (response.success) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Thành công",
+                        text: response.success,
+                        timer: 2000,
+                        showConfirmButton: false,
+                    });
+                    $form[0].reset();
+                    $form.closest(".modal").modal("hide");
+
+                }
+            },
+            error: function (xhr) {
+                var errors = xhr.responseJSON.errors;
+                var errorMessages = "";
+                $.each(errors, function (key, value) {
+                    errorMessages += "<li>" + value[0] + "</li>";
+                });
+                Swal.fire({
+                    icon: "error",
+                    title: "Lỗi",
+                    html:
+                        '<ul class="cs-errors alert alert-danger">' +
+                        errorMessages +
+                        "</ul>",
+                    showConfirmButton: false,
+                });
+            },
+        });
+    });
+
 });

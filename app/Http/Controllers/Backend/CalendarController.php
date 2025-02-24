@@ -145,6 +145,10 @@ class CalendarController extends Controller
             $query->where('course_user_id', $request->course_user_id);
         }
 
+        if ($request->has('lead_id') && $request->lead_id) {
+            $query->where('lead_id', $request->lead_id);
+        }
+
         $calendars = $query->with(['admin', 'user', 'courseUser', 'lead'])->orderBy('id', 'desc')->paginate(LIMIT);
 
         if ($request->ajax()) {

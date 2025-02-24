@@ -5,6 +5,10 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
     <thead>
         <tr>
             <th>STT</th>
+            @if (!request()->has('show_column') || in_array('type', $columns))
+            <th>Loại</th>
+            @endif
+
             @if (!request()->has('show_column') || in_array('name', $columns))
             <th>Tên sự kiện</th>
             @endif
@@ -96,6 +100,10 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
         <tr>
             <td>{{ $loop->iteration }}</td>
             {{-- <td>{!! getTypeCalendar($calendar->type) !!}</td> --}}
+
+            @if (!request()->has('show_column') || in_array('type', $columns))
+            <td>{!! getTypeCalendar($calendar->type) !!}</td>
+            @endif
 
             @if (!request()->has('show_column') || in_array('name', $columns))
             <td>{{ $calendar->name }}</td>

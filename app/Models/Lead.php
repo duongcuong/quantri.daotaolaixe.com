@@ -12,6 +12,7 @@ class Lead extends Model
     protected $fillable = [
         'user_id',
         'lead_source_id',
+        'course_user_id',
         'interest_level',
         'status',
         'assigned_to',
@@ -40,5 +41,10 @@ class Lead extends Model
     public function leadSource()
     {
         return $this->belongsTo(LeadSource::class);
+    }
+
+    public function courseUser()
+    {
+        return $this->belongsTo(CourseUser::class);
     }
 }

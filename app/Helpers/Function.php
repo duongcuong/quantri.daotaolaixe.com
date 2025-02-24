@@ -444,7 +444,7 @@ function listPriorities()
 {
     return [
         'Low' => 'Thấp',
-        'Medium' => 'Trung bình',
+        'Normal' => 'Trung bình',
         'High' => 'Cao',
         'Urgent' => 'Khẩn cấp',
     ];
@@ -460,7 +460,7 @@ function getPriority($priority)
         case 'High':
             return '<span class="badge badge-warning">' . $priorities[$priority] . '</span>';
             break;
-        case 'Medium':
+        case 'Normal':
             return '<span class="badge badge-info">' . $priorities[$priority] . '</span>';
             break;
         default:

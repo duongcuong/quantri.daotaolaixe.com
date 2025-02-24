@@ -88,6 +88,7 @@ Route::prefix('admin')->as('admins.')->group(function () {
         // Lead
         Route::get('leads/data', [LeadController::class, 'data'])->name('leads.data');
         Route::get('leads/list', [LeadController::class, 'list'])->name('leads.list');
+        Route::post('leads/convert_list', [LeadController::class, 'convert_list'])->name('leads.convert_list');
         Route::resource('leads', LeadController::class);
 
         //Activiti

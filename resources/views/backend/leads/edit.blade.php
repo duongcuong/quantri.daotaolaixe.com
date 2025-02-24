@@ -19,6 +19,8 @@ Sửa lead
         </div>
     </div>
     <div class="ml-auto">
+        <a class="btn btn-outline-danger btn-sm mr-2 btn-convert-course-user" href="javascript:;" data-toggle="tooltip"
+            title="Chuyển sang Học Viên - Khoá học"><i class="bx bx-street-view mr-1"></i>Chuyển sang HV - KH</a>
         {{-- @if (Auth::user()->hasPermission('admins.leads.index')) --}}
         <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.leads.index') }}" data-toggle="tooltip"
             title="Quay về trang quản lý lead &#9194;"><i class="bx bx-rewind"></i>Quay lại</a>
@@ -65,7 +67,7 @@ Sửa lead
                         </div>
                         <div class="form-group col-md-6">
                             <label for="lead_source_id" class="d-flex justify-content-between">
-                                <span>Sân thi</span>
+                                <span>Nguồn</span>
                                 <a class="btn-create-ajax"
                                     href="{{ route('admins.lead-sources.create') }}"
                                     data-cs-modal="#modal-lead-sources-create-ajax" title="Thêm mới"><i
@@ -111,6 +113,8 @@ Sửa lead
         </div>
     </div>
 </form>
+@include('backend.leads.partials.calendars')
+@include('backend.leads.modals.convert_lead')
 @endsection
 @push('js')
 @endpush
