@@ -133,19 +133,59 @@ class LeadController extends Controller
         return view('backend.leads.index', compact('leads'));
     }
 
-    function convert_list(Request $request)
+    public function convert_list(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'select_lead_user_type' => 'required|in:1,2',
             'select_lead_course_type' => 'required|in:1,2',
             'users.user_id' => 'required_if:select_lead_user_type,1|exists:users,id',
-            'users.name' => 'required_if:select_lead_user_type,2|string|max:255',
-            'users.email' => 'required_if:select_lead_user_type,2|email|max:255|unique:users,email',
-            'users.phone' => 'required_if:select_lead_user_type,2|string|max:20',
             'courses.course_id' => 'required_if:select_lead_course_type,1|exists:courses,id',
-            'courses.code' => 'required_if:select_lead_course_type,2|string|max:255|unique:courses,code',
-            'courses.rank' => 'required_if:select_lead_course_type,2|string|max:255',
         ]);
+
+        // Kiểm tra xem lead_id đã có course_user_id chưa
+        $lead_id = $request->input('lead_id');
+        $lead = Lead::find($lead_id);
+        if ($lead && $lead->course_user_id) {
+            $validator->errors()->add('lead_id', 'Lead này đã có khóa học và không được thêm nữa.');
+        }
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        // Thêm các quy tắc xác thực có điều kiện
+        $validator->sometimes('users.name', 'required|string|max:255', function ($input) {
+            return $input->select_lead_user_type == 2;
+        });
+
+        $validator->sometimes('users.email', 'required|email|max:255|unique:users,email', function ($input) {
+            return $input->select_lead_user_type == 2;
+        });
+
+        $validator->sometimes('users.phone', 'required|string|max:20', function ($input) {
+            return $input->select_lead_user_type == 2;
+        });
+
+        $validator->sometimes('courses.code', 'required|string|max:255|unique:courses,code', function ($input) {
+            return $input->select_lead_course_type == 2;
+        });
+
+        $validator->sometimes('courses.rank', 'required|string|max:255', function ($input) {
+            return $input->select_lead_course_type == 2;
+        });
+
+        // Kiểm tra cặp user_id và course_id đã tồn tại trong hệ thống chưa
+        $validator->after(function ($validator) use ($request) {
+            if ($request->select_lead_user_type == 1 && $request->select_lead_course_type == 1) {
+                $user_id = $request->input('users.user_id');
+                $course_id = $request->input('courses.course_id');
+                $exists = CourseUser::where('user_id', $user_id)
+                    ->where('course_id', $course_id)
+                    ->exists();
+                if ($exists) {
+                    $validator->errors()->add('users.user_id', 'Cặp học viên và khóa học đã tồn tại trong hệ thống.');
+                }
+            }
+        });
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
@@ -173,17 +213,21 @@ class LeadController extends Controller
             }
 
             // Tạo bản ghi trong bảng course_users
-            CourseUser::create([
+            $courseUser = CourseUser::create([
                 'user_id' => $user_id,
                 'course_id' => $course_id,
             ]);
+
+            // Cập nhật course_user_id cho lead
+            $lead->course_user_id = $courseUser->id;
+            $lead->save();
 
             DB::commit();
 
             return response()->json(['success' => 'Chuyển đổi thành công.']);
         } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json(['error' => 'Đã xảy ra lỗi trong quá trình chuyển đổi.'], 500);
+            return response()->json(['errors' => $e->getMessage()], 500);
         }
     }
 }

@@ -753,13 +753,16 @@ $(function () {
                 if (response.success) {
                     Swal.fire({
                         icon: "success",
-                        title: "Thành công",
+                        title: "Chuyển đổi thành công",
                         text: response.success,
                         timer: 2000,
                         showConfirmButton: false,
                     });
                     $form[0].reset();
                     $form.closest(".modal").modal("hide");
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 2000)
 
                 }
             },

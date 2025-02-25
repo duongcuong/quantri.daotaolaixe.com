@@ -34,9 +34,9 @@ Tạo lead
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label for="user_id">Chọn học viên(Nếu có)</label>
-                            <select class="select2-ajax-single form-control" name="user_id" data-selected-id="{{ old('user_id') }}"
-                                data-placeholder="Chọn học viên" data-url="{{ route('admins.users.list') }}"
-                                id="change-hoc-vien" >
+                            <select class="select2-ajax-single form-control" name="user_id"
+                                data-selected-id="{{ old('user_id') }}" data-placeholder="Chọn học viên"
+                                data-url="{{ route('admins.users.list') }}" id="change-hoc-vien">
                             </select>
                         </div>
                         <div class="form-group col-md-6">
@@ -65,13 +65,13 @@ Tạo lead
                         <div class="form-group col-md-6">
                             <label for="lead_source_id" class="d-flex justify-content-between">
                                 <span>Nguồn</span>
-                                <a class="btn-create-ajax"
-                                    href="{{ route('admins.lead-sources.create') }}"
+                                <a class="btn-create-ajax" href="{{ route('admins.lead-sources.create') }}"
                                     data-cs-modal="#modal-lead-sources-create-ajax" title="Thêm mới"><i
                                         class="bx bx-plus"></i>Thêm nguồn</a>
                             </label>
-                            <select class="select2-ajax-single form-control" name="lead_source_id" data-selected-id="{{ old('lead_source_id') }}"
-                                data-placeholder="Chọn nguồn" data-url="{{ route('admins.lead-sources.list') }}">
+                            <select class="select2-ajax-single form-control" name="lead_source_id"
+                                data-selected-id="{{ old('lead_source_id') }}" data-placeholder="Chọn nguồn"
+                                data-url="{{ route('admins.lead-sources.list') }}">
                             </select>
                         </div>
 
@@ -81,6 +81,16 @@ Tạo lead
                                 @foreach (listLevels() as $key => $item)
                                 <option value="{{ $key }}" {{ old('interest_level')==$key ? 'selected' : '' }}>{{ $item
                                     }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="description">Trạng thái</label>
+                            <select name="status" id="" class="form-control">
+                                @foreach (listStatusLeads() as $key => $value)
+                                <option value="{{ $key }}">{{ $value }}
+                                </option>
                                 @endforeach
                             </select>
                         </div>
@@ -99,10 +109,9 @@ Tạo lead
                 <div class="card-body">
                     <div class="form-group">
                         <label for="assigned_to">Người phụ trách</label>
-                        <select class="select2-ajax-single form-control" name="assigned_to" data-selected-id="{{ old('assigned_to') }}"
-                            data-placeholder="Chọn người phụ trách"
-                            data-url="{{ route('admins.admins.list', ['role'=> ROLE_SALES]) }}"
-                            >
+                        <select class="select2-ajax-single form-control" name="assigned_to"
+                            data-selected-id="{{ old('assigned_to') }}" data-placeholder="Chọn người phụ trách"
+                            data-url="{{ route('admins.admins.list', ['role'=> ROLE_SALES]) }}">
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary"><i class="bx bxs-save mr-1"></i>Lưu</button>

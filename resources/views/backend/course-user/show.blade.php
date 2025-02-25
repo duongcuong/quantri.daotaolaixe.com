@@ -73,11 +73,11 @@ Xem chi tiết {{ $courseUser->user->name }} - {{ $courseUser->course->code }}
                         </tr>
                         <tr>
                             <th colspan="2">Giáo viên</th>
-                            <td>{{ $courseUser->teacher->name }}</td>
+                            <td>{{ $courseUser->teacher->name ?? '' }}</td>
                         </tr>
                         <tr>
                             <th colspan="2">Nhân viên Sale</th>
-                            <td>{{ $courseUser->sale->name }}</td>
+                            <td>{{ $courseUser->sale->name ?? '' }}</td>
                         </tr>
                         <tr>
                             <th colspan="2">Ngày khai giảng</th>

@@ -8,6 +8,8 @@
             <th>SĐT</th>
             <th>Nguồn</th>
             <th>Mức độ quan tâm</th>
+            <th>Trạng thái</th>
+            <th>HV-KH</th>
             {{-- <th>Trạng thái</th> --}}
             <th class="fixed-column text-center" rowspan="2">Hành động</th>
         </tr>
@@ -22,6 +24,14 @@
             <td>{{ $lead->phone }}</td>
             <td>{{ optional($lead->leadSource)->name ?? 'N/A' }}</td>
             <td>{!! getLevel($lead->interest_level) !!}</td>
+            <td>{!! getStatusLead($lead->status) !!}</td>
+            <td>
+                @if ($lead->course_user_id)
+                <a class="btn btn-success btn-sm mr-2 btn-convert-course-user"
+                    href="{{ route('admins.course-user.show', $lead->course_user_id) }}" data-toggle="tooltip"
+                    title="Xem Học Viên - Khoá học"><i class="bx bx-user-check mr-1"></i></a>
+                @endif
+            </td>
             {{-- <td>{{ ucfirst($lead->status) }}</td> --}}
             <td class="fixed-column text-center">
                 <a href="{{ route('admins.leads.show', $lead->id) }}" class="btn btn-primary btn-sm mr-1">

@@ -567,3 +567,40 @@ function getFormattedSoGioChayDuocAttribute($value)
     $minutes = $totalMinutes % 60;
     return sprintf('%02d:%02d', $hours, $minutes);
 }
+
+function listStatusLeads()
+{
+    return [
+        'new' => 'Mới',
+        'contacted' => 'Đã liên hệ',
+        'qualified' => 'Đã chuyển đổi',
+        'lost' => 'Mất',
+        'closed' => 'Đã đóng',
+    ];
+}
+
+function getStatusLead($status)
+{
+    if (!$status) return '';
+    $statuses = listStatusLeads();
+    switch ($status) {
+        case 'new':
+            return '<span class="badge badge-primary">' . $statuses[$status] . '</span>';
+            break;
+        case 'contacted':
+            return '<span class="badge badge-info">' . $statuses[$status] . '</span>';
+            break;
+        case 'qualified':
+            return '<span class="badge badge-success">' . $statuses[$status] . '</span>';
+            break;
+        case 'lost':
+            return '<span class="badge badge-danger">' . $statuses[$status] . '</span>';
+            break;
+        case 'closed':
+            return '<span class="badge badge-secondary">' . $statuses[$status] . '</span>';
+            break;
+        default:
+            return '';
+            break;
+    }
+}

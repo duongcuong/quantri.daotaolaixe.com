@@ -48,7 +48,7 @@
             </td>
             <td>{{ $courseUser->course->code }}</td>
             <td>{{ $courseUser->course->rank }}</td>
-            <td>{{ $courseUser->user->name }}</td>
+            <td>{{ $courseUser->user->name ?? '' }}</td>
             <td>{{ getDateTimeStamp($courseUser->contract_date, 'd/m/Y') }}</td>
             <td>{{ \Carbon\Carbon::parse($courseUser->user->dob)->format('d/m/Y') }}</td>
             <td>{{ $courseUser->user->gender == 0 ? 'Nam' : ($courseUser->user->gender == 1 ? 'Nữ' : 'Khác')
@@ -57,7 +57,7 @@
             <td>{{ $courseUser->user->card_name }}</td>
             <td>{{ $courseUser->user->card_number }}</td>
 
-            <td>{{ $courseUser->teacher->name }}</td>
+            <td>{{ $courseUser->teacher->name ?? '' }}</td>
 
             <td>{{ getDateTimeStamp($courseUser->ngay_khai_giang, 'd/m/Y') }}</td>
             <td>{{ getDateTimeStamp($courseUser->ngay_be_giang, 'd/m/Y') }}</td>
