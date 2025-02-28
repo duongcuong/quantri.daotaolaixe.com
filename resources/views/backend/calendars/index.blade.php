@@ -39,7 +39,7 @@ Tất cả Lịch
     </div>
 </div>
 
-<div class="card radius-15">
+{{-- <div class="card radius-15">
     <div class="card-body">
         <div class="table-responsive mt-1 mb-1 load-data-ajax" data-url="{{ route('admins.calendars.data') }}"
             id="load-data-ajax-calendars" data-search="#search-form-calendars">
@@ -48,7 +48,7 @@ Tất cả Lịch
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 @endsection
 @push('js')
 <script>

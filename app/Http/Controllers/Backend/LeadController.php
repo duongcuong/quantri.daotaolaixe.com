@@ -199,6 +199,7 @@ class LeadController extends Controller
                 $user_id = $request->input('users.user_id');
             } else {
                 $userData = $request->input('users');
+                $userData['password'] = bcrypt('123456');
                 $user = User::create($userData);
                 $user_id = $user->id;
             }

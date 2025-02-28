@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
@@ -17,6 +18,9 @@ class NotificationController extends Controller
         switch ($notification->type) {
             case 'App\Notifications\TuitionFeeReminder':
                 return redirect()->route('admins.course-user.show', $notification->data['course_user_id']);
+                break;
+            case 'App\Notifications\DailyNotification':
+                return redirect()->route('admins.calendars.index');
                 break;
         }
 
@@ -38,7 +42,14 @@ class NotificationController extends Controller
                     $icon = 'bx bx-money';
                     $name = $data["message"];
                     $date = $notification->created_at->diffForHumans();
-                    $info = 'Học viên: ' . $data["courseUserName"] . ' - Học phí thiếu: ' . '<strong class="text-danger">'.getMoney($data["remainingFee"]).'</strong>';
+                    $info = 'Học viên: ' . $data["courseUserName"] . ' - Học phí thiếu: ' . '<strong class="text-danger">' . getMoney($data["remainingFee"]) . '</strong>';
+                    $link = route('admins.notifications.read', $notification->id);
+                    break;
+                case 'App\Notifications\DailyNotification':
+                    $icon = 'bx bx-calendar';
+                    $name = $data["message"];
+                    $date = $notification->created_at->diffForHumans();
+                    $info = 'Bạn có <strong class="text-danger"> ' . count($data["calendars"]) . ' </strong> lịch làm việc trong ngày';
                     $link = route('admins.notifications.read', $notification->id);
                     break;
                 default:
@@ -48,13 +59,13 @@ class NotificationController extends Controller
 
 
             $html .= '
-                <a class="dropdown-item '.$unreadClass.'" href="'.$link.'">
+                <a class="dropdown-item ' . $unreadClass . '" href="' . $link . '">
                     <div class="media align-items-center">
-                        <div class="notify bg-light-mehandi text-mehandi"><i class="'.$icon.'"></i>
+                        <div class="notify bg-light-mehandi text-mehandi"><i class="' . $icon . '"></i>
                         </div>
                         <div class="media-body">
-                            <h6 class="msg-name">'.$name.' <span class="msg-time float-right">'.$date.'</span></h6>
-                            <p class="msg-info">'.$info.'</p>
+                            <h6 class="msg-name">' . $name . ' <span class="msg-time float-right">' . $date . '</span></h6>
+                            <p class="msg-info">' . $info . '</p>
                         </div>
                     </div>
                 </a>
