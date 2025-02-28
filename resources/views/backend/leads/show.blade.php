@@ -18,6 +18,20 @@ Xem chi tiết {{ $lead->name }}
             </nav>
         </div>
     </div>
+    <div class="ml-auto">
+        @if($lead->course_user_id)
+        <a class="btn btn-success btn-sm mr-2 btn-convert-course-user"
+            href="{{ route('admins.course-user.show', $lead->course_user_id) }}" data-toggle="tooltip"
+            title="Xem Học Viên - Khoá học"><i class="bx bx-user-check mr-1"></i>Xem Học viên - Khoá học</a>
+        @else
+        <a class="btn btn-outline-danger btn-sm mr-2 btn-convert-course-user" href="javascript:;" data-toggle="tooltip"
+            title="Chuyển sang Học Viên - Khoá học"><i class="bx bx-street-view mr-1"></i>Chuyển sang HV - KH</a>
+        @endif
+        {{-- @if (Auth::user()->hasPermission('admins.leads.index')) --}}
+        <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.leads.index') }}" data-toggle="tooltip"
+            title="Quay về trang quản lý lead &#9194;"><i class="bx bx-rewind"></i>Quay lại</a>
+        {{-- @endif --}}
+    </div>
 </div>
 
 <div class="container-fluid p-0">
