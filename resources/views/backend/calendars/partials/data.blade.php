@@ -182,7 +182,7 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             @endif
 
             @if (!request()->has('show_column') || in_array('health_check_date', $columns))
-            <td>{!! getDateTimeStamp($calendar->courseUser->health_check_date, 'd/m/Y') !!}</td>
+            <td>{!! getDateTimeStamp($calendar->courseUser->health_check_date, 'd/m/Y') ?? "" !!}</td>
             @endif
 
             @if (!request()->has('show_column') || in_array('loai_hoc', $columns))
