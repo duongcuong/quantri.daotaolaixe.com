@@ -182,7 +182,7 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             @endif
 
             @if (!request()->has('show_column') || in_array('health_check_date', $columns))
-            <td><?php print_r($calendar->courseUser) ?></td>
+            <td>{{ $calendar->courseUser->health_check_date }}</td>
             @endif
 
             @if (!request()->has('show_column') || in_array('loai_hoc', $columns))
