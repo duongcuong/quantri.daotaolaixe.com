@@ -191,7 +191,7 @@
                             </div>
                             @endif
 
-                            @if (request()->type == 'class_schedule')
+                            @if ($calendar->type == 'class_schedule')
                             <div class="form-group">
                                 <label for="teacher_id">Giáo viên</label>
                                 <select class="select2-ajax-single form-control" name="teacher_id"
@@ -202,7 +202,7 @@
                             </div>
                             @endif
 
-                            @if ($calendar->type == 'class_schedule')
+                            {{-- @if ($calendar->type == 'class_schedule')
                             <div class="form-group">
                                 <label for="user_id">Học viên</label>
                                 <select class="select2-ajax-single form-control" name="user_id"
@@ -210,7 +210,7 @@
                                     data-selected-id="{{ old('user_id', $calendar->user_id) }}">
                                 </select>
                             </div>
-                            @endif
+                            @endif --}}
 
                             @if ($calendar->type == 'class_schedule' || $calendar->type == 'exam_schedule')
                             <div class="form-group">

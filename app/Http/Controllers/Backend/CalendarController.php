@@ -145,8 +145,18 @@ class CalendarController extends Controller
             $query->where('course_user_id', $request->course_user_id);
         }
 
+        if ($request->has('user_id') && $request->user_id) {
+            $query->whereHas('courseUser', function ($q) use ($request) {
+                $q->where('user_id', $request->user_id);
+            });
+        }
+
         if ($request->has('lead_id') && $request->lead_id) {
             $query->where('lead_id', $request->lead_id);
+        }
+
+        if ($request->has('teacher_id') && $request->teacher_id) {
+            $query->where('teacher_id', $request->teacher_id);
         }
 
         $calendars = $query->with(['admin', 'user', 'courseUser', 'lead'])->orderBy('id', 'desc')->paginate(LIMIT);
@@ -156,5 +166,9 @@ class CalendarController extends Controller
         }
 
         return view('backend.calendars.index', compact('calendars'));
+    }
+
+    public function learning(){
+        return view('backend.calendars.learning');
     }
 }

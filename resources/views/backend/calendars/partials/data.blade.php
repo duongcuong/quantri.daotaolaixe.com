@@ -33,6 +33,10 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <th>Học viên</th>
             @endif
 
+            @if (!request()->has('show_column') || in_array('teacher_id', $columns))
+            <th>Giáo viên</th>
+            @endif
+
             @if (!request()->has('show_column') || in_array('dob', $columns))
             <th>Ngày sinh</th>
             @endif
@@ -81,10 +85,6 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <th>Người phụ trách</th>
             @endif
 
-            @if (!request()->has('show_column') || in_array('teacher_id', $columns))
-            <th>Giáo viên</th>
-            @endif
-
             @if (!request()->has('show_column') || in_array('course_user_id', $columns))
             <th>Học viên - Khóa học</th>
             @endif
@@ -127,6 +127,10 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
 
             @if (!request()->has('show_column') || in_array('name_hocvien', $columns))
             <td>{{ $calendar->courseUser->user->name ?? '' }}</td>
+            @endif
+
+            @if (!request()->has('show_column') || in_array('teacher_id', $columns))
+            <td>{{ $calendar->teacher->name ?? '' }}</td>
             @endif
 
             @if (!request()->has('show_column') || in_array('dob', $columns))
@@ -175,10 +179,6 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
 
             @if (!request()->has('show_column') || in_array('admin_id', $columns))
             <td>{{ $calendar->admin->name ?? '' }}</td>
-            @endif
-
-            @if (!request()->has('show_column') || in_array('teacher_id', $columns))
-            <td>{{ $calendar->teacher->name ?? '' }}</td>
             @endif
 
             @if (!request()->has('show_column') || in_array('course_user_id', $columns))

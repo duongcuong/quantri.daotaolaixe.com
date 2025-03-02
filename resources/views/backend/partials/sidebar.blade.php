@@ -36,7 +36,7 @@
         {{-- @endif --}}
         <!--End Sales-->
 
-        <li class="{{ Request::is('admin/calendars/*') ? 'mm-active' : '' }}">
+        <li class="{{ Request::is('admin/calendars/index') ? 'mm-active' : '' }}">
             <a href="{{ route('admins.calendars.index') }}">
                 <div class="parent-icon icon-color-11"><i class="bx bx-calendar-check"></i>
                 </div>
@@ -111,6 +111,11 @@
                 <li
                     class="{{ Request::is('admin/fees') || Request::is('admin/fees/create') || Request::is('admin/fees/*/edit') ? 'mm-active' : '' }}">
                     <a href="{{ route('admins.fees.index') }}"><i class="bx bx-star"></i>Lịch sử nạp học phí</a>
+                </li>
+
+                <li
+                    class="{{ Request::is('admin/calendars/learning') ? 'mm-active' : '' }}">
+                    <a href="{{ route('admins.calendars.learning') }}"><i class="bx bx-calendar-exclamation"></i>Lịch học</a>
                 </li>
 
                 <li
