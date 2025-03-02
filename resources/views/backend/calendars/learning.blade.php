@@ -37,14 +37,14 @@ Tất cả lịch học
                     <select class="form-control" name="loai_hoc">
                         <option value="">Loại học</option>
                         @foreach (listLoaiHocs() as $key => $item)
-                        <option value="{{ $key }}">{{ $item }}</option>
+                        <option value="{{ $key }}" {{ session('calendar_filters.loai_hoc') == $key ? 'selected' : '' }}>{{ $item }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="course_id" class="mr-2">Giáo viên</label>
                     <select class="select2-ajax-single form-control" name="teacher_id"
-                        data-selected-id="{{ session('course_user_filters.teacher_id') }}"
+                        data-selected-id="{{ session('calendar_filters.teacher_id') }}"
                         data-placeholder="Chọn giáo viên"
                         data-url="{{ route('admins.admins.list', ['role'=> ROLE_TEACHER]) }}">
                     </select>
@@ -52,7 +52,7 @@ Tất cả lịch học
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="course_id" class="mr-2">Học viên</label>
                     <select class="select2-ajax-single form-control" name="user_id"
-                        data-selected-id="{{ session('course_user_filters.user_id') }}" data-placeholder="Chọn học viên"
+                        data-selected-id="{{ session('calendar_filters.user_id') }}" data-placeholder="Chọn học viên"
                         data-url="{{ route('admins.users.list') }}">
                     </select>
                 </div>

@@ -123,6 +123,10 @@ class CalendarController extends Controller
 
     public function data(Request $request)
     {
+        // Lưu các giá trị bộ lọc vào session
+        $filters = $request->all();
+        session(['calendar_filters' => $filters]);
+
         $query = Calendar::query();
 
         if ($request->has('type') && $request->type) {
