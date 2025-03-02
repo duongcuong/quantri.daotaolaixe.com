@@ -33,7 +33,8 @@ class Calendar extends Model
         'so_xe',
         'loai_thi',
         'diem_don',
-        'so_gio_chay_duoc'
+        'so_gio_chay_duoc',
+        'sbd'
     ];
 
     protected $casts = [

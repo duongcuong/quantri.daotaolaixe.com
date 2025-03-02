@@ -97,14 +97,18 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="form-group col-md-3">
+                                    <label for="sbd">SBD</label>
+                                    <input type="number" name="sbd" id="sbd" class="form-control">
+                                </div>
                                 <div class="form-group col-md-6">
                                     <label for="ngay_dong_hoc_phi">Ngày đóng lệ phí</label>
                                     <input type="datetime-local" name="ngay_dong_hoc_phi" id="ngay_dong_hoc_phi"
                                         class="form-control">
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-3">
                                     <label for="tuition_fee">Số tiền</label>
-                                    <input type="number" name="tuition_fee" id="tuition_fee" class="form-control">
+                                    <input type="text" name="tuition_fee" id="tuition_fee" class="form-control thousand-text">
                                 </div>
                             </div>
                             @endif

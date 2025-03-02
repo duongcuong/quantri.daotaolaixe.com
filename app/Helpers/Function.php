@@ -356,8 +356,9 @@ function listStatusCalendars()
         ],
         'exam_schedule' => [
             30 => 'Đang chờ',
-            31 => 'Hoàn thành',
+            31 => 'Đỗ',
             32 => 'Thi lại',
+            33 => 'Thi mới',
         ],
         'class_schedule' => [
             40 => 'Đang chờ',

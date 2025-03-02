@@ -119,6 +119,11 @@
                 </li>
 
                 <li
+                    class="{{ Request::is('admin/calendars/exam') ? 'mm-active' : '' }}">
+                    <a href="{{ route('admins.calendars.exam') }}"><i class="bx bx-calendar-exclamation"></i>Lịch thi</a>
+                </li>
+
+                <li
                     class="{{ Request::is('admin/exam-schedules/*') ? 'mm-active' : '' }}">
                     <a href="{{ route('admins.exam-schedules.index') }}"><i class="bx bx-calendar-exclamation"></i>Lịch thi sát hạch</a>
                 </li>

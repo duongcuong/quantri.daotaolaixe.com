@@ -175,4 +175,8 @@ class CalendarController extends Controller
     public function learning(){
         return view('backend.calendars.learning');
     }
+
+    public function exam(){
+        return view('backend.calendars.exam');
+    }
 }

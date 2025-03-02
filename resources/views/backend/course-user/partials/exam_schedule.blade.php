@@ -18,7 +18,7 @@
                             <input type="hidden" value="{{ $courseUser->id }}" name="course_user_id">
                         </div>
                     </form>
-                    <div id="load-data-ajax-exam-calendars" class="table-responsive mt-1 mb-1 load-data-ajax" data-search="#search-form-exam-calendars" data-url="{{ route('admins.calendars.data', ['course_user_id' => $courseUser->id, 'type' => 'exam_schedule', 'show_column' => 'name,priority,status,date_start,date_end,loai_thi,teacher_id,tuition_fee,ngay_dong_hoc_phi', 'reload' => 'load-data-ajax-exam-calendars']) }}">
+                    <div id="load-data-ajax-exam-calendars" class="table-responsive mt-1 mb-1 load-data-ajax" data-search="#search-form-exam-calendars" data-url="{{ route('admins.calendars.data', ['course_user_id' => $courseUser->id, 'type' => 'exam_schedule', 'show_column' => 'name,priority,status,date_start,date_end,loai_thi,teacher_id,tuition_fee,ngay_dong_hoc_phi,sbd', 'reload' => 'load-data-ajax-exam-calendars']) }}">
                         <div class="loading-overlay">
                             <div class="loading-spinner"></div>
                         </div>

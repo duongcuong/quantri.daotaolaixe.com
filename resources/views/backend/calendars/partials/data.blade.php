@@ -33,6 +33,18 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <th>Học viên</th>
             @endif
 
+            @if (!request()->has('show_column') || in_array('cccd', $columns))
+            <th>CCCD</th>
+            @endif
+
+            @if (!request()->has('show_column') || in_array('phone', $columns))
+            <th>SĐT</th>
+            @endif
+
+            @if (!request()->has('show_column') || in_array('sbd', $columns))
+            <th>SBD</th>
+            @endif
+
             @if (!request()->has('show_column') || in_array('teacher_id', $columns))
             <th>Giáo viên</th>
             @endif
@@ -55,6 +67,10 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
 
             @if (!request()->has('show_column') || in_array('loai_thi', $columns))
             <th>Môn thi</th>
+            @endif
+
+            @if (!request()->has('show_column') || in_array('health_check_date', $columns))
+            <th>Khám SK</th>
             @endif
 
             @if (!request()->has('show_column') || in_array('loai_hoc', $columns))
@@ -129,6 +145,18 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <td>{{ $calendar->courseUser->user->name ?? '' }}</td>
             @endif
 
+            @if (!request()->has('show_column') || in_array('cccd', $columns))
+            <td>{{ $calendar->courseUser->user->identity_card ?? '' }}</td>
+            @endif
+
+            @if (!request()->has('show_column') || in_array('phone', $columns))
+            <td>{{ $calendar->courseUser->user->phone ?? '' }}</td>
+            @endif
+
+            @if (!request()->has('show_column') || in_array('sbd', $columns))
+            <td>{{ $calendar->sbd ?? '' }}</td>
+            @endif
+
             @if (!request()->has('show_column') || in_array('teacher_id', $columns))
             <td>{{ $calendar->teacher->name ?? '' }}</td>
             @endif
@@ -151,6 +179,10 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
 
             @if (!request()->has('show_column') || in_array('loai_thi', $columns))
             <td>{!! getLoaiThi($calendar->loai_thi) !!}</td>
+            @endif
+
+            @if (!request()->has('show_column') || in_array('health_check_date', $columns))
+            <td>{!! getDateTimeStamp($calendar->courseUser->health_check_date, 'd/m/Y') !!}</td>
             @endif
 
             @if (!request()->has('show_column') || in_array('loai_hoc', $columns))
