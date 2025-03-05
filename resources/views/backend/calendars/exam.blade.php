@@ -1,6 +1,6 @@
 @extends('backend.app')
 @section('title')
-Tất cả lịch học
+Tất cả lịch thi của học viên
 @endsection
 @push('css')
 @endpush
@@ -13,7 +13,7 @@ Tất cả lịch học
                     <li class="breadcrumb-item"><a href="{{ route('admins.dashboard') }}"><i
                                 class='bx bx-home-alt'></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Lịch học</li>
+                    <li class="breadcrumb-item active" aria-current="page">Lịch thi học viên</li>
                 </ol>
             </nav>
         </div>

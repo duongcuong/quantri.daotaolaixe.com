@@ -605,3 +605,9 @@ function getStatusLead($status)
             break;
     }
 }
+
+function convertHoursExcelToSeconds($value)
+{
+    if (!$value) return null;
+    return $value * 24 * 60;
+}

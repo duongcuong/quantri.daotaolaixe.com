@@ -19,8 +19,10 @@ Tất cả Khoá học - Học Viên
         </div>
     </div>
     <div class="ml-auto">
-        <a class="btn btn-outline-info btn-sm mr-2" href="{{ route('admins.course-user.import') }}" title="Import"><i
+        <a class="btn btn-outline-success btn-sm mr-2" href="{{ route('admins.course-user.import') }}" title="Import"><i
                 class="lni lni-cloud-upload mr-1"></i>Import file</a>
+        <a class="btn btn-outline-danger btn-sm mr-2" href="{{ asset('backend/assets/files/hsmn2024.xlsx') }}"
+            title="Import" download><i class="lni lni-cloud-download mr-1"></i>Download file</a>
         {{-- @if (Auth::user()->hasPermission('admins.course-user.index')) --}}
         <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.course-user.create') }}" title="Thêm mới"><i
                 class="bx bx-plus"></i>Thêm mới</a>
@@ -34,16 +36,18 @@ Tất cả Khoá học - Học Viên
             <div class="row">
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="course_id" class="mr-2">Khóa học</label>
-                    <input type="hidden" name="course_id" id="course_id_input" value="{{ request()->course_id ?? session('course_user_filters.course_id') }}">
+                    <input type="hidden" name="course_id" id="course_id_input"
+                        value="{{ request()->course_id ?? session('course_user_filters.course_id') }}">
                     <select class="select2-ajax-single form-control" id="course_id_search"
-                        data-selected-id="{{ request()->course_id ?? session('course_user_filters.course_id') }}" data-placeholder="Chọn khoá học"
-                        data-url="{{ route('admins.courses.list') }}">
+                        data-selected-id="{{ request()->course_id ?? session('course_user_filters.course_id') }}"
+                        data-placeholder="Chọn khoá học" data-url="{{ route('admins.courses.list') }}">
                     </select>
 
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="course_id" class="mr-2">Giáo viên</label>
-                    <select class="select2-ajax-single form-control" name="teacher_id" data-selected-id="{{ session('course_user_filters.teacher_id') }}"
+                    <select class="select2-ajax-single form-control" name="teacher_id"
+                        data-selected-id="{{ session('course_user_filters.teacher_id') }}"
                         data-placeholder="Chọn giáo viên"
                         data-url="{{ route('admins.admins.list', ['role'=> ROLE_TEACHER]) }}">
                     </select>
@@ -56,7 +60,9 @@ Tất cả Khoá học - Học Viên
                                 <select id="contract_day" name="contract_day" class="form-control single-select"
                                     data-placeholder="Chọn ngày" data-allow-clear="true">
                                     <option value="">Chọn ngày</option>
-                                    @for ($day = 1; $day <= 31; $day++) <option value="{{ $day }}" {{ session('course_user_filters.contract_day') == $day ? 'selected' : '' }}>{{ $day }}
+                                    @for ($day = 1; $day <= 31; $day++) <option value="{{ $day }}" {{
+                                        session('course_user_filters.contract_day')==$day ? 'selected' : '' }}>{{ $day
+                                        }}
                                         </option>
                                         @endfor
                                 </select>
@@ -79,13 +85,15 @@ Tất cả Khoá học - Học Viên
                         data-placeholder="Chọn trạng thái" data-allow-clear="true">
                         <option value=""></option>
                         @foreach (listStatusCourseUser() as $key => $item)
-                        <option value="{{ $key }}" {{ session('course_user_filters.status') === "$key" ? 'selected' : '' }}>{{ $item }}</option>
+                        <option value="{{ $key }}" {{ session('course_user_filters.status')==="$key" ? 'selected' : ''
+                            }}>{{ $item }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="card_name" class="mr-2">ID thẻ</label>
-                    <input type="text" name="card_name" id="card_name" class="form-control" placeholder="Nhập ID thẻ" value="{{ session('course_user_filters.card_name') }}">
+                    <input type="text" name="card_name" id="card_name" class="form-control" placeholder="Nhập ID thẻ"
+                        value="{{ session('course_user_filters.card_name') }}">
                 </div>
                 <div class="form-group col-md-3">
                     <label for="exam_field_id">Sân thi</label>
@@ -93,7 +101,8 @@ Tất cả Khoá học - Học Viên
                         data-placeholder="Chọn sân thi" data-allow-clear="true">
                         <option></option>
                         @foreach ($examFields as $examField)
-                        <option value="{{ $examField->id }}" {{ session('course_user_filters.card_name') == $examField->id ? 'selected' : '' }}> {{ $examField->name }}</option>
+                        <option value="{{ $examField->id }}" {{ session('course_user_filters.card_name')==$examField->id
+                            ? 'selected' : '' }}> {{ $examField->name }}</option>
                         @endforeach
                     </select>
                 </div>

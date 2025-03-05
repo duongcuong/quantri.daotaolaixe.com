@@ -120,12 +120,12 @@
 
                 <li
                     class="{{ Request::is('admin/calendars/exam') ? 'mm-active' : '' }}">
-                    <a href="{{ route('admins.calendars.exam') }}"><i class="bx bx-calendar-exclamation"></i>Lịch thi</a>
+                    <a href="{{ route('admins.calendars.exam') }}"><i class="bx bx-calendar-exclamation"></i>Lịch thi học viên</a>
                 </li>
 
                 <li
                     class="{{ Request::is('admin/exam-schedules/*') ? 'mm-active' : '' }}">
-                    <a href="{{ route('admins.exam-schedules.index') }}"><i class="bx bx-calendar-exclamation"></i>Lịch thi sát hạch</a>
+                    <a href="{{ route('admins.exam-schedules.index') }}"><i class="bx bx-calendar-exclamation"></i>Tất cả lịch thi sát hạch của các trường</a>
                 </li>
 
                 {{-- @if (Auth::user()->hasPermission('admins.teachers.create')) --}}
