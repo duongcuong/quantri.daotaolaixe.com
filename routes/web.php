@@ -23,6 +23,7 @@ use App\Http\Controllers\Backend\CourseUserController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\ExamScheduleController;
 use App\Http\Controllers\Backend\FeeController;
+use App\Http\Controllers\Backend\ImportController;
 use App\Http\Controllers\Backend\LeadController;
 use App\Http\Controllers\Backend\LeadSourceController;
 use App\Http\Controllers\Backend\SaleController;
@@ -65,6 +66,7 @@ Route::prefix('admin')->as('admins.')->group(function () {
         Route::get('course-user/list', [CourseUserController::class, 'list'])->name('course-user.list');
         Route::get('course-user/import', [CourseUserController::class, 'import'])->name('course-user.import');
         Route::post('course-user/import-file', [CourseUserController::class, 'importFile'])->name('course-user.importFile');
+        Route::get('course-user/import-progress', [CourseUserController::class, 'importProgress'])->name('course-user.importProgress');
         Route::resource('course-user', CourseUserController::class);
 
         // fees
@@ -106,6 +108,10 @@ Route::prefix('admin')->as('admins.')->group(function () {
         // exam-schedules
         Route::get('exam-schedules/data', [ExamScheduleController::class, 'data'])->name('exam-schedules.data');
         Route::resource('exam-schedules', ExamScheduleController::class);
+
+        //Import
+        Route::get('imports/data', [ImportController::class, 'data'])->name('imports.data');
+        Route::get('imports/{id}', [ImportController::class, 'show'])->name('imports.show');
     });
 });
 

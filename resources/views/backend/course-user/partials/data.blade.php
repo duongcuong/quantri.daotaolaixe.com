@@ -13,8 +13,6 @@
             <th rowspan="2">Id thẻ</th>
             <th rowspan="2">Số thẻ</th>
             <th rowspan="2">Giáo viên</th>
-            <th rowspan="2">Ngày khai giảng</th>
-            <th rowspan="2">Ngày bế giảng</th>
             <th colspan="3" class="text-center">
                 Tình trạng học
             </th>
@@ -48,7 +46,14 @@
             </td>
             <td>{{ $courseUser->course->code }}</td>
             <td>{{ $courseUser->course->rank }}</td>
-            <td>{{ $courseUser->user->name ?? '' }}</td>
+            <td>
+                @if ($courseUser->calendars_sum_km > 0)
+                <a class="btn-show-list-ajax"
+                    href="{{ route('admins.calendars.data', ['course_user_id' => $courseUser->id]) }}</a>
+                @else
+                {{ getFormattedSoGioChayDuocAttribute($courseUser->calendars_sum_so_gio_chay_duoc) }}
+                @endif
+            </td>
             <td>{{ getDateTimeStamp($courseUser->contract_date, 'd/m/Y') }}</td>
             <td>{{ \Carbon\Carbon::parse($courseUser->user->dob)->format('d/m/Y') }}</td>
             <td>{{ $courseUser->user->gender == 0 ? 'Nam' : ($courseUser->user->gender == 1 ? 'Nữ' : 'Khác')
@@ -59,9 +64,6 @@
 
             <td>{{ $courseUser->teacher->name ?? '' }}</td>
 
-            <td>{{ getDateTimeStamp($courseUser->ngay_khai_giang, 'd/m/Y') }}</td>
-            <td>{{ getDateTimeStamp($courseUser->ngay_be_giang, 'd/m/Y') }}</td>
-
             <td class="text-center fs-5">{!! getTickTrueOrFalse($courseUser->theory_exam) !!}</td>
             <td class="text-center fs-5">{!! getTickTrueOrFalse($courseUser->practice_exam) !!}</td>
             <td class="text-center fs-5">{!! getTickTrueOrFalse($courseUser->graduation_exam) !!}</td>
@@ -69,7 +71,7 @@
             <td>
                 @if ($courseUser->calendars_sum_km > 0)
                 <a class="btn-show-list-ajax"
-                    href="{{ route('admins.calendars.data', ['course_user_id' => $courseUser->id, 'type' => 'class_schedule', 'loai_hoc' => 'chay_dat', 'show_column' => 'name,date_start,date_end,name_hocvien,km,so_gio_chay_duoc']) }}"
+                    href="{{ route('admins.calendars.data', ['course_user_id' => $courseUser->id]) }}"
                     data-cs-modal="#modal-dat-calendars-ajax" data-reload="#load-data-ajax-dat-calendars">{{
                     getFormattedSoGioChayDuocAttribute($courseUser->calendars_sum_so_gio_chay_duoc) }}</a>
                 @else
@@ -79,7 +81,7 @@
             <td>
                 @if ($courseUser->calendars_sum_km > 0)
                 <a class="btn-show-list-ajax"
-                    href="{{ route('admins.calendars.data', ['course_user_id' => $courseUser->id, 'type' => 'class_schedule', 'loai_hoc' => 'chay_dat', 'show_column' => 'name,date_start,date_end,name_hocvien,km,so_gio_chay_duoc']) }}"
+                    href="{{ route('admins.calendars.data', ['course_user_id' => $courseUser->id]) }}"
                     data-cs-modal="#modal-dat-calendars-ajax" data-reload="#load-data-ajax-dat-calendars">{{
                     number_format($courseUser->calendars_sum_km) }}</a>
                 @else

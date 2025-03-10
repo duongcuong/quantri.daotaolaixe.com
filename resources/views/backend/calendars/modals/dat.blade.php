@@ -9,7 +9,20 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div id="load-data-ajax-dat-calendars" class="table-responsive mt-1 mb-1">
+                <form data-reload="#load-data-ajax-class-calendars" id="search-form-class-calendars"
+                    class="mb-3 form-search-submit">
+                    @csrf
+                    @php
+                    $type = 'class_schedule';
+                    $showColumn = 'name,date_start,date_end,name_hocvien,km,so_gio_chay_duoc';
+                    $loaiHoc = 'chay_dat';
+                    @endphp
+                    <input type="hidden" name="show_column" value="{{ $showColumn }}">
+                    <input type="hidden" name="type" value="{{ $typeColumn }}">
+                    <input type="hidden" name="reload" value="{{ $reload }}">
+                </form>
+                <div id="load-data-ajax-class-calendars" class="table-responsive mt-1 mb-1 load-data-ajax"
+                    data-search="#search-form-class-calendars" data-url="{{ route('admins.calendars.data') }}">
                     <div class="loading-overlay">
                         <div class="loading-spinner"></div>
                     </div>

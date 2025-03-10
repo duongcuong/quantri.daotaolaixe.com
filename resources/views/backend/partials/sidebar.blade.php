@@ -52,6 +52,14 @@
             </a>
         </li>
 
+        <li class="{{ Request::is('admin/course-user/import') ? 'mm-active' : '' }}">
+            <a href="{{ route('admins.course-user.import') }}">
+                <div class="parent-icon icon-color-5"><i class="lni lni-cloud-upload"></i>
+                </div>
+                <div class="menu-title">Import</div>
+            </a>
+        </li>
+
         <!--Giáo viên-->
         <li class="menu-label">Quản lý Giáo viên</li>
         {{-- @if (Auth::user()->hasPermission('admins.teachers.index') ||

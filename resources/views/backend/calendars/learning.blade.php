@@ -31,6 +31,15 @@ Tất cả lịch học
     <div class="card-body">
         <form data-reload="#load-data-ajax-class-calendars" id="search-form-class-calendars"
             class="mb-3 form-search-submit">
+            @csrf
+            @php
+            $showColumn = 'name,date_start,date_end,name_hocvien,dob,teacher_id,diem_don,san,course_code,loai_hoc,km,so_gio_chay_duoc';
+            $typeColumn = 'class_schedule';
+            $reload = 'load-data-ajax-class-calendars';
+            @endphp
+            <input type="hidden" name="show_column" value="{{ $showColumn }}">
+            <input type="hidden" name="type" value="{{ $typeColumn }}">
+            <input type="hidden" name="reload" value="{{ $reload }}">
             <div class="row">
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="payment_date" class="mr-2">Tháng năm</label>
@@ -73,7 +82,7 @@ Tất cả lịch học
     <div class="card-body">
         <div id="load-data-ajax-class-calendars" class="table-responsive mt-1 mb-1 load-data-ajax"
             data-search="#search-form-class-calendars"
-            data-url="{{ route('admins.calendars.data', ['type' => 'class_schedule', 'show_column' => 'name,date_start,date_end,name_hocvien,teacher_id,diem_don,san,course_code,loai_hoc,km,so_gio_chay_duoc', 'reload' => 'load-data-ajax-class-calendars']) }}">
+            data-url="{{ route('admins.calendars.data') }}">
             <div class="loading-overlay">
                 <div class="loading-spinner"></div>
             </div>

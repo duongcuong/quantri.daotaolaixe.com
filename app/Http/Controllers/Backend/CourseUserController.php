@@ -4,15 +4,18 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\Calendar;
 use App\Models\Course;
 use App\Models\CourseUser;
 use App\Models\ExamField;
+use App\Models\ImportLog;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use App\Models\Fee;
+use App\Models\ImportRow;
 use App\Models\Role;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
@@ -260,18 +263,38 @@ class CourseUserController extends Controller
 
     public function importFile(Request $request)
     {
-        echo "Tính năng này đang phát triển, vui lòng quay lại sau.";
-        die;
         $file = $request->file('file_xlsx');
+        $timestamp = \Carbon\Carbon::now()->timestamp;
+        $fileName = $timestamp . '_' . $file->getClientOriginalName();
+        $sanitizedFileName = preg_replace('/[^A-Za-z0-9_\-]/', '_', pathinfo($fileName, PATHINFO_FILENAME)) . '.' . $file->getClientOriginalExtension();
+        $sanitizedFileName = $file->storeAs('public/imports', $fileName);
+
+        // Lưu thông tin file import vào bảng ImportLog
+        $importLog = ImportLog::create([
+            'file_name' => $file->getClientOriginalName(),
+            'sanitized_file_name' => $sanitizedFileName,
+            'admin_id' => auth('admin')->id(),
+            'imported_at' => \Carbon\Carbon::now(),
+        ]);
+
         $data = Excel::toArray([], $file);
+        $totalRows = count($data[0]) - 3;
 
-        DB::beginTransaction();
-        try {
-            foreach ($data[0] as $key => $row) {
+        // Lưu tiến trình import vào file riêng cho mỗi user
+        $userId = auth('admin')->id();
+        $progressFile = storage_path('app/import_progress_' . $userId . '.json');
+        file_put_contents($progressFile, json_encode(['total' => $totalRows, 'processed' => 0]));
 
-                if ($key == 0 || $key == 1 || $key == 2) {
-                    continue;
-                }
+        foreach ($data[0] as $key => $row) {
+
+            if ($key == 0 || $key == 1 || $key == 2) {
+                continue;
+            }
+
+            sleep(1);
+
+            DB::beginTransaction();
+            try {
 
                 $ngayKyHD = getDateByExcel($row[1]);
                 $hoTen = $row[2];
@@ -291,28 +314,12 @@ class CourseUserController extends Controller
 
                 $lePhiHoSo = getNumberCsExcel($row[14]);
 
-                $fees = [];
                 $soTienLan1 = getNumberCsExcel($row[15]);
                 $ngayNapLan1 = getDateByExcel($row[16]);
                 $ghiChuLan1 = $row[17];
                 $soTienLan2 = getNumberCsExcel($row[18]);
                 $ngayNapLan2 = getDateByExcel($row[19]);
                 $ghiChuLan2 = $row[20];
-
-                if($soTienLan1){
-                    $fees[] = [
-                        'so_tien' => $soTienLan1,
-                        'ngay_nop' => $ngayNapLan1,
-                        'ghi_chu' => $ghiChuLan1
-                    ];
-                }
-                if($soTienLan2){
-                    $fees[] = [
-                        'so_tien' => $soTienLan2,
-                        'ngay_nop' => $ngayNapLan2,
-                        'ghi_chu' => $ghiChuLan2
-                    ];
-                }
 
                 $nguoiGuiHS = $row[21];
                 $sdtNguoiGuiHS = $row[22];
@@ -329,29 +336,34 @@ class CourseUserController extends Controller
                 $sanThi = $row[31];
                 $ketQua = $row[32];
 
+                // Validate các email
+                if (empty($email) || empty($emailThayDay) || empty($emailNguoiGuiHS)) {
+                    throw new \Exception('Email học viên, giáo viên hoặc người gửi hồ sơ không được để trống.');
+                }
+
                 $hocCabins = [];
-                if($row[33] && $row[34]) {
+                if ($row[33] && $row[34]) {
                     $hocCabins[] = [
                         'ngay' => getDateByExcel($row[33]),
                         'gio' => convertHoursExcelToSeconds($row[34])
                     ];
                 }
 
-                if($row[35] && $row[36]) {
+                if ($row[35] && $row[36]) {
                     $hocCabins[] = [
                         'ngay' => getDateByExcel($row[35]),
                         'gio' => convertHoursExcelToSeconds($row[36])
                     ];
                 }
 
-                if($row[37] && $row[38]) {
+                if ($row[37] && $row[38]) {
                     $hocCabins[] = [
                         'ngay' => getDateByExcel($row[37]),
                         'gio' => convertHoursExcelToSeconds($row[38])
                     ];
                 }
 
-                if($row[39] && $row[40]) {
+                if ($row[39] && $row[40]) {
                     $hocCabins[] = [
                         'ngay' => getDateByExcel($row[39]),
                         'gio' => convertHoursExcelToSeconds($row[40])
@@ -359,7 +371,7 @@ class CourseUserController extends Controller
                 }
 
                 $chayDats = [];
-                if($row[41] && $row[42] && $row[43]) {
+                if ($row[41] && $row[42] && $row[43]) {
                     $chayDats[] = [
                         'ngay' => getDateByExcel($row[41]),
                         'gio' => convertHoursExcelToSeconds($row[42]),
@@ -367,7 +379,7 @@ class CourseUserController extends Controller
                     ];
                 }
 
-                if($row[44] && $row[45] && $row[46]) {
+                if ($row[44] && $row[45] && $row[46]) {
                     $chayDats[] = [
                         'ngay' => getDateByExcel($row[44]),
                         'gio' => convertHoursExcelToSeconds($row[45]),
@@ -375,7 +387,7 @@ class CourseUserController extends Controller
                     ];
                 }
 
-                if($row[47] && $row[48] && $row[49]) {
+                if ($row[47] && $row[48] && $row[49]) {
                     $chayDats[] = [
                         'ngay' => getDateByExcel($row[47]),
                         'gio' => convertHoursExcelToSeconds($row[48]),
@@ -383,7 +395,7 @@ class CourseUserController extends Controller
                     ];
                 }
 
-                if($row[50] && $row[51] && $row[52]) {
+                if ($row[50] && $row[51] && $row[52]) {
                     $chayDats[] = [
                         'ngay' => getDateByExcel($row[50]),
                         'gio' => convertHoursExcelToSeconds($row[51]),
@@ -391,7 +403,7 @@ class CourseUserController extends Controller
                     ];
                 }
 
-                if($row[53] && $row[54] && $row[55]) {
+                if ($row[53] && $row[54] && $row[55]) {
                     $chayDats[] = [
                         'ngay' => getDateByExcel($row[53]),
                         'gio' => convertHoursExcelToSeconds($row[54]),
@@ -399,7 +411,7 @@ class CourseUserController extends Controller
                     ];
                 }
 
-                if($row[56] && $row[57] && $row[58]) {
+                if ($row[56] && $row[57] && $row[58]) {
                     $chayDats[] = [
                         'ngay' => getDateByExcel($row[56]),
                         'gio' => convertHoursExcelToSeconds($row[57]),
@@ -407,7 +419,7 @@ class CourseUserController extends Controller
                     ];
                 }
 
-                if($row[59] && $row[60] && $row[61]) {
+                if ($row[59] && $row[60] && $row[61]) {
                     $chayDats[] = [
                         'ngay' => getDateByExcel($row[59]),
                         'gio' => convertHoursExcelToSeconds($row[60]),
@@ -415,7 +427,7 @@ class CourseUserController extends Controller
                     ];
                 }
 
-                if($row[62] && $row[63] && $row[64]) {
+                if ($row[62] && $row[63] && $row[64]) {
                     $chayDats[] = [
                         'ngay' => getDateByExcel($row[62]),
                         'gio' => convertHoursExcelToSeconds($row[63]),
@@ -423,7 +435,7 @@ class CourseUserController extends Controller
                     ];
                 }
 
-                if($row[65] && $row[66] && $row[67]) {
+                if ($row[65] && $row[66] && $row[67]) {
                     $chayDats[] = [
                         'ngay' => getDateByExcel($row[65]),
                         'gio' => convertHoursExcelToSeconds($row[66]),
@@ -431,7 +443,7 @@ class CourseUserController extends Controller
                     ];
                 }
 
-                if($row[68] && $row[69] && $row[70]) {
+                if ($row[68] && $row[69] && $row[70]) {
                     $chayDats[] = [
                         'ngay' => getDateByExcel($row[68]),
                         'gio' => convertHoursExcelToSeconds($row[69]),
@@ -439,134 +451,216 @@ class CourseUserController extends Controller
                     ];
                 }
 
-                // Tạo hoặc lấy học viên
+                // Thêm hoặc lấy User
                 $user = User::firstOrCreate(
-                    ['phone' => $sdt],
+                    ['email' => $email],
                     [
                         'name' => $hoTen,
+                        'phone' => $sdt,
                         'dob' => $ngaySinh,
-                        'email' => $email,
                         'address' => $diaChi,
                         'password' => bcrypt('12345678'),
                         'status' => 1
                     ]
                 );
 
-                // Nếu $dayLai rỗng, lấy random một tài khoản giáo viên
-                if (empty($dayLai)) {
-                    $teacher = Admin::whereHas('roles', function ($query) {
-                        $query->where('slug', ROLE_TEACHER);
-                    })->inRandomOrder()->first();
-                    $dayLai = $teacher->name;
-                    $note .= ' Học viên này chưa có giáo viên, đây là giáo viên random.';
-                } else {
-                    // Tạo hoặc lấy giáo viên
-                    $teacher = Admin::firstOrCreate(
-                        ['name' => $dayLai],
-                        [
-                            'email' => Str::slug($dayLai) . Str::random(5) . '@example.com',
-                            'phone' => '09' . rand(10000000, 99999999),
-                            'rank' => json_encode([$hang]),
-                            'password' => bcrypt('12345678'),
-                            'status' => 1
-                        ]
-                    );
-                    $teacherRole = Role::where('slug', ROLE_TEACHER)->first();
-                    if ($teacherRole) {
-                        $teacher->roles()->syncWithoutDetaching([$teacherRole->id]);
-                    }
-                }
-
-                // Tạo hoặc lấy sale
-                if (!empty($nguoiGuiHS)) {
-                    $sale = Admin::firstOrCreate(
-                        ['name' => $nguoiGuiHS],
-                        [
-                            'email' => Str::slug($nguoiGuiHS) . Str::random(5) . '@example.com',
-                            'phone' => '09' . rand(10000000, 99999999),
-                            'password' => bcrypt('12345678'),
-                            'status' => 1
-                        ]
-                    );
-
-                    $saleRole = Role::where('slug', ROLE_SALE)->first();
-                    if ($saleRole) {
-                        $sale->roles()->syncWithoutDetaching([$saleRole->id]);
-                    }
-                }
-
-                if (empty($khoa)) {
-                    $course = Course::inRandomOrder()->first();
-                    $khoa = $course->code;
-                    $noteArrs[] = 'Học viên này chưa có khoá học, đây là khoá học random.';
-                } else {
-                    $course = Course::firstOrCreate(
-                        ['code' => $khoa],
-                        [
-                            'rank' => $hang,
-                            'rank_gp' => $hang,
-                            'status' => 1,
-                            'tuition_fee' => $lePhiHoSo
-                        ]
-                    );
-                }
-
-                // Kiểm tra nếu cặp user_id và course_id đã tồn tại
-                $courseUser = CourseUser::firstOrCreate(
+                // Thêm hoặc lấy Giáo viên
+                $teacher = Admin::firstOrCreate(
+                    ['email' => $emailThayDay],
                     [
-                        'user_id' => $user->id,
-                        'course_id' => $course->id
-                    ],
+                        'name' => $thayDay,
+                        'phone' => $sdtThayDay,
+                        'password' => bcrypt('12345678'),
+                        'status' => 1
+                    ]
+                );
+
+                // Thêm hoặc lấy Sale
+                $sale = Admin::firstOrCreate(
+                    ['email' => $emailNguoiGuiHS],
                     [
-                        'status' => 1,
-                        'practice_field' => $sanTap,
-                        'hours' => $tongGio,
-                        'note' => implode(' - ', $noteArrs),
-                        'teacher_id' => $teacher->id,
-                        'sale_id' => !empty($sale) ? $sale->id : null,
-                        'ngay_khai_giang' => $ngayKhaiGiang,
-                        'ngay_be_giang' => $ngayBeGiang,
-                        'ngay_hoc_cabin' => $ngayHocCaBin,
-                        'health_check_date' => $khamSucKhoe,
-                        'exam_date' => $ngayThi,
-                        'contract_date' => $ngayKyHD,
+                        'name' => $nguoiGuiHS,
+                        'phone' => $sdtNguoiGuiHS,
+                        'password' => bcrypt('12345678'),
+                        'status' => 1
+                    ]
+                );
+
+                // Thêm hoặc lấy Khoá học
+                $course = Course::firstOrCreate(
+                    ['code' => $khoa],
+                    [
+                        'rank' => $hang,
+                        'start_date' => $ngayKhaiGiang,
+                        'end_date' => $ngayBeGiang,
                         'tuition_fee' => $lePhiHoSo
                     ]
                 );
 
-                // Tạo các bản ghi trong bảng fees
-                if ($lePhiNopLan1) {
+                // Thêm hoặc lấy Sân tập
+                $examField = ExamField::firstOrCreate(
+                    ['name' => $sanTap],
+                    ['status' => 1]
+                );
+
+                // Kiểm tra xem cặp 'user_id' và 'course_id' đã tồn tại hay chưa
+                $existingCourseUser = CourseUser::where('user_id', $user->id)
+                    ->where('course_id', $course->id)
+                    ->first();
+
+                if ($existingCourseUser) {
+                    ImportRow::create([
+                        'import_log_id' => $importLog->id,
+                        'course_user_id' => $existingCourseUser->id ?? null,
+                        'row_data' => json_encode($row),
+                        'success' => false,
+                        'error_message' => 'Khoá học - Học viên này đã tồn tại.',
+                    ]);
+                    DB::commit();
+                    continue;
+                }
+
+                // Thêm hoặc lấy CourseUser
+                $courseUser = CourseUser::create([
+                    'user_id' => $user->id,
+                    'course_id' => $course->id,
+                    'note' => $note,
+                    'health_check_date' => $khamSucKhoe,
+                    'practice_field' => $examField->id,
+                    'teacher_id' => $teacher->id,
+                    'sale_id' => $sale->id,
+                    'ngay_khai_giang' => $ngayKhaiGiang,
+                    'ngay_be_giang' => $ngayBeGiang,
+                    'tuition_fee' => $lePhiHoSo,
+                    'contract_date' => $ngayKyHD
+                ]);
+
+                // Thêm học phí cho CourseUser
+                if ($soTienLan1) {
                     Fee::create([
-                        'payment_date' => Carbon::now()->format('Y-m-d'),
-                        'amount' => $lePhiNopLan1,
-                        'admin_id' => $sale->id,
-                        'is_received' => 1,
                         'course_user_id' => $courseUser->id,
-                        'note' => $tinhTrang
+                        'amount' => $soTienLan1,
+                        'payment_date' => $ngayNapLan1,
+                        'note' => $ghiChuLan1,
+                        'is_received' => 1,
+                        'admin_id' => $sale->id
+                    ]);
+                }
+                if ($soTienLan2) {
+                    Fee::create([
+                        'course_user_id' => $courseUser->id,
+                        'amount' => $soTienLan2,
+                        'payment_date' => $ngayNapLan2,
+                        'note' => $ghiChuLan2,
+                        'is_received' => 1,
+                        'admin_id' => $sale->id
                     ]);
                 }
 
-                if ($lePhiNopLan2) {
-                    Fee::create([
-                        'payment_date' => Carbon::now()->format('Y-m-d'),
-                        'amount' => $lePhiNopLan2,
-                        'admin_id' => $sale->id,
-                        'is_received' => 1,
+                // Thêm lịch học: Học cabin
+                foreach ($hocCabins as $hocCabin) {
+                    Calendar::create([
+                        'name' => 'Học cabin',
+                        'teacher_id' => $teacher->id,
                         'course_user_id' => $courseUser->id,
-                        'note' => $tinhTrang
+                        'type' => 'class_schedule',
+                        'loai_hoc' => 'cabin',
+                        'date_start' => $hocCabin['ngay'],
+                        'so_gio_chay_duoc' => $hocCabin['gio'],
+                        'status' => 40
                     ]);
                 }
+
+                // Thêm lịch học: Chạy dat
+                foreach ($chayDats as $chayDat) {
+                    Calendar::create([
+                        'name' => 'Chạy DAT',
+                        'teacher_id' => $teacher->id,
+                        'course_user_id' => $courseUser->id,
+                        'type' => 'class_schedule',
+                        'loai_hoc' => 'chay_dat',
+                        'date_start' => $chayDat['ngay'],
+                        'so_gio_chay_duoc' => $chayDat['gio'],
+                        'km' => $chayDat['km'],
+                        'status' => 40
+                    ]);
+                }
+
+                // Thêm lịch thi
+                if ($ngayThi) {
+                    switch ($ketQua) {
+                        case 'Đỗ':
+                            $ketQua = 31;
+                            break;
+                        case 'Thi lại':
+                            $ketQua = 32;
+                            break;
+                        case 'Thi mới':
+                            $ketQua = 33;
+                            break;
+                        default:
+                            $ketQua = 30;
+                            break;
+                    }
+                    Calendar::create([
+                        'name' => 'Lịch thi',
+                        'course_user_id' => $courseUser->id,
+                        'type' => 'exam_schedule',
+                        'date_start' => $ngayThi,
+                        'sbd' => $sbd,
+                        'so_tien' => $soTienThi,
+                        'ngay_dong_hoc_phi' => $ngayDongThi,
+                        'san_thi' => $sanThi,
+                        'status' => $ketQua
+                    ]);
+                }
+
+                DB::commit();
+                // Lưu log thành công
+                ImportRow::create([
+                    'import_log_id' => $importLog->id,
+                    'course_user_id' => $courseUser->id,
+                    'row_data' => json_encode($row),
+                    'success' => true,
+                ]);
+
+                // Cập nhật tiến trình import
+                $progress = json_decode(file_get_contents($progressFile), true);
+                $progress['processed']++;
+                file_put_contents($progressFile, json_encode($progress));
+            } catch (\Exception $e) {
+                DB::rollBack();
+
+                // Lưu log thất bại
+                ImportRow::create([
+                    'import_log_id' => $importLog->id,
+                    'course_user_id' => null,
+                    'row_data' => json_encode($row),
+                    'success' => false,
+                    'error_message' => $e->getMessage(),
+                ]);
+
+                continue;
             }
-
-            DB::commit();
-            toastr()->success('Import thành công.');
-            return redirect()->back()->with('success', 'Import thành công.');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            var_dump("Lỗi tại dòng $key, vui lòng kiểm tra lại file trước khi upload");
-            dd($e->getMessage());
-            toastr()->error('Có lỗi xẩy ra khi import file: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'There was an error importing the file: ' . $e->getMessage());
         }
+
+        file_put_contents($progressFile, json_encode(['total' => 0, 'processed' => 0]));
+
+        if ($request->ajax()) {
+            return response()->json(['success' => 'Import thành công.']);
+        }
+    }
+
+    public function importProgress(Request $request)
+    {
+        $userId = auth('admin')->id();
+        $progressFile = storage_path('app/import_progress_' . $userId . '.json');
+
+        if (file_exists($progressFile)) {
+            $progress = json_decode(file_get_contents($progressFile), true);
+            return response()->json($progress);
+        }
+
+        return response()->json(['total' => 0, 'processed' => 0]);
     }
 }

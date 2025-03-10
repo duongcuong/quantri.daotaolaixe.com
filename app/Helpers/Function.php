@@ -374,6 +374,9 @@ function listStatusCalendars()
 function getStatusCalendarByType($type, $status)
 {
     $statuses = listStatusCalendars();
+
+    if(!isset($statuses[$type][$status])) return '';
+
     switch ($status) {
         case '0':
             return '<span class="badge badge-info">' . $statuses[$type][$status] . '</span>';
@@ -496,7 +499,6 @@ function listLoaiHocs()
         'ly_thuyet' => 'Lý thuyết',
         'thuc_hanh' => 'Thực hành',
         'mo_phong' => 'Mô phỏng',
-        'duong_truong' => 'Đường trường',
         'cabin' => 'Cabin',
         'chay_dat' => 'Chạy DAT',
     ];

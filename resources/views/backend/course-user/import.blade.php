@@ -26,15 +26,77 @@ Import Khoá Học Học Viên
             <h4 class="mb-0">Import Khoá học - Học viên</h4>
         </div>
         <hr />
-        <form action="{{ route('admins.course-user.importFile') }}" method="POST" enctype="multipart/form-data">
+        <form action="" method="POST" enctype="multipart/form-data" id="import-form">
             @csrf
-            <input id="image-uploadify" type="file"
-                accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf" name="file_xlsx">
+            <input id="image-uploadify" type="file" accept=".xlsx,.xls" name="file_xlsx">
             <button type="submit" class="btn btn-primary"><i class="lni lni-cloud-upload mr-2"></i>Import</button>
         </form>
+
+        <div id="progress-container" style="display: none;">
+            <h3>Đang import...</h3>
+            <div class="progress">
+                <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0"
+                    aria-valuemin="0" aria-valuemax="100">0%</div>
+            </div>
+        </div>
+    </div>
+</div>
+<form data-reload="#load-data-ajax-imports" id="search-form-imports" class="mb-3 form-search-submit">
+    @csrf
+</form>
+<div class="card radius-15">
+    <div class="card-body">
+        <div class="table-responsive mt-1 mb-1 load-data-ajax" data-url="{{ route('admins.imports.data') }}" id="load-data-ajax-imports" data-search="#search-form-imports">
+            <div class="loading-overlay"><div class="loading-spinner"></div></div>
+        </div>
     </div>
 </div>
 
 @endsection
 @push('js')
+<script>
+    $(document).ready(function() {
+        var isImport = false;
+        var isImportSuccess = false;
+        $('#import-form').on('submit', function(e) {
+            e.preventDefault();
+            isImport = true;
+            console.log(isImport)
+            var formData = new FormData(this);
+            $.ajax({
+                url: '{{ route('admins.course-user.importFile') }}',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    isImportSuccess = true;
+                    $('.form-search-submit').submit();
+                },
+                error: function(xhr, status, error) {
+                    alert('Có lỗi xảy ra: ' + error);
+                }
+            });
+        });
+
+        var interval = setInterval(function() {
+            if (isImport) {
+                $('#progress-container').show();
+                $.ajax({
+                    url: '{{ route('admins.course-user.importProgress') }}',
+                    type: 'GET',
+                    success: function(progress) {
+                        var percentComplete = (progress.processed / progress.total) * 100;
+                        $('#progress-bar').css('width', percentComplete + '%');
+                        $('#progress-bar').text(Math.round(percentComplete) + '%');
+
+                        if (isImportSuccess) {
+                            clearInterval(interval);
+                        }
+                    }
+                });
+            }
+        }, 1000);
+    });
+</script>
 @endpush
