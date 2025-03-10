@@ -506,8 +506,9 @@ $(function () {
         var $url = $(this).attr("href");
         $($elReload).addClass("load-data-ajax");
         $(elmModal).find(".load-data-ajax").data("url", $url);
-        loadDataAjax($elReload);
         $(elmModal).modal("show");
+        loadDataAjax($elReload);
+
     });
 
     $(document).on("click", ".btn-edit-ajax", function (e) {

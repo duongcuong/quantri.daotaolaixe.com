@@ -46,8 +46,11 @@ Import Khoá Học Học Viên
 </form>
 <div class="card radius-15">
     <div class="card-body">
-        <div class="table-responsive mt-1 mb-1 load-data-ajax" data-url="{{ route('admins.imports.data') }}" id="load-data-ajax-imports" data-search="#search-form-imports">
-            <div class="loading-overlay"><div class="loading-spinner"></div></div>
+        <div class="table-responsive mt-1 mb-1 load-data-ajax" data-url="{{ route('admins.imports.data') }}"
+            id="load-data-ajax-imports" data-search="#search-form-imports">
+            <div class="loading-overlay">
+                <div class="loading-spinner"></div>
+            </div>
         </div>
     </div>
 </div>
@@ -72,6 +75,9 @@ Import Khoá Học Học Viên
                 success: function(response) {
                     isImportSuccess = true;
                     $('.form-search-submit').submit();
+                    var percentComplete = 100;
+                        $('#progress-bar').css('width', percentComplete + '%');
+                        $('#progress-bar').text(Math.round(percentComplete) + '%');
                 },
                 error: function(xhr, status, error) {
                     alert('Có lỗi xảy ra: ' + error);
