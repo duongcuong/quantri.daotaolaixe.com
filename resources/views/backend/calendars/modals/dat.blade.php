@@ -17,9 +17,6 @@
                     $showColumn = 'name,date_start,date_end,name_hocvien,km,so_gio_chay_duoc';
                     $loaiHoc = 'chay_dat';
                     @endphp
-                    <input type="hidden" name="show_column" value="{{ $showColumn }}">
-                    <input type="hidden" name="type" value="{{ $typeColumn }}">
-                    <input type="hidden" name="reload" value="{{ $reload }}">
                 </form>
                 <div id="load-data-ajax-class-calendars" class="table-responsive mt-1 mb-1 load-data-ajax"
                     data-search="#search-form-class-calendars" data-url="{{ route('admins.calendars.data') }}">
