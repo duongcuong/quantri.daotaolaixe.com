@@ -291,6 +291,11 @@ class CourseUserController extends Controller
                 continue;
             }
 
+            // Cập nhật tiến trình import
+            $progress = json_decode(file_get_contents($progressFile), true);
+            $progress['processed']++;
+            file_put_contents($progressFile, json_encode($progress));
+
             sleep(1);
 
             DB::beginTransaction();
@@ -374,80 +379,80 @@ class CourseUserController extends Controller
                 if ($row[41] && $row[42] && $row[43]) {
                     $chayDats[] = [
                         'ngay' => getDateByExcel($row[41]),
-                        'gio' => convertHoursExcelToSeconds($row[42]),
-                        'km' => $row[43]
+                        'gio' => convertHoursExcelToSeconds($row[43]),
+                        'km' => $row[42]
                     ];
                 }
 
                 if ($row[44] && $row[45] && $row[46]) {
                     $chayDats[] = [
                         'ngay' => getDateByExcel($row[44]),
-                        'gio' => convertHoursExcelToSeconds($row[45]),
-                        'km' => $row[46]
+                        'gio' => convertHoursExcelToSeconds($row[46]),
+                        'km' => $row[45]
                     ];
                 }
 
                 if ($row[47] && $row[48] && $row[49]) {
                     $chayDats[] = [
                         'ngay' => getDateByExcel($row[47]),
-                        'gio' => convertHoursExcelToSeconds($row[48]),
-                        'km' => $row[49]
+                        'gio' => convertHoursExcelToSeconds($row[49]),
+                        'km' => $row[48]
                     ];
                 }
 
                 if ($row[50] && $row[51] && $row[52]) {
                     $chayDats[] = [
                         'ngay' => getDateByExcel($row[50]),
-                        'gio' => convertHoursExcelToSeconds($row[51]),
-                        'km' => $row[52]
+                        'gio' => convertHoursExcelToSeconds($row[52]),
+                        'km' => $row[51]
                     ];
                 }
 
                 if ($row[53] && $row[54] && $row[55]) {
                     $chayDats[] = [
                         'ngay' => getDateByExcel($row[53]),
-                        'gio' => convertHoursExcelToSeconds($row[54]),
-                        'km' => $row[55]
+                        'gio' => convertHoursExcelToSeconds($row[55]),
+                        'km' => $row[54]
                     ];
                 }
 
                 if ($row[56] && $row[57] && $row[58]) {
                     $chayDats[] = [
                         'ngay' => getDateByExcel($row[56]),
-                        'gio' => convertHoursExcelToSeconds($row[57]),
-                        'km' => $row[58]
+                        'gio' => convertHoursExcelToSeconds($row[58]),
+                        'km' => $row[57]
                     ];
                 }
 
                 if ($row[59] && $row[60] && $row[61]) {
                     $chayDats[] = [
                         'ngay' => getDateByExcel($row[59]),
-                        'gio' => convertHoursExcelToSeconds($row[60]),
-                        'km' => $row[61]
+                        'gio' => convertHoursExcelToSeconds($row[61]),
+                        'km' => $row[60]
                     ];
                 }
 
                 if ($row[62] && $row[63] && $row[64]) {
                     $chayDats[] = [
                         'ngay' => getDateByExcel($row[62]),
-                        'gio' => convertHoursExcelToSeconds($row[63]),
-                        'km' => $row[64]
+                        'gio' => convertHoursExcelToSeconds($row[64]),
+                        'km' => $row[63]
                     ];
                 }
 
                 if ($row[65] && $row[66] && $row[67]) {
                     $chayDats[] = [
                         'ngay' => getDateByExcel($row[65]),
-                        'gio' => convertHoursExcelToSeconds($row[66]),
-                        'km' => $row[67]
+                        'gio' => convertHoursExcelToSeconds($row[67]),
+                        'km' => $row[66]
                     ];
                 }
 
                 if ($row[68] && $row[69] && $row[70]) {
                     $chayDats[] = [
                         'ngay' => getDateByExcel($row[68]),
-                        'gio' => convertHoursExcelToSeconds($row[69]),
-                        'km' => $row[70]
+                        'gio' => convertHoursExcelToSeconds($row[70]),
+                        'km' => $row[69]
                     ];
                 }
 
@@ -623,11 +628,6 @@ class CourseUserController extends Controller
                     'row_data' => json_encode($row),
                     'success' => true,
                 ]);
-
-                // Cập nhật tiến trình import
-                $progress = json_decode(file_get_contents($progressFile), true);
-                $progress['processed']++;
-                file_put_contents($progressFile, json_encode($progress));
             } catch (\Exception $e) {
                 DB::rollBack();
 
@@ -643,8 +643,6 @@ class CourseUserController extends Controller
                 continue;
             }
         }
-
-        file_put_contents($progressFile, json_encode(['total' => 0, 'processed' => 0]));
 
         if ($request->ajax()) {
             return response()->json(['success' => 'Import thành công.']);

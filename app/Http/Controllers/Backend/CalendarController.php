@@ -179,4 +179,8 @@ class CalendarController extends Controller
     public function exam(){
         return view('backend.calendars.exam');
     }
+
+    public function dat(){
+        return view('backend.calendars.modals.dat');
+    }
 }

@@ -7,7 +7,8 @@
                         <div class="left">
                             <h5>Lịch học</h5>
                             <div class="d-flex">
-                                <strong class="mr-1">Tổng km: </strong> <strong class="mr-2 text-danger"> {{ number_format($courseUser->calendars_sum_km) }}</strong>
+                                <strong class="mr-1">Tổng km: </strong> <strong class="mr-2 text-danger"> {{
+                                    number_format($courseUser->calendars_sum_km) }}</strong>
                                 <strong class="mr-1">Tổng giờ chạy được: </strong> <strong class="text-danger"> {{
                                     getFormattedSoGioChayDuocAttribute($courseUser->calendars_sum_so_gio_chay_duoc)
                                     }}</strong>
@@ -19,6 +20,9 @@
                                     class="mb-3 form-search-submit">
                                     <div class="d-flex">
                                         <input type="hidden" value="{{ $courseUser->id }}" name="course_user_id">
+                                        <input type="hidden" name="type" value="class_schedule">
+                                        <input type="hidden" name="show_column"
+                                            value="name,date_start,date_end,name_hocvien,diem_don,san,course_code,loai_hoc,km,so_gio_chay_duoc">
                                         <div class="mr-2">
                                             <select class="form-control form-control-sm" name="loai_hoc">
                                                 <option value="">Loại học</option>
@@ -44,7 +48,7 @@
 
                     <div id="load-data-ajax-class-calendars" class="table-responsive mt-1 mb-1 load-data-ajax"
                         data-search="#search-form-class-calendars"
-                        data-url="{{ route('admins.calendars.data', ['course_user_id' => $courseUser->id, 'type' => 'class_schedule', 'show_column' => 'name,date_start,date_end,name_hocvien,diem_don,san,course_code,loai_hoc,km,so_gio_chay_duoc', 'reload' => 'load-data-ajax-class-calendars']) }}">
+                        data-url="{{ route('admins.calendars.data') }}">
                         <div class="loading-overlay">
                             <div class="loading-spinner"></div>
                         </div>

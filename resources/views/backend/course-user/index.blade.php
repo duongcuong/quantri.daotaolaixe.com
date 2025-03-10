@@ -137,7 +137,6 @@ Tất cả Khoá học - Học Viên
         </div>
     </div>
 </div>
-@include('backend.calendars.modals.dat')
 @endsection
 @push('js')
 <script>

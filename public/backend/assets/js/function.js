@@ -396,18 +396,19 @@ $(function () {
 
     loadDataAjax();
 
-    $(".form-search-submit").on("submit", function (e) {
+    $(document).on("submit", ".form-search-submit", function (e) {
         e.preventDefault();
         var $button = $(this).find('button[type="submit"]');
         var $spinner = $button.find(".spinner-border");
         var $elReload = $(this).attr("data-reload");
+        var $elmLoadDataAjax = $(this).attr("id");
 
         // Hiển thị spinner và disabled button
         $spinner.show();
         $button.prop("disabled", true);
 
-        let _url = $(".load-data-ajax").attr("data-url");
-        $(".load-data-ajax").data("url", _url);
+        let _url = $(`div[data-search="#${$elmLoadDataAjax}"]`).attr("data-url");
+        $($elmLoadDataAjax).data("url", _url);
 
         loadDataAjax($elReload, function () {
             // Ẩn spinner và bỏ disabled button sau khi gọi AJAX xong
@@ -419,9 +420,9 @@ $(function () {
     $(document).on("click", ".load-data-ajax .pagination a", function (e) {
         e.preventDefault();
         var url = $(this).attr("href");
-        var elReload = $(this).closest(".load-data-ajax").attr("data-reload");
+        var elReload = $(this).closest(".load-data-ajax").attr("id");
         $(this).closest(".load-data-ajax").data("url", url);
-        loadDataAjax(elReload);
+        loadDataAjax(`#${elReload}`);
     });
 
     $(document).on("submit", ".form-submit-ajax", function (e) {
@@ -502,13 +503,20 @@ $(function () {
         e.preventDefault();
         removeAllModals();
         var elmModal = $(this).attr("data-cs-modal");
-        var $elReload = $(this).attr("data-reload");
-        var $url = $(this).attr("href");
-        $($elReload).addClass("load-data-ajax");
-        $(elmModal).find(".load-data-ajax").data("url", $url);
-        $(elmModal).modal("show");
-        loadDataAjax($elReload);
-
+        var url = $(this).attr("href");
+        $.ajax({
+            url: url,
+            method: "GET",
+            success: function (response) {
+                $(elmModal).remove();
+                $("body").append(response);
+                $(elmModal).modal("show");
+                $(elmModal).find('.form-search-submit').submit();
+            },
+            error: function (xhr) {
+                console.error("Error loading create modal:", xhr);
+            },
+        });
     });
 
     $(document).on("click", ".btn-edit-ajax", function (e) {

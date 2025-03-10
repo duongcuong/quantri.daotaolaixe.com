@@ -49,12 +49,14 @@
             <td>
                 @if ($courseUser->calendars_sum_km > 0)
                 <a class="btn-show-list-ajax"
-                    href="{{ route('admins.calendars.data', ['course_user_id' => $courseUser->id]) }}">
-                    {{ $courseUser->user->name ?? '' }}</td>
-                </a>
-                @else
-                {{ $courseUser->user->name ?? '' }}</td>
-                @endif
+                    href="{{ route('admins.calendars.dat', ['course_user_id' => $courseUser->id]) }}"
+                    data-cs-modal="#modal-dat-calendars-ajax" data-reload="#load-data-ajax-dat-calendars">
+                    {{ $courseUser->user->name ?? '' }}
+            </td>
+            </a>
+            @else
+            {{ $courseUser->user->name ?? '' }}</td>
+            @endif
 
             <td>{{ getDateTimeStamp($courseUser->contract_date, 'd/m/Y') }}</td>
             <td>{{ \Carbon\Carbon::parse($courseUser->user->dob)->format('d/m/Y') }}</td>
@@ -73,7 +75,7 @@
             <td>
                 @if ($courseUser->calendars_sum_km > 0)
                 <a class="btn-show-list-ajax"
-                    href="{{ route('admins.calendars.data', ['course_user_id' => $courseUser->id, 'type' => 'class_schedule', 'loai_hoc' => 'chay_dat', 'show_column' => 'name,date_start,date_end,name_hocvien,km,so_gio_chay_duoc']) }}"
+                    href="{{ route('admins.calendars.dat', ['course_user_id' => $courseUser->id]) }}"
                     data-cs-modal="#modal-dat-calendars-ajax" data-reload="#load-data-ajax-dat-calendars">{{
                     getFormattedSoGioChayDuocAttribute($courseUser->calendars_sum_so_gio_chay_duoc) }}</a>
                 @else
@@ -83,7 +85,7 @@
             <td>
                 @if ($courseUser->calendars_sum_km > 0)
                 <a class="btn-show-list-ajax"
-                    href="{{ route('admins.calendars.data', ['course_user_id' => $courseUser->id, 'type' => 'class_schedule', 'loai_hoc' => 'chay_dat', 'show_column' => 'name,date_start,date_end,name_hocvien,km,so_gio_chay_duoc']) }}"
+                    href="{{ route('admins.calendars.dat', ['course_user_id' => $courseUser->id]) }}"
                     data-cs-modal="#modal-dat-calendars-ajax" data-reload="#load-data-ajax-dat-calendars">{{
                     number_format($courseUser->calendars_sum_km) }}</a>
                 @else

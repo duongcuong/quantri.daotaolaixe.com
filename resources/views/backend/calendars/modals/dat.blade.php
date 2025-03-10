@@ -16,10 +16,12 @@
                     $type = 'class_schedule';
                     $showColumn = 'name,date_start,date_end,name_hocvien,km,so_gio_chay_duoc';
                     $loaiHoc = 'chay_dat';
+                    $courseUserId = request()->get('course_user_id');
                     @endphp
-                    input type="hidden" name="type" value="{{ $type }}">
+                    <input type="hidden" name="type" value="{{ $type }}">
                     <input type="hidden" name="show_column" value="{{ $showColumn }}">
                     <input type="hidden" name="loai_hoc" value="{{ $loaiHoc }}">
+                    <input type="hidden" name="course_user_id" value="{{ $courseUserId }}">
                 </form>
                 <div id="load-data-ajax-class-chaydat-calendars" class="table-responsive mt-1 mb-1 load-data-ajax"
                     data-search="#search-form-class-chaydat-calendars" data-url="{{ route('admins.calendars.data') }}">

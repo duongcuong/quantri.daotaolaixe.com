@@ -64,7 +64,10 @@ Import Khoá Học Học Viên
         $('#import-form').on('submit', function(e) {
             e.preventDefault();
             isImport = true;
-            console.log(isImport)
+
+            $('#progress-bar').css('width', 0 + '%');
+            $('#progress-bar').text(Math.round(0) + '%');
+
             var formData = new FormData(this);
             $.ajax({
                 url: '{{ route('admins.course-user.importFile') }}',
@@ -75,9 +78,6 @@ Import Khoá Học Học Viên
                 success: function(response) {
                     isImportSuccess = true;
                     $('.form-search-submit').submit();
-                    var percentComplete = 100;
-                        $('#progress-bar').css('width', percentComplete + '%');
-                        $('#progress-bar').text(Math.round(percentComplete) + '%');
                 },
                 error: function(xhr, status, error) {
                     alert('Có lỗi xảy ra: ' + error);
@@ -97,7 +97,9 @@ Import Khoá Học Học Viên
                         $('#progress-bar').text(Math.round(percentComplete) + '%');
 
                         if (isImportSuccess) {
-                            clearInterval(interval);
+                            setTimeout(function() {
+                                clearInterval(interval);
+                            }, 2000);
                         }
                     }
                 });
