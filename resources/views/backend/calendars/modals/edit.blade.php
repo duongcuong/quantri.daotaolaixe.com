@@ -96,7 +96,7 @@
                                     <div class="col-md-6">
                                         <div class="form-check">
                                             <input class="form-check-input" name="loai_thi[]" type="checkbox"
-                                                value="{{ $key }}" id="flexCheckChecked{{ $key }}" {{ in_array($key,
+                                                value="{{ $key }}" id="flexCheckChecked{{ $key }}" {{ $calendar->loai_thi && in_array($key,
                                                 $calendar->loai_thi) ? 'checked' : '' }}>
                                             <label class="form-check-label" for="flexCheckChecked{{ $key }}">{{ $item
                                                 }}</label>
