@@ -220,6 +220,7 @@ class LeadController extends Controller
             $courseUser = CourseUser::create([
                 'user_id' => $user_id,
                 'course_id' => $course_id,
+                'sale_id' => $lead->assigned_to,
             ]);
 
             // Cập nhật course_user_id cho lead
