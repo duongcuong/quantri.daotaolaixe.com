@@ -516,6 +516,7 @@ function getLoaiHoc($loaiHoc)
 {
     if (!$loaiHoc) return '';
     $loaiHocs = listLoaiHocs();
+    if(!isset($loaiHocs[$loaiHoc])) return '';
     return '<span class="badge badge-secondary">' . $loaiHocs[$loaiHoc] . '</span>' ?? '';
 }
 
