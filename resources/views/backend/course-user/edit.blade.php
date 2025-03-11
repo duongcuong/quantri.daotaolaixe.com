@@ -80,11 +80,11 @@ Sửa Khoá học - Học Viên
                             <input type="number" name="tuition_fee" id="tuition_fee" class="form-control"
                                 value="{{ old('tuition_fee', $courseUser->tuition_fee) }}">
                         </div>
-                        <div class="form-group col-md-6">
+                        {{-- <div class="form-group col-md-6">
                             <label for="practice_field">Sân tập</label>
                             <input type="text" name="practice_field" id="practice_field" class="form-control"
                                 value="{{ old('practice_field', $courseUser->practice_field) }}" />
-                        </div>
+                        </div> --}}
                         <div class="form-group col-md-6">
                             <label for="health_check_date">Khám sức khoẻ</label>
                             <input type="date" name="health_check_date" id="health_check_date" class="form-control"
@@ -108,14 +108,16 @@ Sửa Khoá học - Học Viên
                         <div class="form-group col-md-6">
                             <label for="exam_field_id" class="d-flex justify-content-between">
                                 <span>Sân thi</span>
-                                <a class="btn-create-ajax"
-                                    href="{{ route('admins.exam-fields.create') }}"
+                                <a class="btn-create-ajax" href="{{ route('admins.exam-fields.create') }}"
                                     data-cs-modal="#modal-exam-fields-create-ajax" title="Thêm mới"><i
                                         class="bx bx-plus"></i>Thêm sân thi</a>
                             </label>
-                            <select class="select2-ajax-single form-control" name="exam_field_id"
-                                data-selected-id="{{ $courseUser->exam_field_id }}" data-placeholder="Chọn sân thi"
-                                data-url="{{ route('admins.exam-fields.list') }}">
+                            <select name="exam_field_id" id="exam_field_id" class="form-control single-select"
+                                data-placeholder="Chọn sân thi" data-allow-clear="true">
+                                <option></option>
+                                @foreach ($examFields as $examField)
+                                <option value="{{ $examField->id }}" {{ $examField->id == $courseUser->exam_field_id ? 'selected' : '' }}> {{ $examField->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group col-md-6">

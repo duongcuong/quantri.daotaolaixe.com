@@ -3,7 +3,8 @@
     aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <form class="row g-3 needs-validation form-submit-ajax" method="POST"
-            action="{{ route('admins.calendars.update', $calendar->id) }}" data-reload="#{{ request()->reload ?? 'load-data-ajax-calendars' }}">
+            action="{{ route('admins.calendars.update', $calendar->id) }}"
+            data-reload="#{{ request()->reload ?? 'load-data-ajax-calendars' }}">
             @csrf
             @method('PUT')
             <div class="modal-content">
@@ -63,7 +64,8 @@
                                 </div>
                             </div>
                             <div id="show-select-dat"
-                            style="display: {{ $calendar->loai_hoc == 'chay_dat' ? 'block' : 'none' }};" class="border radius-10 p-15 mb-3">
+                                style="display: {{ $calendar->loai_hoc == 'chay_dat' ? 'block' : 'none' }};"
+                                class="border radius-10 p-15 mb-3">
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <label for="km">Km</label>
@@ -117,7 +119,8 @@
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="tuition_fee">Số tiền</label>
-                                    <input type="text" name="tuition_fee" id="tuition_fee" class="form-control thousand-text"
+                                    <input type="text" name="tuition_fee" id="tuition_fee"
+                                        class="form-control thousand-text"
                                         value="{{ old('tuition_fee', $calendar->tuition_fee) }}" />
                                 </div>
                             </div>
@@ -130,9 +133,14 @@
                                         <a href="{{ route('admins.exam-fields.index') }}" title="Thêm mới"
                                             target="_blank"><i class="bx bx-plus"></i>Thêm sân thi</a>
                                     </label>
-                                    <select class="select2-ajax-single form-control" name="exam_field_id"
-                                        data-selected-id="{{ $calendar->exam_field_id }}" data-placeholder="Chọn sân"
-                                        data-url="{{ route('admins.exam-fields.list') }}">
+                                    <select name="exam_field_id" id="exam_field_id" class="form-control single-select"
+                                        data-placeholder="Chọn sân thi" data-allow-clear="true">
+                                        <option></option>
+                                        @foreach ($examFields as $examField)
+                                        <option value="{{ $examField->id }}" {{ $examField->id ==
+                                            $calendar->exam_field_id ? 'selected' : '' }}> {{ $examField->name }}
+                                        </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>

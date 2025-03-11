@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Calendar;
+use App\Models\ExamField;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
@@ -47,8 +48,9 @@ class CalendarController extends Controller
 
     public function create(Request $request)
     {
+        $examFields = ExamField::all();
         $course_user_id = $request->has('course_user_id') ? $request->course_user_id : '';
-        return view('backend.calendars.modals.create', compact('course_user_id'));
+        return view('backend.calendars.modals.create', compact('course_user_id', 'examFields'));
     }
 
     public function store(Request $request)
@@ -83,7 +85,8 @@ class CalendarController extends Controller
 
     public function edit(Calendar $calendar, Request $request)
     {
-        return view('backend.calendars.modals.edit', compact('calendar'));
+        $examFields = ExamField::all();
+        return view('backend.calendars.modals.edit', compact('calendar', 'examFields'));
     }
 
     public function update(Request $request, Calendar $calendar)
@@ -130,7 +133,8 @@ class CalendarController extends Controller
         $query = Calendar::query();
 
         if ($request->has('type') && $request->type) {
-            $query->where('type', $request->type);
+            $types = explode(',', $request->type);
+            $query->whereIn('type', $types);
         }
 
         if ($request->has('status') && $request->status) {
@@ -182,5 +186,9 @@ class CalendarController extends Controller
 
     public function dat(){
         return view('backend.calendars.modals.dat');
+    }
+
+    public function learningExam(){
+        return view('backend.calendars.modals.learning-exam');
     }
 }

@@ -3,7 +3,8 @@
     aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <form class="row g-3 needs-validation form-submit-ajax" method="POST"
-            action="{{ route('admins.calendars.store') }}" data-reload="#{{ request()->reload ?? 'load-data-ajax-calendars'}}">
+            action="{{ route('admins.calendars.store') }}"
+            data-reload="#{{ request()->reload ?? 'load-data-ajax-calendars'}}">
             @csrf
             <div class="modal-content">
                 <div class="modal-header">
@@ -108,7 +109,8 @@
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="tuition_fee">Số tiền</label>
-                                    <input type="text" name="tuition_fee" id="tuition_fee" class="form-control thousand-text">
+                                    <input type="text" name="tuition_fee" id="tuition_fee"
+                                        class="form-control thousand-text">
                                 </div>
                             </div>
                             @endif
@@ -120,9 +122,12 @@
                                         <a href="{{ route('admins.exam-fields.index') }}" title="Thêm mới"
                                             target="_blank"><i class="bx bx-plus"></i>Thêm sân thi</a>
                                     </label>
-                                    <select class="select2-ajax-single form-control" name="exam_field_id"
-                                        data-selected-id="" data-placeholder="Chọn sân"
-                                        data-url="{{ route('admins.exam-fields.list') }}">
+                                    <select name="exam_field_id" id="exam_field_id" class="form-control single-select"
+                                        data-placeholder="Chọn sân thi" data-allow-clear="true">
+                                        <option></option>
+                                        @foreach ($examFields as $examField)
+                                        <option value="{{ $examField->id }}"> {{ $examField->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>

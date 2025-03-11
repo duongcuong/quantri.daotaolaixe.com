@@ -33,7 +33,8 @@ class CourseUserController extends Controller
 
     public function create()
     {
-        return view('backend.course-user.create');
+        $examFields = ExamField::all();
+        return view('backend.course-user.create', compact('examFields'));
     }
 
     public function store(Request $request)
@@ -88,9 +89,10 @@ class CourseUserController extends Controller
 
     public function edit(CourseUser $courseUser)
     {
+        $examFields = ExamField::all();
         $courseUser->loadSum('calendars', 'km');
         $courseUser->loadSum('calendars', 'so_gio_chay_duoc');
-        return view('backend.course-user.edit', compact('courseUser'));
+        return view('backend.course-user.edit', compact('courseUser', 'examFields'));
     }
 
     public function update(Request $request, CourseUser $courseUser)

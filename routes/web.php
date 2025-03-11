@@ -78,6 +78,7 @@ Route::prefix('admin')->as('admins.')->group(function () {
         Route::get('calendars/learning', [CalendarController::class, 'learning'])->name('calendars.learning');
         Route::get('calendars/exam', [CalendarController::class, 'exam'])->name('calendars.exam');
         Route::get('calendars/dat', [CalendarController::class, 'dat'])->name('calendars.dat');
+        Route::get('calendars/learning-exam', [CalendarController::class, 'learningExam'])->name('calendars.learningExam');
         Route::resource('calendars', CalendarController::class);
 
         // exam field

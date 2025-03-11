@@ -47,17 +47,12 @@
             <td>{{ $courseUser->course->code }}</td>
             <td>{{ $courseUser->course->rank }}</td>
             <td>
-                @if ($courseUser->calendars_sum_km > 0)
                 <a class="btn-show-list-ajax"
-                    href="{{ route('admins.calendars.dat', ['course_user_id' => $courseUser->id]) }}"
+                    href="{{ route('admins.calendars.learningExam', ['course_user_id' => $courseUser->id]) }}"
                     data-cs-modal="#modal-dat-calendars-ajax" data-reload="#load-data-ajax-dat-calendars">
                     {{ $courseUser->user->name ?? '' }}
+                </a>
             </td>
-            </a>
-            @else
-            {{ $courseUser->user->name ?? '' }}</td>
-            @endif
-
             <td>{{ getDateTimeStamp($courseUser->contract_date, 'd/m/Y') }}</td>
             <td>{{ \Carbon\Carbon::parse($courseUser->user->dob)->format('d/m/Y') }}</td>
             <td>{{ $courseUser->user->gender == 0 ? 'Nam' : ($courseUser->user->gender == 1 ? 'Nữ' : 'Khác')
