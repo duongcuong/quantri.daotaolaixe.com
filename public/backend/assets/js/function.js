@@ -658,7 +658,7 @@ $(function () {
 
     $("body").on("change", 'input[name="loai_hoc"]', function (e) {
         var loai_hoc = $(this).val();
-        if (loai_hoc == "chay_dat") {
+        if (loai_hoc == "chay_dat" || loai_hoc == "thuc_hanh") {
             $(this).closest("form").find("#show-select-dat").show();
         } else {
             $(this).closest("form").find("#show-select-dat").hide();

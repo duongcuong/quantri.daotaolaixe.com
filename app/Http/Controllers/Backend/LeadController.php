@@ -8,6 +8,7 @@ use App\Models\Lead;
 use App\Models\User;
 use App\Models\Admin;
 use App\Models\CourseUser;
+use App\Models\LeadSource;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -21,7 +22,8 @@ class LeadController extends Controller
 
     public function create()
     {
-        return view('backend.leads.create');
+        $leadSources = LeadSource::all();
+        return view('backend.leads.create', compact('leadSources'));
     }
 
     public function store(Request $request)
@@ -56,7 +58,8 @@ class LeadController extends Controller
 
     public function edit(Lead $lead)
     {
-        return view('backend.leads.edit', compact('lead'));
+        $leadSources = LeadSource::all();
+        return view('backend.leads.edit', compact('lead', 'leadSources'));
     }
 
     public function update(Request $request, Lead $lead)

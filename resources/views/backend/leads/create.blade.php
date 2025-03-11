@@ -69,9 +69,12 @@ Tạo lead
                                     data-cs-modal="#modal-lead-sources-create-ajax" title="Thêm mới"><i
                                         class="bx bx-plus"></i>Thêm nguồn</a>
                             </label>
-                            <select class="select2-ajax-single form-control" name="lead_source_id"
-                                data-selected-id="{{ old('lead_source_id') }}" data-placeholder="Chọn nguồn"
-                                data-url="{{ route('admins.lead-sources.list') }}">
+                            <select name="lead_source_id" id="lead_source_id" class="form-control single-select"
+                                data-placeholder="Chọn nguồn" data-allow-clear="true">
+                                <option></option>
+                                @foreach ($leadSources as $leadSource)
+                                <option value="{{ $leadSource->id }}"> {{ $leadSource->name }}</option>
+                                @endforeach
                             </select>
                         </div>
 
