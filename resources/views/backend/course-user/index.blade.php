@@ -52,27 +52,15 @@ Tất cả Khoá học - Học Viên
                         data-url="{{ route('admins.admins.list', ['role'=> ROLE_TEACHER]) }}">
                     </select>
                 </div>
-                <div class="form-group col-sm-6 col-md-6">
-                    <label for="contract_date">Ngày ký hợp đồng</label>
-                    <div class="date-time-cs">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <select id="contract_day" name="contract_day" class="form-control single-select"
-                                    data-placeholder="Chọn ngày" data-allow-clear="true">
-                                    <option value="">Chọn ngày</option>
-                                    @for ($day = 1; $day <= 31; $day++) <option value="{{ $day }}" {{
-                                        session('course_user_filters.contract_day')==$day ? 'selected' : '' }}>{{ $day
-                                        }}
-                                        </option>
-                                        @endfor
-                                </select>
-                            </div>
-                            <div class="col-md-8">
-                                <input type="month" id="contract_month" name="contract_month" class="form-control"
-                                    placeholder="Chọn ngày" value="{{ session('course_user_filters.contract_month') }}">
-                            </div>
-                        </div>
-                    </div>
+                <div class="form-group col-sm-6 col-md-3">
+                    <label for="start_date" class="mr-2">Ngày kí hợp đồng bắt đầu</label>
+                    <input type="date" name="start_date" id="start_date" class="form-control"
+                        value="{{ session('course_user_filters.start_date') }}">
+                </div>
+                <div class="form-group col-sm-6 col-md-3">
+                    <label for="end_date" class="mr-2">Ngày ký hợp đồng kết thúc</label>
+                    <input type="date" name="end_date" id="end_date" class="form-control"
+                        value="{{ session('course_user_filters.end_date') }}">
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="search_text" class="mr-2">Họ tên / Mã ĐK / Số CMT</label>

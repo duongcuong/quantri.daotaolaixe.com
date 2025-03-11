@@ -17,7 +17,7 @@
     <tbody>
         @foreach ($leads as $lead)
         <tr>
-            <td>{{ $loop->iteration }}</td>
+            <td>{{ getSTT($leads, $loop->iteration) }}</td>
             <td>{{ $lead->name }}</td>
             <td>{{ $lead->assignedTo->name }}</td>
             <td>{{ $lead->email }}</td>

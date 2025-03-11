@@ -11,7 +11,7 @@
     <tbody>
         @foreach ($imports as $import)
         <tr>
-            <td>{{ $loop->iteration }}</td>
+            <td>{{ getSTT($imports, $loop->iteration) }}</td>
             <td>
                 <a href="{{ Storage::url( $import->sanitized_file_name) }}" target="_blank">
                     {{ $import->file_name }}

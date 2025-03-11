@@ -19,7 +19,7 @@
     <tbody>
         @foreach ($courses as $course)
         <tr>
-            <td>{{ $loop->iteration }}</td>
+            <td>{{ getSTT($courses, $loop->iteration) }}</td>
             <td>
                 <a href="{{ route('admins.course-user.index', ['course_id' => $course->id]) }}">
                     {{ $course->code }}
@@ -31,7 +31,7 @@
             <td>{{ \Carbon\Carbon::parse($course->date_bci)->format('d/m/Y') }}</td>
             <td>{{ \Carbon\Carbon::parse($course->start_date)->format('d/m/Y') }}</td>
             <td>{{ \Carbon\Carbon::parse($course->end_date)->format('d/m/Y') }}</td>
-            <td>{{ $course->number_students }}</td>
+            <td>{{ $course->course_users_count }}</td>
             <td>{{ $course->decision_kg }}</td>
             <td>{{ $course->duration }}</td>
             <td>{!! getMoney($course->tuition_fee) !!}</td>

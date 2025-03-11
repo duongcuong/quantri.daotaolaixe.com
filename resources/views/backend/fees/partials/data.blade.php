@@ -1,3 +1,7 @@
+<div class="alert alert-info alert-dismissible fade show" role="alert">
+    <strong class="mr-1">Tổng tiền đã nạp: </strong>
+    <strong class="mr-2 text-danger">{!! getMoney($feeTotal) !!}</strong>
+</div>
 <table id="example" class="table table-sm table-hover">
     <thead>
         <tr>
@@ -15,7 +19,7 @@
     <tbody>
         @foreach ($fees as $fee)
         <tr>
-            <td>{{ $loop->iteration }}</td>
+            <td>{{ getSTT($fees, $loop->iteration) }}</td>
             <td>{{ $fee->courseUser->user->name }}</td>
             <td>{{ $fee->courseUser->course->code }}</td>
             <td>{{ number_format($fee->amount) }}</td>

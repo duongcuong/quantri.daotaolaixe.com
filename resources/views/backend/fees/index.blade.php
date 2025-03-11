@@ -31,12 +31,18 @@ Tất cả lịch sử nạp học phí
         <form data-reload="#load-data-ajax-fees" id="search-form-fees" class="mb-3 form-search-submit">
             <div class="row">
                 <div class="form-group col-sm-6 col-md-3">
-                    <label for="payment_date" class="mr-2">Tháng năm</label>
-                    <input type="month" id="payment_date" name="payment_date" class="form-control">
+                    <label for="start_date" class="mr-2">Ngày đóng HP bắt đầu</label>
+                    <input type="date" name="start_date" id="start_date" class="form-control"
+                        value="{{ session('fees_filters.start_date') }}">
+                </div>
+                <div class="form-group col-sm-6 col-md-3">
+                    <label for="end_date" class="mr-2">Ngày đóng HP kết thúc</label>
+                    <input type="date" name="end_date" id="end_date" class="form-control"
+                        value="{{ session('fees_filters.end_date') }}">
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="student_name" class="mr-2">Tên học viên</label>
-                    <input type="text" id="student_name" name="student_name" class="form-control">
+                    <input type="text" id="student_name" name="student_name" class="form-control" value="{{ session('fees_filters.student_name') }}">
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="status22" class="mr-2 opacity-0">Hành động </label><br>

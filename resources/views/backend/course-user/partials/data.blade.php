@@ -6,9 +6,9 @@
             <th rowspan="2">Mã ĐK</th>
             <th rowspan="2">Hạng</th>
             <th rowspan="2">Họ tên</th>
-            <th rowspan="2">Ngày kí hợp đồng</th>
             <th rowspan="2">Ngày sinh</th>
             <th rowspan="2">Giới tính</th>
+            <th rowspan="2">Ngày kí hợp đồng</th>
             <th rowspan="2">Số CMT</th>
             <th rowspan="2">Id thẻ</th>
             <th rowspan="2">Số thẻ</th>
@@ -39,7 +39,7 @@
     <tbody>
         @foreach ($courseUsers as $courseUser)
         <tr>
-            <td>{{ $loop->iteration }}</td>
+            <td>{{ getSTT($courseUsers, $loop->iteration) }}</td>
             <td>
                 <img src="{{ getImageUpload($courseUser->user->thumbnail, 'users', 'small') }}" alt="User Thumbnail"
                     class="avatar" width="50">
@@ -53,10 +53,10 @@
                     {{ $courseUser->user->name ?? '' }}
                 </a>
             </td>
-            <td>{{ getDateTimeStamp($courseUser->contract_date, 'd/m/Y') }}</td>
             <td>{{ \Carbon\Carbon::parse($courseUser->user->dob)->format('d/m/Y') }}</td>
             <td>{{ $courseUser->user->gender == 0 ? 'Nam' : ($courseUser->user->gender == 1 ? 'Nữ' : 'Khác')
                 }}</td>
+            <td>{{ getDateTimeStamp($courseUser->contract_date, 'd/m/Y') }}</td>
             <td>{{ $courseUser->user->identity_card }}</td>
             <td>{{ $courseUser->user->card_name }}</td>
             <td>{{ $courseUser->user->card_number }}</td>

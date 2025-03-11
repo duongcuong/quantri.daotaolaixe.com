@@ -107,12 +107,33 @@ class TeacherController extends Controller
         $filters = $request->all();
         session(['teacher_filters' => $filters]);
 
-        $query = Admin::orderBy('created_at', 'desc')->whereHas('roles', function ($query) {
+        $hasSearch = false;
+        $query = Admin::whereHas('roles', function ($query) {
             $query->where('slug', ROLE_TEACHER);
         }); // Sử dụng phân trang với 10 mục mỗi trang
 
+        $query->withSum('calendars', 'so_gio_chay_duoc');
+
         if ($request->has('name') && $request->name) {
             $query->where('name', 'like', '%' . $request->name . '%');
+            $hasSearch = true;
+        }
+
+        // Thêm điều kiện lọc theo khoảng thời gian date_start
+        if ($request->has('start_date') && $request->start_date) {
+            $query->whereDate('created_at', '>=', $request->start_date);
+            $hasSearch = true;
+        }
+
+        if ($request->has('end_date') && $request->end_date) {
+            $query->whereDate('created_at', '<=', $request->end_date);
+            $hasSearch = true;
+        }
+
+        if ($hasSearch) {
+            $query->orderBy('name', 'asc');
+        } else {
+            $query->latest();
         }
 
         $teachers = $query->paginate(LIMIT);

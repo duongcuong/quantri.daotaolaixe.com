@@ -98,15 +98,48 @@ class SaleController extends Controller
     public function data(Request $request)
     {
         // Lưu các giá trị bộ lọc vào session
-        $filters = $request->only(['name', 'created_at']);
-        session(['sale_filters' => $filters]);
+        session(['sale_filters' => $request->all()]);
 
-        $query = Admin::orderBy('created_at', 'desc')->whereHas('roles', function ($query) {
+        $hasSearch = false;
+
+        $query = Admin::whereHas('roles', function ($query) {
             $query->where('slug', ROLE_SALE);
-        }); // Sử dụng phân trang với 10 mục mỗi trang
+        })->withCount([
+            'courseUsers' => function ($query) use ($request, &$hasSearch) {
+                // Thêm điều kiện lọc theo khoảng thời gian contract_date
+                if ($request->has('start_date') && $request->start_date) {
+                    $query->whereDate('contract_date', '>=', $request->start_date);
+                    $hasSearch = true;
+                }
+
+                if ($request->has('end_date') && $request->end_date) {
+                    $query->whereDate('contract_date', '<=', $request->end_date);
+                    $hasSearch = true;
+                }
+            },
+            'leads' => function ($query) use ($request, &$hasSearch) {
+                // Thêm điều kiện lọc theo khoảng thời gian created_at
+                if ($request->has('start_date') && $request->start_date) {
+                    $query->whereDate('created_at', '>=', $request->start_date);
+                    $hasSearch = true;
+                }
+
+                if ($request->has('end_date') && $request->end_date) {
+                    $query->whereDate('created_at', '<=', $request->end_date);
+                    $hasSearch = true;
+                }
+            }
+        ]);
 
         if ($request->has('name') && $request->name) {
             $query->where('name', 'like', '%' . $request->name . '%');
+            $hasSearch = true;
+        }
+
+        if ($hasSearch) {
+            $query->orderBy('name', 'asc');
+        } else {
+            $query->latest();
         }
 
         $sales = $query->paginate(LIMIT);

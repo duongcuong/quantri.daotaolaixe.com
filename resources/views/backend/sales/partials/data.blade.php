@@ -9,14 +9,17 @@
             <th>CMT/CCCD</th>
             <th>Địa chỉ</th>
             <th>SĐT</th>
+            <th>Tổng số HV-KH</th>
+            <th>Tổng lead</th>
             <th>Trạng thái</th>
+            <th>Ngày hoạt động</th>
             <th class="fixed-column text-center">Hành động</th>
         </tr>
     </thead>
     <tbody>
         @foreach ($sales as $sale)
         <tr>
-            <td>{{ $loop->iteration }}</td>
+            <td>{{ getSTT($sales, $loop->iteration) }}</td>
             <td><img src="{{ getImageUpload($sale->thumbnail, 'admins', 'small') }}" alt="Avatar" class="avatar"
                     width="50"></td>
             <td>{{ $sale->name }}</td>
@@ -27,7 +30,10 @@
             <td>{{ $sale->phone }}</td>
             {{-- <td>{{ $sale->card_name }}</td>
             <td>{{ $sale->card_number }}</td> --}}
+            <td>{{ $sale->course_users_count }}</td>
+            <td>{{ $sale->leads_count }}</td>
             <td>{!! getStatus($sale->status) !!}</td>
+            <td>{{ getDateTimeStamp($sale->created_at, 'd/m/Y') }}</td>
             <td class="fixed-column text-center">
                 <a href="{{ route('admins.sales.edit', $sale->id) }}" class="btn btn-warning btn-sm mr-2">
                     <i class="bx bx-edit"></i>

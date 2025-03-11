@@ -75,10 +75,10 @@ Tạo Khoá Học - User
                     </div>
                     <div class="row">
 
-                        <div class="col-md-6 mb-3">
+                        {{-- <div class="col-md-6 mb-3">
                             <label for="tuition_fee" class="form-label">Học phí</label>
                             <input type="number" name="tuition_fee" id="tuition_fee" class="form-control" required>
-                        </div>
+                        </div> --}}
 
                         {{-- <div class="form-group col-md-6">
                             <label for="practice_field">Sân tập</label>
@@ -101,12 +101,12 @@ Tạo Khoá Học - User
                             <label for="km">Km</label>
                             <input type="text" name="km" id="km" class="form-control" value="{{ old('km', 0) }}" />
                         </div> --}}
-                        <div class="form-group col-md-6">
+                        {{-- <div class="form-group col-md-6">
                             <label for="exam_date">Ngày thi</label>
                             <input type="date" name="exam_date" id="exam_date" class="form-control"
                                 value="{{ old('exam_date') }}" />
-                        </div>
-                        <div class="form-group col-md-6">
+                        </div> --}}
+                        {{-- <div class="form-group col-md-6">
                             <label for="exam_field_id" class="d-flex justify-content-between">
                                 <span>Sân thi</span>
                                 <a class="btn-create-ajax" href="{{ route('admins.exam-fields.create') }}"
@@ -120,8 +120,8 @@ Tạo Khoá Học - User
                                 <option value="{{ $examField->id }}"> {{ $examField->name }}</option>
                                 @endforeach
                             </select>
-                        </div>
-                        <div class="form-group col-md-6">
+                        </div> --}}
+                        {{-- <div class="form-group col-md-6">
                             <label for="ngay_khai_giang">Ngày khai giảng</label>
                             <input type="date" name="ngay_khai_giang" id="ngay_khai_giang" class="form-control"
                                 value="{{ old('ngay_khai_giang') }}" />
@@ -135,7 +135,7 @@ Tạo Khoá Học - User
                             <label for="ngay_hoc_cabin">Ngày học Cabin</label>
                             <input type="date" name="ngay_hoc_cabin" id="ngay_hoc_cabin" class="form-control"
                                 value="{{ old('ngay_hoc_cabin') }}" />
-                        </div>
+                        </div> --}}
                         <div class="form-group col-md-6">
                             <label for="contract_date">Ngày kí hợp đồng</label>
                             <input type="date" name="contract_date" id="contract_date" class="form-control"
@@ -145,7 +145,7 @@ Tạo Khoá Học - User
                             <label for="note">Ghi chú</label>
                             <textarea name="note" id="note" class="form-control">{{ old('note') }}</textarea>
                         </div>
-                        <div class="form-group col-md-6">
+                        {{-- <div class="form-group col-md-6">
                             <label for="status">Trạng thái</label>
                             <select name="status" id="status" class="form-control" required>
                                 @foreach (listStatusCourseUser() as $key => $item)
@@ -153,12 +153,12 @@ Tạo Khoá Học - User
                                 </option>
                                 @endforeach
                             </select>
-                        </div>
-                        <div class="form-group col-md-6">
+                        </div> --}}
+                        {{-- <div class="form-group col-md-6">
                             <label for="graduation_date">Ngày tốt nghiệp</label>
                             <input type="date" name="graduation_date" id="graduation_date" class="form-control"
                                 value="{{ old('graduation_date') }}" />
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

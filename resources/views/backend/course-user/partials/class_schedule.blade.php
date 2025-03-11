@@ -23,6 +23,7 @@
                                         <input type="hidden" name="type" value="class_schedule">
                                         <input type="hidden" name="show_column"
                                             value="name,date_start,date_end,name_hocvien,diem_don,san,course_code,loai_hoc,km,so_gio_chay_duoc">
+                                        <input type="hidden" name="reload" value="load-data-ajax-class-calendars">
                                         <div class="mr-2">
                                             <select class="form-control form-control-sm" name="loai_hoc">
                                                 <option value="">Loại học</option>
@@ -47,8 +48,7 @@
                     </div>
 
                     <div id="load-data-ajax-class-calendars" class="table-responsive mt-1 mb-1 load-data-ajax"
-                        data-search="#search-form-class-calendars"
-                        data-url="{{ route('admins.calendars.data') }}">
+                        data-search="#search-form-class-calendars" data-url="{{ route('admins.calendars.data') }}">
                         <div class="loading-overlay">
                             <div class="loading-spinner"></div>
                         </div>

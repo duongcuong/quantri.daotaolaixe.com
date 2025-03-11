@@ -73,13 +73,10 @@ class FeeController extends Controller
 
     public function data(Request $request)
     {
-        $query = Fee::with('courseUser.user', 'courseUser.course')->orderBy('id', 'desc');
+        // Lưu các giá trị bộ lọc vào session
+        session(['fees_filters' => $request->all()]);
 
-        if ($request->has('payment_date') && $request->payment_date) {
-            $monthYear = Carbon::createFromFormat('Y-m', $request->payment_date);
-            $query->whereYear('payment_date', $monthYear->year)
-                  ->whereMonth('payment_date', $monthYear->month);
-        }
+        $query = Fee::with('courseUser.user', 'courseUser.course')->orderBy('id', 'desc');
 
         if ($request->has('course_user_id') && $request->course_user_id != '') {
             $query->where('course_user_id', $request->course_user_id);
@@ -91,14 +88,28 @@ class FeeController extends Controller
             });
         }
 
+        // Thêm điều kiện lọc theo khoảng thời gian date_start
+        if ($request->has('start_date') && $request->start_date) {
+            $query->whereDate('payment_date', '>=', $request->start_date);
+            $hasSearch = true;
+        }
+
+        if ($request->has('end_date') && $request->end_date) {
+            $query->whereDate('payment_date', '<=', $request->end_date);
+            $hasSearch = true;
+        }
+
+        // Tính tổng các học phí đã nạp
+        $feeTotal = $query->sum('amount');
+
         $fees = $query->paginate(LIMIT);
 
         $course_user_id = $request->has('course_user_id') ? $request->has('course_user_id') : '';
 
         if ($request->ajax()) {
-            return view('backend.fees.partials.data', compact('fees', 'course_user_id'))->render();
+            return view('backend.fees.partials.data', compact('fees', 'course_user_id', 'feeTotal'))->render();
         }
 
-        return view('backend.fees.index', compact('fees'));
+        return view('backend.fees.index', compact('fees', 'feeTotal'));
     }
 }

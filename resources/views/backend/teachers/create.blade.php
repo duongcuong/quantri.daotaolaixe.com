@@ -83,6 +83,11 @@ Tạo giáo viên
                             <input type="text" name="license" id="license" class="form-control"
                                 value="{{ old('license') }}">
                         </div>
+                        <div class="form-group col-md-6">
+                            <label for="license_plate">Biển số xe</label>
+                            <input type="text" name="license_plate" id="license_plate" class="form-control"
+                                value="{{ old('license_plate') }}">
+                        </div>
                         {{-- <div class="form-group col-md-6">
                             <label for="card_name">Tên thẻ</label>
                             <input type="text" name="card_name" id="card_name" class="form-control"

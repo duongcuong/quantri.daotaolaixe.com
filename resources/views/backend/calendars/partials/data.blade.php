@@ -87,11 +87,11 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             @endif
 
             @if (!request()->has('show_column') || in_array('tuition_fee', $columns))
-            <th>Học phí</th>
+            <th>Lệ phí thi</th>
             @endif
 
             @if (!request()->has('show_column') || in_array('ngay_dong_hoc_phi', $columns))
-            <th>Ngày nạp</th>
+            <th>Ngày nạp lệ phí</th>
             @endif
 
             @if (!request()->has('show_column') || in_array('description', $columns))

@@ -18,12 +18,11 @@ class CalendarController extends Controller
 
         $calendars = Calendar::query();
 
-        if(Auth::guard('admin')->check() && !Auth::guard('admin')->user()->hasRole([ROLE_ADMIN, ROLE_SUPERADMIN])) {
-
+        if (Auth::guard('admin')->check() && !Auth::guard('admin')->user()->hasRole([ROLE_ADMIN, ROLE_SUPERADMIN])) {
         }
 
         if (Auth::guard('admin')->check()) {
-            if(!Auth::guard('admin')->user()->hasRole([ROLE_ADMIN, ROLE_SUPERADMIN])){
+            if (!Auth::guard('admin')->user()->hasRole([ROLE_ADMIN, ROLE_SUPERADMIN])) {
                 $calendars = $calendars->where(function ($query) use ($userId) {
                     $query->where('admin_id', $userId)
                         ->orWhere('teacher_id', $userId)
@@ -35,9 +34,9 @@ class CalendarController extends Controller
         } else {
             $calendars = $calendars->where(function ($query) use ($userId) {
                 $query->where('user_id', $userId)
-                      ->orWhereHas('courseUser', function ($query) use ($userId) {
-                          $query->where('user_id', $userId);
-                      });
+                    ->orWhereHas('courseUser', function ($query) use ($userId) {
+                        $query->where('user_id', $userId);
+                    });
             });
         }
 
@@ -167,6 +166,15 @@ class CalendarController extends Controller
             $query->where('teacher_id', $request->teacher_id);
         }
 
+        // Thêm điều kiện lọc theo khoảng thời gian date_start
+        if ($request->has('start_date') && $request->start_date) {
+            $query->whereDate('date_start', '>=', $request->start_date);
+        }
+
+        if ($request->has('end_date') && $request->end_date) {
+            $query->whereDate('date_start', '<=', $request->end_date);
+        }
+
         $calendars = $query->with(['admin', 'user', 'courseUser', 'lead'])->orderBy('id', 'desc')->paginate(LIMIT);
 
         if ($request->ajax()) {
@@ -176,19 +184,23 @@ class CalendarController extends Controller
         return view('backend.calendars.index', compact('calendars'));
     }
 
-    public function learning(){
+    public function learning()
+    {
         return view('backend.calendars.learning');
     }
 
-    public function exam(){
+    public function exam()
+    {
         return view('backend.calendars.exam');
     }
 
-    public function dat(){
+    public function dat()
+    {
         return view('backend.calendars.modals.dat');
     }
 
-    public function learningExam(){
+    public function learningExam()
+    {
         return view('backend.calendars.modals.learning-exam');
     }
 }

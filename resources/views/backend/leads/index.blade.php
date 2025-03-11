@@ -38,15 +38,34 @@ Tất cả Leads
             <div class="row">
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="name" class="mr-2">Tên</label>
-                    <input type="text" id="name" name="name" class="form-control" placeholder="Nhập tên">
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Nhập tên" value="{{ session('leads_filters.name') }}">
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="course_id" class="mr-2">Người phụ trách</label>
-                    <select class="select2-ajax-single form-control" name="assigned_to" data-selected-id=""
+                    <select class="select2-ajax-single form-control" name="assigned_to" data-selected-id="{{ session('leads_filters.assigned_to') }}"
                         data-placeholder="Chọn Người phụ trách"
                         data-url="{{ route('admins.admins.list', ['role'=> ROLE_SALES]) }}">
                     </select>
-
+                </div>
+                <div class="form-group col-sm-6 col-md-3">
+                    <label for="start_date" class="mr-2">Ngày bắt đầu</label>
+                    <input type="date" name="start_date" id="start_date" class="form-control"
+                        value="{{ session('leads_filters.start_date') }}">
+                </div>
+                <div class="form-group col-sm-6 col-md-3">
+                    <label for="end_date" class="mr-2">Ngày kết thúc</label>
+                    <input type="date" name="end_date" id="end_date" class="form-control"
+                        value="{{ session('leads_filters.end_date') }}">
+                </div>
+                <div class="form-group col-sm-6 col-md-3">
+                    <label for="interest_level">Mức độ quan tâm</label>
+                    <select name="interest_level" id="interest_level" class="form-control">
+                        <option value="">Chọn mức độ quan tâm</option>
+                        @foreach (listLevels() as $key => $item)
+                        <option value="{{ $key }}" {{ old('interest_level')==$key ? 'selected' : '' }} {{ session('leads_filters.interest_level') == $key ? 'selected' : '' }}>{{ $item
+                            }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="status22" class="mr-2 opacity-0">Hành động </label><br>

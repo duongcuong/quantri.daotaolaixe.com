@@ -1,3 +1,7 @@
+<div class="alert alert-info alert-dismissible fade show" role="alert">
+    <strong class="mr-1">Tổng số học viên: </strong>
+    <strong class="mr-2 text-danger">{{ number_format($users->total()) }}</strong>
+</div>
 <table id="example" class="table table-sm table-hover">
     <thead>
         <tr>
@@ -19,13 +23,13 @@
     <tbody>
         @foreach ($users as $user)
         <tr>
-            <td>{{ $loop->iteration }}</td>
+            <td>{{ getSTT($users, $loop->iteration) }}</td>
             <td><img src="{{ getImageUpload($user->thumbnail, 'users', 'small') }}" alt="Avatar" class="avatar"
                     width="50"></td>
             <td>{{ $user->name }}</td>
             <td>{{ $user->phone }}</td>
             <td>{{ $user->gender == 0 ? 'Nam' : ($user->gender == 1 ? 'Nữ' : 'Khác') }}</td>
-            <td>{{ $user->dob }}</td>
+            <td>{{ getDateTimeStamp($user->dob, 'd/m/Y') }}</td>
             <td>{{ $user->identity_card }}</td>
             <td>{{ $user->address }}</td>
             <td>{{ $user->card_name }}</td>

@@ -75,11 +75,11 @@ Sửa Khoá học - Học Viên
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6 mb-3">
+                        {{-- <div class="col-md-6 mb-3">
                             <label for="tuition_fee" class="form-label">Học phí</label>
                             <input type="number" name="tuition_fee" id="tuition_fee" class="form-control"
                                 value="{{ old('tuition_fee', $courseUser->tuition_fee) }}">
-                        </div>
+                        </div> --}}
                         {{-- <div class="form-group col-md-6">
                             <label for="practice_field">Sân tập</label>
                             <input type="text" name="practice_field" id="practice_field" class="form-control"
@@ -100,7 +100,7 @@ Sửa Khoá học - Học Viên
                             <input type="text" name="km" id="km" class="form-control"
                                 value="{{ old('km', $courseUser->km) }}" />
                         </div> --}}
-                        <div class="form-group col-md-6">
+                        {{-- <div class="form-group col-md-6">
                             <label for="exam_date">Ngày thi</label>
                             <input type="date" name="exam_date" id="exam_date" class="form-control"
                                 value="{{ old('exam_date', \Carbon\Carbon::parse($courseUser->exam_date)->format('Y-m-d')) }}" />
@@ -134,7 +134,7 @@ Sửa Khoá học - Học Viên
                             <label for="ngay_hoc_cabin">Ngày học Cabin</label>
                             <input type="date" name="ngay_hoc_cabin" id="ngay_hoc_cabin" class="form-control"
                                 value="{{ old('ngay_hoc_cabin', getDateTimeStamp($courseUser->ngay_hoc_cabin)) }}" />
-                        </div>
+                        </div> --}}
                         <div class="form-group col-md-6">
                             <label for="contract_date">Ngày kí hợp đồng</label>
                             <input type="date" name="contract_date" id="contract_date" class="form-control"
@@ -145,7 +145,7 @@ Sửa Khoá học - Học Viên
                             <textarea name="note" id="note"
                                 class="form-control">{{ old('note', $courseUser->note) }}</textarea>
                         </div>
-                        <div class="form-group col-md-6">
+                        {{-- <div class="form-group col-md-6">
                             <label for="status">Trạng thái</label>
                             <select name="status" id="status" class="form-control" required>
                                 @foreach (listStatusCourseUser() as $key => $item)
@@ -159,7 +159,7 @@ Sửa Khoá học - Học Viên
                             <label for="graduation_date">Ngày tốt nghiệp</label>
                             <input type="date" name="graduation_date" id="graduation_date" class="form-control"
                                 value="{{ old('graduation_date', \Carbon\Carbon::parse($courseUser->graduation_date)->format('Y-m-d')) }}" />
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

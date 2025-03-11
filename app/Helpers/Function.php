@@ -54,6 +54,14 @@ if (!function_exists('uploadImage')) {
     }
 }
 
+if (!function_exists('getSTT')) {
+    function getSTT($paginator, $loopIndex)
+    {
+        return ($paginator->currentPage() - 1) * $paginator->perPage() + $loopIndex;
+    }
+}
+
+
 if (!function_exists('getImageUpload')) {
     function getImageUpload($filename, $folder = "uploads", $size = "")
     {

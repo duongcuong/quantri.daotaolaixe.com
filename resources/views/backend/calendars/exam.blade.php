@@ -33,7 +33,8 @@ Tất cả lịch thi của học viên
             class="mb-3 form-search-submit">
             @csrf
             @php
-            $showColumn = 'name,name_hocvien,cccd,phone,date_start,course_code,loai_thi,tuition_fee,ngay_dong_hoc_phi,sbd,status,health_check_date';
+            $showColumn =
+            'name,name_hocvien,cccd,phone,date_start,course_code,loai_thi,tuition_fee,ngay_dong_hoc_phi,sbd,status,health_check_date';
             $typeColumn = 'exam_schedule';
             $reload = 'load-data-ajax-class-calendars';
             @endphp
@@ -48,6 +49,19 @@ Tất cả lịch thi của học viên
                         data-url="{{ route('admins.users.list') }}">
                     </select>
                 </div>
+
+                <div class="form-group col-sm-6 col-md-3">
+                    <label for="start_date" class="mr-2">Ngày bắt đầu</label>
+                    <input type="date" name="start_date" id="start_date" class="form-control"
+                        value="{{ session('calendar_filters.start_date') }}">
+                </div>
+
+                <div class="form-group col-sm-6 col-md-3">
+                    <label for="end_date" class="mr-2">Ngày kết thúc</label>
+                    <input type="date" name="end_date" id="end_date" class="form-control"
+                        value="{{ session('calendar_filters.end_date') }}">
+                </div>
+
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="status22" class="mr-2 opacity-0">Hành động </label><br>
                     <button type="submit" class="btn btn-primary">
@@ -64,8 +78,7 @@ Tất cả lịch thi của học viên
 <div class="card radius-15">
     <div class="card-body">
         <div id="load-data-ajax-class-calendars" class="table-responsive mt-1 mb-1 load-data-ajax"
-            data-search="#search-form-class-calendars"
-            data-url="{{ route('admins.calendars.data') }}">
+            data-search="#search-form-class-calendars" data-url="{{ route('admins.calendars.data') }}">
             <div class="loading-overlay">
                 <div class="loading-spinner"></div>
             </div>

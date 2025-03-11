@@ -90,7 +90,7 @@ class CourseController extends Controller
 
     public function data(Request $request)
     {
-        $query = Course::orderBy('id', 'desc');
+        $query = Course::withCount('courseUsers')->latest();
 
         if ($request->has('code') && $request->code) {
             $query->where('code', 'like', '%' . $request->code . '%');

@@ -24,6 +24,7 @@ class Admin extends Authenticatable
         'license',
         'card_name',
         'card_number',
+        'license_plate',
         'status',
     ];
 
@@ -55,5 +56,20 @@ class Admin extends Authenticatable
             }
         }
         return false;
+    }
+
+    // Mối quan hệ với bảng Calendar
+    public function calendars()
+    {
+        return $this->hasMany(Calendar::class, 'teacher_id');
+    }
+
+    public function courseUsers()
+    {
+        return $this->hasMany(CourseUser::class, 'sale_id');
+    }
+
+    public function leads(){
+        return $this->hasMany(Lead::class, 'assigned_to');
     }
 }

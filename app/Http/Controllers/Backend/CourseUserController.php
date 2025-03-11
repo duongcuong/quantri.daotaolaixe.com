@@ -148,41 +148,44 @@ class CourseUserController extends Controller
         $filters = $request->all();
         session(['course_user_filters' => $filters]);
 
-        $query = CourseUser::with('user', 'course', 'teacher', 'sale')->orderBy('id', 'desc');
+        $query = CourseUser::with('user', 'course', 'teacher', 'sale');
+
+        $hasSearch = false;
 
         if ($request->has('user_id') && $request->user_id != '') {
             $query->where('user_id', $request->user_id);
+            $hasSearch = true;
         }
 
         if ($request->has('course_id') && $request->course_id != '') {
             $query->where('course_id', $request->course_id);
+            $hasSearch = true;
         }
 
         if ($request->has('teacher_id') && $request->teacher_id != '') {
             $query->where('teacher_id', $request->teacher_id);
+            $hasSearch = true;
         }
 
         if ($request->has('exam_field_id') && $request->exam_field_id != '') {
             $query->where('exam_field_id', $request->exam_field_id);
+            $hasSearch = true;
         }
 
-        if ($request->has('contract_day') && $request->contract_day) {
-            $contractDay = $request->contract_day;
-            if ($request->has('contract_month') && $request->contract_month) {
-                $contractMonthYear = $request->contract_month;
-            } else {
-                $contractMonthYear = now()->format('Y-m');
-            }
-            $date = Carbon::createFromFormat('Y-m-d', $contractMonthYear . '-' . $contractDay);
-            $query->whereDate('contract_date', $date);
-        } elseif ($request->has('contract_month') && $request->contract_month) {
-            $contractMonthYear = Carbon::createFromFormat('Y-m', $request->contract_month);
-            $query->whereYear('contract_date', $contractMonthYear->year)
-                ->whereMonth('contract_date', $contractMonthYear->month);
+        // Thêm điều kiện lọc theo khoảng thời gian date_start
+        if ($request->has('start_date') && $request->start_date) {
+            $query->whereDate('contract_date', '>=', $request->start_date);
+            $hasSearch = true;
+        }
+
+        if ($request->has('end_date') && $request->end_date) {
+            $query->whereDate('contract_date', '<=', $request->end_date);
+            $hasSearch = true;
         }
 
         if ($request->has('status') && $request->status != '') {
             $query->where('status', $request->status);
+            $hasSearch = true;
         }
 
         if ($request->has('search_text') && $request->search_text != '') {
@@ -195,12 +198,14 @@ class CourseUserController extends Controller
                     $q->where('code', 'like', "%{$searchText}%");
                 });
             });
+            $hasSearch = true;
         }
 
         if ($request->has('card_name') && $request->card_name != '') {
             $query->whereHas('user', function ($q) use ($request) {
                 $q->where('card_name', 'like', "%{$request->card_name}%");
             });
+            $hasSearch = true;
         }
 
         if ($request->has('tuition_status') && $request->tuition_status != '') {
@@ -211,10 +216,19 @@ class CourseUserController extends Controller
                     $q->havingRaw('SUM(amount) < course_users.tuition_fee');
                 }
             });
+            $hasSearch = true;
         }
 
         $courseUsers = $query->withSum('fees', 'amount')->withSum('calendars', 'km')
             ->withSum('calendars', 'so_gio_chay_duoc');
+
+        if ($hasSearch) {
+            $query->join('users', 'course_users.user_id', '=', 'users.id')
+              ->orderBy('users.name', 'asc')
+              ->select('course_users.*');
+        } else {
+            $query->latest();
+        }
 
         $courseUsers = $query->paginate(LIMIT);
 

@@ -37,4 +37,9 @@ class Course extends Model
                     ->withPivot('basic_status', 'shape_status', 'road_status', 'chip_status', 'status')
                     ->withTimestamps();
     }
+
+    public function courseUsers()
+    {
+        return $this->hasMany(CourseUser::class);
+    }
 }

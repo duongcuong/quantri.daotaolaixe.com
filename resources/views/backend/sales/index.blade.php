@@ -35,6 +35,16 @@ Tất cả sale
                     <input type="text" id="name" name="name" class="form-control" placeholder="Nhập tên" value="{{ session('sale_filters.name') }}">
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
+                    <label for="start_date" class="mr-2">Ngày bắt đầu kí hợp đồng</label>
+                    <input type="date" name="start_date" id="start_date" class="form-control"
+                        value="{{ session('sale_filters.start_date') }}">
+                </div>
+                <div class="form-group col-sm-6 col-md-3">
+                    <label for="end_date" class="mr-2">Ngày kết thúc ký hợp đồng</label>
+                    <input type="date" name="end_date" id="end_date" class="form-control"
+                        value="{{ session('sale_filters.end_date') }}">
+                </div>
+                <div class="form-group col-sm-6 col-md-3">
                     <label for="status22" class="mr-2 opacity-0">Hành động </label><br>
                     <button type="submit" class="btn btn-primary">
                         <span class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true"

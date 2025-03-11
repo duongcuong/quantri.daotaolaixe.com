@@ -35,8 +35,14 @@ Tất cả học viên
                     <input type="text" id="name" name="name" class="form-control" placeholder="Nhập tên học viên" value="{{ session('user_filters.name') }}">
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
-                    <label for="created_at" class="mr-2">Thời gian hoạt động</label>
-                    <input type="month" id="created_at" name="created_at" value="{{ session('user_filters.created_at') }}" class="form-control">
+                    <label for="start_date" class="mr-2">Ngày bắt đầu</label>
+                    <input type="date" name="start_date" id="start_date" class="form-control"
+                        value="{{ session('user_filters.start_date') }}">
+                </div>
+                <div class="form-group col-sm-6 col-md-3">
+                    <label for="end_date" class="mr-2">Ngày kết thúc</label>
+                    <input type="date" name="end_date" id="end_date" class="form-control"
+                        value="{{ session('user_filters.end_date') }}">
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="status22" class="mr-2 opacity-0">Hành động </label><br>

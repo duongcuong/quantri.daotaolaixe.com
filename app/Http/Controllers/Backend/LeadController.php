@@ -29,7 +29,7 @@ class LeadController extends Controller
     public function store(Request $request)
     {
 
-        $request->validate( [
+        $request->validate([
             'user_id' => 'nullable|exists:users,id',
             'source' => 'nullable|string|max:255',
             'interest_level' => 'required|in:low,medium,high',
@@ -65,7 +65,7 @@ class LeadController extends Controller
     public function update(Request $request, Lead $lead)
     {
 
-        $request->validate( [
+        $request->validate([
             'user_id' => 'nullable|exists:users,id',
             'source' => 'nullable|string|max:255',
             'interest_level' => 'required|in:low,medium,high',
@@ -117,6 +117,8 @@ class LeadController extends Controller
 
     public function data(Request $request)
     {
+        // Lưu các giá trị bộ lọc vào session
+        session(['leads_filters' => $request->all()]);
         $query = Lead::with(['user', 'assignedTo', 'leadSource'])->orderBy('id', 'desc');
 
         if ($request->has('name') && $request->name) {
@@ -125,6 +127,21 @@ class LeadController extends Controller
 
         if ($request->has('assigned_to') && $request->assigned_to) {
             $query->where('assigned_to', $request->assigned_to);
+        }
+
+        if ($request->has('interest_level') && $request->interest_level) {
+            $query->where('interest_level', $request->interest_level);
+        }
+
+        // Thêm điều kiện lọc theo khoảng thời gian date_start
+        if ($request->has('start_date') && $request->start_date) {
+            $query->whereDate('created_at', '>=', $request->start_date);
+            $hasSearch = true;
+        }
+
+        if ($request->has('end_date') && $request->end_date) {
+            $query->whereDate('created_at', '<=', $request->end_date);
+            $hasSearch = true;
         }
 
         $leads = $query->paginate(LIMIT);

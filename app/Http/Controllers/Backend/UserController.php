@@ -128,19 +128,32 @@ class UserController extends Controller
     public function data(Request $request)
     {
         // Lưu các giá trị bộ lọc vào session
-        $filters = $request->only(['name', 'created_at']);
-        session(['user_filters' => $filters]);
+        session(['user_filters' => $request->all()]);
 
-        $query = User::orderBy('created_at', 'desc'); // Sử dụng phân trang với 10 mục mỗi trang
+        $query = User::query();
+
+        $hasSearch = false;
 
         if ($request->has('name') && $request->name) {
             $query->where('name', 'like', '%' . $request->name . '%');
+            $hasSearch = true;
         }
 
-        if ($request->has('created_at') && $request->created_at) {
-            $date = \Carbon\Carbon::createFromFormat('Y-m', $request->created_at);
-            $query->whereMonth('created_at', $date->month)
-                ->whereYear('created_at', $date->year);
+        // Thêm điều kiện lọc theo khoảng thời gian date_start
+        if ($request->has('start_date') && $request->start_date) {
+            $query->whereDate('created_at', '>=', $request->start_date);
+            $hasSearch = true;
+        }
+
+        if ($request->has('end_date') && $request->end_date) {
+            $query->whereDate('created_at', '<=', $request->end_date);
+            $hasSearch = true;
+        }
+
+        if ($hasSearch) {
+            $query->orderBy('name', 'asc');
+        } else {
+            $query->latest();
         }
 
         $users = $query->paginate(LIMIT);

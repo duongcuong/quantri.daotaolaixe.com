@@ -56,10 +56,10 @@
                             <label for="tuition_fee" class="form-label">Học phí</label>
                             <input type="number" name="tuition_fee" id="tuition_fee" class="form-control">
                         </div>
-                        <div class="col-md-6 mb-3">
+                        {{-- <div class="col-md-6 mb-3">
                             <label for="number_students" class="form-label">Số học viên</label>
                             <input type="number" name="number_students" id="number_students" class="form-control">
-                        </div>
+                        </div> --}}
                         <div class="col-md-6 mb-3">
                             <label for="decision_kg" class="form-label">Quyết định KG</label>
                             <input type="text" name="decision_kg" id="decision_kg" class="form-control">
