@@ -33,7 +33,7 @@ Tất cả lịch học
             class="mb-3 form-search-submit">
             @csrf
             @php
-            $showColumn = 'name,date_start,date_end,name_hocvien,dob,teacher_id,diem_don,san,course_code,loai_hoc,km,so_gio_chay_duoc';
+            $showColumn = 'name,date_start,date_end,name_hocvien,dob,teacher_id,diem_don,san,course_code,loai_hoc,km,so_gio_chay_duoc,priority';
             $typeColumn = 'class_schedule';
             $reload = 'load-data-ajax-class-calendars';
             @endphp
@@ -42,11 +42,32 @@ Tất cả lịch học
             <input type="hidden" name="reload" value="{{ $reload }}">
             <div class="row">
                 <div class="form-group col-sm-6 col-md-3">
-                    <label for="payment_date" class="mr-2">Tháng năm</label>
+                    <label for="payment_date" class="mr-2">Hình thức</label>
                     <select class="form-control" name="loai_hoc">
-                        <option value="">Loại học</option>
+                        <option value="">Hình thức dạy</option>
                         @foreach (listLoaiHocs() as $key => $item)
                         <option value="{{ $key }}" {{ session('calendar_filters.loai_hoc') == $key ? 'selected' : '' }}>{{ $item }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group col-sm-6 col-md-3">
+                    <label for="start_date" class="mr-2">Ngày bắt đầu</label>
+                    <input type="date" name="start_date" id="start_date" class="form-control"
+                        value="{{ session('calendar_filters.start_date') }}">
+                </div>
+                <div class="form-group col-sm-6 col-md-3">
+                    <label for="end_date" class="mr-2">Ngày kết thúc</label>
+                    <input type="date" name="end_date" id="end_date" class="form-control"
+                        value="{{ session('calendar_filters.end_date') }}">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="exam_field_id">Sân thi</label>
+                    <select name="exam_field_id" id="exam_field_id" class="form-control single-select"
+                        data-placeholder="Chọn sân thi" data-allow-clear="true">
+                        <option></option>
+                        @foreach ($examFields as $examField)
+                        <option value="{{ $examField->id }}" {{ session('calendar_filters.exam_field_id')==$examField->id
+                            ? 'selected' : '' }}> {{ $examField->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -63,6 +84,16 @@ Tất cả lịch học
                     <select class="select2-ajax-single form-control" name="user_id"
                         data-selected-id="{{ session('calendar_filters.user_id') }}" data-placeholder="Chọn học viên"
                         data-url="{{ route('admins.users.list') }}">
+                    </select>
+                </div>
+                <div class="form-group col-sm-6 col-md-3">
+                    <label for="interest_level">Mức độ ưu tiên</label>
+                    <select name="interest_level" id="interest_level" class="form-control">
+                        <option value="">Chọn mức độ ưu tiên</option>
+                        @foreach (listLevels() as $key => $item)
+                        <option value="{{ $key }}" {{ old('interest_level')==$key ? 'selected' : '' }} {{ session('calendar_filters.interest_level') == $key ? 'selected' : '' }}>{{ $item
+                            }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
@@ -91,4 +122,21 @@ Tất cả lịch học
 </div>
 @endsection
 @push('js')
+<script>
+    jQuery(document).ready(function () {
+        $(document).on( 'click', '.btn-show-exam-schedule', function (e) {
+            let dateStart = $(this).data('start-date');
+            let date = dateStart.split(' ')[0];
+            $('#start_date').val(date);
+            $('#end_date').val(date);
+            $('#search-form-class-calendars').submit();
+        });
+
+        $(document).on( 'click', '.btn-show-exam-field', function (e) {
+            let examField = $(this).data('exam-field');
+            $('#exam_field_id').val(examField).trigger('change');
+            $('#search-form-class-calendars').submit();
+        });
+    });
+</script>
 @endpush

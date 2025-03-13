@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\ExamField;
 use App\Models\ExamSchedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -12,7 +13,8 @@ class ExamScheduleController extends Controller
 {
     public function index(Request $request)
     {
-        return view('backend.exam-schedules.index');
+        $examFields = ExamField::all();
+        return view('backend.exam-schedules.index', compact('examFields'));
     }
 
     public function create(Request $request)
@@ -75,12 +77,22 @@ class ExamScheduleController extends Controller
 
     public function data(Request $request)
     {
+        $filters = $request->all();
+        session(['exam_schedules' => $filters]);
+
         $query = ExamSchedule::with('examField')->orderBy('id', 'desc');
 
-        if ($request->has('payment_date') && $request->payment_date) {
-            $monthYear = Carbon::createFromFormat('Y-m', $request->payment_date);
-            $query->whereYear('date_start', $monthYear->year)
-                  ->whereMonth('date_start', $monthYear->month);
+        // Thêm điều kiện lọc theo khoảng thời gian date_start
+        if ($request->has('start_date') && $request->start_date) {
+            $query->whereDate('date_start', '>=', $request->start_date);
+        }
+
+        if ($request->has('end_date') && $request->end_date) {
+            $query->whereDate('date_start', '<=', $request->end_date);
+        }
+
+        if ($request->has('exam_field_id') && $request->exam_field_id) {
+            $query->where('exam_field_id', $request->exam_field_id);
         }
 
         $examSchedules = $query->paginate(LIMIT);

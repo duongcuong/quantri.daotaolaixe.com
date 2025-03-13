@@ -90,7 +90,7 @@
             <td>{!! getMoney($courseUser->tuition_fee) !!}</td>
             <td>{!! getMoney($courseUser->fees_sum_amount) !!}</td>
             <td>{!! getMoneyConThieu($courseUser->tuition_fee, $courseUser->fees_sum_amount) !!}</td>
-            <td>{!! getStatusCourseUser($courseUser->status) !!}</td>
+            <td>{!! getStatusCalendarByType2($courseUser->latestCalendar->type ?? '', $courseUser->latestCalendar->status ?? '') !!}</td>
             <td class="fixed-column text-center">
                 <a href="{{ route('admins.course-user.show', $courseUser->id) }}" class="btn btn-primary btn-sm mr-1">
                     <i class="lni lni-eye"></i>

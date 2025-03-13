@@ -175,7 +175,11 @@ class CalendarController extends Controller
             $query->whereDate('date_start', '<=', $request->end_date);
         }
 
-        $calendars = $query->with(['admin', 'user', 'courseUser', 'lead'])->orderBy('id', 'desc')->paginate(LIMIT);
+        if ($request->has('exam_field_id') && $request->exam_field_id) {
+            $query->where('exam_field_id',$request->exam_field_id);
+        }
+
+        $calendars = $query->with(['admin', 'user', 'courseUser', 'lead'])->latest('date_start')->paginate(LIMIT);
 
         if ($request->ajax()) {
             return view('backend.calendars.partials.data', compact('calendars'))->render();
@@ -186,12 +190,14 @@ class CalendarController extends Controller
 
     public function learning()
     {
-        return view('backend.calendars.learning');
+        $examFields = ExamField::all();
+        return view('backend.calendars.learning', compact('examFields'));
     }
 
     public function exam()
     {
-        return view('backend.calendars.exam');
+        $examFields = ExamField::all();
+        return view('backend.calendars.exam', compact('examFields'));
     }
 
     public function dat()

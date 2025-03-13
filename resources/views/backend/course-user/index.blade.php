@@ -69,12 +69,21 @@ Tất cả Khoá học - Học Viên
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="status22" class="mr-2">Trạng thái</label>
-                    <select name="status" id="status22" class="form-control single-select"
-                        data-placeholder="Chọn trạng thái" data-allow-clear="true">
-                        <option value=""></option>
-                        @foreach (listStatusCourseUser() as $key => $item)
-                        <option value="{{ $key }}" {{ session('course_user_filters.status')==="$key" ? 'selected' : ''
-                            }}>{{ $item }}</option>
+                    <select name="status" id="status22" class="form-control">
+                        <option value="">Chọn</option>
+                        @foreach (listStatusCalendars() as $key1 => $items)
+                        @if ($key1 == 'exam_schedule' || $key1 == 'class_schedule')
+                        @php
+                        $name = $key1 == 'exam_schedule' ? 'Thi' : 'Học';
+                        @endphp
+                        <optgroup label="{{ $name }}">
+                            @foreach ($items as $key => $item)
+
+                            <option value="{{ $key }}" {{ session('course_user_filters.status')==="$key" ? 'selected'
+                                : '' }}>{{ $item }}</option>
+                            @endforeach
+                        </optgroup>
+                        @endif
                         @endforeach
                     </select>
                 </div>
@@ -89,7 +98,7 @@ Tất cả Khoá học - Học Viên
                         data-placeholder="Chọn sân thi" data-allow-clear="true">
                         <option></option>
                         @foreach ($examFields as $examField)
-                        <option value="{{ $examField->id }}" {{ session('course_user_filters.card_name')==$examField->id
+                        <option value="{{ $examField->id }}" {{ session('course_user_filters.exam_field_id')==$examField->id
                             ? 'selected' : '' }}> {{ $examField->name }}</option>
                         @endforeach
                     </select>

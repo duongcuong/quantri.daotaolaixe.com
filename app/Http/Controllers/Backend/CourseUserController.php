@@ -148,7 +148,7 @@ class CourseUserController extends Controller
         $filters = $request->all();
         session(['course_user_filters' => $filters]);
 
-        $query = CourseUser::with('user', 'course', 'teacher', 'sale');
+        $query = CourseUser::with('user', 'course', 'teacher', 'sale', 'latestCalendar');
 
         $hasSearch = false;
 
@@ -184,7 +184,17 @@ class CourseUserController extends Controller
         }
 
         if ($request->has('status') && $request->status != '') {
-            $query->where('status', $request->status);
+            $query->whereHas('latestCalendar', function ($q) use ($request) {
+                $q->whereIn('calendars.type', ['exam_schedule', 'class_schedule'])
+                  ->where('calendars.status', $request->status)
+                  ->whereRaw('calendars.id = (
+                        SELECT id FROM calendars a
+                        WHERE a.course_user_id = course_users.id
+                        AND a.type IN ("exam_schedule", "class_schedule")
+                        ORDER BY a.date_start DESC
+                        LIMIT 1
+                    )');
+            });
             $hasSearch = true;
         }
 
@@ -224,8 +234,8 @@ class CourseUserController extends Controller
 
         if ($hasSearch) {
             $query->join('users', 'course_users.user_id', '=', 'users.id')
-              ->orderBy('users.name', 'asc')
-              ->select('course_users.*');
+                ->orderBy('users.name', 'asc')
+                ->select('course_users.*');
         } else {
             $query->latest();
         }

@@ -22,7 +22,7 @@
                                         <input type="hidden" value="{{ $courseUser->id }}" name="course_user_id">
                                         <input type="hidden" name="type" value="class_schedule">
                                         <input type="hidden" name="show_column"
-                                            value="name,date_start,date_end,name_hocvien,diem_don,san,course_code,loai_hoc,km,so_gio_chay_duoc">
+                                            value="name,date_start,date_end,name_hocvien,diem_don,san,course_code,loai_hoc,km,so_gio_chay_duoc,status">
                                         <input type="hidden" name="reload" value="load-data-ajax-class-calendars">
                                         <div class="mr-2">
                                             <select class="form-control form-control-sm" name="loai_hoc">

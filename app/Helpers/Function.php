@@ -452,6 +452,47 @@ function getStatusCalendarByType($type, $status)
     }
 }
 
+function getStatusCalendarByType2($type, $status)
+{
+    $statuses = listStatusCalendars();
+
+    if(!$type || !$status) return '';
+    if(!isset($statuses[$type][$status])) return '';
+
+    switch ($status) {
+        case '30':
+            return '<strong>Thi: </strong><span class="badge badge-warning">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '31':
+            return '<strong>Thi: </strong><span class="badge badge-success">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '32':
+            return '<strong>Thi: </strong><span class="badge badge-danger">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '33':
+            return '<strong>Thi: </strong><span class="badge badge-secondary">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '40':
+            return '<strong>Học: </strong><span class="badge badge-warning">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '41':
+            return '<strong>Học: </strong><span class="badge badge-info">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '42':
+            return '<strong>Học: </strong><span class="badge badge-success">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '43':
+            return '<strong>Học: </strong><span class="badge badge-secondary">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '44':
+            return '<strong>Học: </strong><span class="badge badge-danger">' . $statuses[$type][$status] . '</span>';
+            break;
+        default:
+            return "";
+            break;
+    }
+}
+
 function listPriorities()
 {
     return [
@@ -504,11 +545,13 @@ function getDuration($duration)
 function listLoaiHocs()
 {
     return [
+        'hoc_ky_nang' => 'Học kỹ năng',
         'ly_thuyet' => 'Lý thuyết',
-        'thuc_hanh' => 'Thực hành',
+        'thuc_hanh' => 'Sa hình',
         'mo_phong' => 'Mô phỏng',
         'cabin' => 'Cabin',
         'chay_dat' => 'Chạy DAT',
+        'duong_truong' => 'Đường trường',
     ];
 }
 
@@ -523,7 +566,7 @@ function getLoaiHoc($loaiHoc)
 function listLoaiThis()
 {
     return [
-        'thi_thuc_hanh' => 'Thi thực hành',
+        'thi_thuc_hanh' => 'Thi sa hình',
         'thi_ly_thuyet' => 'Thi lý thuyết',
         'thi_mo_phong' => 'Thi mô phỏng',
         'thi_duong_truong' => 'Thi đường trường'

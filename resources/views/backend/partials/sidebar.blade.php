@@ -83,6 +83,11 @@
                     <a href="{{ route('admins.teachers.create') }}"><i class="bx bx-star"></i>Thêm giáo viên</a>
                 </li>
                 {{-- @endif --}}
+
+                <li
+                    class="{{ Request::is('admin/exam-schedules/*') ? 'mm-active' : '' }}">
+                    <a href="{{ route('admins.exam-schedules.index') }}"><i class="bx bx-calendar-exclamation"></i>Kế hoạch thi các trường</a>
+                </li>
             </ul>
         </li>
         {{-- @endif --}}
@@ -118,7 +123,7 @@
 
                 <li
                     class="{{ Request::is('admin/fees') || Request::is('admin/fees/create') || Request::is('admin/fees/*/edit') ? 'mm-active' : '' }}">
-                    <a href="{{ route('admins.fees.index') }}"><i class="bx bx-star"></i>Lịch sử nạp học phí</a>
+                    <a href="{{ route('admins.fees.index') }}"><i class="bx bx-star"></i>Lịch sử nộp tiền</a>
                 </li>
 
                 <li
@@ -128,12 +133,7 @@
 
                 <li
                     class="{{ Request::is('admin/calendars/exam') ? 'mm-active' : '' }}">
-                    <a href="{{ route('admins.calendars.exam') }}"><i class="bx bx-calendar-exclamation"></i>Lịch thi học viên</a>
-                </li>
-
-                <li
-                    class="{{ Request::is('admin/exam-schedules/*') ? 'mm-active' : '' }}">
-                    <a href="{{ route('admins.exam-schedules.index') }}"><i class="bx bx-calendar-exclamation"></i>Tất cả lịch thi sát hạch của các trường</a>
+                    <a href="{{ route('admins.calendars.exam') }}"><i class="bx bx-calendar-exclamation"></i>Lịch thi sát hạch</a>
                 </li>
 
                 {{-- @if (Auth::user()->hasPermission('admins.teachers.create')) --}}

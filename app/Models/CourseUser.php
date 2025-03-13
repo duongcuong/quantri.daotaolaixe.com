@@ -91,4 +91,9 @@ class CourseUser extends Model
     {
         return $this->hasMany(Calendar::class);
     }
+
+    public function latestCalendar()
+    {
+        return $this->hasOne(Calendar::class)->whereIn('type', ['exam_schedule', 'class_schedule'])->latest('date_start');
+    }
 }

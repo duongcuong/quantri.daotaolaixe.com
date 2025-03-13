@@ -22,7 +22,13 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             @endif
 
             @if (!request()->has('show_column') || in_array('date_start', $columns))
-            <th>Ngày bắt đầu</th>
+            <th>
+                @if (request()->type == 'exam_schedule' || request()->type == 'class_schedule')
+                Ngày thi
+                @else
+                Ngày bắt đầu
+                @endif
+            </th>
             @endif
 
             @if (!request()->has('show_column') || in_array('date_end', $columns))
@@ -59,7 +65,13 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             @endif
 
             @if (!request()->has('show_column') || in_array('san', $columns))
-            <th>Sân</th>
+            <th>
+                @if (request()->type == 'exam_schedule' || request()->type == 'class_schedule')
+                Sân thi
+                @else
+                Sân
+                @endif
+            </th>
             @endif
 
             @if (!request()->has('show_column') || in_array('course_code', $columns))
@@ -135,7 +147,15 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             @endif
 
             @if (!request()->has('show_column') || in_array('date_start', $columns))
-            <td>{!! formatDateTimeVn($calendar->date_start) !!}</td>
+            <td>
+                @if (request()->type == 'exam_schedule' || request()->type == 'class_schedule')
+                <a href="#" data-start-date="{{ $calendar->date_start }}" class="btn-show-exam-schedule">
+                    {!! formatDateTimeVn($calendar->date_start) !!}
+                </a>
+                @else
+                {!! formatDateTimeVn($calendar->date_start) !!}
+                @endif
+            </td>
             @endif
 
             @if (!request()->has('show_column') || in_array('date_end', $columns))
@@ -172,7 +192,15 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             @endif
 
             @if (!request()->has('show_column') || in_array('san', $columns))
-            <td>{{ $calendar->examField->name ?? '' }}</td>
+            <td>
+                @if (request()->type == 'exam_schedule' || request()->type == 'class_schedule')
+                <a href="#" data-exam-field="{{ $calendar->examField->id ?? '' }}" class="btn-show-exam-field">
+                    {{ $calendar->examField->name ?? '' }}
+                </a>
+                @else
+                {{ $calendar->examField->name ?? '' }}
+                @endif
+                </td>
             @endif
 
             @if (!request()->has('show_column') || in_array('course_code', $columns))
