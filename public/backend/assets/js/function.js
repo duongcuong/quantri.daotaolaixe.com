@@ -658,10 +658,13 @@ $(function () {
 
     $("body").on("change", 'input[name="loai_hoc"]', function (e) {
         var loai_hoc = $(this).val();
-        if (loai_hoc == "chay_dat" || loai_hoc == "thuc_hanh") {
+        let lists = obj_config.status_approved_km;
+        if (lists.includes(loai_hoc)) {
             $(this).closest("form").find("#show-select-dat").show();
+            $(this).closest("form").find(".cs-approval").show();
         } else {
             $(this).closest("form").find("#show-select-dat").hide();
+            $(this).closest("form").find(".cs-approval").hide();
         }
     });
 

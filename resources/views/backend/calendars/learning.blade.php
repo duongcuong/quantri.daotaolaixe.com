@@ -33,7 +33,7 @@ Tất cả lịch học
             class="mb-3 form-search-submit">
             @csrf
             @php
-            $showColumn = 'name,date_start,date_end,name_hocvien,dob,teacher_id,diem_don,san,course_code,loai_hoc,km,so_gio_chay_duoc,priority';
+            $showColumn = 'name,date_start,date_end,name_hocvien,dob,teacher_id,diem_don,san,course_code,loai_hoc,km,approval,so_gio_chay_duoc,priority';
             $typeColumn = 'class_schedule';
             $reload = 'load-data-ajax-class-calendars';
             @endphp

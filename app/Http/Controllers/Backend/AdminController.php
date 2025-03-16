@@ -8,6 +8,7 @@ use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Helpers\Functions;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -129,5 +130,16 @@ class AdminController extends Controller
                 'datas' => $admins
             ]);
         }
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::guard('admin')->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect()->route('admins.login');
     }
 }

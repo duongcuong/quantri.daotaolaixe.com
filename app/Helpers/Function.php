@@ -551,7 +551,7 @@ function listLoaiHocs()
         'mo_phong' => 'Mô phỏng',
         'cabin' => 'Cabin',
         'chay_dat' => 'Chạy DAT',
-        'duong_truong' => 'Đường trường',
+        // 'duong_truong' => 'Đường trường',
     ];
 }
 
@@ -664,4 +664,21 @@ function convertHoursExcelToSeconds($value)
 {
     if (!$value) return null;
     return $value * 24 * 60;
+}
+
+function listStatusApprovedKm(){
+    return ['chay_dat', 'thuc_hanh', 'hoc_ky_nang'];
+}
+
+function getStatusApprovedKm($value, $loai_hoc, $type){
+    if($type == 'class_schedule'){
+        if(in_array($loai_hoc, listStatusApprovedKm())){
+            if($value == 1){
+                return '<span class="badge badge-success">Đã duyệt</span>';
+            }else{
+                return '<span class="badge badge-danger">Chưa duyệt</span>';
+            }
+        }
+    }
+    return '...';
 }

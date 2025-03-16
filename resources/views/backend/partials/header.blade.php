@@ -72,10 +72,10 @@
                                 class="bx bx-lock"></i><span>Thay đổi mật khẩu</span></a>
                         @endif
 
-                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                        <a class="dropdown-item" href="{{ route('admins.admins.logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();"><i
                                 class="bx bx-power-off"></i><span>Đăng xuất</span></a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        <form id="logout-form" action="{{ route('admins.admins.logout') }}" method="POST" class="d-none">
                             @csrf
                         </form>
 

@@ -64,7 +64,7 @@
                                 </div>
                             </div>
                             <div id="show-select-dat"
-                                style="display: {{ $calendar->loai_hoc == 'chay_dat' ? 'block' : 'none' }};"
+                                style="display: {{ $calendar->loai_hoc == 'chay_dat' || $calendar->loai_hoc == 'thuc_hanh' || $calendar->loai_hoc == 'hoc_ky_nang' ? 'block' : 'none' }};"
                                 class="border radius-10 p-15 mb-3">
                                 <div class="row">
                                     <div class="form-group col-md-6">
@@ -96,8 +96,9 @@
                                     <div class="col-md-6">
                                         <div class="form-check">
                                             <input class="form-check-input" name="loai_thi[]" type="checkbox"
-                                                value="{{ $key }}" id="flexCheckChecked{{ $key }}" {{ $calendar->loai_thi && in_array($key,
-                                                $calendar->loai_thi) ? 'checked' : '' }}>
+                                                value="{{ $key }}" id="flexCheckChecked{{ $key }}" {{
+                                                $calendar->loai_thi && in_array($key,
+                                            $calendar->loai_thi) ? 'checked' : '' }}>
                                             <label class="form-check-label" for="flexCheckChecked{{ $key }}">{{ $item
                                                 }}</label>
                                         </div>
@@ -234,6 +235,16 @@
                                     data-selected-id="{{ old('course_user_id', $calendar->course_user_id) }}">
                                 </select>
                             </div>
+                            @endif
+                            @if (Auth::guard('admin')->user()->hasPermission('admins.calendars.approval'))
+                            @if ($calendar->type == 'class_schedule')
+                            <div class="custom-control custom-switch cs-approval"
+                                style="display: {{ in_array($calendar->loai_hoc, listStatusApprovedKm()) ? 'block' : 'none' }};">
+                                <input type="checkbox" class="custom-control-input" id="customSwitch1" name="approval"
+                                    value="1" {{ $calendar->approval ? 'checked' : '' }}>
+                                <label class="custom-control-label" for="customSwitch1">Duyệt số Km này</label>
+                            </div>
+                            @endif
                             @endif
                         </div>
                     </div>

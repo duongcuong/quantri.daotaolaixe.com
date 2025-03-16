@@ -12,6 +12,7 @@ class Calendar extends Model
         'type',
         'name',
         'status',
+        'approval',
         'priority',
         'date_start',
         'date_end',

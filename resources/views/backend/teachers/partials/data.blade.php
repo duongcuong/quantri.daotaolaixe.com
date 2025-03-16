@@ -5,22 +5,28 @@
 <table id="example" class="table table-sm table-hover">
     <thead>
         <tr>
-            <th>STT</th>
-            <th>Avatar</th>
-            <th>Họ tên</th>
-            <th>Giới tính</th>
-            <th>Ngày sinh</th>
-            <th>CMT/CCCD</th>
-            <th>Địa chỉ</th>
-            <th>Hạng</th>
-            <th>Biển số xe</th>
-            <th>Số giờ đã dạy</th>
-            <th>SĐT</th>
+            <th rowspan="2">STT</th>
+            <th rowspan="2">Avatar</th>
+            <th rowspan="2">Họ tên</th>
+            <th rowspan="2">Giới tính</th>
+            <th rowspan="2">Ngày sinh</th>
+            <th rowspan="2">CMT/CCCD</th>
+            <th rowspan="2">Địa chỉ</th>
+            <th rowspan="2">Hạng</th>
+            <th rowspan="2">Biển số xe</th>
+            <th rowspan="2">SĐT</th>
+            <th colspan="4" class="text-center">Số giờ đã dạy</th>
             {{-- <th>Tên thẻ</th>
             <th>Số thẻ</th> --}}
-            <th>Trạng thái</th>
-            <th>Ngày hoạt động</th>
-            <th class="fixed-column text-center">Hành động</th>
+            <th rowspan="2">Trạng thái</th>
+            <th rowspan="2">Ngày hoạt động</th>
+            <th rowspan="2" class="fixed-column text-center">Hành động</th>
+        </tr>
+        <tr>
+            <th>Tổng</th>
+            <th>Kỹ năng</th>
+            <th>Sa hình</th>
+            <th>Chạy DAT</th>
         </tr>
     </thead>
     <tbody>
@@ -36,8 +42,11 @@
             <td>{{ $teacher->address }}</td>
             <td>{!! getRank($teacher->rank) !!}</td>
             <td>{{ $teacher->license_plate }}</td>
-            <td>{{ getFormattedSoGioChayDuocAttribute($teacher->calendars_sum_so_gio_chay_duoc) }}</td>
             <td>{{ $teacher->phone }}</td>
+            <td style="color: red">{{ getFormattedSoGioChayDuocAttribute($teacher->calendars_sum_so_gio_chay_duoc) }}</td>
+            <td>{{ getFormattedSoGioChayDuocAttribute($teacher->so_gio_chay_duoc_hoc_ky_nang) }}</td>
+            <td>{{ getFormattedSoGioChayDuocAttribute($teacher->so_gio_chay_duoc_thuc_hanh) }}</td>
+            <td>{{ getFormattedSoGioChayDuocAttribute($teacher->so_gio_chay_duoc_chay_dat) }}</td>
             {{-- <td>{{ $teacher->card_name }}</td>
             <td>{{ $teacher->card_number }}</td> --}}
             <td>{!! getStatus($teacher->status) !!}</td>

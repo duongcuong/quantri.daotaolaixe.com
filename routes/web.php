@@ -33,7 +33,7 @@ use App\Http\Controllers\Backend\UserController;
 Route::prefix('admin')->as('admins.')->group(function () {
     Route::get('login', [AdminLoginController::class, 'showLoginForm'])->name('login');
     Route::post('login', [AdminLoginController::class, 'login']);
-    Route::post('logout', [AdminLoginController::class, 'logout'])->name('logout');
+    Route::post('logout', [AdminLoginController::class, 'logout'])->name('admins.logout');
 
     Route::middleware('auth:admin')->group(function () {
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');

@@ -94,6 +94,10 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <th>Km</th>
             @endif
 
+            @if (!request()->has('show_column') || in_array('approval', $columns))
+            <th>Duyệt Km</th>
+            @endif
+
             @if (!request()->has('show_column') || in_array('so_gio_chay_duoc', $columns))
             <th>Giờ</th>
             @endif
@@ -222,6 +226,10 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
 
             @if (!request()->has('show_column') || in_array('km', $columns))
             <td>{!! number_format($calendar->km) !!}</td>
+            @endif
+
+            @if (!request()->has('show_column') || in_array('approval', $columns))
+            <td>{!! getStatusApprovedKm($calendar->approval, $calendar->loai_hoc, $calendar->type) !!}</td>
             @endif
 
             @if (!request()->has('show_column') || in_array('so_gio_chay_duoc', $columns))

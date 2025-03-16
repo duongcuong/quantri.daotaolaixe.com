@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Backend;
 
 use App\Models\Admin;
@@ -112,7 +113,22 @@ class TeacherController extends Controller
             $query->where('slug', ROLE_TEACHER);
         }); // Sử dụng phân trang với 10 mục mỗi trang
 
-        $query->withSum('calendars', 'so_gio_chay_duoc');
+        $query->withSum([
+            'calendars' => function ($query) {
+                $query->where('approval', true)
+                    ->where('type', 'class_schedule')
+                    ->whereIn('loai_hoc', listStatusApprovedKm());
+            }
+        ], 'so_gio_chay_duoc');
+
+        $loaiHocs = listStatusApprovedKm();
+        foreach ($loaiHocs as $loaiHoc) {
+            $query->withSum(['calendars as so_gio_chay_duoc_' . $loaiHoc => function ($query) use ($loaiHoc) {
+                $query->where('approval', true)
+                    ->where('type', 'class_schedule')
+                    ->where('loai_hoc', $loaiHoc);
+            }], 'so_gio_chay_duoc');
+        }
 
         if ($request->has('name') && $request->name) {
             $query->where('name', 'like', '%' . $request->name . '%');

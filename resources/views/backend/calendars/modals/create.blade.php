@@ -216,6 +216,15 @@
                                 </select>
                             </div>
                             @endif
+
+                            @if (Auth::guard('admin')->user()->hasPermission('admins.calendars.approval'))
+                            @if (request()->type == 'class_schedule')
+                            <div class="custom-control custom-switch cs-approval" style="display: none">
+                                <input type="checkbox" class="custom-control-input" id="customSwitch1" name="approval">
+                                <label class="custom-control-label" for="customSwitch1">Duyệt số Km này</label>
+                            </div>
+                            @endif
+                            @endif
                         </div>
                     </div>
                 </div>

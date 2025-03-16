@@ -21,7 +21,7 @@ Tất cả lịch thi của học viên
     <div class="ml-auto">
         {{-- @if (Auth::user()->hasPermission('admins.exam-schedules.index')) --}}
         <a class="btn btn-outline-primary btn-sm btn-create-ajax"
-            href="{{ route('admins.calendars.create', ['type' => 'class_schedule', 'reload' => 'load-data-ajax-class-calendars']) }}"
+            href="{{ route('admins.calendars.create', ['type' => 'exam_schedule', 'reload' => 'load-data-ajax-class-calendars']) }}"
             data-cs-modal="#modal-calendars-create-ajax" title="Thêm mới"><i class="bx bx-plus"></i>Thêm mới</a>
         {{-- @endif --}}
     </div>
