@@ -23,16 +23,29 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
 
             @if (!request()->has('show_column') || in_array('date_start', $columns))
             <th>
-                @if (request()->type == 'exam_schedule' || request()->type == 'class_schedule')
-                Ngày thi
-                @else
+                @switch(request()->type)
+                @case('exam_schedule')
+                Lịch thi
+                @break
+                @case('class_schedule')
+                Thời gian bắt đầu ca học
+                @break
+                @default
                 Ngày bắt đầu
-                @endif
+                @endswitch
             </th>
             @endif
 
             @if (!request()->has('show_column') || in_array('date_end', $columns))
-            <th>Ngày kết thúc</th>
+            <th>
+                @switch(request()->type)
+                @case('class_schedule')
+                Thời gian kết thúc ca học
+                @break
+                @default
+                Ngày kết thúc
+                @endswitch
+            </th>
             @endif
 
             @if (!request()->has('show_column') || in_array('name_hocvien', $columns))
@@ -66,11 +79,16 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
 
             @if (!request()->has('show_column') || in_array('san', $columns))
             <th>
-                @if (request()->type == 'exam_schedule' || request()->type == 'class_schedule')
+                @switch(request()->type)
+                @case('exam_schedule')
                 Sân thi
-                @else
+                @break
+                @case('class_schedule')
+                Sân học
+                @break
+                @default
                 Sân
-                @endif
+                @endswitch
             </th>
             @endif
 

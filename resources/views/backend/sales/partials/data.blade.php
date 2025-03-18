@@ -9,7 +9,7 @@
             <th>CMT/CCCD</th>
             <th>Địa chỉ</th>
             <th>SĐT</th>
-            <th>Tổng số HV-KH</th>
+            <th>Số Hợp Đồng Đã Ký</th>
             <th>Tổng lead</th>
             <th>Trạng thái</th>
             <th>Ngày hoạt động</th>

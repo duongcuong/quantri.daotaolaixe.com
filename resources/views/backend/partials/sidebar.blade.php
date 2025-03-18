@@ -60,6 +60,18 @@
             </a>
         </li>
 
+        {{-- Bình luận  --}}
+        <li class="menu-label">Quản lý Bình luận</li>
+        {{-- @if (Auth::user()->hasPermission('admins.comments.index') ||
+        Auth::user()->hasPermission('admins.comments.create')) --}}
+        <li class="{{ Request::is('admin/comments/*') ? 'mm-active' : '' }}">
+            <a href="{{ route('admins.comments.index') }}">
+                <div class="parent-icon icon-color-3"><i class="bx bx-conversation"></i>
+                </div>
+                <div class="menu-title">Quản lý bình luận</div>
+            </a>
+        </li>
+
         <!--Giáo viên-->
         <li class="menu-label">Quản lý Giáo viên</li>
         {{-- @if (Auth::user()->hasPermission('admins.teachers.index') ||
@@ -128,7 +140,7 @@
 
                 <li
                     class="{{ Request::is('admin/calendars/learning') ? 'mm-active' : '' }}">
-                    <a href="{{ route('admins.calendars.learning') }}"><i class="bx bx-calendar-exclamation"></i>Lịch học</a>
+                    <a href="{{ route('admins.calendars.learning') }}"><i class="bx bx-calendar-exclamation"></i>Lịch làm việc giáo viên</a>
                 </li>
 
                 <li

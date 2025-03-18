@@ -74,7 +74,7 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="so_gio_chay_duoc">Số giờ chạy được</label>
-                                        <input type="text" name="so_gio_chay_duoc" id="so_gio_chay_duoc"
+                                        <input type="time" name="so_gio_chay_duoc" id="so_gio_chay_duoc"
                                             class="form-control"
                                             value="{{ old('so_gio_chay_duoc', $calendar->so_gio_chay_duoc) }}"
                                             placeholder="HH:MM">

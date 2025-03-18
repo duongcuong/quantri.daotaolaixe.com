@@ -8,9 +8,9 @@
             <th>STT</th>
             <th>Avatar</th>
             <th>Họ tên</th>
-            <th>SĐT</th>
-            <th>Giới tính</th>
             <th>Ngày sinh</th>
+            <th>Giới tính</th>
+            <th>SĐT</th>
             <th>CMT/CCCD</th>
             <th>Địa chỉ</th>
             <th>Tên thẻ</th>
@@ -27,9 +27,11 @@
             <td><img src="{{ getImageUpload($user->thumbnail, 'users', 'small') }}" alt="Avatar" class="avatar"
                     width="50"></td>
             <td>{{ $user->name }}</td>
-            <td>{{ $user->phone }}</td>
-            <td>{{ $user->gender == 0 ? 'Nam' : ($user->gender == 1 ? 'Nữ' : 'Khác') }}</td>
             <td>{{ getDateTimeStamp($user->dob, 'd/m/Y') }}</td>
+            <td>{{ $user->gender == 0 ? 'Nam' : ($user->gender == 1 ? 'Nữ' : 'Khác') }}</td>
+            <td>{{ $user->phone }}</td>
+
+
             <td>{{ $user->identity_card }}</td>
             <td>{{ $user->address }}</td>
             <td>{{ $user->card_name }}</td>

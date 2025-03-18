@@ -37,7 +37,7 @@
                     width="50"></td>
             <td>{{ $teacher->name }}</td>
             <td>{{ $teacher->gender == 0 ? 'Nam' : ($teacher->gender == 1 ? 'Nữ' : 'Khác') }}</td>
-            <td>{{ $teacher->dob }}</td>
+            <td>{{ getDateTimeStamp($teacher->dob, 'd/m/Y') }}</td>
             <td>{{ $teacher->identity_card }}</td>
             <td>{{ $teacher->address }}</td>
             <td>{!! getRank($teacher->rank) !!}</td>

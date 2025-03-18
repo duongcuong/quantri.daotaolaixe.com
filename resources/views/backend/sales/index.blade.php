@@ -35,7 +35,7 @@ Tất cả sale
                     <input type="text" id="name" name="name" class="form-control" placeholder="Nhập tên" value="{{ session('sale_filters.name') }}">
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
-                    <label for="start_date" class="mr-2">Ngày bắt đầu kí hợp đồng</label>
+                    <label for="start_date" class="mr-2">Ngày bắt đầu ký hợp đồng</label>
                     <input type="date" name="start_date" id="start_date" class="form-control"
                         value="{{ session('sale_filters.start_date') }}">
                 </div>

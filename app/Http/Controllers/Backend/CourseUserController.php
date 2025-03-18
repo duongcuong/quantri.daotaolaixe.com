@@ -81,8 +81,12 @@ class CourseUserController extends Controller
         $admins = Admin::where('status', 1)->get();
 
         $courseUser->loadSum('fees', 'amount');
-        $courseUser->loadSum('calendars', 'km');
-        $courseUser->loadSum('calendars', 'so_gio_chay_duoc');
+        $courseUser->loadSum(['calendars' => function ($query) {
+            $query->where('approval', true);
+        }], 'km');
+        $courseUser->loadSum(['calendars' => function ($query) {
+            $query->where('approval', true);
+        }], 'so_gio_chay_duoc');
 
         return view('backend.course-user.show', compact('courseUser', 'courseUsers', 'admins'));
     }

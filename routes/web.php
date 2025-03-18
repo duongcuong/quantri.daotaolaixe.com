@@ -18,6 +18,7 @@ use App\Http\Controllers\Auth\UserLoginController;
 use App\Http\Controllers\Backend\ActivityController;
 use App\Http\Controllers\Backend\ActivityLogController;
 use App\Http\Controllers\Backend\CalendarController;
+use App\Http\Controllers\Backend\CommentController;
 use App\Http\Controllers\Backend\CourseController;
 use App\Http\Controllers\Backend\CourseUserController;
 use App\Http\Controllers\Backend\DashboardController;
@@ -72,6 +73,9 @@ Route::prefix('admin')->as('admins.')->group(function () {
         // fees
         Route::get('fees/data', [FeeController::class, 'data'])->name('fees.data');
         Route::resource('fees', FeeController::class);
+
+        Route::get('comments/data', [CommentController::class, 'data'])->name('comments.data');
+        Route::resource('comments', CommentController::class);
 
         // calendars
         Route::get('calendars/data', [CalendarController::class, 'data'])->name('calendars.data');
