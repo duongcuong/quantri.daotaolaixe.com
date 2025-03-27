@@ -1,6 +1,6 @@
 @extends('backend.app')
 @section('title')
-Tất cả Lịch sử nộp tiền
+Tất cả Lịch sử nạp tiền
 @endsection
 @push('css')
 @endpush
@@ -13,7 +13,7 @@ Tất cả Lịch sử nộp tiền
                     <li class="breadcrumb-item"><a href="{{ route('admins.dashboard') }}"><i
                                 class='bx bx-home-alt'></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Lịch sử nộp tiền</li>
+                    <li class="breadcrumb-item active" aria-current="page">Lịch sử nạp tiền</li>
                 </ol>
             </nav>
         </div>
