@@ -135,7 +135,7 @@
 
                 <li
                     class="{{ Request::is('admin/fees') || Request::is('admin/fees/create') || Request::is('admin/fees/*/edit') ? 'mm-active' : '' }}">
-                    <a href="{{ route('admins.fees.index') }}"><i class="bx bx-star"></i>Lịch sử nộp tiền</a>
+                    <a href="{{ route('admins.fees.index') }}"><i class="bx bx-star"></i>Lịch sử nạp tiền</a>
                 </li>
 
                 <li
