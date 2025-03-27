@@ -79,6 +79,18 @@
                                             value="{{ old('so_gio_chay_duoc', $calendar->so_gio_chay_duoc) }}"
                                             placeholder="HH:MM">
                                     </div>
+                                    <div class="form-group col-md-6">
+                                        <div class="custom-control custom-checkbox">
+                                            <input name="is_tudong" value="1" type="checkbox" class="custom-control-input" id="is_tudong" {{ $calendar->is_tudong ? 'checked' : '' }}>
+                                            <label class="custom-control-label" for="is_tudong">Học tự động</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" value="1" class="custom-control-input" id="is_bandem" {{ $calendar->is_bandem ? 'checked' : '' }} name="is_bandem">
+                                            <label class="custom-control-label" for="is_bandem">Học ban đêm</label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
@@ -229,7 +241,7 @@
                             @if ($calendar->type == 'class_schedule' || $calendar->type == 'exam_schedule')
                             <div class="form-group">
                                 <label for="course_user_id">Học viên khóa học</label>
-                                <select class="select2-ajax-single form-control" name="course_user_id"
+                                <select class="select2-ajax-single form-control select2-ajax-single-calendar" name="course_user_id"
                                     data-placeholder="Chọn học viên khóa học"
                                     data-url="{{ route('admins.course-user.list') }}"
                                     data-selected-id="{{ old('course_user_id', $calendar->course_user_id) }}">

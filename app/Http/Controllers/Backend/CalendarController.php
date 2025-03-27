@@ -64,6 +64,8 @@ class CalendarController extends Controller
             'course_user_id' => 'nullable|exists:course_users,id',
             'lead_id' => 'nullable|exists:leads,id',
             'so_gio_chay_duoc' => 'nullable|regex:/^\d{2}:\d{2}$/',
+            'is_tudong' => 'nullable|boolean',
+            'is_bandem' => 'nullable|boolean',
         ]);
 
         $validator->after(function ($validator) use ($request) {
@@ -76,7 +78,12 @@ class CalendarController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        $calendar = Calendar::create($request->all());
+        $data = $request->all();
+        $data['is_tudong'] = $request->has('is_tudong') ? true : false;
+        $data['is_bandem'] = $request->has('is_bandem') ? true : false;
+        $data['approval'] = $request->has('approval') ? true : false;
+
+        $calendar = Calendar::create($data);
         $calendar->created_by = Auth::guard('admin')->id();
 
         return response()->json(['success' => 'Thêm thành công.']);
@@ -100,6 +107,8 @@ class CalendarController extends Controller
             'course_user_id' => 'nullable|exists:course_users,id',
             'lead_id' => 'nullable|exists:leads,id',
             'so_gio_chay_duoc' => 'nullable|regex:/^\d{2}:\d{2}$/',
+            'is_tudong' => 'nullable|boolean',
+            'is_bandem' => 'nullable|boolean',
         ]);
 
         $validator->after(function ($validator) use ($request) {
@@ -112,7 +121,12 @@ class CalendarController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        $calendar->update($request->all());
+        $data = $request->all();
+        $data['is_tudong'] = $request->has('is_tudong') ? true : false;
+        $data['is_bandem'] = $request->has('is_bandem') ? true : false;
+        $data['approval'] = $request->has('approval') ? true : false;
+
+        $calendar->update($data);
 
         return response()->json(['success' => 'Cập nhật thành công.']);
     }
@@ -176,7 +190,7 @@ class CalendarController extends Controller
         }
 
         if ($request->has('exam_field_id') && $request->exam_field_id) {
-            $query->where('exam_field_id',$request->exam_field_id);
+            $query->where('exam_field_id', $request->exam_field_id);
         }
 
         $calendars = $query->with(['admin', 'user', 'courseUser', 'lead'])->latest('date_start')->paginate(LIMIT);

@@ -18,12 +18,12 @@
                                 <form action="{{ route('admins.login') }}" method="post">
                                     @csrf
                                     <div class="form-group mt-4">
-                                        <label>Địa chỉ Email</label>
-                                        <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                            value="{{ old('email') }}" name="email"
-                                            placeholder="Enter your email address" />
+                                        <label>Email hoặc Số điện thoại</label>
+                                        <input type="text" class="form-control @error('login') is-invalid @enderror"
+                                            value="{{ old('login') }}" name="login"
+                                            placeholder="Nhập email hoặc số điện thoại" />
 
-                                        @error('email')
+                                        @error('login')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

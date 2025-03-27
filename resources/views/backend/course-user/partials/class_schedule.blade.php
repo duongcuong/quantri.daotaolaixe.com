@@ -9,8 +9,15 @@
                             <div class="d-flex">
                                 <strong class="mr-1">Tổng km: </strong> <strong class="mr-2 text-danger"> {{
                                     number_format($courseUser->calendars_sum_km) }}</strong>
-                                <strong class="mr-1">Tổng giờ chạy được: </strong> <strong class="text-danger"> {{
+                                <strong class="mr-1">Tổng km tự động: </strong> <strong class="mr-2 text-danger"> {{
+                                    number_format($courseUser->total_km_tudong) }}</strong>
+                                <strong class="mr-1">Tổng giờ chạy được: </strong>
+                                <strong class="mr-2 text-danger"> {{
                                     getFormattedSoGioChayDuocAttribute($courseUser->calendars_sum_so_gio_chay_duoc)
+                                    }}</strong>
+                                <strong class="mr-1">Tổng giờ ban đêm: </strong>
+                                <strong class="text-danger"> {{
+                                    getFormattedSoGioChayDuocAttribute($courseUser->total_so_gio_chay_duoc_bandem)
                                     }}</strong>
                             </div>
                         </div>
@@ -22,7 +29,7 @@
                                         <input type="hidden" value="{{ $courseUser->id }}" name="course_user_id">
                                         <input type="hidden" name="type" value="class_schedule">
                                         <input type="hidden" name="show_column"
-                                            value="name,date_start,date_end,name_hocvien,diem_don,san,course_code,loai_hoc,km,approval,so_gio_chay_duoc,status">
+                                            value="name,date_start,date_end,name_hocvien,diem_don,san,course_code,loai_hoc,km,approval,so_gio_chay_duoc,is_tudong,is_bandem,status">
                                         <input type="hidden" name="reload" value="load-data-ajax-class-calendars">
                                         <div class="mr-2">
                                             <select class="form-control form-control-sm" name="loai_hoc">

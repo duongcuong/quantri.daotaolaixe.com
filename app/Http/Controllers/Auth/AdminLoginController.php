@@ -16,11 +16,17 @@ class AdminLoginController extends Controller
     public function login(Request $request)
     {
         $this->validate($request, [
-            'email' => 'required|email',
-            'password' => 'required|min:6',
+            'login' => 'required|string', // Có thể là email hoặc số điện thoại
+            'password' => 'required|string|min:6',
         ]);
 
-        if (Auth::guard('admin')->attempt($request->only('email', 'password'), $request->filled('remember'))) {
+        $credentials = [
+            filter_var($request->login, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone' => $request->login,
+            'password' => $request->password,
+        ];
+
+        if (Auth::guard('admin')->attempt($credentials, $request->filled('remember'))) {
+            $request->session()->regenerate();
             return redirect()->intended(route('admins.dashboard'));
         }
 

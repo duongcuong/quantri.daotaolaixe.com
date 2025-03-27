@@ -112,6 +112,14 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <th>Km</th>
             @endif
 
+            @if (!request()->has('show_column') || in_array('is_tudong', $columns))
+            <th>Tự động</th>
+            @endif
+
+            @if (!request()->has('show_column') || in_array('is_bandem', $columns))
+            <th>Ban đêm</th>
+            @endif
+
             @if (!request()->has('show_column') || in_array('approval', $columns))
             <th>Duyệt Km</th>
             @endif
@@ -244,6 +252,14 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
 
             @if (!request()->has('show_column') || in_array('km', $columns))
             <td>{!! number_format($calendar->km) !!}</td>
+            @endif
+
+            @if (!request()->has('show_column') || in_array('is_tudong', $columns))
+            <th class="fs-20 text-center">{!! getTickTrueOrFalse($calendar->is_tudong) !!}</th>
+            @endif
+
+            @if (!request()->has('show_column') || in_array('is_bandem', $columns))
+            <th class="fs-20 text-center">{!! getTickTrueOrFalse($calendar->is_bandem) !!}</th>
             @endif
 
             @if (!request()->has('show_column') || in_array('approval', $columns))

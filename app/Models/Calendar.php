@@ -31,6 +31,8 @@ class Calendar extends Model
         'teacher_id',
         'loai_hoc',
         'km',
+        'is_tudong',
+        'is_bandem',
         'so_xe',
         'loai_thi',
         'diem_don',

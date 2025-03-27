@@ -87,6 +87,15 @@ class CourseUserController extends Controller
         $courseUser->loadSum(['calendars' => function ($query) {
             $query->where('approval', true);
         }], 'so_gio_chay_duoc');
+        // Thêm withSum cho tổng km với điều kiện is_tudong = true
+        $courseUser->loadSum(['calendars as total_km_tudong' => function ($query) {
+            $query->where('is_tudong', true);
+        }], 'km');
+
+        // Thêm withSum cho tổng so_gio_chay_duoc với điều kiện is_bandem = true
+        $courseUser->loadSum(['calendars as total_so_gio_chay_duoc_bandem' => function ($query) {
+            $query->where('is_bandem', true);
+        }], 'so_gio_chay_duoc');
 
         return view('backend.course-user.show', compact('courseUser', 'courseUsers', 'admins'));
     }
@@ -96,6 +105,15 @@ class CourseUserController extends Controller
         $examFields = ExamField::all();
         $courseUser->loadSum('calendars', 'km');
         $courseUser->loadSum('calendars', 'so_gio_chay_duoc');
+        // Thêm withSum cho tổng km với điều kiện is_tudong = true
+        $courseUser->loadSum(['calendars as total_km_tudong' => function ($query) {
+            $query->where('is_tudong', true);
+        }], 'km');
+
+        // Thêm withSum cho tổng so_gio_chay_duoc với điều kiện is_bandem = true
+        $courseUser->loadSum(['calendars as total_so_gio_chay_duoc_bandem' => function ($query) {
+            $query->where('is_bandem', true);
+        }], 'so_gio_chay_duoc');
         return view('backend.course-user.edit', compact('courseUser', 'examFields'));
     }
 
@@ -690,5 +708,11 @@ class CourseUserController extends Controller
         }
 
         return response()->json(['total' => 0, 'processed' => 0]);
+    }
+
+    public function detail($id){
+        $courseUser = CourseUser::find($id);
+        $exam = $courseUser->examField->name ?? '';
+        return response()->json(['exam' => $exam]);
     }
 }

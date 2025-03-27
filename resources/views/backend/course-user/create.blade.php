@@ -106,7 +106,7 @@ Tạo Khoá Học - User
                             <input type="date" name="exam_date" id="exam_date" class="form-control"
                                 value="{{ old('exam_date') }}" />
                         </div> --}}
-                        {{-- <div class="form-group col-md-6">
+                        <div class="form-group col-md-6">
                             <label for="exam_field_id" class="d-flex justify-content-between">
                                 <span>Sân thi</span>
                                 <a class="btn-create-ajax" href="{{ route('admins.exam-fields.create') }}"
@@ -120,7 +120,7 @@ Tạo Khoá Học - User
                                 <option value="{{ $examField->id }}"> {{ $examField->name }}</option>
                                 @endforeach
                             </select>
-                        </div> --}}
+                        </div>
                         {{-- <div class="form-group col-md-6">
                             <label for="ngay_khai_giang">Ngày khai giảng</label>
                             <input type="date" name="ngay_khai_giang" id="ngay_khai_giang" class="form-control"

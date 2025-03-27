@@ -71,6 +71,18 @@
                                         <input type="time" name="so_gio_chay_duoc" id="so_gio_chay_duoc"
                                             class="form-control" placeholder="HH:MM">
                                     </div>
+                                    <div class="form-group col-md-6">
+                                        <div class="custom-control custom-checkbox">
+                                            <input name="is_tudong" value="1" type="checkbox" class="custom-control-input" id="is_tudong">
+                                            <label class="custom-control-label" for="is_tudong">Học tự động</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" value="1" class="custom-control-input" id="is_bandem">
+                                            <label class="custom-control-label" for="is_bandem">Học ban đêm</label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
@@ -114,16 +126,16 @@
                                 </div>
                             </div>
                             @endif
-                            @if (request()->type == 'class_schedule'|| request()->type == 'exam_schedule')
+                            @if (request()->type == 'class_schedule')
                             <div class="row">
                                 <div class="form-group col-md-12">
                                     <label for="exam_field_id" class="d-flex justify-content-between">
                                         <span>Sân</span>
                                         <a href="{{ route('admins.exam-fields.index') }}" title="Thêm mới"
-                                            target="_blank"><i class="bx bx-plus"></i>Thêm sân thi</a>
+                                            target="_blank"><i class="bx bx-plus"></i>Thêm sân học</a>
                                     </label>
                                     <select name="exam_field_id" id="exam_field_id" class="form-control single-select"
-                                        data-placeholder="Chọn sân thi" data-allow-clear="true">
+                                        data-placeholder="Chọn sân học" data-allow-clear="true">
                                         <option></option>
                                         @foreach ($examFields as $examField)
                                         <option value="{{ $examField->id }}"> {{ $examField->name }}</option>
@@ -209,7 +221,7 @@
                             @if (request()->type == 'class_schedule' || request()->type == 'exam_schedule')
                             <div class="form-group">
                                 <label for="course_user_id">Học viên khóa học</label>
-                                <select class="select2-ajax-single form-control" name="course_user_id"
+                                <select class="select2-ajax-single form-control select2-ajax-single-calendar" name="course_user_id"
                                     data-placeholder="Chọn học viên khóa học"
                                     data-url="{{ route('admins.course-user.list') }}"
                                     data-selected-id="{{ request()->course_user_id }}">

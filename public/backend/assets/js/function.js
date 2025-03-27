@@ -797,4 +797,27 @@ $(function () {
         });
     });
 
+    $(document).on('change', '.select2-ajax-single-calendar', function (e) {
+        let selectedValue = $(this).val();
+        $('.diem-thi-cs').remove();
+        if (!selectedValue) return;
+        var _this = $(this);
+
+        // Ví dụ: Gửi AJAX để lấy dữ liệu liên quan
+        $.ajax({
+            url: `/admin/course-user/${selectedValue}/detail`, // Thay bằng URL API của bạn
+            method: 'GET',
+            data: { id: selectedValue },
+            success: function (response) {
+                if (response.exam) {
+                    _this.parent().append(`<p class="diem-thi-cs text-danger mt-1"><i>Điểm thi:</i> ${response.exam}</p>`);
+                }
+                // Xử lý dữ liệu trả về
+            },
+            error: function (xhr) {
+                console.error('Lỗi khi gọi API:', xhr);
+            },
+        });
+    });
+
 });

@@ -63,6 +63,7 @@ Route::prefix('admin')->as('admins.')->group(function () {
         Route::resource('users', UserController::class);
 
         // course-user
+        Route::get('course-user/{id}/detail', [CourseUserController::class, 'detail'])->name('course-user.detail');
         Route::get('course-user/data', [CourseUserController::class, 'data'])->name('course-user.data');
         Route::get('course-user/list', [CourseUserController::class, 'list'])->name('course-user.list');
         Route::get('course-user/import', [CourseUserController::class, 'import'])->name('course-user.import');

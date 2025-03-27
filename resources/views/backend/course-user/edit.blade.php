@@ -104,7 +104,8 @@ Sửa Khoá học - Học Viên
                             <label for="exam_date">Ngày thi</label>
                             <input type="date" name="exam_date" id="exam_date" class="form-control"
                                 value="{{ old('exam_date', \Carbon\Carbon::parse($courseUser->exam_date)->format('Y-m-d')) }}" />
-                        </div>
+                        </div> --}}
+
                         <div class="form-group col-md-6">
                             <label for="exam_field_id" class="d-flex justify-content-between">
                                 <span>Sân thi</span>
@@ -120,7 +121,7 @@ Sửa Khoá học - Học Viên
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group col-md-6">
+                        {{--<div class="form-group col-md-6">
                             <label for="ngay_khai_giang">Ngày khai giảng</label>
                             <input type="date" name="ngay_khai_giang" id="ngay_khai_giang" class="form-control"
                                 value="{{ old('ngay_khai_giang', getDateTimeStamp($courseUser->ngay_khai_giang)) }}" />
