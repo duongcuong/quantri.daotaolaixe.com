@@ -4,7 +4,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex">
-                        <h5>Lịch sử nạp học phí</strong>
+                        <h5>Lịch sử nộp học phí</strong>
                         </h5>
                         <div class="ml-auto">
                             {{-- @if (Auth::user()->hasPermission('admins.course-user.index')) --}}

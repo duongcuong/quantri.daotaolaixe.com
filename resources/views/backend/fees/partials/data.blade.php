@@ -1,5 +1,5 @@
 <div class="alert alert-info alert-dismissible fade show" role="alert">
-    <strong class="mr-1">Tổng tiền đã nạp: </strong>
+    <strong class="mr-1">Tổng tiền đã nộp: </strong>
     <strong class="mr-2 text-danger">{!! getMoney($feeTotal) !!}</strong>
 </div>
 <table id="example" class="table table-sm table-hover">
@@ -9,7 +9,7 @@
             <th>Học viên</th>
             <th>Khóa học</th>
             <th>Số tiền</th>
-            <th>Ngày nạp</th>
+            <th>Ngày nộp</th>
             <th>Người thu</th>
             <th>Ghi chú</th>
             <th>Tiền đã về công ty</th>

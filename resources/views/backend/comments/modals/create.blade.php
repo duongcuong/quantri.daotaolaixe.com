@@ -28,7 +28,7 @@
                             <input type="text" name="amount" id="amount" class="form-control thousand-text" required>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="payment_date">Ngày nạp</label>
+                            <label for="payment_date">Ngày nộp</label>
                             <input type="date" name="payment_date" id="payment_date" class="form-control" required>
                         </div>
                         <div class="col-md-6 mb-3">

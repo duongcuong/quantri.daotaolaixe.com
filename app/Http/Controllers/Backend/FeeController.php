@@ -99,7 +99,7 @@ class FeeController extends Controller
             $hasSearch = true;
         }
 
-        // Tính tổng các học phí đã nạp
+        // Tính tổng các học phí đã nộp
         $feeTotal = $query->sum('amount');
 
         $fees = $query->paginate(LIMIT);

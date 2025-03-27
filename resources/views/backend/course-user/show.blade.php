@@ -118,7 +118,7 @@ Xem chi tiết {{ $courseUser->user->name }} - {{ $courseUser->course->code }}
                             <td class="text-danger">{!! getMoney($courseUser->course->tuition_fee) !!}</td>
                         </tr>
                         <tr>
-                            <th colspan="2">Tổng học phí đã nạp</th>
+                            <th colspan="2">Tổng học phí đã nộp</th>
                             <td class="text-success">{!! getMoney($courseUser->fees_sum_amount)
                                 !!}</span></td>
                         </tr>

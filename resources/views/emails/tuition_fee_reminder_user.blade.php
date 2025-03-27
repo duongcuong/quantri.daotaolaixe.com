@@ -9,7 +9,7 @@
     <p>Bạn có một thông báo về học phí.</p>
     <p>Tên khóa học: {{ $courseName }}</p>
     <p>Tổng học phí: {!! getMoney($totalFee) !!} </p>
-    <p>Học phí đã nạp: {!! getMoney($totalPaid) !!}</p>
+    <p>Học phí đã nộp: {!! getMoney($totalPaid) !!}</p>
     <p style="color: red">Học phí còn thiếu: {!! getMoney($remainingFee) !!}</p>
     <p><a href="{{ $site_url }}">Xem chi tiết</a></p>
 </body>

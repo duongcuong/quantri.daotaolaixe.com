@@ -125,7 +125,7 @@
                                         value="{{ old('sbd', $calendar->sbd) }}" />
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="ngay_dong_hoc_phi">Ngày nạp tiền</label>
+                                    <label for="ngay_dong_hoc_phi">Ngày nộp tiền</label>
                                     <input type="datetime-local" name="ngay_dong_hoc_phi" id="ngay_dong_hoc_phi"
                                         class="form-control"
                                         value="{{ old('ngay_dong_hoc_phi', $calendar->ngay_dong_hoc_phi) }}">

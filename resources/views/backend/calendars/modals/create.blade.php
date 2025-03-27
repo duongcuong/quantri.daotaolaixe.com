@@ -115,7 +115,7 @@
                                     <input type="number" name="sbd" id="sbd" class="form-control">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="ngay_dong_hoc_phi">Ngày nạp tiền</label>
+                                    <label for="ngay_dong_hoc_phi">Ngày nộp tiền</label>
                                     <input type="datetime-local" name="ngay_dong_hoc_phi" id="ngay_dong_hoc_phi"
                                         class="form-control">
                                 </div>

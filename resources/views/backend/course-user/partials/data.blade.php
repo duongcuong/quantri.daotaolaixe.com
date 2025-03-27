@@ -32,7 +32,7 @@
             <th>Giờ</th>
             <th>Km</th>
             <th class="text-center">Tổng</th>
-            <th class="text-center">Đã nạp</th>
+            <th class="text-center">Đã nộp</th>
             <th class="text-center">Còn thiếu</th>
         </tr>
     </thead>

@@ -29,7 +29,7 @@
                             <input type="text" name="amount" id="amount" class="form-control thousand-text" required value="{{ $comment->amount }}">
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="payment_date">Ngày nạp</label>
+                            <label for="payment_date">Ngày nộp</label>
                             <input type="date" name="payment_date" id="payment_date" class="form-control" required value="{{ \Carbon\Carbon::parse($comment->payment_date)->format('Y-m-d') }}">
                         </div>
                         <div class="col-md-6 mb-3">
