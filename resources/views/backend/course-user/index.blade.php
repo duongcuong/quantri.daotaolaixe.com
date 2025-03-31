@@ -21,8 +21,6 @@ Tất cả Khoá học - Học Viên
     <div class="ml-auto">
         <a class="btn btn-outline-success btn-sm mr-2" href="{{ route('admins.course-user.import') }}" title="Import"><i
                 class="lni lni-cloud-upload mr-1"></i>Import file</a>
-        <a class="btn btn-outline-danger btn-sm mr-2" href="{{ asset('backend/assets/files/hsmn2024.xlsx') }}"
-            title="Import" download><i class="lni lni-cloud-download mr-1"></i>Download file</a>
         {{-- @if (Auth::user()->hasPermission('admins.course-user.index')) --}}
         <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.course-user.create') }}" title="Thêm mới"><i
                 class="bx bx-plus"></i>Thêm mới</a>

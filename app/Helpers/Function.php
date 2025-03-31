@@ -682,3 +682,11 @@ function getStatusApprovedKm($value, $loai_hoc, $type){
     }
     return '...';
 }
+
+function formatPhoneNumber($phone)
+{
+    if (!empty($phone) && substr($phone, 0, 1) !== '0') {
+        return '0' . $phone;
+    }
+    return $phone;
+}

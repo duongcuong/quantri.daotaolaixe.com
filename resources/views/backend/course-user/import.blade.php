@@ -22,8 +22,10 @@ Import Khoá Học Học Viên
 
 <div class="card radius-15">
     <div class="card-body">
-        <div class="card-title">
+        <div class="card-title d-flex align-items-center justify-content-between">
             <h4 class="mb-0">Import Khoá học - Học viên</h4>
+            <a class="btn btn-outline-danger btn-sm mr-2" href="{{ asset('backend/files/hsmn2024.xlsx') }}"
+            title="Import" download><i class="lni lni-cloud-download mr-1"></i>Download file</a>
         </div>
         <hr />
         <form action="" method="POST" enctype="multipart/form-data" id="import-form">

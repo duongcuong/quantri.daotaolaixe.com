@@ -208,8 +208,8 @@ class CourseUserController extends Controller
         if ($request->has('status') && $request->status != '') {
             $query->whereHas('latestCalendar', function ($q) use ($request) {
                 $q->whereIn('calendars.type', ['exam_schedule', 'class_schedule'])
-                  ->where('calendars.status', $request->status)
-                  ->whereRaw('calendars.id = (
+                    ->where('calendars.status', $request->status)
+                    ->whereRaw('calendars.id = (
                         SELECT id FROM calendars a
                         WHERE a.course_user_id = course_users.id
                         AND a.type IN ("exam_schedule", "class_schedule")
@@ -339,19 +339,21 @@ class CourseUserController extends Controller
                 continue;
             }
 
+            if ($key != 6) continue;
+
             // Cập nhật tiến trình import
             $progress = json_decode(file_get_contents($progressFile), true);
             $progress['processed']++;
             file_put_contents($progressFile, json_encode($progress));
 
-            sleep(1);
+            // sleep(1);
 
             DB::beginTransaction();
             try {
 
                 $ngayKyHD = getDateByExcel($row[1]);
                 $hoTen = $row[2];
-                $sdt = $row[3];
+                $sdt = formatPhoneNumber($row[3]);
                 $ngaySinh = getDateByExcel($row[4]);
                 $email = $row[5];
                 $diaChi = $row[6];
@@ -363,7 +365,7 @@ class CourseUserController extends Controller
 
                 $thayDay = $row[11];
                 $emailThayDay = $row[12];
-                $sdtThayDay = $row[13];
+                $sdtThayDay = formatPhoneNumber($row[13]);
 
                 $lePhiHoSo = getNumberCsExcel($row[14]);
 
@@ -375,7 +377,7 @@ class CourseUserController extends Controller
                 $ghiChuLan2 = $row[20];
 
                 $nguoiGuiHS = $row[21];
-                $sdtNguoiGuiHS = $row[22];
+                $sdtNguoiGuiHS = formatPhoneNumber($row[22]);
                 $emailNguoiGuiHS = $row[23];
 
                 $note = $row[24];
@@ -390,8 +392,8 @@ class CourseUserController extends Controller
                 $ketQua = $row[32];
 
                 // Validate các email
-                if (empty($email) || empty($emailThayDay) || empty($emailNguoiGuiHS)) {
-                    throw new \Exception('Email học viên, giáo viên hoặc người gửi hồ sơ không được để trống.');
+                if (empty($sdt) || empty($sdtThayDay) || empty($sdtNguoiGuiHS)) {
+                    throw new \Exception('Số điện thoại học viên, giáo viên hoặc người gửi hồ sơ không được để trống.');
                 }
 
                 $hocCabins = [];
@@ -504,12 +506,17 @@ class CourseUserController extends Controller
                     ];
                 }
 
+                // Random email nếu không có
+                $email = $email ?? 'user_' . uniqid() . '@example.com';
+                $emailThayDay = $emailThayDay ?? 'teacher_' . uniqid() . '@example.com';
+                $emailNguoiGuiHS = $emailNguoiGuiHS ?? 'sale_' . uniqid() . '@example.com';
+
                 // Thêm hoặc lấy User
                 $user = User::firstOrCreate(
-                    ['email' => $email],
+                    ['phone' => $sdt],
                     [
                         'name' => $hoTen,
-                        'phone' => $sdt,
+                        'email' => $email,
                         'dob' => $ngaySinh,
                         'address' => $diaChi,
                         'password' => bcrypt('12345678'),
@@ -518,37 +525,89 @@ class CourseUserController extends Controller
                 );
 
                 // Thêm hoặc lấy Giáo viên
-                $teacher = Admin::firstOrCreate(
-                    ['email' => $emailThayDay],
-                    [
-                        'name' => $thayDay,
-                        'phone' => $sdtThayDay,
-                        'password' => bcrypt('12345678'),
-                        'status' => 1
-                    ]
-                );
+                if (empty($sdtThayDay)) {
+                    // Nếu không có số điện thoại giáo viên, tạo giáo viên mặc định
+                    $teacher = Admin::firstOrCreate(
+                        ['phone' => 'NO_PHONE'], // Số điện thoại mặc định
+                        [
+                            'name' => 'No Teacher', // Tên giáo viên mặc định
+                            'email' => 'no_teacher_' . uniqid() . '@example.com', // Email ngẫu nhiên
+                            'password' => bcrypt('12345678'), // Mật khẩu mặc định
+                            'status' => 1
+                        ]
+                    );
+                } else {
+                    // Nếu có số điện thoại, tìm hoặc tạo giáo viên như bình thường
+                    $teacher = Admin::firstOrCreate(
+                        ['phone' => $sdtThayDay],
+                        [
+                            'name' => $thayDay,
+                            'email' => $emailThayDay ?? 'teacher_' . uniqid() . '@example.com',
+                            'password' => bcrypt('12345678'),
+                            'status' => 1
+                        ]
+                    );
+                }
+                // Gán role "teacher" cho giáo viên
+                $teacherRole = Role::where('slug', ROLE_TEACHER)->first();
+                if ($teacherRole && !$teacher->roles->contains($teacherRole->id)) {
+                    $teacher->roles()->attach($teacherRole->id);
+                }
 
                 // Thêm hoặc lấy Sale
-                $sale = Admin::firstOrCreate(
-                    ['email' => $emailNguoiGuiHS],
-                    [
-                        'name' => $nguoiGuiHS,
-                        'phone' => $sdtNguoiGuiHS,
-                        'password' => bcrypt('12345678'),
-                        'status' => 1
-                    ]
-                );
+                if (empty($sdtNguoiGuiHS)) {
+                    // Nếu không có số điện thoại sale, tạo sale mặc định
+                    $sale = Admin::firstOrCreate(
+                        ['phone' => 'NO_PHONE_SALE'], // Số điện thoại mặc định
+                        [
+                            'name' => 'No Sale', // Tên sale mặc định
+                            'email' => 'no_sale_' . uniqid() . '@example.com', // Email ngẫu nhiên
+                            'password' => bcrypt('12345678'), // Mật khẩu mặc định
+                            'status' => 1
+                        ]
+                    );
+                } else {
+                    // Nếu có số điện thoại, tìm hoặc tạo sale như bình thường
+                    $sale = Admin::firstOrCreate(
+                        ['phone' => $sdtNguoiGuiHS],
+                        [
+                            'name' => $nguoiGuiHS,
+                            'email' => $emailNguoiGuiHS ?? 'sale_' . uniqid() . '@example.com',
+                            'password' => bcrypt('12345678'),
+                            'status' => 1
+                        ]
+                    );
+                }
+                // Gán role "sale" cho nhân viên sale
+                $saleRole = Role::where('slug', ROLE_SALE)->first();
+                if ($saleRole && !$sale->roles->contains($saleRole->id)) {
+                    $sale->roles()->attach($saleRole->id);
+                }
 
                 // Thêm hoặc lấy Khoá học
-                $course = Course::firstOrCreate(
-                    ['code' => $khoa],
-                    [
-                        'rank' => $hang,
-                        'start_date' => $ngayKhaiGiang,
-                        'end_date' => $ngayBeGiang,
-                        'tuition_fee' => $lePhiHoSo
-                    ]
-                );
+                if (empty($khoa)) {
+                    // Nếu $khoa rỗng, sử dụng khóa học với code là "no_code"
+                    $course = Course::firstOrCreate(
+                        ['code' => 'NO_CODE'],
+                        [
+                            'rank' => 'default', // Giá trị mặc định cho rank
+                            'start_date' => null,
+                            'end_date' => null,
+                            'tuition_fee' => 0, // Giá trị mặc định cho học phí
+                        ]
+                    );
+                } else {
+                    // Nếu $khoa có giá trị, tạo hoặc lấy khóa học như bình thường
+                    $course = Course::firstOrCreate(
+                        ['code' => $khoa],
+                        [
+                            'rank' => $hang,
+                            'start_date' => $ngayKhaiGiang,
+                            'end_date' => $ngayBeGiang,
+                            'tuition_fee' => $lePhiHoSo,
+                        ]
+                    );
+                }
 
                 // Thêm hoặc lấy Sân tập
                 $examField = ExamField::firstOrCreate(
@@ -574,10 +633,21 @@ class CourseUserController extends Controller
                 }
 
                 // Thêm hoặc lấy CourseUser
+                $notes = [];
+                if ($note) {
+                    $notes[] = "Ghi chú: " . $note;
+                }
+                if ($hang) {
+                    $notes[] = "Hạng: " . $hang;
+                }
+                if ($sanTap) {
+                    $notes[] = "Sân tập: " . $sanTap;
+                }
+                $noteString = implode("\n", $notes);
                 $courseUser = CourseUser::create([
                     'user_id' => $user->id,
                     'course_id' => $course->id,
-                    'note' => $note,
+                    'note' => $noteString,
                     'health_check_date' => $khamSucKhoe,
                     'practice_field' => $examField->id,
                     'teacher_id' => $teacher->id,
@@ -710,7 +780,8 @@ class CourseUserController extends Controller
         return response()->json(['total' => 0, 'processed' => 0]);
     }
 
-    public function detail($id){
+    public function detail($id)
+    {
         $courseUser = CourseUser::find($id);
         $exam = $courseUser->examField->name ?? '';
         return response()->json(['exam' => $exam]);
