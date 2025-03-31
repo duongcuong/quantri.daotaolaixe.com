@@ -41,7 +41,15 @@ Xem chi tiết file Upload
                                 @foreach($importRows as $row)
                                 <tr>
                                     <td>{{ $row->id }}</td>
-                                    <td><a href="{{ route("admins.course-user.show", $row->course_user_id) }}" target="_blank">Xem học viên</a></td>
+                                    <td>
+                                        @if ($row->course_user_id)
+                                        <a href="{{ route(" admins.course-user.show", $row->course_user_id) }}"
+                                            target="_blank">Xem học viên</a>
+                                        @else
+                                        ...
+                                        @endif
+
+                                    </td>
                                     {{-- <td>{{ $row->row_data }}</td> --}}
                                     <td>{{ $row->success ? 'Yes' : 'No' }}</td>
                                     <td>{{ $row->error_message }}</td>

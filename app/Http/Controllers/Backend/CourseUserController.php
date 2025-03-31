@@ -390,7 +390,7 @@ class CourseUserController extends Controller
                 $ketQua = $row[32];
 
                 // Validate các email
-                if (empty($sdt) || empty($sdtThayDay) || empty($sdtNguoiGuiHS)) {
+                if (empty($sdt)) {
                     throw new \Exception('Số điện thoại học viên, giáo viên hoặc người gửi hồ sơ không được để trống.');
                 }
 
@@ -608,10 +608,12 @@ class CourseUserController extends Controller
                 }
 
                 // Thêm hoặc lấy Sân tập
-                $examField = ExamField::firstOrCreate(
-                    ['name' => $sanTap],
-                    ['status' => 1]
-                );
+                if($sanTap){
+                    $examField = ExamField::firstOrCreate(
+                        ['name' => $sanTap],
+                        ['status' => 1]
+                    );
+                }
 
                 // Kiểm tra xem cặp 'user_id' và 'course_id' đã tồn tại hay chưa
                 $existingCourseUser = CourseUser::where('user_id', $user->id)
