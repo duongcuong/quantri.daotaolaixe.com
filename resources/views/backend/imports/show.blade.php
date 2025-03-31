@@ -34,6 +34,7 @@ Xem chi tiết file Upload
                                     {{-- <th>Row Data</th> --}}
                                     <th>Success</th>
                                     <th>Error Message</th>
+                                    <th>Data</th>
                                     <th>Created At</th>
                                 </tr>
                             </thead>
@@ -42,8 +43,8 @@ Xem chi tiết file Upload
                                 <tr>
                                     <td>{{ $row->id }}</td>
                                     <td>
-                                        @if ($row->course_user_id)
-                                        <a href="{{ route(" admins.course-user.show", $row->course_user_id) }}"
+                                        @if($row->course_user_id)
+                                        <a href="{{ route('admins.course-user.show', $row->course_user_id) }}"
                                             target="_blank">Xem học viên</a>
                                         @else
                                         ...
@@ -52,7 +53,8 @@ Xem chi tiết file Upload
                                     </td>
                                     {{-- <td>{{ $row->row_data }}</td> --}}
                                     <td>{{ $row->success ? 'Yes' : 'No' }}</td>
-                                    <td>{{ $row->error_message }}</td>
+                                    <td class="text-danger">{{ $row->error_message }}</td>
+                                    <td>{{ $row->row_data }}</td>
                                     <td>{{ $row->created_at }}</td>
                                 </tr>
                                 @endforeach

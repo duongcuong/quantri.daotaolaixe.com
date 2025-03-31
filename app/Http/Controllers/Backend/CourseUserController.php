@@ -21,6 +21,7 @@ use Illuminate\Support\Str;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Support\Facades\DB;
+use Nette\Utils\Json;
 
 class CourseUserController extends Controller
 {
@@ -391,7 +392,7 @@ class CourseUserController extends Controller
 
                 // Validate các email
                 if (empty($sdt)) {
-                    throw new \Exception('Số điện thoại học viên, giáo viên hoặc người gửi hồ sơ không được để trống.');
+                    throw new \Exception('Số điện thoại học viên không được để trống.');
                 }
 
                 $hocCabins = [];
@@ -588,7 +589,7 @@ class CourseUserController extends Controller
                     $course = Course::firstOrCreate(
                         ['code' => 'NO_CODE'],
                         [
-                            'rank' => 'default', // Giá trị mặc định cho rank
+                            'rank' => '', // Giá trị mặc định cho rank
                             'start_date' => null,
                             'end_date' => null,
                             'tuition_fee' => 0, // Giá trị mặc định cho học phí
@@ -624,7 +625,7 @@ class CourseUserController extends Controller
                     ImportRow::create([
                         'import_log_id' => $importLog->id,
                         'course_user_id' => $existingCourseUser->id ?? null,
-                        'row_data' => json_encode($row),
+                        'row_data' => json_encode($row, JSON_UNESCAPED_UNICODE),
                         'success' => false,
                         'error_message' => 'Khoá học - Học viên này đã tồn tại.',
                     ]);
