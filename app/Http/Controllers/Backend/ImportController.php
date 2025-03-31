@@ -28,7 +28,7 @@ class ImportController extends Controller
     public function show($importLogId)
     {
         $importLog = ImportLog::findOrFail($importLogId);
-        $importRows = ImportRow::where('import_log_id', $importLogId)->paginate(LIMIT);
+        $importRows = ImportRow::where('import_log_id', $importLogId)->paginate(50);
 
         return view('backend.imports.show', compact('importLog', 'importRows'));
     }
