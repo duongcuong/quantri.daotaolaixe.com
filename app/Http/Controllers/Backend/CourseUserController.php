@@ -339,8 +339,6 @@ class CourseUserController extends Controller
                 continue;
             }
 
-            if ($key != 6) continue;
-
             // Cập nhật tiến trình import
             $progress = json_decode(file_get_contents($progressFile), true);
             $progress['processed']++;
