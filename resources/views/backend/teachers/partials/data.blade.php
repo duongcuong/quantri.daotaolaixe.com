@@ -52,17 +52,19 @@
             <td>{!! getStatus($teacher->status) !!}</td>
             <td>{{ getDateTimeStamp($teacher->created_at, 'd/m/Y') }}</td>
             <td class="fixed-column text-center">
-                <a href="{{ route('admins.teachers.edit', $teacher->id) }}" class="btn btn-warning btn-sm mr-2">
-                    <i class="bx bx-edit"></i>
-                </a>
-                <form action="{{ route('admins.teachers.destroy', $teacher->id) }}" method="POST"
-                    style="display:inline-block;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger btn-sm delete-btn">
-                        <i class="bx bx-trash"></i>
-                    </button>
-                </form>
+                <div class="d-flex">
+                    <a href="{{ route('admins.teachers.edit', $teacher->id) }}" class="btn btn-warning btn-sm mr-2">
+                        <i class="bx bx-edit"></i>
+                    </a>
+                    <form action="{{ route('admins.teachers.destroy', $teacher->id) }}" method="POST"
+                        style="display:inline-block;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm delete-btn-confirm">
+                            <i class="bx bx-trash"></i>
+                        </button>
+                    </form>
+                </div>
             </td>
         </tr>
         @endforeach

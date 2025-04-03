@@ -83,6 +83,13 @@
                 <div class="menu-title">Lịch thi sát hạch</div>
             </a>
         </li>
+        <li class="{{ Request::is('admin/exam-schedules/*') ? 'mm-active' : '' }}">
+            <a href="{{ route('admins.exam-schedules.index') }}">
+                <div class="parent-icon icon-color-12"><i class="bx bx-calendar-exclamation"></i>
+                </div>
+                <div class="menu-title">Kế hoạch thi các trường</div>
+            </a>
+        </li>
 
         <!--Giáo viên-->
         <li class="menu-label">Quản lý Giáo viên</li>
@@ -107,11 +114,6 @@
                     <a href="{{ route('admins.teachers.create') }}"><i class="bx bx-star"></i>Thêm giáo viên</a>
                 </li>
                 {{-- @endif --}}
-
-                <li
-                    class="{{ Request::is('admin/exam-schedules/*') ? 'mm-active' : '' }}">
-                    <a href="{{ route('admins.exam-schedules.index') }}"><i class="bx bx-calendar-exclamation"></i>Kế hoạch thi các trường</a>
-                </li>
             </ul>
         </li>
         {{-- @endif --}}

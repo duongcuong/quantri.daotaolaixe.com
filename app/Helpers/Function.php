@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use Carbon\Carbon;
 
-define('LIMIT', 20);
+define('LIMIT', 50);
 define('ROLE_SALES', 'sale,quan-ly-sales');
 define('ROLE_FEE', 'sale,quan-ly-sales');
 define('ROLE_TEACHER', 'giao-vien');

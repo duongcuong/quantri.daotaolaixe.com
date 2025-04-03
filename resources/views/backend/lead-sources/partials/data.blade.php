@@ -14,18 +14,20 @@
             <td>{{ $leadSource->name }}</td>
             <td>{{ $leadSource->description }}</td>
             <td class="fixed-column text-center">
-                <a href="{{ route('admins.lead-sources.edit', $leadSource->id) }}"
-                    class="btn btn-warning btn-sm mr-2 btn-edit-ajax" data-cs-modal="#modal-lead-sources-edit-ajax">
-                    <i class="bx bx-edit"></i>
-                </a>
-                <form action="{{ route('admins.lead-sources.destroy', $leadSource->id) }}" class="delete-form-ajax" method="POST"
-                    style="display:inline-block;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger btn-sm">
-                        <i class="bx bx-trash"></i>
-                    </button>
-                </form>
+                <div class="d-flex">
+                    <a href="{{ route('admins.lead-sources.edit', $leadSource->id) }}"
+                        class="btn btn-warning btn-sm mr-2 btn-edit-ajax" data-cs-modal="#modal-lead-sources-edit-ajax">
+                        <i class="bx bx-edit"></i>
+                    </a>
+                    <form action="{{ route('admins.lead-sources.destroy', $leadSource->id) }}" class="delete-form-ajax" method="POST"
+                        style="display:inline-block;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm">
+                            <i class="bx bx-trash"></i>
+                        </button>
+                    </form>
+                </div>
             </td>
         </tr>
         @endforeach

@@ -21,18 +21,20 @@
             <td>{{ getSTT($comments, $loop->iteration) }}</td>
 
             <td class="fixed-column text-center">
-                <a href="{{ route('admins.fees.edit', ['fee' => $comment->id, 'course_user_id' => request()->course_user_id ?? '']) }}"
-                    class="btn btn-warning btn-sm mr-2 btn-edit-ajax" data-cs-modal="#modal-fees-edit-ajax">
-                    <i class="bx bx-edit"></i>
-                </a>
-                <form action="{{ route('admins.fees.destroy', $comment->id) }}" class="delete-form-ajax" method="POST"
-                    style="display:inline-block;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger btn-sm">
-                        <i class="bx bx-trash"></i>
-                    </button>
-                </form>
+                <div class="d-flex">
+                    <a href="{{ route('admins.fees.edit', ['fee' => $comment->id, 'course_user_id' => request()->course_user_id ?? '']) }}"
+                        class="btn btn-warning btn-sm mr-2 btn-edit-ajax" data-cs-modal="#modal-fees-edit-ajax">
+                        <i class="bx bx-edit"></i>
+                    </a>
+                    <form action="{{ route('admins.fees.destroy', $comment->id) }}" class="delete-form-ajax" method="POST"
+                        style="display:inline-block;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm">
+                            <i class="bx bx-trash"></i>
+                        </button>
+                    </form>
+                </div>
             </td>
         </tr>
         @endforeach

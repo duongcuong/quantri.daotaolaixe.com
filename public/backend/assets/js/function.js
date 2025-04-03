@@ -602,7 +602,7 @@ $(function () {
         });
     });
 
-    $(".delete-btn").on("click", function (event) {
+    $(document).on("click", ".delete-btn-confirm", function (event) {
         event.preventDefault();
         var form = $(this).closest("form");
         Swal.fire({

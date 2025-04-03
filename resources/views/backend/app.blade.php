@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>{{ config('app.name') }} | @yield('title')</title>
     <!--favicon-->
-    <link rel="icon" href="/{{ setting('site_favicon') }}" type="image/png" />
+    <link rel="icon" href="{{ asset('/') }}backend/assets/images/logo.png" type="image/png" />
 
     <!--plugins-->
     <link href="{{ asset('backend/assets/plugins/datetimepicker/css/classic.css') }}" rel="stylesheet" />

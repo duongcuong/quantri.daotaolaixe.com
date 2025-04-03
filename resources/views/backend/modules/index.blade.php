@@ -56,7 +56,7 @@ All Modules
                                         style="display:inline-block;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm delete-btn">
+                                        <button type="submit" class="btn btn-danger btn-sm delete-btn-confirm">
                                             <i class="bx bx-trash"></i>
                                         </button>
                                     </form>

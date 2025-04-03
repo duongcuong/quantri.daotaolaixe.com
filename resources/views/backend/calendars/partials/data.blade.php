@@ -295,18 +295,20 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             @endif
 
             <td class="fixed-column text-center">
-                <a href="{{ route('admins.calendars.edit', ['calendar' => $calendar->id, 'reload' => request()->reload]) }}"
-                    class="btn btn-warning btn-sm mr-2 btn-edit-ajax" data-cs-modal="#modal-calendars-edit-ajax">
-                    <i class="bx bx-edit"></i>
-                </a>
-                <form action="{{ route('admins.calendars.destroy', $calendar->id) }}" class="delete-form-ajax"
-                    method="POST" style="display:inline-block;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger btn-sm">
-                        <i class="bx bx-trash"></i>
-                    </button>
-                </form>
+                <div class="d-flex">
+                    <a href="{{ route('admins.calendars.edit', ['calendar' => $calendar->id, 'reload' => request()->reload]) }}"
+                        class="btn btn-warning btn-sm mr-2 btn-edit-ajax" data-cs-modal="#modal-calendars-edit-ajax">
+                        <i class="bx bx-edit"></i>
+                    </a>
+                    <form action="{{ route('admins.calendars.destroy', $calendar->id) }}" class="delete-form-ajax"
+                        method="POST" style="display:inline-block;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm">
+                            <i class="bx bx-trash"></i>
+                        </button>
+                    </form>
+                </div>
             </td>
         </tr>
         @endforeach

@@ -20,9 +20,11 @@
             <td>{{ $import->admin->name }}</td>
             <td>{{ $import->created_at }}</td>
             <td class="fixed-column text-center">
-                <a href="{{ route('admins.imports.show', $import->id) }}" class="btn btn-primary btn-sm mr-1">
-                    <i class="lni lni-eye"></i>
-                </a>
+                <div class="d-flex">
+                    <a href="{{ route('admins.imports.show', $import->id) }}" class="btn btn-primary btn-sm mr-1">
+                        <i class="lni lni-eye"></i>
+                    </a>
+                </div>
             </td>
         </tr>
         @endforeach

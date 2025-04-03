@@ -47,8 +47,13 @@
             <td>{{ $courseUser->course->code }}</td>
             <td>{{ $courseUser->course->rank }}</td>
             <td>
-                <a class="btn-show-list-ajax"
+                {{-- <a class="btn-show-list-ajax"
                     href="{{ route('admins.calendars.learningExam', ['course_user_id' => $courseUser->id]) }}"
+                    data-cs-modal="#modal-dat-calendars-ajax" data-reload="#load-data-ajax-dat-calendars">
+                    {{ $courseUser->user->name ?? '' }}
+                </a> --}}
+                <a class=""
+                    href="{{ route('admins.course-user.show', $courseUser->id) }}"
                     data-cs-modal="#modal-dat-calendars-ajax" data-reload="#load-data-ajax-dat-calendars">
                     {{ $courseUser->user->name ?? '' }}
                 </a>
@@ -92,20 +97,22 @@
             <td>{!! getMoneyConThieu($courseUser->tuition_fee, $courseUser->fees_sum_amount) !!}</td>
             <td>{!! getStatusCalendarByType2($courseUser->latestCalendar->type ?? '', $courseUser->latestCalendar->status ?? '') !!}</td>
             <td class="fixed-column text-center">
-                <a href="{{ route('admins.course-user.show', $courseUser->id) }}" class="btn btn-primary btn-sm mr-1">
-                    <i class="lni lni-eye"></i>
-                </a>
-                <a href="{{ route('admins.course-user.edit', $courseUser->id) }}" class="btn btn-warning btn-sm mr-1">
-                    <i class="bx bx-edit"></i>
-                </a>
-                <form action="{{ route('admins.course-user.destroy', $courseUser->id) }}" class="delete-form-ajax"
-                    method="POST" style="display:inline-block;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger btn-sm delete-btn">
-                        <i class="bx bx-trash"></i>
-                    </button>
-                </form>
+                <div class="d-flex">
+                    <a href="{{ route('admins.course-user.show', $courseUser->id) }}" class="btn btn-primary btn-sm mr-1">
+                        <i class="lni lni-eye"></i>
+                    </a>
+                    <a href="{{ route('admins.course-user.edit', $courseUser->id) }}" class="btn btn-warning btn-sm mr-1">
+                        <i class="bx bx-edit"></i>
+                    </a>
+                    <form action="{{ route('admins.course-user.destroy', $courseUser->id) }}" class="delete-form-ajax"
+                        method="POST" style="display:inline-block;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm delete-btn-confirm">
+                            <i class="bx bx-trash"></i>
+                        </button>
+                    </form>
+                </div>
             </td>
         </tr>
         @endforeach

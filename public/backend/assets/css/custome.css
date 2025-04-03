@@ -1,4 +1,4 @@
-body{
+body {
     font-weight: 600;
 }
 
@@ -63,12 +63,7 @@ body{
     margin-bottom: 0;
 }
 
-.fixed-column {
-    position: sticky;
-    right: 0;
-    z-index: 1;
-    background-color: #f7f7f7;
-}
+
 .datepicker,
 .date-range-picker {
     background-image: url(../images/icons/calendar.png);
@@ -281,7 +276,7 @@ body{
     flex-basis: 45px;
 }
 .dropdown-lg .msg-name,
-.dropdown-lg .msg-info{
+.dropdown-lg .msg-info {
     word-wrap: break-word;
     text-wrap: auto;
 }
@@ -306,10 +301,33 @@ body{
 }
 
 .custom-control-label,
-.form-check-label{
+.form-check-label {
     font-weight: normal;
 }
 
-.fs-20{
+.fs-20 {
     font-size: 20px;
 }
+
+.fixed-column {
+    position: sticky;
+    right: 0;
+    z-index: 10;
+    background-color: #f7f7f7;
+    z-index: 10;
+    /* display: flex; */
+}
+
+/* .table-responsive tbody .fixed-column .btn-sm{
+    padding: 4px;
+    font-size: 12px;
+} */
+
+/* .table-responsive thead th {
+    position: sticky;
+    top: 69px;
+    background: #f5f5f5;
+    z-index: 9;
+    border-top: 1px solid #dee2e6;
+    border-bottom: 1px solid #dee2e6;
+} */

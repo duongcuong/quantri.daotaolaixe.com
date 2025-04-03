@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\backend;
 
+use App\Models\Course;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
+use App\Models\CourseUser;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -42,7 +45,59 @@ class UserController extends Controller
         $thumbnailPath = $request->hasFile('thumbnail') ? uploadImage($request->file('thumbnail'), 'users') : null;
         $data['thumbnail'] = $thumbnailPath;
 
-        User::create($data);
+        $user = User::create($data);
+
+        $course = Course::firstOrCreate(
+            ['code' => 'NO_CODE'],
+            [
+                'rank' => '', // Giá trị mặc định cho rank
+                'start_date' => null,
+                'end_date' => null,
+                'tuition_fee' => 0, // Giá trị mặc định cho học phí
+            ]
+        );
+
+        $teacher = Admin::firstOrCreate(
+            ['phone' => 'NO_PHONE_TEACHER'],
+            [
+                'name' => 'No Teacher',
+                'email' => 'no_teacher_' . uniqid() . '@example.com',
+                'password' => bcrypt('12345678'),
+                'status' => 1,
+            ]
+        );
+        // Gán role "teacher" cho giáo viên
+        if ($teacher->wasRecentlyCreated) {
+            $teacherRole = Role::where('slug', ROLE_TEACHER)->first();
+            if ($teacherRole && !$teacher->roles->contains($teacherRole->id)) {
+                $teacher->roles()->attach($teacherRole->id);
+            }
+        }
+
+        $sale = Admin::firstOrCreate(
+            ['phone' => 'NO_PHONE_SALE'],
+            [
+                'name' => 'No Sale',
+                'email' => 'no_sale_' . uniqid() . '@example.com', // Email ngẫu nhiên
+                'password' => bcrypt('12345678'), // Mật khẩu mặc định
+                'status' => 1
+            ]
+        );
+        // Gán role "sale" cho nhân viên sale
+        if ($sale->wasRecentlyCreated) {
+            $saleRole = Role::where('slug', ROLE_SALE)->first();
+            if ($saleRole && !$sale->roles->contains($saleRole->id)) {
+                $sale->roles()->attach($saleRole->id);
+            }
+        }
+
+        CourseUser::create([
+            'user_id' => $user->id,
+            'course_id' => $course->id,
+            'teacher_id' => $teacher->id,
+            'sale_id' => $sale->id,
+            'contract_date' => now(),
+        ]);
 
         toastr()->success('Thêm thành công');
         return redirect()->route('admins.users.index')->with('success', 'User created successfully.');

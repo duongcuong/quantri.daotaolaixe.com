@@ -24,18 +24,20 @@
             <td>{{ $examSchedule->description }}</td>
             <td>{!! getStatus($examSchedule->status) !!}</td>
             <td class="fixed-column text-center">
-                <a href="{{ route('admins.exam-schedules.edit', $examSchedule->id) }}"
-                    class="btn btn-warning btn-sm mr-2 btn-edit-ajax" data-cs-modal="#modal-exam-schedules-edit-ajax">
-                    <i class="bx bx-edit"></i>
-                </a>
-                <form action="{{ route('admins.exam-schedules.destroy', $examSchedule->id) }}" class="delete-form-ajax"
-                    method="POST" style="display:inline-block;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger btn-sm">
-                        <i class="bx bx-trash"></i>
-                    </button>
-                </form>
+                <div class="d-flex">
+                    <a href="{{ route('admins.exam-schedules.edit', $examSchedule->id) }}"
+                        class="btn btn-warning btn-sm mr-2 btn-edit-ajax" data-cs-modal="#modal-exam-schedules-edit-ajax">
+                        <i class="bx bx-edit"></i>
+                    </a>
+                    <form action="{{ route('admins.exam-schedules.destroy', $examSchedule->id) }}" class="delete-form-ajax"
+                        method="POST" style="display:inline-block;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm">
+                            <i class="bx bx-trash"></i>
+                        </button>
+                    </form>
+                </div>
             </td>
         </tr>
         @endforeach

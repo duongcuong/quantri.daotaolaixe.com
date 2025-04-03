@@ -34,20 +34,22 @@
             </td>
             {{-- <td>{{ ucfirst($lead->status) }}</td> --}}
             <td class="fixed-column text-center">
-                <a href="{{ route('admins.leads.show', $lead->id) }}" class="btn btn-primary btn-sm mr-1">
-                    <i class="lni lni-eye"></i>
-                </a>
-                <a href="{{ route('admins.leads.edit', $lead->id) }}" class="btn btn-warning btn-sm mr-1">
-                    <i class="bx bx-edit"></i>
-                </a>
-                <form action="{{ route('admins.leads.destroy', $lead->id) }}" method="POST"
-                    style="display:inline-block;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger btn-sm delete-btn">
-                        <i class="bx bx-trash"></i>
-                    </button>
-                </form>
+                <div class="d-flex">
+                    <a href="{{ route('admins.leads.show', $lead->id) }}" class="btn btn-primary btn-sm mr-1">
+                        <i class="lni lni-eye"></i>
+                    </a>
+                    <a href="{{ route('admins.leads.edit', $lead->id) }}" class="btn btn-warning btn-sm mr-1">
+                        <i class="bx bx-edit"></i>
+                    </a>
+                    <form action="{{ route('admins.leads.destroy', $lead->id) }}" method="POST"
+                        style="display:inline-block;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm delete-btn-confirm">
+                            <i class="bx bx-trash"></i>
+                        </button>
+                    </form>
+                </div>
             </td>
         </tr>
         @endforeach
