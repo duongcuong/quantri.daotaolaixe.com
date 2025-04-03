@@ -72,6 +72,18 @@
             </a>
         </li>
 
+        {{-- Lịch thi sát hạch  --}}
+        <li class="menu-label">Lịch thi sát hạch</li>
+        {{-- @if (Auth::user()->hasPermission('admins.comments.index') ||
+        Auth::user()->hasPermission('admins.comments.create')) --}}
+        <li class="{{ Request::is('admin/comments/*') ? 'mm-active' : '' }}">
+            <a href="{{ route('admins.calendars.exam') }}">
+                <div class="parent-icon icon-color-11"><i class="bx bx-calendar-check"></i>
+                </div>
+                <div class="menu-title">Lịch thi sát hạch</div>
+            </a>
+        </li>
+
         <!--Giáo viên-->
         <li class="menu-label">Quản lý Giáo viên</li>
         {{-- @if (Auth::user()->hasPermission('admins.teachers.index') ||
@@ -141,11 +153,6 @@
                 <li
                     class="{{ Request::is('admin/calendars/learning') ? 'mm-active' : '' }}">
                     <a href="{{ route('admins.calendars.learning') }}"><i class="bx bx-calendar-exclamation"></i>Lịch làm việc giáo viên</a>
-                </li>
-
-                <li
-                    class="{{ Request::is('admin/calendars/exam') ? 'mm-active' : '' }}">
-                    <a href="{{ route('admins.calendars.exam') }}"><i class="bx bx-calendar-exclamation"></i>Lịch thi sát hạch</a>
                 </li>
 
                 {{-- @if (Auth::user()->hasPermission('admins.teachers.create')) --}}

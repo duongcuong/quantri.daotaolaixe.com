@@ -244,6 +244,17 @@ function caculatorDayByDate(input, number) {
     return convertDateVn(dateNew);
 }
 
+function runTimePicker() {
+    flatpickr('.cs-time-picker', {
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i",
+        time_24hr: true
+    });
+}
+
+runTimePicker();
+
 /**
  * Thumbnail
  */
@@ -492,6 +503,7 @@ $(function () {
                 initializeSelect2();
                 resetSelectAjax();
                 resetNumericText();
+                runTimePicker();
             },
             error: function (xhr) {
                 console.error("Error loading create modal:", xhr);
@@ -534,6 +546,7 @@ $(function () {
                 initializeSelect2();
                 resetSelectAjax();
                 resetNumericText();
+                runTimePicker();
             },
             error: function (xhr) {
                 console.error("Error loading edit modal:", xhr);

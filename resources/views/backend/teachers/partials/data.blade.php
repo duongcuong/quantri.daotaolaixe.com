@@ -2,7 +2,7 @@
     <strong class="mr-1">Tổng số giáo viên: </strong>
     <strong class="mr-2 text-danger">{{ number_format($teachers->total()) }}</strong>
 </div>
-<table id="example" class="table table-sm table-hover">
+<table id="example" class="table table-sm table-bordered table-hover">
     <thead>
         <tr>
             <th rowspan="2">STT</th>

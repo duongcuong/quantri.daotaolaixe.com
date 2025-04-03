@@ -22,7 +22,8 @@
     <link href="{{ asset('backend/assets/plugins/select2/css/select2-bootstrap4.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('backend/assets/plugins/notifications/css/lobibox.min.css') }}" />
 
-    {{-- <link rel="stylesheet" href="{{ asset('backend/assets/plugins/fancy-file-uploader/fancy_fileupload.css') }}" /> --}}
+    {{--
+    <link rel="stylesheet" href="{{ asset('backend/assets/plugins/fancy-file-uploader/fancy_fileupload.css') }}" /> --}}
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <!-- loader-->
@@ -37,8 +38,12 @@
     @FilemanagerScript
     <link href="{{ asset('backend/assets/css/pace.min.css') }}" rel="stylesheet" />
     <script src="{{ asset('backend/assets/js/pace.min.js') }}"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
     <!-- Icons CSS -->
     <link rel="stylesheet" href="{{ asset('backend/assets/css/icons.css') }}" />
@@ -108,7 +113,12 @@
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="{{ asset('backend/assets/js/jquery.min.js') }}"></script>
     <script src="{{ asset('backend/assets/js/popper.min.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous">
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
     {{-- <script src="{{ asset('backend/assets/js/bootstrap.min.js') }}"></script> --}}
     <!--plugins-->
     <script src="{{ asset('backend/assets/plugins/simplebar/js/simplebar.min.js') }}"></script>
@@ -128,9 +138,9 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
     <!--notification js -->
-	<script src="{{ asset('backend/assets/plugins/notifications/js/lobibox.min.js') }}"></script>
-	<script src="{{ asset('backend/assets/plugins/notifications/js/notifications.min.js') }}"></script>
-	<script src="{{ asset('backend/assets/plugins/notifications/js/notification-custom-script.js') }}"></script>
+    <script src="{{ asset('backend/assets/plugins/notifications/js/lobibox.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/plugins/notifications/js/notifications.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/plugins/notifications/js/notification-custom-script.js') }}"></script>
 
     {{-- <script src="{{ asset('backend/assets/plugins/fancy-file-uploader/jquery.ui.widget.js') }}"></script>
     <script src="{{ asset('backend/assets/plugins/fancy-file-uploader/jquery.fileupload.js') }}"></script>
@@ -142,7 +152,7 @@
     <!--vuejs-->
     <script src="{{ asset('js/vue.js') }}"></script>
 
-    {{-- Notification  --}}
+    {{-- Notification --}}
     <script>
         $(document).ready(function() {
             var page = 1;
@@ -269,7 +279,6 @@
 
         });
     </script>
-
 
     @stack('js')
 </body>

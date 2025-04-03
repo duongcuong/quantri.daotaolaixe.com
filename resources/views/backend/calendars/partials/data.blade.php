@@ -1,7 +1,7 @@
 @php
 $columns = request()->has('show_column') ? explode(',', request()->show_column) : [];
 @endphp
-<table id="example" class="table table-sm table-hover">
+<table id="example" class="table table-sm table-bordered table-hover">
     <thead>
         <tr>
             <th>STT</th>

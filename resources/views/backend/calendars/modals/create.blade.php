@@ -68,8 +68,8 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="so_gio_chay_duoc">Số giờ chạy được</label>
-                                        <input type="time" name="so_gio_chay_duoc" id="so_gio_chay_duoc"
-                                            class="form-control" placeholder="HH:MM">
+                                        <input type="text" name="so_gio_chay_duoc" id="so_gio_chay_duoc"
+                                            class="form-control cs-time-picker" placeholder="HH:MM">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <div class="custom-control custom-checkbox">

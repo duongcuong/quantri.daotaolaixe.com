@@ -2,7 +2,7 @@
     <strong class="mr-1">Tổng tiền đã nộp: </strong>
     <strong class="mr-2 text-danger">{!! getMoney($feeTotal) !!}</strong>
 </div>
-<table id="example" class="table table-sm table-hover">
+<table id="example" class="table table-sm table-bordered table-hover">
     <thead>
         <tr>
             <th>STT</th>

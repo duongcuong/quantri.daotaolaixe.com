@@ -30,7 +30,7 @@ All Modules
         <div class="card radius-15">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="example" class="table table-sm table-hover">
+                    <table id="example" class="table table-sm table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th>Tên</th>

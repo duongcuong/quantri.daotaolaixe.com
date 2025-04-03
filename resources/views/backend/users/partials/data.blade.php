@@ -2,7 +2,7 @@
     <strong class="mr-1">Tổng số học viên: </strong>
     <strong class="mr-2 text-danger">{{ number_format($users->total()) }}</strong>
 </div>
-<table id="example" class="table table-sm table-hover">
+<table id="example" class="table table-sm table-bordered table-hover">
     <thead>
         <tr>
             <th>STT</th>
@@ -46,7 +46,7 @@
                     <i class="bx bx-edit"></i>
                 </a>
                 <form action="{{ route('admins.users.destroy', $user->id) }}" method="POST"
-                    style="display:inline-block;">
+                    style="display:inline-block;" class="delete-form-ajax">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger btn-sm delete-btn">
