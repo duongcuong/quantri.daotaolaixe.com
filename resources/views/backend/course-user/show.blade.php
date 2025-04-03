@@ -19,6 +19,12 @@ Xem chi tiết {{ $courseUser->user->name }} - {{ $courseUser->course->code }}
             </nav>
         </div>
     </div>
+    <div class="ml-auto">
+        {{-- @if (Auth::user()->hasPermission('admins.course-user.index')) --}}
+        <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.course-user.index') }}" data-toggle="tooltip"
+            title="Quay về trang quản lý Khoá học - Học viên &#9194;"><i class="bx bx-rewind"></i>Quay lại</a>
+        {{-- @endif --}}
+    </div>
 </div>
 
 <div class="container-fluid p-0">

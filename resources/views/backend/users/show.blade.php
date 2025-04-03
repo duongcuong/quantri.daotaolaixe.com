@@ -18,6 +18,12 @@ Xem chi tiết {{ $user->name }}
             </nav>
         </div>
     </div>
+    <div class="ml-auto">
+        {{-- @if (Auth::user()->hasPermission('admins.users.index')) --}}
+        <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.users.index') }}" data-toggle="tooltip"
+            title="Quay về trang quản lý học viên &#9194;"><i class="bx bx-rewind"></i>Quay lại</a>
+        {{-- @endif --}}
+    </div>
 </div>
 
 <div class="container-fluid p-0">

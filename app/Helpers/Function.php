@@ -609,7 +609,7 @@ function formatDateTimeVn($dateTime)
         'Friday' => 'Thứ 6',
         'Saturday' => 'Thứ 7',
     ];
-    return $date->format('d/m/Y') . ' ' . $dayOfWeek[$date->format('l')] . ', ' . '<strong>' . $date->format('H\hi') . '</strong>';
+    return '<strong>' . $date->format('H\hi') . ' ' . $dayOfWeek[$date->format('l')] . '</strong>, ' . $date->format('d/m/Y');
 }
 
 function getFormattedSoGioChayDuocAttribute($value)

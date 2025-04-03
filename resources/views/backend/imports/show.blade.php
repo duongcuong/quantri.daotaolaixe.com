@@ -18,6 +18,12 @@ Xem chi tiết file Upload
             </nav>
         </div>
     </div>
+    <div class="ml-auto">
+        {{-- @if (Auth::user()->hasPermission('admins.admins.index')) --}}
+        <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.course-user.import') }}" data-toggle="tooltip"
+            title="Quay về trang import &#9194;"><i class="bx bx-rewind"></i>Quay lại</a>
+        {{-- @endif --}}
+    </div>
 </div>
 
 <div class="container-fluid p-0">
