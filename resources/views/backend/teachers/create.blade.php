@@ -85,8 +85,13 @@ Tạo giáo viên
                         </div>
                         <div class="form-group col-md-6">
                             <label for="license_plate">Biển số xe</label>
-                            <input type="text" name="license_plate" id="license_plate" class="form-control"
-                                value="{{ old('license_plate') }}">
+                            <select name="vehicle_id" id="vehicle_id" class="form-control single-select"
+                                data-placeholder="Chọn xe" data-allow-clear="true">
+                                <option></option>
+                                @foreach ($vehicles as $vehicle)
+                                <option value="{{ $vehicle->id }}" {{ $vehicle->id == old('vehicle_id') ? 'selected' : '' }}> {{ $vehicle->license_plate }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         {{-- <div class="form-group col-md-6">
                             <label for="card_name">Tên thẻ</label>

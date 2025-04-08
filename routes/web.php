@@ -5,6 +5,8 @@ namespace App;
 use App\Http\Controllers\Backend\ExamFieldController;
 use App\Http\Controllers\Backend\ModuleController;
 use App\Http\Controllers\Backend\NotificationController;
+use App\Http\Controllers\Backend\VehicleController;
+use App\Http\Controllers\Backend\VehicleExpenseController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\AdminController;
@@ -119,6 +121,14 @@ Route::prefix('admin')->as('admins.')->group(function () {
         //Import
         Route::get('imports/data', [ImportController::class, 'data'])->name('imports.data');
         Route::get('imports/{id}', [ImportController::class, 'show'])->name('imports.show');
+
+        //Quản lý xe
+        Route::get('vehicles/data', [VehicleController::class, 'data'])->name('vehicles.data');
+        Route::resource('vehicles', VehicleController::class);
+
+        //chi phí xe
+        Route::get('vehicle-expenses/data', [VehicleExpenseController::class, 'data'])->name('vehicle-expenses.data');
+        Route::resource('vehicle-expenses', VehicleExpenseController::class);
     });
 });
 

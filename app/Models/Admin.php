@@ -24,7 +24,7 @@ class Admin extends Authenticatable
         'license',
         'card_name',
         'card_number',
-        'license_plate',
+        'vehicle_id',
         'status',
     ];
 

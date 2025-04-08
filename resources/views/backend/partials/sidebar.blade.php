@@ -60,7 +60,7 @@
             </a>
         </li>
 
-        {{-- Bình luận  --}}
+        {{-- Bình luận --}}
         <li class="menu-label">Quản lý Bình luận</li>
         {{-- @if (Auth::user()->hasPermission('admins.comments.index') ||
         Auth::user()->hasPermission('admins.comments.create')) --}}
@@ -72,7 +72,7 @@
             </a>
         </li>
 
-        {{-- Lịch thi sát hạch  --}}
+        {{-- Lịch thi sát hạch --}}
         <li class="menu-label">Lịch thi sát hạch</li>
         {{-- @if (Auth::user()->hasPermission('admins.comments.index') ||
         Auth::user()->hasPermission('admins.comments.create')) --}}
@@ -152,9 +152,9 @@
                     <a href="{{ route('admins.fees.index') }}"><i class="bx bx-star"></i>Lịch sử nộp tiền</a>
                 </li>
 
-                <li
-                    class="{{ Request::is('admin/calendars/learning') ? 'mm-active' : '' }}">
-                    <a href="{{ route('admins.calendars.learning') }}"><i class="bx bx-calendar-exclamation"></i>Lịch làm việc giáo viên</a>
+                <li class="{{ Request::is('admin/calendars/learning') ? 'mm-active' : '' }}">
+                    <a href="{{ route('admins.calendars.learning') }}"><i class="bx bx-calendar-exclamation"></i>Lịch
+                        làm việc giáo viên</a>
                 </li>
 
                 {{-- @if (Auth::user()->hasPermission('admins.teachers.create')) --}}
@@ -166,6 +166,47 @@
         </li>
         {{-- @endif --}}
         <!--End Giáo viên-->
+
+        <li class="menu-label">Quản lý chung</li>
+        <li
+            class="{{ Request::is('admin/exam-fields') || Request::is('admin/exam-fields/create') || Request::is('admin/exam-fields/*/edit') ? 'mm-active' : '' }}">
+            <a href="{{ route('admins.exam-fields.index') }}">
+                <div class="parent-icon icon-color-3">
+                    <i class="bx bx-slider-alt"></i>
+                </div>
+                <div class="menu-title">Quản lý sân học và thi</div>
+            </a>
+        </li>
+
+        <li
+            class="{{ Request::is('admin/lead-sources') || Request::is('admin/lead-sources/create') || Request::is('admin/lead-sources/*/edit') ? 'mm-active' : '' }}">
+            <a href="{{ route('admins.lead-sources.index') }}">
+                <div class="parent-icon icon-color-4">
+                    <i class="bx bx-shape-polygon"></i>
+                </div>
+                <div class="menu-title">Quản lý Lead source</div>
+            </a>
+        </li>
+
+        <li
+            class="{{ Request::is('admin/vehicles') || Request::is('admin/vehicles/create') || Request::is('admin/vehicles/*/edit') ? 'mm-active' : '' }}">
+            <a href="{{ route('admins.vehicles.index') }}">
+                <div class="parent-icon icon-color-2">
+                    <i class="bx bx-car"></i>
+                </div>
+                <div class="menu-title">Quản lý xe</div>
+            </a>
+        </li>
+
+        <li
+            class="{{ Request::is('admin/vehicle-expenses') || Request::is('admin/vehicle-expenses/create') || Request::is('admin/vehicle-expenses/*/edit') ? 'mm-active' : '' }}">
+            <a href="{{ route('admins.vehicle-expenses.index') }}">
+                <div class="parent-icon icon-color-6">
+                    <i class="bx bx-money"></i>
+                </div>
+                <div class="menu-title">Quản lý chi phí xe</div>
+            </a>
+        </li>
 
         <!--Security page-->
         <li class="menu-label">Bảo mật</li>
@@ -270,33 +311,6 @@
 
         <!--System-->
         <li class="menu-label">Hệ thống</li>
-
-        <li>
-            <a class="has-arrow" href="javascript:;">
-                <div class="parent-icon icon-color-11"><i
-                    class="bx bx-cog"></i>
-                </div>
-                <div class="menu-title">Quản lý cài đặt</div>
-            </a>
-            <ul>
-
-                <li
-                    class="{{ Request::is('admin/exam-fields') || Request::is('admin/exam-fields/create') || Request::is('admin/exam-fields/*/edit') ? 'mm-active' : '' }}">
-                    <a href="{{ route('admins.exam-fields.index') }}"><i class="bx bx-star"></i>Quản lý sân học và thi</a>
-                </li>
-
-                <li
-                    class="{{ Request::is('admin/lead-sources') || Request::is('admin/lead-sources/create') || Request::is('admin/lead-sources/*/edit') ? 'mm-active' : '' }}">
-                    <a href="{{ route('admins.lead-sources.index') }}"><i class="bx bx-star"></i>Quản lý Lead source</a>
-                </li>
-
-                {{-- @if (Auth::user()->hasPermission('admins.teachers.create')) --}}
-                {{-- <li class="{{ Request::is('admin/teachers/create') ? 'mm-active' : '' }}">
-                    <a href="{{ route('admins.teachers.index') }}"><i class="bx bx-star"></i>Danh sách học viên</a>
-                </li> --}}
-                {{-- @endif --}}
-            </ul>
-        </li>
 
         <li class="{{ Request::is('admin/activity-logs/*') ? 'mm-active' : '' }}">
             <a href="{{ route('admins.activity-logs.index') }}">

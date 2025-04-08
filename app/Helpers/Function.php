@@ -9,6 +9,7 @@ use Carbon\Carbon;
 define('LIMIT', 50);
 define('ROLE_SALES', 'sale,quan-ly-sales');
 define('ROLE_FEE', 'sale,quan-ly-sales');
+define('ROLE_VEHICLE_EXPENSE', 'sale,quan-ly-sales,giao-vien,admin');
 define('ROLE_TEACHER', 'giao-vien');
 define('ROLE_SALE', 'sale');
 define('ROLE_ADMIN', 'admin');
@@ -689,4 +690,22 @@ function formatPhoneNumber($phone)
         return '0' . $phone;
     }
     return $phone;
+}
+
+function listTypeVahicleExpenses()
+{
+    return [
+        'do_xang' => 'Đổ xăng',
+        'bao_duong' => 'Bảo dưỡng',
+        'dang_kiem' => 'Đăng kiểm',
+        'thay_lop' => 'Thay lốp',
+        'khac' => 'Khác',
+    ];
+}
+
+function getTypeVahicleExpense($value)
+{
+    if (!$value) return '';
+    $lists = listTypeVahicleExpenses();
+    return '<span class="badge badge-secondary">' . $lists[$value] . '</span>';
 }

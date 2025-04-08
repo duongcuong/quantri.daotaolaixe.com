@@ -6,6 +6,7 @@ use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Role;
+use App\Models\Vehicle;
 use Illuminate\Support\Facades\Hash;
 
 class TeacherController extends Controller
@@ -17,7 +18,8 @@ class TeacherController extends Controller
 
     public function create()
     {
-        return view('backend.teachers.create');
+        $vehicles = Vehicle::all();
+        return view('backend.teachers.create', compact('vehicles'));
     }
 
     public function store(Request $request)
@@ -61,7 +63,8 @@ class TeacherController extends Controller
 
     public function edit(Admin $teacher)
     {
-        return view('backend.teachers.edit', compact('teacher'));
+        $vehicles = Vehicle::all();
+        return view('backend.teachers.edit', compact('teacher', 'vehicles'));
     }
 
     public function update(Request $request, Admin $teacher)
