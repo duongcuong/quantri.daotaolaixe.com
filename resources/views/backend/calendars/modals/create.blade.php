@@ -73,13 +73,15 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <div class="custom-control custom-checkbox">
-                                            <input name="is_tudong" value="1" type="checkbox" class="custom-control-input" id="is_tudong">
+                                            <input name="is_tudong" value="1" type="checkbox"
+                                                class="custom-control-input" id="is_tudong">
                                             <label class="custom-control-label" for="is_tudong">Học tự động</label>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" value="1" class="custom-control-input" id="is_bandem">
+                                            <input type="checkbox" value="1" class="custom-control-input"
+                                                id="is_bandem">
                                             <label class="custom-control-label" for="is_bandem">Học ban đêm</label>
                                         </div>
                                     </div>
@@ -199,10 +201,11 @@
                             @if (request()->type == 'class_schedule')
                             <div class="form-group">
                                 <label for="teacher_id">Giáo viên</label>
-                                <select class="select2-ajax-single form-control" name="teacher_id"
-                                    data-placeholder="Chọn người phụ trách"
-                                    data-url="{{ route('admins.admins.list', ['role' => ROLE_TEACHER]) }}"
+                                <select class="select2-ajax-single-all form-control" name="teacher_id"
+                                    data-placeholder="Chọn giáo viên"
+                                    data-url="{{ route('admins.admins.lists', ['role' => ROLE_TEACHER]) }}"
                                     data-selected-id="{{ request()->teacher_id }}">
+                                    <option></option>
                                 </select>
                             </div>
                             @endif
@@ -221,10 +224,21 @@
                             @if (request()->type == 'class_schedule' || request()->type == 'exam_schedule')
                             <div class="form-group">
                                 <label for="course_user_id">Học viên khóa học</label>
-                                <select class="select2-ajax-single form-control select2-ajax-single-calendar" name="course_user_id"
-                                    data-placeholder="Chọn học viên khóa học"
+                                <select class="select2-ajax-single form-control select2-ajax-single-calendar"
+                                    name="course_user_id" data-placeholder="Chọn học viên khóa học"
                                     data-url="{{ route('admins.course-user.list') }}"
                                     data-selected-id="{{ request()->course_user_id }}">
+                                </select>
+                            </div>
+                            @endif
+
+                            @if (request()->type == 'class_schedule')
+                            <div class="form-group">
+                                <label for="course_user_id">Chọn xe</label>
+                                <select class="select2-ajax-single-all form-control" name="vehicle_id"
+                                    data-placeholder="Chọn xe" data-url="{{ route('admins.vehicles.list') }}"
+                                    data-selected-id="">
+                                    <option></option>
                                 </select>
                             </div>
                             @endif

@@ -66,6 +66,7 @@ class CalendarController extends Controller
             'so_gio_chay_duoc' => 'nullable|regex:/^\d{2}:\d{2}$/',
             'is_tudong' => 'nullable|boolean',
             'is_bandem' => 'nullable|boolean',
+            'vehicle_id' => 'nullable|exists:vehicles,id',
         ]);
 
         $validator->after(function ($validator) use ($request) {
@@ -109,6 +110,7 @@ class CalendarController extends Controller
             'so_gio_chay_duoc' => 'nullable|regex:/^\d{2}:\d{2}$/',
             'is_tudong' => 'nullable|boolean',
             'is_bandem' => 'nullable|boolean',
+            'vehicle_id' => 'nullable|exists:vehicles,id',
         ]);
 
         $validator->after(function ($validator) use ($request) {

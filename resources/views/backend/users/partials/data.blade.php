@@ -6,14 +6,14 @@
     <thead>
         <tr>
             <th>STT</th>
-            <th>Avatar</th>
+            {{-- <th>Avatar</th> --}}
             <th>Họ tên</th>
             <th>Ngày sinh</th>
             <th>Giới tính</th>
             <th>SĐT</th>
             <th>CMT/CCCD</th>
             <th>Địa chỉ</th>
-            <th>Tên thẻ</th>
+            {{-- <th>Tên thẻ</th> --}}
             <th>Số thẻ</th>
             <th>Trạng thái</th>
             <th>Ngày hoạt động</th>
@@ -24,8 +24,8 @@
         @foreach ($users as $user)
         <tr>
             <td>{{ getSTT($users, $loop->iteration) }}</td>
-            <td><img src="{{ getImageUpload($user->thumbnail, 'users', 'small') }}" alt="Avatar" class="avatar"
-                    width="50"></td>
+            {{-- <td><img src="{{ getImageUpload($user->thumbnail, 'users', 'small') }}" alt="Avatar" class="avatar"
+                    width="50"></td> --}}
             <td>{{ $user->name }}</td>
             <td>{{ getDateTimeStamp($user->dob, 'd/m/Y') }}</td>
             <td>{{ $user->gender == 0 ? 'Nam' : ($user->gender == 1 ? 'Nữ' : 'Khác') }}</td>
@@ -34,7 +34,7 @@
 
             <td>{{ $user->identity_card }}</td>
             <td>{{ $user->address }}</td>
-            <td>{{ $user->card_name }}</td>
+            {{-- <td>{{ $user->card_name }}</td> --}}
             <td>{{ $user->card_number }}</td>
             <td>{!! getStatus($user->status) !!}</td>
             <td>{{ getDateTimeStamp($user->created_at, 'd/m/Y') }}</td>

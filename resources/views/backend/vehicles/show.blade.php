@@ -62,10 +62,10 @@ Xem chi tiết xe
                             <th colspan="2">Số GPTL</th>
                             <td>{{ $vehicle->gptl_number }}</td>
                         </tr>
-                        <tr>
+                        {{-- <tr>
                             <th colspan="2">Ngày hết hạn GPTL</th>
                             <td>{{ getDateTimeStamp($vehicle->gptl_expiry_date) }}</td>
-                        </tr>
+                        </tr> --}}
                         <tr>
                             <th colspan="2">Năm SX</th>
                             <td>{{ $vehicle->manufacture_year }}</td>

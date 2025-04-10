@@ -46,9 +46,9 @@
                             <input type="text" name="amount" id="amount" class="form-control thousand-text" required value="{{ $vehicle_expense->amount }}">
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="admin_id">Người thu</label>
+                            <label for="admin_id">Người chi</label>
                             <select class="select2-ajax-single form-control" name="admin_id" data-selected-id="{{ $vehicle_expense->admin_id }}"
-                                data-placeholder="Chọn người thu"
+                                data-placeholder="Chọn người chi"
                                 data-url="{{ route('admins.admins.list', ['role'=> ROLE_VEHICLE_EXPENSE]) }}">
                             </select>
                         </div>

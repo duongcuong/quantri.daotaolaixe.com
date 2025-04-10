@@ -19,6 +19,10 @@ Tất cả Khoá học - Học Viên
         </div>
     </div>
     <div class="ml-auto">
+        @if(request()->course_id)
+        <a class="btn btn-outline-primary btn-sm mr-2" href="{{ route('admins.course-user.index') }}" data-toggle="tooltip"
+            title="Quay về trang quản lý Khoá học - User &#9194;"><i class="bx bx-rewind"></i>Quay lại</a>
+        @endif
         <a class="btn btn-outline-success btn-sm mr-2" href="{{ route('admins.course-user.import') }}" title="Import"><i
                 class="lni lni-cloud-upload mr-1"></i>Import file</a>
         {{-- @if (Auth::user()->hasPermission('admins.course-user.index')) --}}
@@ -44,10 +48,11 @@ Tất cả Khoá học - Học Viên
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="course_id" class="mr-2">Giáo viên</label>
-                    <select class="select2-ajax-single form-control" name="teacher_id"
+                    <select class="select2-ajax-single-all form-control" name="teacher_id"
                         data-selected-id="{{ session('course_user_filters.teacher_id') }}"
                         data-placeholder="Chọn giáo viên"
-                        data-url="{{ route('admins.admins.list', ['role'=> ROLE_TEACHER]) }}">
+                        data-url="{{ route('admins.admins.lists', ['role'=> ROLE_TEACHER]) }}">
+                        <option></option>
                     </select>
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
@@ -85,11 +90,11 @@ Tất cả Khoá học - Học Viên
                         @endforeach
                     </select>
                 </div>
-                <div class="form-group col-sm-6 col-md-3">
+                {{-- <div class="form-group col-sm-6 col-md-3">
                     <label for="card_name" class="mr-2">ID thẻ</label>
                     <input type="text" name="card_name" id="card_name" class="form-control" placeholder="Nhập ID thẻ"
                         value="{{ session('course_user_filters.card_name') }}">
-                </div>
+                </div> --}}
                 <div class="form-group col-md-3">
                     <label for="exam_field_id">Sân thi</label>
                     <select name="exam_field_id" id="exam_field_id" class="form-control single-select"

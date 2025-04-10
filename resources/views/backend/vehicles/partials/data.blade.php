@@ -8,7 +8,7 @@
             <th>Loại</th>
             <th>Màu sắc</th>
             <th>Số GPTL</th>
-            <th>Ngày hết hạn GPTL</th>
+            {{-- <th>Ngày hết hạn GPTL</th> --}}
             <th>Năm SX</th>
             <th class="fixed-column text-center">Hành động</th>
         </tr>
@@ -23,7 +23,7 @@
             <td>{{ $vehicle->type }}</td>
             <td>{{ $vehicle->color }}</td>
             <td>{{ $vehicle->gptl_number }}</td>
-            <td>{{ getDateTimeStamp($vehicle->gptl_expiry_date, 'd/m/Y') }}</td>
+            {{-- <td>{{ getDateTimeStamp($vehicle->gptl_expiry_date, 'd/m/Y') }}</td> --}}
             <td>{{ $vehicle->manufacture_year }}</td>
             <td class="fixed-column text-center">
                 <div class="d-inline-flex">

@@ -37,7 +37,8 @@ class Calendar extends Model
         'loai_thi',
         'diem_don',
         'so_gio_chay_duoc',
-        'sbd'
+        'sbd',
+        'vehicle_id'
     ];
 
     protected $casts = [
@@ -96,5 +97,10 @@ class Calendar extends Model
             list($hours, $minutes) = sscanf($value, '%d:%d');
             $this->attributes['so_gio_chay_duoc'] = $hours * 60 + $minutes;
         }
+    }
+
+    public function vehicle()
+    {
+        return $this->belongsTo(Vehicle::class);
     }
 }

@@ -42,6 +42,7 @@ Route::prefix('admin')->as('admins.')->group(function () {
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
         Route::get('admins/list', [AdminController::class, 'list'])->name('admins.list');
+        Route::get('admins/lists', [AdminController::class, 'lists'])->name('admins.lists');
         Route::resource('admins', AdminController::class);
 
         Route::resource('roles', RoleController::class);
@@ -124,6 +125,7 @@ Route::prefix('admin')->as('admins.')->group(function () {
 
         //Quản lý xe
         Route::get('vehicles/data', [VehicleController::class, 'data'])->name('vehicles.data');
+        Route::get('vehicles/list', [VehicleController::class, 'list'])->name('vehicles.list');
         Route::resource('vehicles', VehicleController::class);
 
         //chi phí xe

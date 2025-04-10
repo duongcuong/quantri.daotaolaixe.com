@@ -2,7 +2,7 @@
     <thead>
         <tr>
             <th>STT</th>
-            <th>Avatar</th>
+            {{-- <th>Avatar</th> --}}
             <th>Họ tên</th>
             <th>Giới tính</th>
             <th>Ngày sinh</th>
@@ -20,8 +20,8 @@
         @foreach ($sales as $sale)
         <tr>
             <td>{{ getSTT($sales, $loop->iteration) }}</td>
-            <td><img src="{{ getImageUpload($sale->thumbnail, 'admins', 'small') }}" alt="Avatar" class="avatar"
-                    width="50"></td>
+            {{-- <td><img src="{{ getImageUpload($sale->thumbnail, 'admins', 'small') }}" alt="Avatar" class="avatar"
+                    width="50"></td> --}}
             <td>{{ $sale->name }}</td>
             <td>{{ $sale->gender == 0 ? 'Nam' : ($sale->gender == 1 ? 'Nữ' : 'Khác') }}</td>
             <td>{{ $sale->dob }}</td>

@@ -168,9 +168,10 @@ Tạo Khoá Học - User
                 <div class="card-body">
                     <div class="form-group">
                         <label for="teacher_id">Giáo viên hướng dẫn</label>
-                        <select class="select2-ajax-single form-control" name="teacher_id" data-selected-id=""
+                        <select class="select2-ajax-single-all form-control" name="teacher_id" data-selected-id=""
                             data-placeholder="Chọn giáo viên"
-                            data-url="{{ route('admins.admins.list', ['role'=> ROLE_TEACHER]) }}">
+                            data-url="{{ route('admins.admins.lists', ['role'=> ROLE_TEACHER]) }}">
+                            <option></option>
                         </select>
                     </div>
                     <div class="form-group">

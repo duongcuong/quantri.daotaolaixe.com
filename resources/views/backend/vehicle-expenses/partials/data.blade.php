@@ -6,7 +6,7 @@
             <th>Loại chi phí</th>
             <th>Thời gian</th>
             <th>Số tiền</th>
-            <th>Người thu</th>
+            <th>Người chi</th>
             <th class="fixed-column text-center">Hành động</th>
         </tr>
     </thead>

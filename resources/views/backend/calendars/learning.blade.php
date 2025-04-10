@@ -33,7 +33,7 @@ Tất cả lịch học
             class="mb-3 form-search-submit">
             @csrf
             @php
-            $showColumn = 'name,date_start,date_end,name_hocvien,dob,teacher_id,diem_don,san,course_code,loai_hoc,km,approval,so_gio_chay_duoc,priority,is_tudong,is_bandem';
+            $showColumn = 'date_start,date_end,name_hocvien,dob,teacher_id,diem_don,san,course_code,loai_hoc,km,approval,so_gio_chay_duoc,is_tudong,is_bandem';
             $typeColumn = 'class_schedule';
             $reload = 'load-data-ajax-class-calendars';
             @endphp
@@ -73,10 +73,11 @@ Tất cả lịch học
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="course_id" class="mr-2">Giáo viên</label>
-                    <select class="select2-ajax-single form-control" name="teacher_id"
+                    <select class="select2-ajax-single-all form-control" name="teacher_id"
                         data-selected-id="{{ session('calendar_filters.teacher_id') }}"
                         data-placeholder="Chọn giáo viên"
-                        data-url="{{ route('admins.admins.list', ['role'=> ROLE_TEACHER]) }}">
+                        data-url="{{ route('admins.admins.lists', ['role'=> ROLE_TEACHER]) }}">
+                        <option></option>
                     </select>
                 </div>
                 <div class="form-group col-sm-6 col-md-3">

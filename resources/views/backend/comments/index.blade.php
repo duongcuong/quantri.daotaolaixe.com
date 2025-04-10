@@ -32,10 +32,11 @@ Danh sách bình luận
             <div class="row">
                 <div class="form-group col-sm-6 col-md-4">
                     <label for="teacher_id" class="mr-2">Giáo viên</label>
-                    <select class="select2-ajax-single form-control" name="teacher_id"
+                    <select class="select2-ajax-single-all form-control" name="teacher_id"
                         data-selected-id="{{ session('comments_filters.teacher_id') }}"
                         data-placeholder="Chọn giáo viên"
-                        data-url="{{ route('admins.admins.list', ['role'=> ROLE_TEACHER]) }}">
+                        data-url="{{ route('admins.admins.lists', ['role'=> ROLE_TEACHER]) }}">
+                        <option></option>
                     </select>
                 </div>
                 <div class="form-group col-sm-6 col-md-4">

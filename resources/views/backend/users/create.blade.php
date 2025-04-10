@@ -65,10 +65,10 @@ Tạo học viên
                             <label for="address">Địa chỉ</label>
                             <input type="text" name="address" id="address" class="form-control" value="{{ old('address') }}">
                         </div>
-                        <div class="form-group col-md-6">
+                        {{-- <div class="form-group col-md-6">
                             <label for="card_name">Tên thẻ</label>
                             <input type="text" name="card_name" id="card_name" class="form-control" value="{{ old('card_name') }}">
-                        </div>
+                        </div> --}}
                         <div class="form-group col-md-6">
                             <label for="card_number">Số thẻ</label>
                             <input type="text" name="card_number" id="card_number" class="form-control" value="{{ old('card_number') }}">

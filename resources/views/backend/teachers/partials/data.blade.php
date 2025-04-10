@@ -6,7 +6,7 @@
     <thead>
         <tr>
             <th rowspan="2">STT</th>
-            <th rowspan="2">Avatar</th>
+            {{-- <th rowspan="2">Avatar</th> --}}
             <th rowspan="2">Họ tên</th>
             <th rowspan="2">Giới tính</th>
             <th rowspan="2">Ngày sinh</th>
@@ -33,8 +33,8 @@
         @foreach ($teachers as $teacher)
         <tr>
             <td>{{ getSTT($teachers, $loop->iteration) }}</td>
-            <td><img src="{{ getImageUpload($teacher->thumbnail, 'admins', 'small') }}" alt="Avatar" class="avatar"
-                    width="50"></td>
+            {{-- <td><img src="{{ getImageUpload($teacher->thumbnail, 'admins', 'small') }}" alt="Avatar" class="avatar"
+                    width="50"></td> --}}
             <td>{{ $teacher->name }}</td>
             <td>{{ $teacher->gender == 0 ? 'Nam' : ($teacher->gender == 1 ? 'Nữ' : 'Khác') }}</td>
             <td>{{ getDateTimeStamp($teacher->dob, 'd/m/Y') }}</td>

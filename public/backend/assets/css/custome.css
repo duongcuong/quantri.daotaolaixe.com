@@ -331,3 +331,15 @@ body {
     border-top: 1px solid #dee2e6;
     border-bottom: 1px solid #dee2e6;
 } */
+
+/* checkbox  */
+.form-check {
+    padding-left: 1.65rem;
+}
+
+.form-check-input {
+    margin-top: .1rem;
+    margin-left: -1.65rem;
+    width: 20px;
+    height: 20px;
+}

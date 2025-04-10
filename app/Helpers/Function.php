@@ -567,9 +567,9 @@ function getLoaiHoc($loaiHoc)
 function listLoaiThis()
 {
     return [
-        'thi_thuc_hanh' => 'Thi sa hình',
         'thi_ly_thuyet' => 'Thi lý thuyết',
         'thi_mo_phong' => 'Thi mô phỏng',
+        'thi_thuc_hanh' => 'Thi sa hình',
         'thi_duong_truong' => 'Thi đường trường'
     ];
 }
@@ -610,7 +610,23 @@ function formatDateTimeVn($dateTime)
         'Friday' => 'Thứ 6',
         'Saturday' => 'Thứ 7',
     ];
-    return '<strong>' . $date->format('H\hi') . ' ' . $dayOfWeek[$date->format('l')] . '</strong>, ' . $date->format('d/m/Y');
+    return $dayOfWeek[$date->format('l')] . ', ' . $date->format('d/m/Y');
+}
+
+function formatTimeVn($dateTime)
+{
+    if (!$dateTime) return '';
+    $date = Carbon::parse($dateTime);
+    return $date->format('H\hi');
+}
+
+function formatTimeBetweenVn($dateStart, $dateEnd)
+{
+    if (!$dateStart && !$dateEnd) return '';
+    $stringArr = [];
+    if($dateStart) $stringArr[] = formatTimeVn($dateStart);
+    if($dateEnd) $stringArr[] = formatTimeVn($dateEnd);
+    return implode(' - ', $stringArr);
 }
 
 function getFormattedSoGioChayDuocAttribute($value)

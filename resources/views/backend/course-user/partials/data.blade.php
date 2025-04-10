@@ -2,15 +2,15 @@
     <thead>
         <tr>
             <th rowspan="2">STT</th>
-            <th rowspan="2">Avatar</th>
+            {{-- <th rowspan="2">Avatar</th> --}}
             <th rowspan="2">Mã ĐK</th>
             <th rowspan="2">Hạng</th>
             <th rowspan="2">Họ tên</th>
             <th rowspan="2">Ngày sinh</th>
             <th rowspan="2">Giới tính</th>
             <th rowspan="2">Ngày kí hợp đồng</th>
-            <th rowspan="2">Số CMT</th>
-            <th rowspan="2">Id thẻ</th>
+            <th rowspan="2">CMT/CCCD</th>
+            {{-- <th rowspan="2">Id thẻ</th> --}}
             <th rowspan="2">Số thẻ</th>
             <th rowspan="2">Giáo viên</th>
             <th colspan="3" class="text-center">
@@ -40,10 +40,10 @@
         @foreach ($courseUsers as $courseUser)
         <tr>
             <td>{{ getSTT($courseUsers, $loop->iteration) }}</td>
-            <td>
+            {{-- <td>
                 <img src="{{ getImageUpload($courseUser->user->thumbnail, 'users', 'small') }}" alt="User Thumbnail"
                     class="avatar" width="50">
-            </td>
+            </td> --}}
             <td>{{ $courseUser->course->code }}</td>
             <td>{{ $courseUser->course->rank }}</td>
             <td>
@@ -63,7 +63,7 @@
                 }}</td>
             <td>{{ getDateTimeStamp($courseUser->contract_date, 'd/m/Y') }}</td>
             <td>{{ $courseUser->user->identity_card }}</td>
-            <td>{{ $courseUser->user->card_name }}</td>
+            {{-- <td>{{ $courseUser->user->card_name }}</td> --}}
             <td>{{ $courseUser->user->card_number }}</td>
 
             <td>{{ $courseUser->teacher->name ?? '' }}</td>

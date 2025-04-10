@@ -220,10 +220,11 @@
                             @if ($calendar->type == 'class_schedule')
                             <div class="form-group">
                                 <label for="teacher_id">Giáo viên</label>
-                                <select class="select2-ajax-single form-control" name="teacher_id"
-                                    data-placeholder="Chọn người phụ trách"
-                                    data-url="{{ route('admins.admins.list', ['role' => ROLE_TEACHER]) }}"
+                                <select class="select2-ajax-single-all form-control" name="teacher_id"
+                                    data-placeholder="Chọn giáo viên"
+                                    data-url="{{ route('admins.admins.lists', ['role' => ROLE_TEACHER]) }}"
                                     data-selected-id="{{ $calendar->teacher_id }}">
+                                    <option></option>
                                 </select>
                             </div>
                             @endif
@@ -248,6 +249,18 @@
                                 </select>
                             </div>
                             @endif
+
+                            @if ($calendar->type == 'class_schedule')
+                            <div class="form-group">
+                                <label for="course_user_id">Chọn xe</label>
+                                <select class="select2-ajax-single-all form-control" name="vehicle_id"
+                                    data-placeholder="Chọn xe" data-url="{{ route('admins.vehicles.list') }}"
+                                    data-selected-id="{{ $calendar->vehicle_id }}">
+                                    <option></option>
+                                </select>
+                            </div>
+                            @endif
+
                             @if (Auth::guard('admin')->user()->hasPermission('admins.calendars.approval'))
                             @if ($calendar->type == 'class_schedule')
                             <div class="custom-control custom-switch cs-approval"

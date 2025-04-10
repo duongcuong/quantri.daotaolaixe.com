@@ -25,13 +25,13 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <th>
                 @switch(request()->type)
                 @case('exam_schedule')
-                Lịch thi
+                Ngày
                 @break
                 @case('class_schedule')
-                Thời gian bắt đầu ca học
+                Ngày
                 @break
                 @default
-                Ngày bắt đầu
+                Ngày
                 @endswitch
             </th>
             @endif
@@ -40,10 +40,10 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <th>
                 @switch(request()->type)
                 @case('class_schedule')
-                Thời gian kết thúc ca học
+                Thời gian
                 @break
                 @default
-                Ngày kết thúc
+                Thời gian
                 @endswitch
             </th>
             @endif
@@ -54,6 +54,10 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
 
             @if (!request()->has('show_column') || in_array('dob', $columns))
             <th>Ngày sinh</th>
+            @endif
+
+            @if (!request()->has('show_column') || in_array('loai_hoc', $columns))
+            <th>Buổi học</th>
             @endif
 
             @if (!request()->has('show_column') || in_array('cccd', $columns))
@@ -102,10 +106,6 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
 
             @if (!request()->has('show_column') || in_array('health_check_date', $columns))
             <th>Khám SK</th>
-            @endif
-
-            @if (!request()->has('show_column') || in_array('loai_hoc', $columns))
-            <th>Môn học</th>
             @endif
 
             @if (!request()->has('show_column') || in_array('km', $columns))
@@ -189,7 +189,7 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             @endif
 
             @if (!request()->has('show_column') || in_array('date_end', $columns))
-            <td>{!! formatDateTimeVn($calendar->date_end) !!}</td>
+            <td>{!! formatTimeBetweenVn($calendar->date_start, $calendar->date_end)  !!}</td>
             @endif
 
             @if (!request()->has('show_column') || in_array('name_hocvien', $columns))
@@ -199,6 +199,10 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             @if (!request()->has('show_column') || in_array('dob', $columns))
             <td>{{ $calendar->courseUser && $calendar->courseUser->user ?
                 getDateTimeStamp($calendar->courseUser->user->dob, 'd/m/Y') : "" }}</td>
+            @endif
+
+            @if (!request()->has('show_column') || in_array('loai_hoc', $columns))
+            <td>{!! getLoaiHoc($calendar->loai_hoc) !!}</td>
             @endif
 
             @if (!request()->has('show_column') || in_array('cccd', $columns))
@@ -244,10 +248,6 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             @if (!request()->has('show_column') || in_array('health_check_date', $columns))
             <td>{{ $calendar->courseUser ? getDateTimeStamp($calendar->courseUser->health_check_date, 'd/m/Y') : '' }}
             </td>
-            @endif
-
-            @if (!request()->has('show_column') || in_array('loai_hoc', $columns))
-            <td>{!! getLoaiHoc($calendar->loai_hoc) !!}</td>
             @endif
 
             @if (!request()->has('show_column') || in_array('km', $columns))

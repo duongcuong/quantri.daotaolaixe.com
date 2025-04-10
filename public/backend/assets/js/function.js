@@ -201,6 +201,43 @@ function resetSelectAjax(type = null) {
     });
 }
 
+function initializeSelect2AjaxAll() {
+    $(".select2-ajax-single-all").each(function () {
+        var $select = $(this);
+        var url = $select.data("url"); // Lấy URL từ thuộc tính data-url
+        var selectedId = $select.data("selected-id"); // Lấy giá trị từ data-selected-id
+
+
+        // Gửi AJAX để tải toàn bộ dữ liệu một lần
+        $.ajax({
+            url: url,
+            method: "GET",
+            dataType: "json",
+            success: function (data) {
+                // Xử lý dữ liệu trả về và thêm vào Select2
+                var options = [];
+                data.items.forEach(function (item) {
+                    let _selected = item.id == selectedId ? true : false;
+                    options.push(new Option(item.name, item.id, _selected, _selected));
+                });
+
+                $select.append(options).trigger("change");
+
+                // Khởi tạo Select2
+                $select.select2({
+                    theme: "bootstrap4",
+                    placeholder: $select.data("placeholder") || "Chọn một mục",
+                    allowClear: true,
+                    minimumInputLength: 0, // Không yêu cầu nhập ký tự
+                });
+            },
+            error: function (xhr) {
+                console.error("Error loading data for Select2:", xhr);
+            },
+        });
+    });
+}
+
 function formatRepo(repo) {
     if (repo.loading) {
         return repo.text;
@@ -370,6 +407,7 @@ $(function () {
     }
 
     initializeSelect2();
+    initializeSelect2AjaxAll();
 
     function loadDataAjax(elReload = "", callback) {
         $(".load-data-ajax").each(function () {
@@ -504,6 +542,7 @@ $(function () {
                 resetSelectAjax();
                 resetNumericText();
                 runTimePicker();
+                initializeSelect2AjaxAll();
             },
             error: function (xhr) {
                 console.error("Error loading create modal:", xhr);
@@ -547,6 +586,7 @@ $(function () {
                 resetSelectAjax();
                 resetNumericText();
                 runTimePicker();
+                initializeSelect2AjaxAll();
             },
             error: function (xhr) {
                 console.error("Error loading edit modal:", xhr);

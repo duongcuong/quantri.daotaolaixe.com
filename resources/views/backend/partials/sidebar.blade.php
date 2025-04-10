@@ -114,6 +114,10 @@
                     <a href="{{ route('admins.teachers.create') }}"><i class="bx bx-star"></i>Thêm giáo viên</a>
                 </li>
                 {{-- @endif --}}
+
+                <li class="{{ Request::is('admin/calendars/learning') ? 'mm-active' : '' }}">
+                    <a href="{{ route('admins.calendars.learning') }}"><i class="bx bx-calendar-exclamation"></i>Lịch làm việc giáo viên</a>
+                </li>
             </ul>
         </li>
         {{-- @endif --}}
@@ -150,11 +154,6 @@
                 <li
                     class="{{ Request::is('admin/fees') || Request::is('admin/fees/create') || Request::is('admin/fees/*/edit') ? 'mm-active' : '' }}">
                     <a href="{{ route('admins.fees.index') }}"><i class="bx bx-star"></i>Lịch sử nộp tiền</a>
-                </li>
-
-                <li class="{{ Request::is('admin/calendars/learning') ? 'mm-active' : '' }}">
-                    <a href="{{ route('admins.calendars.learning') }}"><i class="bx bx-calendar-exclamation"></i>Lịch
-                        làm việc giáo viên</a>
                 </li>
 
                 {{-- @if (Auth::user()->hasPermission('admins.teachers.create')) --}}

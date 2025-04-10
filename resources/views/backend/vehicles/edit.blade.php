@@ -65,11 +65,11 @@ Sửa xe
                             <input type="text" name="gptl_number" id="gptl_number" class="form-control"
                                 value="{{ old('gptl_number', $vehicle->gptl_number) }}">
                         </div>
-                        <div class="form-group col-md-4">
+                        {{-- <div class="form-group col-md-4">
                             <label for="gptl_expiry_date">Ngày hết hạn GPTL</label>
                             <input type="date" name="gptl_expiry_date" id="gptl_expiry_date" class="form-control"
                                 value="{{ old('gptl_expiry_date', $vehicle->gptl_expiry_date) }}">
-                        </div>
+                        </div> --}}
                         <div class="form-group col-md-4">
                             <label for="manufacture_year">Năm sản xuất</label>
                             <input type="number" name="manufacture_year" id="manufacture_year" class="form-control"

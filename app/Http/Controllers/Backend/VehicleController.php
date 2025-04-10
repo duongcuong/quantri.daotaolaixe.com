@@ -106,4 +106,17 @@ class VehicleController extends Controller
 
         return view('backend.vehicles.index', compact('vehicles'));
     }
+
+    public function list(Request $request){
+        $vehicles = Vehicle::all();
+        foreach ($vehicles as $vehicle) {
+            $vehicle->name = $vehicle->license_plate;
+        }
+
+        if ($request->ajax()) {
+            return response()->json([
+                'items' => $vehicles
+            ]);
+        }
+    }
 }

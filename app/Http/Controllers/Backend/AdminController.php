@@ -132,6 +132,26 @@ class AdminController extends Controller
         }
     }
 
+    public function lists(Request $request)
+    {
+        $query = Admin::orderBy('name', 'asc');
+
+        if ($request->has('role')) {
+            $roles = explode(',', $request->role);
+            $query->whereHas('roles', function ($q) use ($roles) {
+                $q->whereIn('slug', $roles);
+            });
+        }
+
+        $admins = $query->get();
+
+        if ($request->ajax()) {
+            return response()->json([
+                'items' => $admins
+            ]);
+        }
+    }
+
     public function logout(Request $request)
     {
         Auth::guard('admin')->logout();
