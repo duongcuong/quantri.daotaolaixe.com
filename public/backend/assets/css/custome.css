@@ -309,14 +309,15 @@ body {
     font-size: 20px;
 }
 
-.fixed-column {
+/* .fixed-column {
     position: sticky;
     right: 0;
     z-index: 10;
     background-color: #f7f7f7;
     z-index: 10;
-    /* display: flex; */
+    display: flex;
 }
+*/
 
 /* .table-responsive tbody .fixed-column .btn-sm{
     padding: 4px;
@@ -331,6 +332,12 @@ body {
     border-top: 1px solid #dee2e6;
     border-bottom: 1px solid #dee2e6;
 } */
+
+.table-header-fixed thead{
+    position: sticky;
+    top: 69px;
+    background: #efefef;
+}
 
 /* checkbox  */
 .form-check {

@@ -18,7 +18,7 @@
                             <input type="hidden" value="{{ $vehicle->id }}" name="vehicle_id">
                         </div>
                     </form>
-                    <div id="load-data-ajax-vehicle-expenses" class="table-responsive mt-1 mb-1 load-data-ajax" data-search="#search-form-vehicle-expenses" data-url="{{ route('admins.vehicle-expenses.data') }}">
+                    <div id="load-data-ajax-vehicle-expenses" class="table-header-fixed mt-1 mb-1 load-data-ajax" data-search="#search-form-vehicle-expenses" data-url="{{ route('admins.vehicle-expenses.data') }}">
                         <div class="loading-overlay">
                             <div class="loading-spinner"></div>
                         </div>

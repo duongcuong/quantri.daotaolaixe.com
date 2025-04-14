@@ -101,7 +101,7 @@ Tất cả lịch thi của học viên
 
 <div class="card radius-15">
     <div class="card-body">
-        <div id="load-data-ajax-class-calendars" class="table-responsive mt-1 mb-1 load-data-ajax"
+        <div id="load-data-ajax-class-calendars" class="table-header-fixed mt-1 mb-1 load-data-ajax"
             data-search="#search-form-class-calendars" data-url="{{ route('admins.calendars.data') }}">
             <div class="loading-overlay">
                 <div class="loading-spinner"></div>

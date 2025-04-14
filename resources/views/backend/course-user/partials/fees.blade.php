@@ -18,7 +18,7 @@
                             <input type="hidden" value="{{ $courseUser->id }}" name="course_user_id">
                         </div>
                     </form>
-                    <div id="load-data-ajax-fees" class="table-responsive mt-1 mb-1 load-data-ajax" data-search="#search-form-fees" data-url="{{ route('admins.fees.data') }}">
+                    <div id="load-data-ajax-fees" class="table-header-fixed mt-1 mb-1 load-data-ajax" data-search="#search-form-fees" data-url="{{ route('admins.fees.data') }}">
                         <div class="loading-overlay">
                             <div class="loading-spinner"></div>
                         </div>

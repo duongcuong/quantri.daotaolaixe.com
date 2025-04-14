@@ -59,7 +59,7 @@ Tất cả giáo viên
 
 <div class="card radius-15">
     <div class="card-body">
-        <div class="table-responsive mt-1 mb-1 load-data-ajax" data-url="{{ route('admins.teachers.data') }}" id="load-data-ajax-teachers" data-search="#search-form-teachers">
+        <div class="table-header-fixed mt-1 mb-1 load-data-ajax" data-url="{{ route('admins.teachers.data') }}" id="load-data-ajax-teachers" data-search="#search-form-teachers">
             <div class="loading-overlay">
                 <div class="loading-spinner"></div>
             </div>

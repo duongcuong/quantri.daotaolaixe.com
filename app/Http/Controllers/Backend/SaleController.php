@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Backend;
 
 use App\Models\Admin;
@@ -144,10 +145,44 @@ class SaleController extends Controller
 
         $sales = $query->paginate(LIMIT);
 
-        if ($request->ajax()) {
-            return view('backend.sales.partials.data', compact('sales'))->render();
+        // Tính tổng số course_users và leads cho tất cả các bản ghi được tìm kiếm
+        $totals = Admin::whereHas('roles', function ($query) {
+            $query->where('slug', ROLE_SALE);
+        })->withCount([
+            'courseUsers' => function ($query) use ($request) {
+                if ($request->has('start_date') && $request->start_date) {
+                    $query->whereDate('contract_date', '>=', $request->start_date);
+                }
+
+                if ($request->has('end_date') && $request->end_date) {
+                    $query->whereDate('contract_date', '<=', $request->end_date);
+                }
+            },
+            'leads' => function ($query) use ($request) {
+                if ($request->has('start_date') && $request->start_date) {
+                    $query->whereDate('created_at', '>=', $request->start_date);
+                }
+
+                if ($request->has('end_date') && $request->end_date) {
+                    $query->whereDate('created_at', '<=', $request->end_date);
+                }
+            }
+        ]);
+
+        // Thêm điều kiện lọc theo name
+        if ($request->has('name') && $request->name) {
+            $totals->where('name', 'like', '%' . $request->name . '%');
         }
 
-        return view('backend.sales.index', compact('sales'));
+        $totals = $totals->get();
+
+        $totalCourseUsers = $totals->sum('course_users_count');
+        $totalLeads = $totals->sum('leads_count');
+
+        if ($request->ajax()) {
+            return view('backend.sales.partials.data', compact('sales', 'totalCourseUsers', 'totalLeads'))->render();
+        }
+
+        return view('backend.sales.index', compact('sales', 'totalCourseUsers', 'totalLeads'));
     }
 }

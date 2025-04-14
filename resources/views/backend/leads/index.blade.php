@@ -82,7 +82,7 @@ Tất cả Leads
 
 <div class="card radius-15">
     <div class="card-body">
-        <div class="table-responsive mt-1 mb-1 load-data-ajax" data-url="{{ route('admins.leads.data') }}"
+        <div class="table-header-fixed mt-1 mb-1 load-data-ajax" data-url="{{ route('admins.leads.data') }}"
             id="load-data-ajax-leads" data-search="#search-form-leads">
             <div class="loading-overlay">
                 <div class="loading-spinner"></div>

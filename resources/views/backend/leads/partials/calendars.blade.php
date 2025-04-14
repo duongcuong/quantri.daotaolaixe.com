@@ -35,7 +35,7 @@
                         </div>
                     </div>
 
-                    <div id="load-data-ajax-calendars" class="table-responsive mt-1 mb-1 load-data-ajax"
+                    <div id="load-data-ajax-calendars" class="table-header-fixed mt-1 mb-1 load-data-ajax"
                         data-search="#search-form-class-calendars"
                         data-url="{{ route('admins.calendars.data', ['lead_id' => $lead->id, 'show_column' => 'name,date_start,date_end,status,priority,type', 'reload' => 'load-data-ajax-calendars']) }}">
                         <div class="loading-overlay">

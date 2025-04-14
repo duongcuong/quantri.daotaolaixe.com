@@ -23,7 +23,7 @@
                     <input type="hidden" name="loai_hoc" value="{{ $loaiHoc }}">
                     <input type="hidden" name="course_user_id" value="{{ $courseUserId }}">
                 </form>
-                <div id="load-data-ajax-class-chaydat-calendars" class="table-responsive mt-1 mb-1 load-data-ajax"
+                <div id="load-data-ajax-class-chaydat-calendars" class="table-header-fixed mt-1 mb-1 load-data-ajax"
                     data-search="#search-form-class-chaydat-calendars" data-url="{{ route('admins.calendars.data') }}">
                     <div class="loading-overlay">
                         <div class="loading-spinner"></div>

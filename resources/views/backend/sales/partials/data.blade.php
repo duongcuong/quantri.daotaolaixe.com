@@ -1,3 +1,9 @@
+<div class="alert alert-info alert-dismissible fade show" role="alert">
+    <strong class="mr-1">Tổng số hợp đồng đã ký: </strong>
+    <strong class="mr-2 text-danger">{{ number_format($totalCourseUsers) }}</strong>
+    <strong class="mr-1">Tổng lead: </strong>
+    <strong class="mr-2 text-danger">{{ number_format($totalLeads) }}</strong>
+</div>
 <table id="example" class="table table-sm table-bordered table-hover">
     <thead>
         <tr>

@@ -40,7 +40,7 @@
                         </div>
                     </div>
 
-                    <div id="load-data-ajax-exam-calendars" class="table-responsive mt-1 mb-1 load-data-ajax"
+                    <div id="load-data-ajax-exam-calendars" class="table-header-fixed mt-1 mb-1 load-data-ajax"
                         data-search="#search-form-exam-calendars"
                         data-url="{{ route('admins.calendars.data') }}">
                         <div class="loading-overlay">

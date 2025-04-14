@@ -48,7 +48,7 @@ Tất cả khoá học
 
 <div class="card radius-15">
     <div class="card-body">
-        <div class="table-responsive mt-1 mb-1 load-data-ajax" data-url="{{ route('admins.courses.data') }}" id="load-data-ajax-courses" data-search="#search-form-courses">
+        <div class="table-header-fixed mt-1 mb-1 load-data-ajax" data-url="{{ route('admins.courses.data') }}" id="load-data-ajax-courses" data-search="#search-form-courses">
             <div class="loading-overlay"><div class="loading-spinner"></div></div>
         </div>
     </div>

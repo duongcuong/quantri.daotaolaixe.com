@@ -59,7 +59,7 @@ Tất cả Lịch sử nộp tiền
 
 <div class="card radius-15">
     <div class="card-body">
-        <div class="table-responsive mt-1 mb-1 load-data-ajax" data-url="{{ route('admins.fees.data') }}" id="load-data-ajax-fees" data-search="#search-form-fees">
+        <div class="table-header-fixed mt-1 mb-1 load-data-ajax" data-url="{{ route('admins.fees.data') }}" id="load-data-ajax-fees" data-search="#search-form-fees">
             <div class="loading-overlay"><div class="loading-spinner"></div></div>
         </div>
     </div>
