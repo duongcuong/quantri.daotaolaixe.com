@@ -20,19 +20,25 @@ Tất cả chi phí xe
     </div>
     <div class="ml-auto">
         {{-- @if (Auth::user()->hasPermission('admins.vehicle-expenses.index')) --}}
-        <a class="btn btn-outline-primary btn-sm btn-create-ajax" href="{{ route('admins.vehicle-expenses.create') }}" data-cs-modal="#modal-vehicle-expenses-create-ajax"
-            title="Thêm mới"><i class="bx bx-plus"></i>Thêm mới</a>
+        <a class="btn btn-outline-primary btn-sm btn-create-ajax" href="{{ route('admins.vehicle-expenses.create') }}"
+            data-cs-modal="#modal-vehicle-expenses-create-ajax" title="Thêm mới"><i class="bx bx-plus"></i>Thêm mới</a>
         {{-- @endif --}}
     </div>
 </div>
 
 <div class="card radius-15">
     <div class="card-body">
-        <form data-reload="#load-data-ajax-vehicle-expenses" id="search-form-vehicle-expenses" class="mb-3 form-search-submit">
+        <form data-reload="#load-data-ajax-vehicle-expenses" id="search-form-vehicle-expenses"
+            class="mb-3 form-search-submit">
             <div class="row">
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="license_plate" class="mr-2">Biển số xe</label>
-                    <input type="text" id="license_plate" name="license_plate" class="form-control" value="{{ session('vehicle-expenses_filters.license_plate') }}">
+                    <select class="select2-ajax-single-all form-control" name="vehicle_id"
+                        data-selected-id="{{ session('expenses_filters.vehicle_id') }}"
+                        data-placeholder="Chọn xe"
+                        data-url="{{ route('admins.vehicles.list') }}">
+                        <option></option>
+                    </select>
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="start_date" class="mr-2">Nộp từ ngày</label>
@@ -59,8 +65,11 @@ Tất cả chi phí xe
 
 <div class="card radius-15">
     <div class="card-body">
-        <div class="table-responsive mt-1 mb-1 load-data-ajax" data-url="{{ route('admins.vehicle-expenses.data') }}" id="load-data-ajax-vehicle-expenses" data-search="#search-form-vehicle-expenses">
-            <div class="loading-overlay"><div class="loading-spinner"></div></div>
+        <div class="table-responsive mt-1 mb-1 load-data-ajax" data-url="{{ route('admins.vehicle-expenses.data') }}"
+            id="load-data-ajax-vehicle-expenses" data-search="#search-form-vehicle-expenses">
+            <div class="loading-overlay">
+                <div class="loading-spinner"></div>
+            </div>
         </div>
     </div>
 </div>
