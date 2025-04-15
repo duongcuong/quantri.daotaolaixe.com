@@ -33,14 +33,6 @@ Sửa người dùng
             <div class="card radius-15">
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="name">Tên</label>
-                        <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $permission->name) }}" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="slug">Slug</label>
-                        <input type="text" name="slug" id="slug" class="form-control" value="{{ old('slug', $permission->slug) }}" required>
-                    </div>
-                    <div class="form-group">
                         <label for="module_id">Module</label>
                         <select name="module_id" id="module_id" class="form-control" required>
                             @foreach ($modules as $module)
@@ -48,6 +40,15 @@ Sửa người dùng
                             @endforeach
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="name">Tên</label>
+                        <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $permission->name) }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="slug">Slug</label>
+                        <input type="text" name="slug" id="slug" class="form-control" value="{{ old('slug', $permission->slug) }}" required>
+                    </div>
+
                 </div>
             </div>
         </div>
