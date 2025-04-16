@@ -40,7 +40,7 @@ class ModulePermissionSeeder extends Seeder
                 'Xem' => 'admins.sales.show',
             ],
             'Quản lý import' => [
-                'Danh sách' => 'admins.course-users.import',
+                'Danh sách' => 'admins.course-user.import',
             ],
             'Quản lý bình luận' => [
                 'Danh sách' => 'admins.comments.index',

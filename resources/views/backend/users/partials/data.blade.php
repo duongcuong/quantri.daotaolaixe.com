@@ -40,12 +40,19 @@
             <td>{{ getDateTimeStamp($user->created_at, 'd/m/Y') }}</td>
             <td class="fixed-column text-center">
                 <div class="d-flex">
+                    @if (canAccess('admins.users.show'))
                     <a href="{{ route('admins.users.show', $user->id) }}" class="btn btn-primary btn-sm mr-1">
                         <i class="lni lni-eye"></i>
                     </a>
+                    @endif
+
+                    @if (canAccess('admins.users.edit'))
                     <a href="{{ route('admins.users.edit', $user->id) }}" class="btn btn-warning btn-sm mr-1">
                         <i class="bx bx-edit"></i>
                     </a>
+                    @endif
+
+                    @if (canAccess('admins.users.destroy'))
                     <form action="{{ route('admins.users.destroy', $user->id) }}" method="POST"
                         style="display:inline-block;" class="delete-form-ajax">
                         @csrf
@@ -54,6 +61,7 @@
                             <i class="bx bx-trash"></i>
                         </button>
                     </form>
+                    @endif
                 </div>
             </td>
         </tr>

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 define('LIMIT', 50);
 define('ROLE_SALES', 'sale,quan-ly-sales');
@@ -724,4 +725,14 @@ function getTypeVahicleExpense($value)
     if (!$value) return '';
     $lists = listTypeVahicleExpenses();
     return '<span class="badge badge-secondary">' . $lists[$value] . '</span>';
+}
+
+/**
+ * Check if the user has permission to access a specific route
+ */
+if (!function_exists('canAccess')) {
+    function canAccess($permission)
+    {
+        return Auth::guard('admin')->user()->hasPermission($permission);
+    }
 }

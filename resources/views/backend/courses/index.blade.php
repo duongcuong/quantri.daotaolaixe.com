@@ -19,9 +19,9 @@ Tất cả khoá học
         </div>
     </div>
     <div class="ml-auto">
-        {{-- @if (Auth::user()->hasPermission('admins.courses.index')) --}}
+        @if(canAccess('admins.courses.create'))
         <a class="btn btn-outline-primary btn-sm btn-create-ajax" href="{{ route('admins.courses.create') }}" data-cs-modal="#modal-courses-create-ajax" title="Thêm mới"><i class="bx bx-plus"></i>Thêm mới</a>
-        {{-- @endif --}}
+        @endif
     </div>
 </div>
 

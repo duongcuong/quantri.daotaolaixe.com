@@ -35,12 +35,19 @@
             {{-- <td>{{ ucfirst($lead->status) }}</td> --}}
             <td class="fixed-column text-center">
                 <div class="d-flex">
+                    @if (canAccess('admins.leads.show'))
                     <a href="{{ route('admins.leads.show', $lead->id) }}" class="btn btn-primary btn-sm mr-1">
                         <i class="lni lni-eye"></i>
                     </a>
+                    @endif
+
+                    @if (canAccess('admins.leads.edit'))
                     <a href="{{ route('admins.leads.edit', $lead->id) }}" class="btn btn-warning btn-sm mr-1">
                         <i class="bx bx-edit"></i>
                     </a>
+                    @endif
+
+                    @if (canAccess('admins.leads.destroy'))
                     <form action="{{ route('admins.leads.destroy', $lead->id) }}" method="POST"
                         style="display:inline-block;">
                         @csrf
@@ -49,6 +56,7 @@
                             <i class="bx bx-trash"></i>
                         </button>
                     </form>
+                    @endif
                 </div>
             </td>
         </tr>

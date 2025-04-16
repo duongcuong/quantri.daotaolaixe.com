@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -31,7 +32,9 @@ class CourseUser extends Model
         'ngay_khai_giang',
         'ngay_be_giang',
         'ngay_hoc_cabin',
-        'exam_field_id'
+        'exam_field_id',
+        'gifted_hours',
+        'chip_hours',
     ];
 
     /**
@@ -95,5 +98,65 @@ class CourseUser extends Model
     public function latestCalendar()
     {
         return $this->hasOne(Calendar::class)->whereIn('type', ['exam_schedule', 'class_schedule'])->latest('date_start');
+    }
+
+    /**
+     * Mutator: Convert gifted_hours from HH:MM to minutes before saving to database.
+     */
+    public function setGiftedHoursAttribute($value)
+    {
+        $this->attributes['gifted_hours'] = $this->convertTimeToMinutes($value);
+    }
+
+    /**
+     * Mutator: Convert chip_hours from HH:MM to minutes before saving to database.
+     */
+    public function setChipHoursAttribute($value)
+    {
+        $this->attributes['chip_hours'] = $this->convertTimeToMinutes($value);
+    }
+
+    /**
+     * Accessor: Convert gifted_hours from minutes to HH:MM when retrieving from database.
+     */
+    public function getGiftedHoursAttribute($value)
+    {
+        return $this->convertMinutesToTime($value);
+    }
+
+    /**
+     * Accessor: Convert chip_hours from minutes to HH:MM when retrieving from database.
+     */
+    public function getChipHoursAttribute($value)
+    {
+        return $this->convertMinutesToTime($value);
+    }
+
+    /**
+     * Helper function to convert HH:MM to minutes.
+     */
+    private function convertTimeToMinutes($time)
+    {
+        if (!$time) {
+            return 0;
+        }
+
+        list($hours, $minutes) = explode(':', $time);
+        return ($hours * 60) + $minutes;
+    }
+
+    /**
+     * Helper function to convert minutes to HH:MM.
+     */
+    private function convertMinutesToTime($minutes)
+    {
+        if (!$minutes) {
+            return '';
+        }
+
+        $hours = floor($minutes / 60);
+        $remainingMinutes = $minutes % 60;
+
+        return sprintf('%02d:%02d', $hours, $remainingMinutes);
     }
 }

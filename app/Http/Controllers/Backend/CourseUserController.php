@@ -52,6 +52,8 @@ class CourseUserController extends Controller
             'practice_field' => 'nullable|string|max:255',
             'note' => 'nullable|string',
             'health_check_date' => 'nullable|date',
+            'gifted_hours' => 'nullable|regex:/^\d{2}:\d{2}$/',
+            'chip_hours' => 'nullable|regex:/^\d{2}:\d{2}$/',
             'sale_id' => 'nullable|exists:admins,id',
             'exam_date' => 'nullable|date',
             'tuition_fee' => 'nullable|integer',

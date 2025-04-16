@@ -25,10 +25,14 @@
             <td>{!! getStatus($examSchedule->status) !!}</td>
             <td class="fixed-column text-center">
                 <div class="d-flex">
+                    @if (canAccess('admins.exam-schedules.edit'))
                     <a href="{{ route('admins.exam-schedules.edit', $examSchedule->id) }}"
                         class="btn btn-warning btn-sm mr-2 btn-edit-ajax" data-cs-modal="#modal-exam-schedules-edit-ajax">
                         <i class="bx bx-edit"></i>
                     </a>
+                    @endif
+
+                    @if (canAccess('admins.exam-schedules.destroy'))
                     <form action="{{ route('admins.exam-schedules.destroy', $examSchedule->id) }}" class="delete-form-ajax"
                         method="POST" style="display:inline-block;">
                         @csrf
@@ -37,6 +41,7 @@
                             <i class="bx bx-trash"></i>
                         </button>
                     </form>
+                    @endif
                 </div>
             </td>
         </tr>

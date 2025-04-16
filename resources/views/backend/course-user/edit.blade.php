@@ -88,7 +88,7 @@ Sửa Khoá học - Học Viên
                         <div class="form-group col-md-6">
                             <label for="health_check_date">Khám sức khoẻ</label>
                             <input type="date" name="health_check_date" id="health_check_date" class="form-control"
-                                value="{{ old('health_check_date', \Carbon\Carbon::parse($courseUser->health_check_date)->format('Y-m-d')) }}" />
+                                value="{{ old('health_check_date', getDateTimeStamp($courseUser->health_check_date)) }}" />
                         </div>
                         {{-- <div class="form-group col-md-6">
                             <label for="hours">Giờ</label>
@@ -140,6 +140,16 @@ Sửa Khoá học - Học Viên
                             <label for="contract_date">Ngày kí hợp đồng</label>
                             <input type="date" name="contract_date" id="contract_date" class="form-control"
                                 value="{{ old('contract_date', \Carbon\Carbon::parse($courseUser->contract_date)->format('Y-m-d')) }}" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="gifted_hours">Số giờ chíp tặng</label>
+                            <input type="text" name="gifted_hours" id="gifted_hours"
+                                class="form-control cs-time-picker" placeholder="HH:MM" value="{{ old('gifted_hours', $courseUser->gifted_hours) }}">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="chip_hours">Số giờ đặt chíp</label>
+                            <input type="text" name="chip_hours" id="chip_hours"
+                                class="form-control cs-time-picker" placeholder="HH:MM" value="{{ old('chip_hours', $courseUser->chip_hours) }}">
                         </div>
                         <div class="form-group col-md-12">
                             <label for="note">Ghi chú</label>

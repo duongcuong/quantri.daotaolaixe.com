@@ -141,6 +141,16 @@ Tạo Khoá Học - User
                             <input type="date" name="contract_date" id="contract_date" class="form-control"
                                 value="{{ old('contract_date') }}" />
                         </div>
+                        <div class="form-group col-md-6">
+                            <label for="gifted_hours">Số giờ chíp tặng</label>
+                            <input type="text" name="gifted_hours" id="gifted_hours"
+                                class="form-control cs-time-picker" placeholder="HH:MM" value="{{ old('gifted_hours') }}">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="chip_hours">Số giờ đặt chíp</label>
+                            <input type="text" name="chip_hours" id="chip_hours"
+                                class="form-control cs-time-picker" placeholder="HH:MM" value="{{ old('chip_hours') }}">
+                        </div>
                         <div class="form-group col-md-12">
                             <label for="note">Ghi chú</label>
                             <textarea name="note" id="note" class="form-control">{{ old('note') }}</textarea>

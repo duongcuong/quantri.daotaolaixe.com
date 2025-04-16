@@ -61,7 +61,8 @@ class CalendarController extends Controller
             'date_end' => 'required|date|after_or_equal:date_start',
             'admin_id' => 'nullable|exists:admins,id',
             'user_id' => 'nullable|exists:users,id',
-            'course_user_id' => 'nullable|exists:course_users,id',
+            'course_user_id' => 'nullable|array',
+            'course_user_id.*' => 'exists:course_users,id',
             'lead_id' => 'nullable|exists:leads,id',
             'so_gio_chay_duoc' => 'nullable|regex:/^\d{2}:\d{2}$/',
             'is_tudong' => 'nullable|boolean',
@@ -84,8 +85,20 @@ class CalendarController extends Controller
         $data['is_bandem'] = $request->has('is_bandem') ? true : false;
         $data['approval'] = $request->has('approval') ? true : false;
 
-        $calendar = Calendar::create($data);
-        $calendar->created_by = Auth::guard('admin')->id();
+        // Nếu course_user_id có giá trị, lưu từng bản ghi riêng
+        if ($request->has('course_user_id') && is_array($request->course_user_id)) {
+            foreach ($request->course_user_id as $courseUserId) {
+                Calendar::create(array_merge($data, [
+                    'course_user_id' => $courseUserId,
+                    'created_by' => Auth::guard('admin')->id(),
+                ]));
+            }
+        } else {
+            // Nếu không có course_user_id, lưu một bản ghi duy nhất
+            Calendar::create(array_merge($data, [
+                'created_by' => Auth::guard('admin')->id(),
+            ]));
+        }
 
         return response()->json(['success' => 'Thêm thành công.']);
     }

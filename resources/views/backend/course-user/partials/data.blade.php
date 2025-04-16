@@ -98,12 +98,19 @@
             <td>{!! getStatusCalendarByType2($courseUser->latestCalendar->type ?? '', $courseUser->latestCalendar->status ?? '') !!}</td>
             <td class="fixed-column text-center">
                 <div class="d-flex">
+                    @if (canAccess('admins.course-user.show'))
                     <a href="{{ route('admins.course-user.show', $courseUser->id) }}" class="btn btn-primary btn-sm mr-1">
                         <i class="lni lni-eye"></i>
                     </a>
+                    @endif
+
+                    @if (canAccess('admins.course-user.edit'))
                     <a href="{{ route('admins.course-user.edit', $courseUser->id) }}" class="btn btn-warning btn-sm mr-1">
                         <i class="bx bx-edit"></i>
                     </a>
+                    @endif
+
+                    @if (canAccess('admins.course-user.destroy'))
                     <form action="{{ route('admins.course-user.destroy', $courseUser->id) }}" class="delete-form-ajax"
                         method="POST" style="display:inline-block;">
                         @csrf
@@ -112,6 +119,7 @@
                             <i class="bx bx-trash"></i>
                         </button>
                     </form>
+                    @endif
                 </div>
             </td>
         </tr>

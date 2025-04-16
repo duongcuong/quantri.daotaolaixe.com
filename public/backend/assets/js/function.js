@@ -290,8 +290,6 @@ function runTimePicker() {
     });
 }
 
-runTimePicker();
-
 /**
  * Thumbnail
  */
@@ -395,6 +393,8 @@ function resetNumericText() {
 resetNumericText();
 
 $(function () {
+    runTimePicker();
+
     function initializeSelect2() {
         $(".single-select").each(function () {
             let _this = $(this);

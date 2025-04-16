@@ -42,9 +42,13 @@
             <td>{{ getDateTimeStamp($sale->created_at, 'd/m/Y') }}</td>
             <td class="fixed-column text-center">
                 <div class="d-flex">
+                    @if (canAccess('admins.sales.edit'))
                     <a href="{{ route('admins.sales.edit', $sale->id) }}" class="btn btn-warning btn-sm mr-2">
                         <i class="bx bx-edit"></i>
                     </a>
+                    @endif
+
+                    @if (canAccess('admins.sales.destroy'))
                     <form action="{{ route('admins.sales.destroy', $sale->id) }}" method="POST"
                         style="display:inline-block;">
                         @csrf
@@ -53,6 +57,7 @@
                             <i class="bx bx-trash"></i>
                         </button>
                     </form>
+                    @endif
                 </div>
             </td>
         </tr>

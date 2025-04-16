@@ -37,9 +37,13 @@
             <td>{!! getMoney($course->tuition_fee) !!}</td>
             <td class="fixed-column text-center">
                 <div class="d-flex">
+                    @if(canAccess('admins.courses.edit'))
                     <a href="{{ route('admins.courses.edit', $course->id) }}" class="btn btn-warning btn-sm mr-2 btn-edit-ajax" data-cs-modal="#modal-courses-edit-ajax">
                         <i class="bx bx-edit"></i>
                     </a>
+                    @endif
+
+                    @if(canAccess('admins.courses.destroy'))
                     <form action="{{ route('admins.courses.destroy', $course->id) }}" class="delete-form-ajax" method="POST"
                         style="display:inline-block;">
                         @csrf
@@ -48,6 +52,7 @@
                             <i class="bx bx-trash"></i>
                         </button>
                     </form>
+                    @endif
                 </div>
             </td>
         </tr>

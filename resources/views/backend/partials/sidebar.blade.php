@@ -52,6 +52,7 @@
             </a>
         </li>
 
+        @if (canAccess('admins.course-users.import'))
         <li class="{{ Request::is('admin/course-user/import') ? 'mm-active' : '' }}">
             <a href="{{ route('admins.course-user.import') }}">
                 <div class="parent-icon icon-color-5"><i class="lni lni-cloud-upload"></i>
@@ -59,7 +60,9 @@
                 <div class="menu-title">Import</div>
             </a>
         </li>
+        @endif
 
+        @if (canAccess('admins.comments.index'))
         {{-- Bình luận --}}
         <li class="menu-label">Quản lý Bình luận</li>
         {{-- @if (Auth::user()->hasPermission('admins.comments.index') ||
@@ -71,6 +74,7 @@
                 <div class="menu-title">Quản lý bình luận</div>
             </a>
         </li>
+        @endif
 
         {{-- Lịch thi sát hạch --}}
         <li class="menu-label">Lịch thi sát hạch</li>
@@ -109,11 +113,11 @@
                 </li>
                 {{-- @endif --}}
 
-                {{-- @if (Auth::user()->hasPermission('admins.teachers.create')) --}}
+                @if(canAccess('admins.teachers.create'))
                 <li class="{{ Request::is('admin/teachers/create') ? '' : '' }}">
                     <a href="{{ route('admins.teachers.create') }}"><i class="bx bx-star"></i>Thêm giáo viên</a>
                 </li>
-                {{-- @endif --}}
+                @endif
 
                 <li class="{{ Request::is('admin/calendars/learning') ? 'mm-active' : '' }}">
                     <a href="{{ route('admins.calendars.learning') }}"><i class="bx bx-calendar-exclamation"></i>Lịch làm việc giáo viên</a>

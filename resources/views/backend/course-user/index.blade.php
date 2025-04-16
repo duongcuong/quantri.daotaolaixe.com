@@ -23,12 +23,16 @@ Tất cả Khoá học - Học Viên
         <a class="btn btn-outline-primary btn-sm mr-2" href="{{ route('admins.course-user.index') }}" data-toggle="tooltip"
             title="Quay về trang quản lý Khoá học - User &#9194;"><i class="bx bx-rewind"></i>Quay lại</a>
         @endif
+
+        @if (canAccess('admins.course-user.import'))
         <a class="btn btn-outline-success btn-sm mr-2" href="{{ route('admins.course-user.import') }}" title="Import"><i
                 class="lni lni-cloud-upload mr-1"></i>Import file</a>
-        {{-- @if (Auth::user()->hasPermission('admins.course-user.index')) --}}
+        @endif
+
+        @if (canAccess('admins.course-user.create'))
         <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.course-user.create') }}" title="Thêm mới"><i
                 class="bx bx-plus"></i>Thêm mới</a>
-        {{-- @endif --}}
+        @endif
     </div>
 </div>
 

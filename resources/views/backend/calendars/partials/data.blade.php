@@ -13,14 +13,6 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <th>Tên sự kiện</th>
             @endif
 
-            @if (!request()->has('show_column') || in_array('status', $columns))
-            <th>Trạng thái</th>
-            @endif
-
-            @if (!request()->has('show_column') || in_array('priority', $columns))
-            <th>Ưu tiên</th>
-            @endif
-
             @if (!request()->has('show_column') || in_array('date_start', $columns))
             <th>
                 @switch(request()->type)
@@ -36,7 +28,7 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             </th>
             @endif
 
-            @if (!request()->has('show_column') || in_array('date_end', $columns))
+            @if (!request()->has('show_column') || in_array('date_start', $columns))
             <th>
                 @switch(request()->type)
                 @case('class_schedule')
@@ -46,6 +38,14 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
                 Thời gian
                 @endswitch
             </th>
+            @endif
+
+            @if (!request()->has('show_column') || in_array('status', $columns))
+            <th>Trạng thái</th>
+            @endif
+
+            @if (!request()->has('show_column') || in_array('priority', $columns))
+            <th>Ưu tiên</th>
             @endif
 
             @if (!request()->has('show_column') || in_array('name_hocvien', $columns))
@@ -136,6 +136,14 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <th>Ngày nộp lệ phí</th>
             @endif
 
+            @if (!request()->has('show_column') || in_array('gifted_hours', $columns))
+            <th>Giờ tặng</th>
+            @endif
+
+            @if (!request()->has('show_column') || in_array('chip_hours', $columns))
+            <th>Số giờ đăng ký</th>
+            @endif
+
             @if (!request()->has('show_column') || in_array('description', $columns))
             <th>Mô tả</th>
             @endif
@@ -168,14 +176,6 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <td>{{ $calendar->name }}</td>
             @endif
 
-            @if (!request()->has('show_column') || in_array('status', $columns))
-            <td>{!! getStatusCalendarByType($calendar->type, $calendar->status) !!}</td>
-            @endif
-
-            @if (!request()->has('show_column') || in_array('priority', $columns))
-            <td>{!! getPriority($calendar->priority) !!}</td>
-            @endif
-
             @if (!request()->has('show_column') || in_array('date_start', $columns))
             <td>
                 @if (request()->type == 'exam_schedule' || request()->type == 'class_schedule')
@@ -188,8 +188,16 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             </td>
             @endif
 
-            @if (!request()->has('show_column') || in_array('date_end', $columns))
+            @if (!request()->has('show_column') || in_array('date_start', $columns))
             <td>{!! formatTimeBetweenVn($calendar->date_start, $calendar->date_end)  !!}</td>
+            @endif
+
+            @if (!request()->has('show_column') || in_array('status', $columns))
+            <td>{!! getStatusCalendarByType($calendar->type, $calendar->status) !!}</td>
+            @endif
+
+            @if (!request()->has('show_column') || in_array('priority', $columns))
+            <td>{!! getPriority($calendar->priority) !!}</td>
             @endif
 
             @if (!request()->has('show_column') || in_array('name_hocvien', $columns))
@@ -278,6 +286,14 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <td>{{ getDateTimeStamp($calendar->ngay_dong_hoc_phi, 'd/m/Y') }}</td>
             @endif
 
+            @if (!request()->has('show_column') || in_array('gifted_hours', $columns))
+            <td>{{ $calendar->courseUser->gifted_hours }}</td>
+            @endif
+
+            @if (!request()->has('show_column') || in_array('chip_hours', $columns))
+            <td>{{ $calendar->courseUser->chip_hours }}</td>
+            @endif
+
             @if (!request()->has('show_column') || in_array('description', $columns))
             <td>{{ $calendar->description }}</td>
             @endif
@@ -296,10 +312,14 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
 
             <td class="fixed-column text-center">
                 <div class="d-flex">
+                    @if (canAccess('admins.calendars.edit'))
                     <a href="{{ route('admins.calendars.edit', ['calendar' => $calendar->id, 'reload' => request()->reload]) }}"
                         class="btn btn-warning btn-sm mr-2 btn-edit-ajax" data-cs-modal="#modal-calendars-edit-ajax">
                         <i class="bx bx-edit"></i>
                     </a>
+                    @endif
+
+                    @if (canAccess('admins.calendars.destroy'))
                     <form action="{{ route('admins.calendars.destroy', $calendar->id) }}" class="delete-form-ajax"
                         method="POST" style="display:inline-block;">
                         @csrf
@@ -308,6 +328,7 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
                             <i class="bx bx-trash"></i>
                         </button>
                     </form>
+                    @endif
                 </div>
             </td>
         </tr>

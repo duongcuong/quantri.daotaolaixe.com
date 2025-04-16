@@ -29,10 +29,14 @@
             <td>{!! getStatusFee($fee->is_received) !!}</td>
             <td class="fixed-column text-center">
                 <div class="d-flex">
+                    @if (canAccess('admins.fees.edit'))
                     <a href="{{ route('admins.fees.edit', ['fee' => $fee->id, 'course_user_id' => request()->course_user_id ?? '']) }}"
                         class="btn btn-warning btn-sm mr-2 btn-edit-ajax" data-cs-modal="#modal-fees-edit-ajax">
                         <i class="bx bx-edit"></i>
                     </a>
+                    @endif
+
+                    @if (canAccess('admins.fees.destroy'))
                     <form action="{{ route('admins.fees.destroy', $fee->id) }}" class="delete-form-ajax" method="POST"
                         style="display:inline-block;">
                         @csrf
@@ -41,6 +45,7 @@
                             <i class="bx bx-trash"></i>
                         </button>
                     </form>
+                    @endif
                 </div>
             </td>
         </tr>

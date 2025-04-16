@@ -19,10 +19,10 @@ Tất cả giáo viên
         </div>
     </div>
     <div class="ml-auto">
-        {{-- @if (Auth::user()->hasPermission('admins.teachers.index')) --}}
+        @if (canAccess('admins.teachers.create'))
         <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.teachers.create') }}" data-toggle="tooltip"
             title="Thêm mới"><i class="bx bx-plus"></i>Thêm mới</a>
-        {{-- @endif --}}
+        @endif
     </div>
 </div>
 

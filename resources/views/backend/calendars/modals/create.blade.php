@@ -224,10 +224,10 @@
                             @if (request()->type == 'class_schedule' || request()->type == 'exam_schedule')
                             <div class="form-group">
                                 <label for="course_user_id">Học viên khóa học</label>
-                                <select class="select2-ajax-single form-control select2-ajax-single-calendar"
-                                    name="course_user_id" data-placeholder="Chọn học viên khóa học"
+                                <select multiple class="select2-ajax-single form-control select2-ajax-single-calendar"
+                                    name="course_user_id[]" data-placeholder="Chọn học viên khóa học"
                                     data-url="{{ route('admins.course-user.list') }}"
-                                    data-selected-id="{{ request()->course_user_id }}">
+                                    data-selected-id="">
                                 </select>
                             </div>
                             @endif

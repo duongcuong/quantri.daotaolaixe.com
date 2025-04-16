@@ -19,10 +19,10 @@ Tất cả Lịch sử nộp tiền
         </div>
     </div>
     <div class="ml-auto">
-        {{-- @if (Auth::user()->hasPermission('admins.fees.index')) --}}
+        @if (canAccess('admins.fees.create'))
         <a class="btn btn-outline-primary btn-sm btn-create-ajax" href="{{ route('admins.fees.create') }}" data-cs-modal="#modal-fees-create-ajax"
             title="Thêm mới"><i class="bx bx-plus"></i>Thêm mới</a>
-        {{-- @endif --}}
+        @endif
     </div>
 </div>
 
