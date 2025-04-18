@@ -125,6 +125,13 @@ class ModulePermissionSeeder extends Seeder
                 'Xóa' => 'admins.vehicle-expenses.destroy',
                 'Xem' => 'admins.vehicle-expenses.show',
             ],
+            'Quản lý thành viên' => [
+                'Danh sách' => 'admins.admins.index',
+                'Thêm' => 'admins.admins.create',
+                'Sửa' => 'admins.admins.edit',
+                'Xóa' => 'admins.admins.destroy',
+                'Xem' => 'admins.admins.show',
+            ],
             'Quản lý vai trò' => [
                 'Danh sách' => 'admins.roles.index',
                 'Thêm' => 'admins.roles.create',

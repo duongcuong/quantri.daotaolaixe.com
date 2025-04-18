@@ -1,7 +1,6 @@
 <div class="sidebar-wrapper" data-simplebar="true">
     <div class="sidebar-header">
         <div class="text-center">
-            {{-- <h4 class="logo-text">{{ setting('site_title', 'Starter') }}</h4> --}}
             <img src="{{ asset('/') }}backend/assets/images/logo.png" width="50" alt="">
         </div>
         <a href="javascript:;" class="ml-auto toggle-btn"> <i class="bx bx-menu"></i>
@@ -9,23 +8,9 @@
     </div>
     <!--navigation-->
     <ul class="metismenu" id="menu">
-        <!--Home-->
-        {{-- @if (Auth::user()->hasPermission('app.dashboard'))
-        <li class="{{ Request::is('app/dashboard') ? 'mm-active' : '' }}">
-            <a href="{{ route('app.dashboard') }}">
-                <div class="parent-icon icon-color-1">
-                    <i class="bx bx-home-alt"></i>
-                </div>
-                <div class="menu-title">Tổng quan</div>
-            </a>
-        </li>
-        @endif --}}
-        <!--End Home-->
 
         <!--Sales-->
         <li class="menu-label">Quản lý sales</li>
-        {{-- @if (Auth::user()->hasPermission('admins.leads.index') ||
-        Auth::user()->hasPermission('admins.leads.create')) --}}
         <li class="{{ Request::is('admin/leads/*') ? 'mm-active' : '' }}">
             <a href="{{ route('admins.leads.index') }}">
                 <div class="parent-icon icon-color-11"><i class="bx bx-grid-vertical"></i>
@@ -33,7 +18,6 @@
                 <div class="menu-title">Quản lý Leads</div>
             </a>
         </li>
-        {{-- @endif --}}
         <!--End Sales-->
 
         <li class="{{ Request::is('admin/calendars/index') ? 'mm-active' : '' }}">
@@ -63,10 +47,7 @@
         @endif
 
         @if (canAccess('admins.comments.index'))
-        {{-- Bình luận --}}
         <li class="menu-label">Quản lý Bình luận</li>
-        {{-- @if (Auth::user()->hasPermission('admins.comments.index') ||
-        Auth::user()->hasPermission('admins.comments.create')) --}}
         <li class="{{ Request::is('admin/comments/*') ? 'mm-active' : '' }}">
             <a href="{{ route('admins.comments.index') }}">
                 <div class="parent-icon icon-color-3"><i class="bx bx-conversation"></i>
@@ -78,8 +59,6 @@
 
         {{-- Lịch thi sát hạch --}}
         <li class="menu-label">Lịch thi sát hạch</li>
-        {{-- @if (Auth::user()->hasPermission('admins.comments.index') ||
-        Auth::user()->hasPermission('admins.comments.create')) --}}
         <li class="{{ Request::is('admin/comments/*') ? 'mm-active' : '' }}">
             <a href="{{ route('admins.calendars.exam') }}">
                 <div class="parent-icon icon-color-11"><i class="bx bx-calendar-check"></i>
@@ -97,8 +76,6 @@
 
         <!--Giáo viên-->
         <li class="menu-label">Quản lý Giáo viên</li>
-        {{-- @if (Auth::user()->hasPermission('admins.teachers.index') ||
-        Auth::user()->hasPermission('admins.teachers.create')) --}}
         <li class="{{ Request::is('admin/teachers/*') ? 'mm-active' : '' }}">
             <a class="has-arrow" href="javascript:;">
                 <div class="parent-icon icon-color-11"><i class="bx bx-group"></i>
@@ -106,12 +83,10 @@
                 <div class="menu-title">Quản lý Giáo viên</div>
             </a>
             <ul class="{{ Request::is('admin/teachers*') ? 'mm-show' : '' }}">
-                {{-- @if (Auth::user()->hasPermission('admins.teachers.index')) --}}
                 <li
                     class="{{ Request::is('admin/teachers') || Request::is('admin/teachers/*/edit') ? 'mm-active' : '' }}">
                     <a href="{{ route('admins.teachers.index') }}"><i class="bx bx-star"></i>Danh sách giáo viên</a>
                 </li>
-                {{-- @endif --}}
 
                 @if(canAccess('admins.teachers.create'))
                 <li class="{{ Request::is('admin/teachers/create') ? '' : '' }}">
@@ -124,13 +99,10 @@
                 </li>
             </ul>
         </li>
-        {{-- @endif --}}
         <!--End Giáo viên-->
 
         <!--Giáo viên-->
         <li class="menu-label">Quản lý học viên</li>
-        {{-- @if (Auth::user()->hasPermission('admins.teachers.index') ||
-        Auth::user()->hasPermission('admins.teachers.create')) --}}
         <li class="{{ Request::is('admin/courses/*') ? 'mm-active' : '' }}">
             <a class="has-arrow" href="javascript:;">
                 <div class="parent-icon icon-color-11"><i class="bx bx-user-plus"></i>
@@ -138,12 +110,10 @@
                 <div class="menu-title">Học viên</div>
             </a>
             <ul class="{{ Request::is('admin/courses*') ? 'mm-show' : '' }}">
-                {{-- @if (Auth::user()->hasPermission('admins.courses.index')) --}}
                 <li
                     class="{{ Request::is('admin/courses') || Request::is('admin/courses/create') || Request::is('admin/courses/*/edit') ? 'mm-active' : '' }}">
                     <a href="{{ route('admins.courses.index') }}"><i class="bx bx-star"></i>Danh sách khoá học</a>
                 </li>
-                {{-- @endif --}}
 
                 <li
                     class="{{ Request::is('admin/users') || Request::is('admin/users/create') || Request::is('admin/users/*/edit') ? 'mm-active' : '' }}">
@@ -159,18 +129,17 @@
                     class="{{ Request::is('admin/fees') || Request::is('admin/fees/create') || Request::is('admin/fees/*/edit') ? 'mm-active' : '' }}">
                     <a href="{{ route('admins.fees.index') }}"><i class="bx bx-star"></i>Lịch sử nộp tiền</a>
                 </li>
-
-                {{-- @if (Auth::user()->hasPermission('admins.teachers.create')) --}}
-                {{-- <li class="{{ Request::is('admin/teachers/create') ? 'mm-active' : '' }}">
-                    <a href="{{ route('admins.teachers.index') }}"><i class="bx bx-star"></i>Danh sách học viên</a>
-                </li> --}}
-                {{-- @endif --}}
             </ul>
         </li>
-        {{-- @endif --}}
-        <!--End Giáo viên-->
 
+        @if(canAccess('admins.exam-fields.index') ||
+        canAccess('admins.lead-sources.index') ||
+        canAccess('admins.vehicles.index') ||
+        canAccess('admins.vehicle-expenses.index'))
         <li class="menu-label">Quản lý chung</li>
+        @endif
+
+        @if(canAccess('admins.exam-fields.index'))
         <li
             class="{{ Request::is('admin/exam-fields') || Request::is('admin/exam-fields/create') || Request::is('admin/exam-fields/*/edit') ? 'mm-active' : '' }}">
             <a href="{{ route('admins.exam-fields.index') }}">
@@ -180,7 +149,9 @@
                 <div class="menu-title">Quản lý sân học và thi</div>
             </a>
         </li>
+        @endif
 
+        @if(canAccess('admins.lead-sources.index'))
         <li
             class="{{ Request::is('admin/lead-sources') || Request::is('admin/lead-sources/create') || Request::is('admin/lead-sources/*/edit') ? 'mm-active' : '' }}">
             <a href="{{ route('admins.lead-sources.index') }}">
@@ -190,7 +161,9 @@
                 <div class="menu-title">Quản lý Lead source</div>
             </a>
         </li>
+        @endif
 
+        @if (canAccess('admins.vehicles.index'))
         <li
             class="{{ Request::is('admin/vehicles') || Request::is('admin/vehicles/create') || Request::is('admin/vehicles/*/edit') ? 'mm-active' : '' }}">
             <a href="{{ route('admins.vehicles.index') }}">
@@ -200,7 +173,9 @@
                 <div class="menu-title">Quản lý xe</div>
             </a>
         </li>
+        @endif
 
+        @if(canAccess('admins.vehicle-expenses.index'))
         <li
             class="{{ Request::is('admin/vehicle-expenses') || Request::is('admin/vehicle-expenses/create') || Request::is('admin/vehicle-expenses/*/edit') ? 'mm-active' : '' }}">
             <a href="{{ route('admins.vehicle-expenses.index') }}">
@@ -210,11 +185,17 @@
                 <div class="menu-title">Quản lý chi phí xe</div>
             </a>
         </li>
+        @endif
+
 
         <!--Security page-->
+        @if(canAccess('admins.admins.index') ||
+        canAccess('admins.modules.index') ||
+        canAccess('admins.permissions.index') ||
+        canAccess('admins.roles.index'))
         <li class="menu-label">Bảo mật</li>
-        {{-- @if (Auth::user()->hasPermission('admins.admins.index') ||
-        Auth::user()->hasPermission('admins.admins.create')) --}}
+        @endif
+        @if(canAccess('admins.admins.index'))
         <li class="{{ Request::is('admin/admins/*') ? 'mm-active' : '' }}">
             <a class="has-arrow" href="javascript:;">
                 <div class="parent-icon icon-color-4"><i class="bx bx-user"></i>
@@ -237,8 +218,9 @@
                 {{-- @endif --}}
             </ul>
         </li>
-        {{-- @endif --}}
+        @endif
 
+        @if(canAccess('admins.modules.index'))
         <li class="{{ Request::is('admin/modules/*') ? 'mm-active' : '' }}">
             <a class="has-arrow" href="javascript:;">
                 <div class="parent-icon icon-color-4"><i class="bx bx-user"></i>
@@ -261,7 +243,9 @@
                 {{-- @endif --}}
             </ul>
         </li>
+        @endif
 
+        @if (canAccess('admins.permissions.index'))
         <li class="{{ Request::is('admin/permissions/*') ? 'mm-active' : '' }}">
             <a class="has-arrow" href="javascript:;">
                 <div class="parent-icon icon-color-4"><i class="bx bx-user"></i>
@@ -284,9 +268,9 @@
                 {{-- @endif --}}
             </ul>
         </li>
+        @endif
 
-        {{-- @if (Auth::user()->hasPermission('admins.roles.index') ||
-        Auth::user()->hasPermission('admins.roles.create')) --}}
+        @if (canAccess('admins.roles.index'))
         <li class="{{ Request::is('admin/roles/*') ? 'mm-active' : '' }}">
             <a class="has-arrow" href="javascript:;">
                 <div class="parent-icon icon-color-5"><i class="bx bx-shield-quarter"></i>
@@ -294,25 +278,21 @@
                 <div class="menu-title">Vai trò</div>
             </a>
             <ul class="{{ Request::is('admin/roles*') ? 'mm-show' : '' }}">
-                {{-- @if (Auth::user()->hasPermission('admins.roles.create')) --}}
                 <li
                     class="{{ Request::is('admin/roles') ? 'mm-active' : '' }}{{ Request::is('admin/roles/*/edit') ? 'mm-active' : '' }}">
                     <a href="{{ route('admins.roles.index') }}"><i class="bx bx-star"></i>Quản lý</a>
                 </li>
-                {{-- @endif --}}
-                {{-- @if (Auth::user()->hasPermission('admins.roles.create')) --}}
                 <li class="{{ Request::is('admin/roles/create/') ? 'mm-active' : '' }}">
                     <a href="{{ route('admins.roles.create') }}"><i class="bx bx-plus"></i>
                         Thêm mới
                     </a>
                 </li>
-                {{-- @endif --}}
             </ul>
         </li>
-        {{-- @endif --}}
-        <!--End Security page-->
+        @endif
 
         <!--System-->
+        @if (canAccess('admins.activity-logs.index'))
         <li class="menu-label">Hệ thống</li>
 
         <li class="{{ Request::is('admin/activity-logs/*') ? 'mm-active' : '' }}">
@@ -322,6 +302,7 @@
                 <div class="menu-title">Log hệ thống</div>
             </a>
         </li>
+        @endif
 
         {{-- @if (Auth::user()->hasPermission('app.settings.general') ||
         Auth::user()->hasPermission('app.settings.appearance') ||
