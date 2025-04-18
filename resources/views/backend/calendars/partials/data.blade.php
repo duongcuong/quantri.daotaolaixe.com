@@ -177,9 +177,9 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             @endif
 
             @if (!request()->has('show_column') || in_array('date_start', $columns))
-            <td>
+            <td class="date-start-column">
                 @if (request()->type == 'exam_schedule' || request()->type == 'class_schedule')
-                <a href="#" data-start-date="{{ $calendar->date_start }}" class="btn-show-exam-schedule">
+                <a href="javascript:;" data-start-date="{{ $calendar->date_start }}" class="btn-show-exam-schedule">
                     {!! formatDateTimeVn($calendar->date_start) !!}
                 </a>
                 @else
@@ -189,7 +189,7 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             @endif
 
             @if (!request()->has('show_column') || in_array('date_start', $columns))
-            <td>{!! formatTimeBetweenVn($calendar->date_start, $calendar->date_end)  !!}</td>
+            <td>{!! formatTimeBetweenVn($calendar->date_start, $calendar->date_end) !!}</td>
             @endif
 
             @if (!request()->has('show_column') || in_array('status', $columns))
@@ -242,7 +242,7 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
                 @else
                 {{ $calendar->examField->name ?? '' }}
                 @endif
-                </td>
+            </td>
             @endif
 
             @if (!request()->has('show_column') || in_array('course_code', $columns))
@@ -336,3 +336,32 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
     </tbody>
 </table>
 {{ $calendars->links() }}
+
+<script>
+    jQuery(document).ready(function () {
+        function mergeTableRows(selector) {
+            var previousText = null;
+            var rowspan = 1;
+            var previousElement = null;
+
+            $(selector).each(function () {
+                var currentText = $(this).text().trim();
+
+                if (previousText === currentText) {
+                    // Nếu giá trị giống nhau, ẩn ô hiện tại và tăng rowspan của ô trước đó
+                    $(this).remove(); // Xóa ô hiện tại
+                    $(previousElement).attr('rowspan', rowspan + 1); // Tăng rowspan
+                    rowspan++;
+                } else {
+                    // Nếu giá trị khác nhau, đặt lại rowspan và cập nhật giá trị trước đó
+                    previousText = currentText;
+                    previousElement = this; // Lưu lại ô hiện tại
+                    rowspan = 1;
+                }
+            });
+        }
+
+        // Gọi hàm để gộp các ô trong cột `date-start-column`
+        mergeTableRows('.date-start-column');
+    });
+</script>

@@ -92,7 +92,7 @@
                 {{ number_format($courseUser->calendars_sum_km) }}
                 @endif
             </td>
-            <td>{!! getMoney($courseUser->tuition_fee) !!}</td>
+            <td>{!! getMoney($courseUser->course->tuition_fee) !!}</td>
             <td>{!! getMoney($courseUser->fees_sum_amount) !!}</td>
             <td>{!! getMoneyConThieu($courseUser->tuition_fee, $courseUser->fees_sum_amount) !!}</td>
             <td>{!! getStatusCalendarByType2($courseUser->latestCalendar->type ?? '', $courseUser->latestCalendar->status ?? '') !!}</td>

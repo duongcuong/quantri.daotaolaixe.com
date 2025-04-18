@@ -227,7 +227,7 @@
                                 <select multiple class="select2-ajax-single form-control select2-ajax-single-calendar"
                                     name="course_user_id[]" data-placeholder="Chọn học viên khóa học"
                                     data-url="{{ route('admins.course-user.list') }}"
-                                    data-selected-id="">
+                                    data-selected-id="{{ request()->course_user_id }}">
                                 </select>
                             </div>
                             @endif

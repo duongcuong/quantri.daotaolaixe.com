@@ -158,7 +158,7 @@ class CalendarController extends Controller
         $filters = $request->all();
         session(['calendar_filters' => $filters]);
 
-        $query = Calendar::query();
+        $query = Calendar::orderBy('date_start', 'DESC');
 
         if ($request->has('type') && $request->type) {
             $types = explode(',', $request->type);

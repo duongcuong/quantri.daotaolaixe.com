@@ -185,7 +185,7 @@ class UserController extends Controller
         // Lưu các giá trị bộ lọc vào session
         session(['user_filters' => $request->all()]);
 
-        $query = User::query();
+        $query = User::with('courseUsers.course');
 
         $hasSearch = false;
 

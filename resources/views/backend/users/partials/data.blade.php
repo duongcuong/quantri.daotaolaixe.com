@@ -13,6 +13,7 @@
             <th>SĐT</th>
             <th>CMT/CCCD</th>
             <th>Địa chỉ</th>
+            <th>Khoá học</th>
             {{-- <th>Tên thẻ</th> --}}
             <th>Số thẻ</th>
             <th>Trạng thái</th>
@@ -34,6 +35,13 @@
 
             <td>{{ $user->identity_card }}</td>
             <td>{{ $user->address }}</td>
+            <td>
+                @foreach ($user->courseUsers as $courseUser)
+                    <a href="{{ route('admins.course-user.show', $courseUser->id) }}" class="badge badge-primary">
+                        {{ $courseUser->course->code ?? 'N/A' }}
+                    </a>
+                @endforeach
+            </td>
             {{-- <td>{{ $user->card_name }}</td> --}}
             <td>{{ $user->card_number }}</td>
             <td>{!! getStatus($user->status) !!}</td>

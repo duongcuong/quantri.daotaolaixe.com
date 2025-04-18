@@ -114,8 +114,8 @@ Tất cả Khoá học - Học Viên
                     <label for="tuition_status" class="mr-2">Trạng thái học phí</label>
                     <select name="tuition_status" id="tuition_status" class="form-control">
                         <option value="">Chọn trạng thái</option>
-                        <option value="paid">Đã đóng đủ</option>
-                        <option value="unpaid">Chưa đóng đủ</option>
+                        <option value="paid" {{ session('course_user_filters.tuition_status') == 'paid' ? 'selected' : '' }}>Đã đóng đủ</option>
+                        <option value="unpaid" {{ session('course_user_filters.tuition_status') == 'unpaid' ? 'selected' : '' }}>Chưa đóng đủ</option>
                     </select>
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
