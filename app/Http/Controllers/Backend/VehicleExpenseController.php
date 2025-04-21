@@ -86,6 +86,11 @@ class VehicleExpenseController extends Controller
             $query->where('vehicle_id', $request->vehicle_id);
         }
 
+        // Lấy danh sách các loại phí từ Vahicle expense
+        if ($request->has('type') && $request->type != '') {
+            $query->where('type', $request->type);
+        }
+
         // Tìm kiếm theo license_plate trong bảng Vehicle
         if ($request->has('license_plate') && $request->license_plate != '') {
             $query->whereHas('vehicle', function ($q) use ($request) {
@@ -104,10 +109,13 @@ class VehicleExpenseController extends Controller
             $hasSearch = true;
         }
 
+        // Tính tổng chi phí theo điều kiện lọc
+        $totalExpense = $query->sum('amount');
+
         $vehicle_expenses = $query->paginate(LIMIT);
 
         if ($request->ajax()) {
-            return view('backend.vehicle-expenses.partials.data', compact('vehicle_expenses'))->render();
+            return view('backend.vehicle-expenses.partials.data', compact('vehicle_expenses', 'totalExpense'))->render();
         }
 
         return view('backend.vehicle-expenses.index', compact('fees', 'feeTotal'));

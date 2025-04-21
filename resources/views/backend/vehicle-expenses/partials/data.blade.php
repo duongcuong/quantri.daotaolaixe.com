@@ -1,3 +1,7 @@
+<div class="alert alert-info alert-dismissible fade show" role="alert">
+    <strong class="mr-1">Tổng tiền: </strong>
+    <strong class="mr-2 text-danger">{!! getMoney($totalExpense) !!}</strong>
+</div>
 <table id="example" class="table table-sm table-bordered table-hover">
     <thead>
         <tr>
@@ -5,8 +9,8 @@
             <th>Biển số Xe</th>
             <th>Loại chi phí</th>
             <th>Thời gian</th>
-            <th>Số tiền</th>
             <th>Người chi</th>
+            <th>Số tiền</th>
             <th class="fixed-column text-center">Hành động</th>
         </tr>
     </thead>
@@ -15,7 +19,7 @@
         <tr>
             <td>{{ getSTT($vehicle_expenses, $loop->iteration) }}</td>
             <td>{{ $vehicle_expense->vehicle->license_plate }}</td>
-            <td>{!! getTypeVahicleExpense($vehicle_expense->type) !!}</td>
+            <td>{!! getTypeVahicleExpense($vehicle_expense->type, $vehicle_expense->note) !!}</td>
             <td>{{ getDateTimeStamp($vehicle_expense->expense_date, 'd/m/Y') }}</td>
             <td>{{ $vehicle_expense->admin->name }}</td>
             <td>{!! getMoney($vehicle_expense->amount) !!}</td>

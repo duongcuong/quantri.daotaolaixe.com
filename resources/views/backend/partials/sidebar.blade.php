@@ -60,7 +60,7 @@
         {{-- Lịch thi sát hạch --}}
         <li class="menu-label">Lịch thi sát hạch</li>
         <li class="{{ Request::is('admin/comments/*') ? 'mm-active' : '' }}">
-            <a href="{{ route('admins.calendars.exam') }}" class="reset-search-action">
+            <a href="{{ route('admins.calendars.exam-date') }}" class="reset-search-action">
                 <div class="parent-icon icon-color-11"><i class="bx bx-calendar-check"></i>
                 </div>
                 <div class="menu-title">Lịch thi sát hạch</div>

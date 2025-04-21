@@ -11,6 +11,7 @@
             <th>Ngày sinh</th>
             <th>Giới tính</th>
             <th>SĐT</th>
+            <th>Hạng</th>
             <th>CMT/CCCD</th>
             <th>Địa chỉ</th>
             <th>Khoá học</th>
@@ -32,14 +33,19 @@
             <td>{{ $user->gender == 0 ? 'Nam' : ($user->gender == 1 ? 'Nữ' : 'Khác') }}</td>
             <td>{{ $user->phone }}</td>
 
+            <td>
+                @foreach ($user->courseUsers as $courseUser)
+                {!! getRankOne($courseUser->course->rank) !!}
+                @endforeach
+            </td>
 
             <td>{{ $user->identity_card }}</td>
             <td>{{ $user->address }}</td>
             <td>
                 @foreach ($user->courseUsers as $courseUser)
-                    <a href="{{ route('admins.course-user.show', $courseUser->id) }}" class="badge badge-primary">
-                        {{ $courseUser->course->code ?? 'N/A' }}
-                    </a>
+                <a href="{{ route('admins.course-user.show', $courseUser->id) }}" class="badge badge-primary">
+                    {{ $courseUser->course->code ?? 'N/A' }}
+                </a>
                 @endforeach
             </td>
             {{-- <td>{{ $user->card_name }}</td> --}}

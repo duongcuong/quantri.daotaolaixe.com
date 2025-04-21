@@ -225,6 +225,18 @@ class CalendarController extends Controller
             }
         }
 
+        // Xử lý group_by = date
+        if ($request->has('group_by') && $request->group_by === 'date_exam') {
+            $calendars = $query->selectRaw('DATE(date_start) as date, COUNT(*) as total_calendars')
+                ->groupByRaw('DATE(date_start)')
+                ->orderBy('date', 'DESC')
+                ->paginate(LIMIT);
+
+            if ($request->ajax()) {
+                return view('backend.calendars.partials.data-date-exam', compact('calendars'))->render();
+            }
+        }
+
         $calendars = $query->with(['admin', 'user', 'courseUser', 'lead'])->latest('date_start')->paginate(LIMIT);
 
         if ($request->ajax()) {
@@ -244,6 +256,12 @@ class CalendarController extends Controller
     {
         $examFields = ExamField::all();
         return view('backend.calendars.learning-date', compact('examFields'));
+    }
+
+    public function examDate()
+    {
+        $examFields = ExamField::all();
+        return view('backend.calendars.exam-date', compact('examFields'));
     }
 
     public function exam()

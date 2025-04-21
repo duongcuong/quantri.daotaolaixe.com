@@ -103,6 +103,7 @@ Route::prefix('admin')->as('admins.')->group(function () {
         Route::get('calendars/data', [CalendarController::class, 'data'])->name('calendars.data');
         Route::get('calendars/learning', [CalendarController::class, 'learning'])->name('calendars.learning');
         Route::get('calendars/learning-date', [CalendarController::class, 'learningDate'])->name('calendars.learning-date');
+        Route::get('calendars/exam-date', [CalendarController::class, 'examDate'])->name('calendars.exam-date');
         Route::get('calendars/exam', [CalendarController::class, 'exam'])->name('calendars.exam');
         Route::get('calendars/dat', [CalendarController::class, 'dat'])->name('calendars.dat');
         Route::get('calendars/learning-exam', [CalendarController::class, 'learningExam'])->name('calendars.learningExam');

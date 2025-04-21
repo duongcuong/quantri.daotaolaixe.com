@@ -34,10 +34,18 @@ Tất cả chi phí xe
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="license_plate" class="mr-2">Biển số xe</label>
                     <select class="select2-ajax-single-all form-control" name="vehicle_id"
-                        data-selected-id="{{ session('expenses_filters.vehicle_id') }}"
-                        data-placeholder="Chọn xe"
+                        data-selected-id="{{ session('expenses_filters.vehicle_id') }}" data-placeholder="Chọn xe"
                         data-url="{{ route('admins.vehicles.list') }}">
                         <option></option>
+                    </select>
+                </div>
+                <div class="form-group col-sm-6 col-md-3">
+                    <label for="type">Loại chi phí</label>
+                    <select name="type" id="type" class="form-control">
+                        <option value="">Chọn loại chi phí</option>
+                        @foreach (listTypeVahicleExpenses() as $key => $value)
+                        <option value="{{ $key }}" {{ session('expenses_filters.type') == $key ? 'selected' : '' }}>{{ $value }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
@@ -51,7 +59,7 @@ Tất cả chi phí xe
                         value="{{ session('vehicle-expenses_filters.end_date') }}">
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
-                    <label for="status22" class="mr-2 opacity-0">Hành động </label><br>
+                    {{-- <label for="status22" class="mr-2 opacity-0">Hành động </label><br> --}}
                     <button type="submit" class="btn btn-primary">
                         <span class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true"
                             style="display: none"></span>

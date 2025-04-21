@@ -20,8 +20,8 @@ Tất cả Lịch sử nộp tiền
     </div>
     <div class="ml-auto">
         @if (canAccess('admins.fees.create'))
-        <a class="btn btn-outline-primary btn-sm btn-create-ajax" href="{{ route('admins.fees.create') }}" data-cs-modal="#modal-fees-create-ajax"
-            title="Thêm mới"><i class="bx bx-plus"></i>Thêm mới</a>
+        <a class="btn btn-outline-primary btn-sm btn-create-ajax" href="{{ route('admins.fees.create') }}"
+            data-cs-modal="#modal-fees-create-ajax" title="Thêm mới"><i class="bx bx-plus"></i>Thêm mới</a>
         @endif
     </div>
 </div>
@@ -41,8 +41,11 @@ Tất cả Lịch sử nộp tiền
                         value="{{ session('fees_filters.end_date') }}">
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
-                    <label for="student_name" class="mr-2">Tên học viên</label>
-                    <input type="text" id="student_name" name="student_name" class="form-control" value="{{ session('fees_filters.student_name') }}">
+                    <label for="user_id" class="mr-2">Học viên</label>
+                    <select class="select2-ajax-single form-control" name="user_id"
+                        data-selected-id="{{ session('fees_filters.user_id') }}" data-placeholder="Chọn học viên"
+                        data-url="{{ route('admins.users.list') }}">
+                    </select>
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="status22" class="mr-2 opacity-0">Hành động </label><br>
@@ -62,8 +65,11 @@ Tất cả Lịch sử nộp tiền
 
 <div class="card radius-15">
     <div class="card-body">
-        <div class="table-header-fixed mt-1 mb-1 load-data-ajax" data-url="{{ route('admins.fees.data') }}" id="load-data-ajax-fees" data-search="#search-form-fees">
-            <div class="loading-overlay"><div class="loading-spinner"></div></div>
+        <div class="table-header-fixed mt-1 mb-1 load-data-ajax" data-url="{{ route('admins.fees.data') }}"
+            id="load-data-ajax-fees" data-search="#search-form-fees">
+            <div class="loading-overlay">
+                <div class="loading-spinner"></div>
+            </div>
         </div>
     </div>
 </div>

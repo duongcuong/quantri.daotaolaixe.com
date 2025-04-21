@@ -137,6 +137,10 @@ class SaleController extends Controller
             $hasSearch = true;
         }
 
+        if ($request->has('id') && $request->id) {
+            $query->where('id', $request->id);
+        }
+
         if ($hasSearch) {
             $query->orderBy('name', 'asc');
         } else {
@@ -172,6 +176,10 @@ class SaleController extends Controller
         // Thêm điều kiện lọc theo name
         if ($request->has('name') && $request->name) {
             $totals->where('name', 'like', '%' . $request->name . '%');
+        }
+
+        if ($request->has('id') && $request->id) {
+            $totals->where('id', $request->id);
         }
 
         $totals = $totals->get();

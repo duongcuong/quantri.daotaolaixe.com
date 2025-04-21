@@ -32,7 +32,12 @@ Tất cả sale
             <div class="row">
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="name" class="mr-2">Tên</label>
-                    <input type="text" id="name" name="name" class="form-control" placeholder="Nhập tên" value="{{ session('sale_filters.name') }}">
+                    <select class="select2-ajax-single-all form-control" name="id"
+                        data-placeholder="Chọn sale"
+                        data-url="{{ route('admins.admins.lists', ['role' => ROLE_SALE]) }}"
+                        data-selected-id="{{ session('sale_filters.id') }}">
+                        <option></option>
+                    </select>
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="start_date" class="mr-2">Ngày bắt đầu ký hợp đồng</label>
@@ -62,7 +67,8 @@ Tất cả sale
 
 <div class="card radius-15">
     <div class="card-body">
-        <div class="table-header-fixed mt-1 mb-1 load-data-ajax" data-url="{{ route('admins.sales.data') }}" id="load-data-ajax-sales" data-search="#search-form-sales">
+        <div class="table-header-fixed mt-1 mb-1 load-data-ajax" data-url="{{ route('admins.sales.data') }}"
+            id="load-data-ajax-sales" data-search="#search-form-sales">
             <div class="loading-overlay">
                 <div class="loading-spinner"></div>
             </div>

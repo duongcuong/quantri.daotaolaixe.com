@@ -88,6 +88,12 @@ class FeeController extends Controller
             });
         }
 
+        if ($request->has('user_id') && $request->user_id) {
+            $query->whereHas('courseUser.user', function ($q) use ($request) {
+                $q->where('id', $request->user_id);
+            });
+        }
+
         // Thêm điều kiện lọc theo khoảng thời gian date_start
         if ($request->has('start_date') && $request->start_date) {
             $query->whereDate('payment_date', '>=', $request->start_date);

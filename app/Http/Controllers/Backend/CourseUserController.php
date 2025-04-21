@@ -248,7 +248,13 @@ class CourseUserController extends Controller
         }
 
         $courseUsers = $query->withSum('fees', 'amount')->withSum('calendars', 'km')
-            ->withSum('calendars', 'so_gio_chay_duoc');
+            ->withSum('calendars', 'so_gio_chay_duoc')
+            ->withSum(['calendars as total_so_gio_chay_duoc_tudong' => function ($query) {
+                $query->where('is_tudong', true); // Điều kiện is_tudong = true
+            }], 'so_gio_chay_duoc')
+            ->withSum(['calendars as total_so_gio_chay_duoc_bandem' => function ($query) {
+                $query->where('is_bandem', true); // Điều kiện is_bandem = true
+            }], 'so_gio_chay_duoc');
 
         if ($hasSearch) {
             $query->join('users', 'course_users.user_id', '=', 'users.id')

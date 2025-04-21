@@ -146,6 +146,13 @@ function getRank($rank = '', $json = true)
     }, $rank));
 }
 
+function getRankOne($rank = '')
+{
+    $ranks = listRanks();
+    if (!$rank || !array_key_exists($rank, $ranks)) return 'N/A';
+    return '<span class="badge badge-secondary">' . $ranks[$rank] . '</span>';
+}
+
 function listStatusCourseUser()
 {
     $statuses = [
@@ -712,6 +719,7 @@ function formatPhoneNumber($phone)
 function listTypeVahicleExpenses()
 {
     return [
+        'sa_hinh' => 'Sa hình',
         'do_xang' => 'Đổ xăng',
         'bao_duong' => 'Bảo dưỡng',
         'dang_kiem' => 'Đăng kiểm',
@@ -720,11 +728,15 @@ function listTypeVahicleExpenses()
     ];
 }
 
-function getTypeVahicleExpense($value)
+function getTypeVahicleExpense($value, $note = null)
 {
     if (!$value) return '';
     $lists = listTypeVahicleExpenses();
-    return '<span class="badge badge-secondary">' . $lists[$value] . '</span>';
+    $result = $lists[$value];
+    if($value == 'khac' && $note){
+        $result = $note;
+    }
+    return '<span class="badge badge-secondary">' . $result . '</span>';
 }
 
 /**

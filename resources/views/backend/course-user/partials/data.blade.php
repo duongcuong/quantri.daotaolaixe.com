@@ -16,7 +16,7 @@
             <th colspan="3" class="text-center">
                 Tình trạng học
             </th>
-            <th colspan="2" class="text-center">
+            <th colspan="4" class="text-center">
                 Phiên học
             </th>
             <th colspan="3" class="text-center">
@@ -31,6 +31,8 @@
             <th>Thi tốt nghiệp</th>
             <th>Giờ</th>
             <th>Km</th>
+            <th>Giờ đêm</th>
+            <th>Giờ tự động</th>
             <th class="text-center">Tổng</th>
             <th class="text-center">Đã nộp</th>
             <th class="text-center">Còn thiếu</th>
@@ -52,8 +54,7 @@
                     data-cs-modal="#modal-dat-calendars-ajax" data-reload="#load-data-ajax-dat-calendars">
                     {{ $courseUser->user->name ?? '' }}
                 </a> --}}
-                <a class=""
-                    href="{{ route('admins.course-user.show', $courseUser->id) }}"
+                <a class="" href="{{ route('admins.course-user.show', $courseUser->id) }}"
                     data-cs-modal="#modal-dat-calendars-ajax" data-reload="#load-data-ajax-dat-calendars">
                     {{ $courseUser->user->name ?? '' }}
                 </a>
@@ -91,20 +92,25 @@
                 {{ number_format($courseUser->calendars_sum_km) }}
                 @endif
             </td>
+            <td>{{ getFormattedSoGioChayDuocAttribute($courseUser->total_so_gio_chay_duoc_tudong) }}</td>
+            <td>{{ getFormattedSoGioChayDuocAttribute($courseUser->total_so_gio_chay_duoc_bandem) }}</td>
             <td>{!! getMoney($courseUser->course->tuition_fee) !!}</td>
             <td>{!! getMoney($courseUser->fees_sum_amount) !!}</td>
             <td>{!! getMoneyConThieu($courseUser->tuition_fee, $courseUser->fees_sum_amount) !!}</td>
-            <td>{!! getStatusCalendarByType2($courseUser->latestCalendar->type ?? '', $courseUser->latestCalendar->status ?? '') !!}</td>
+            <td>{!! getStatusCalendarByType2($courseUser->latestCalendar->type ?? '',
+                $courseUser->latestCalendar->status ?? '') !!}</td>
             <td class="fixed-column text-center">
                 <div class="d-flex">
                     @if (canAccess('admins.course-user.show'))
-                    <a href="{{ route('admins.course-user.show', $courseUser->id) }}" class="btn btn-primary btn-sm mr-1">
+                    <a href="{{ route('admins.course-user.show', $courseUser->id) }}"
+                        class="btn btn-primary btn-sm mr-1">
                         <i class="lni lni-eye"></i>
                     </a>
                     @endif
 
                     @if (canAccess('admins.course-user.edit'))
-                    <a href="{{ route('admins.course-user.edit', $courseUser->id) }}" class="btn btn-warning btn-sm mr-1">
+                    <a href="{{ route('admins.course-user.edit', $courseUser->id) }}"
+                        class="btn btn-warning btn-sm mr-1">
                         <i class="bx bx-edit"></i>
                     </a>
                     @endif

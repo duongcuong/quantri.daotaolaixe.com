@@ -1,0 +1,27 @@
+<table class="table table-sm table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>Ngày</th>
+            <th>Số lượng học viên</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($calendars as $calendar)
+            <tr>
+                <td>{{ getSTT($calendars, $loop->iteration) }}</td>
+                <td>
+                    <a href="{{ route('admins.calendars.exam', ['date_start' => $calendar->date]) }}" data-start-date="{{ $calendar->date }}" class="btn-show-exam-schedule">
+                        {!! getDateTimeStamp($calendar->date, 'd/m/Y') !!}
+                    </a>
+                </td>
+                <td>{{ $calendar->total_calendars }}</td>
+            </tr>
+        @endforeach
+    </tbody>
+</table>
+
+{{-- Hiển thị phân trang --}}
+<div class="mt-3">
+    {{ $calendars->links() }}
+</div>

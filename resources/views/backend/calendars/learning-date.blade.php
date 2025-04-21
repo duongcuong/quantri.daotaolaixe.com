@@ -51,7 +51,7 @@ Tất cả lịch học
                         @endforeach
                     </select>
                 </div>
-                <div class="form-group col-sm-6 col-md-3">
+                {{-- <div class="form-group col-sm-6 col-md-3">
                     <label for="start_date" class="mr-2">Ngày bắt đầu</label>
                     <input type="date" name="start_date" id="start_date" class="form-control"
                         value="{{ session('calendar_filters.start_date') }}">
@@ -60,7 +60,7 @@ Tất cả lịch học
                     <label for="end_date" class="mr-2">Ngày kết thúc</label>
                     <input type="date" name="end_date" id="end_date" class="form-control"
                         value="{{ session('calendar_filters.end_date') }}">
-                </div>
+                </div> --}}
                 <div class="form-group col-md-3">
                     <label for="exam_field_id">Sân thi</label>
                     <select name="exam_field_id" id="exam_field_id" class="form-control single-select"
