@@ -41,6 +41,9 @@ Tất cả sân thi
                             style="display: none"></span>
                         Tìm kiếm
                     </button>
+                    <button type="reset" class="btn btn-outline-danger m-1">
+                        <i class="bx bx-refresh mr-1"></i>Refresh
+                    </button>
                 </div>
             </div>
         </form>

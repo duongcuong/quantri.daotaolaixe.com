@@ -20,8 +20,9 @@ Tất cả Khoá học - Học Viên
     </div>
     <div class="ml-auto">
         @if(request()->course_id)
-        <a class="btn btn-outline-primary btn-sm mr-2" href="{{ route('admins.course-user.index') }}" data-toggle="tooltip"
-            title="Quay về trang quản lý Khoá học - User &#9194;"><i class="bx bx-rewind"></i>Quay lại</a>
+        <a class="btn btn-outline-primary btn-sm mr-2" href="{{ route('admins.course-user.index') }}"
+            data-toggle="tooltip" title="Quay về trang quản lý Khoá học - User &#9194;"><i class="bx bx-rewind"></i>Quay
+            lại</a>
         @endif
 
         @if (canAccess('admins.course-user.import'))
@@ -105,7 +106,8 @@ Tất cả Khoá học - Học Viên
                         data-placeholder="Chọn sân thi" data-allow-clear="true">
                         <option></option>
                         @foreach ($examFields as $examField)
-                        <option value="{{ $examField->id }}" {{ session('course_user_filters.exam_field_id')==$examField->id
+                        <option value="{{ $examField->id }}" {{
+                            session('course_user_filters.exam_field_id')==$examField->id
                             ? 'selected' : '' }}> {{ $examField->name }}</option>
                         @endforeach
                     </select>
@@ -114,8 +116,10 @@ Tất cả Khoá học - Học Viên
                     <label for="tuition_status" class="mr-2">Trạng thái học phí</label>
                     <select name="tuition_status" id="tuition_status" class="form-control">
                         <option value="">Chọn trạng thái</option>
-                        <option value="paid" {{ session('course_user_filters.tuition_status') == 'paid' ? 'selected' : '' }}>Đã đóng đủ</option>
-                        <option value="unpaid" {{ session('course_user_filters.tuition_status') == 'unpaid' ? 'selected' : '' }}>Chưa đóng đủ</option>
+                        <option value="paid" {{ session('course_user_filters.tuition_status')=='paid' ? 'selected' : ''
+                            }}>Đã đóng đủ</option>
+                        <option value="unpaid" {{ session('course_user_filters.tuition_status')=='unpaid' ? 'selected'
+                            : '' }}>Chưa đóng đủ</option>
                     </select>
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
@@ -125,6 +129,9 @@ Tất cả Khoá học - Học Viên
                             style="display: none"></span>
                         Tìm kiếm
                     </button>
+                    <button type="reset" class="btn btn-outline-danger m-1">
+                        <i class="bx bx-refresh mr-1"></i>Refresh
+                    </button>
                 </div>
             </div>
         </form>
@@ -132,13 +139,16 @@ Tất cả Khoá học - Học Viên
 </div>
 
 <div class="card radius-15">
-    <div class="card-body">
-        <div class="table-header-fixed mt-1 mb-1 load-data-ajax" data-url="{{ route('admins.course-user.data') }}"
-            id="load-data-ajax-course-user" data-search="#search-form-course-user">
-            <div class="loading-overlay">
-                <div class="loading-spinner"></div>
+    <div class="card-body course-user-table-container">
+        <div class="table-course-left">
+            <div class="table-responsive mt-1 mb-1 load-data-ajax" data-url="{{ route('admins.course-user.data') }}"
+                id="load-data-ajax-course-user" data-search="#search-form-course-user">
+                <div class="loading-overlay">
+                    <div class="loading-spinner"></div>
+                </div>
             </div>
         </div>
+        <div class="table-course-right"></div>
     </div>
 </div>
 @endsection

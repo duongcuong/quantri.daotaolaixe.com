@@ -28,7 +28,7 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             </th>
             @endif
 
-            @if (!request()->has('show_column') || in_array('date_start', $columns))
+            @if (!request()->has('show_column') || in_array('time', $columns))
             <th>
                 @switch(request()->type)
                 @case('class_schedule')
@@ -37,6 +37,12 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
                 @default
                 Thời gian
                 @endswitch
+            </th>
+            @endif
+
+            @if (!request()->has('show_column') || in_array('total_calendar', $columns))
+            <th>
+                Tổng lịch dạy
             </th>
             @endif
 
@@ -188,7 +194,11 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             </td>
             @endif
 
-            @if (!request()->has('show_column') || in_array('date_start', $columns))
+            @if (!request()->has('show_column') || in_array('total_calendar', $columns))
+            <td>{!! 0 !!}</td>
+            @endif
+
+            @if (!request()->has('show_column') || in_array('time', $columns))
             <td>{!! formatTimeBetweenVn($calendar->date_start, $calendar->date_end) !!}</td>
             @endif
 
@@ -287,11 +297,11 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             @endif
 
             @if (!request()->has('show_column') || in_array('gifted_hours', $columns))
-            <td>{{ $calendar->courseUser->gifted_hours }}</td>
+            <td>{{ $calendar->courseUser->gifted_hours ?? '' }}</td>
             @endif
 
             @if (!request()->has('show_column') || in_array('chip_hours', $columns))
-            <td>{{ $calendar->courseUser->chip_hours }}</td>
+            <td>{{ $calendar->courseUser->chip_hours ?? '' }}</td>
             @endif
 
             @if (!request()->has('show_column') || in_array('description', $columns))
@@ -337,7 +347,7 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
 </table>
 {{ $calendars->links() }}
 
-<script>
+{{-- <script>
     jQuery(document).ready(function () {
         function mergeTableRows(selector) {
             var previousText = null;
@@ -364,4 +374,4 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
         // Gọi hàm để gộp các ô trong cột `date-start-column`
         mergeTableRows('.date-start-column');
     });
-</script>
+</script> --}}

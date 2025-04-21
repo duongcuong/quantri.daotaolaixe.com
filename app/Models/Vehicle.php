@@ -18,5 +18,11 @@ class Vehicle extends Model
         'gptl_number',
         'gptl_expiry_date',
         'manufacture_year',
+        'note',
     ];
+
+    public function calendars()
+    {
+        return $this->hasMany(Calendar::class);
+    }
 }

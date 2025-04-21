@@ -12,7 +12,7 @@
         <!--Sales-->
         <li class="menu-label">Quản lý sales</li>
         <li class="{{ Request::is('admin/leads/*') ? 'mm-active' : '' }}">
-            <a href="{{ route('admins.leads.index') }}">
+            <a href="{{ route('admins.leads.index') }}" class="reset-search-action">
                 <div class="parent-icon icon-color-11"><i class="bx bx-grid-vertical"></i>
                 </div>
                 <div class="menu-title">Quản lý Leads</div>
@@ -21,7 +21,7 @@
         <!--End Sales-->
 
         <li class="{{ Request::is('admin/calendars/index') ? 'mm-active' : '' }}">
-            <a href="{{ route('admins.calendars.index') }}">
+            <a href="{{ route('admins.calendars.index') }}" class="reset-search-action">
                 <div class="parent-icon icon-color-11"><i class="bx bx-calendar-check"></i>
                 </div>
                 <div class="menu-title">Calendars</div>
@@ -29,7 +29,7 @@
         </li>
 
         <li class="{{ Request::is('admin/sales/*') ? 'mm-active' : '' }}">
-            <a href="{{ route('admins.sales.index') }}">
+            <a href="{{ route('admins.sales.index') }}" class="reset-search-action">
                 <div class="parent-icon icon-color-5"><i class="bx bx-group"></i>
                 </div>
                 <div class="menu-title">Danh sách sale</div>
@@ -49,7 +49,7 @@
         @if (canAccess('admins.comments.index'))
         <li class="menu-label">Quản lý Bình luận</li>
         <li class="{{ Request::is('admin/comments/*') ? 'mm-active' : '' }}">
-            <a href="{{ route('admins.comments.index') }}">
+            <a href="{{ route('admins.comments.index') }}" class="reset-search-action">
                 <div class="parent-icon icon-color-3"><i class="bx bx-conversation"></i>
                 </div>
                 <div class="menu-title">Quản lý bình luận</div>
@@ -60,14 +60,14 @@
         {{-- Lịch thi sát hạch --}}
         <li class="menu-label">Lịch thi sát hạch</li>
         <li class="{{ Request::is('admin/comments/*') ? 'mm-active' : '' }}">
-            <a href="{{ route('admins.calendars.exam') }}">
+            <a href="{{ route('admins.calendars.exam') }}" class="reset-search-action">
                 <div class="parent-icon icon-color-11"><i class="bx bx-calendar-check"></i>
                 </div>
                 <div class="menu-title">Lịch thi sát hạch</div>
             </a>
         </li>
         <li class="{{ Request::is('admin/exam-schedules/*') ? 'mm-active' : '' }}">
-            <a href="{{ route('admins.exam-schedules.index') }}">
+            <a href="{{ route('admins.exam-schedules.index') }}" class="reset-search-action">
                 <div class="parent-icon icon-color-12"><i class="bx bx-calendar-exclamation"></i>
                 </div>
                 <div class="menu-title">Kế hoạch thi các trường</div>
@@ -85,7 +85,7 @@
             <ul class="{{ Request::is('admin/teachers*') ? 'mm-show' : '' }}">
                 <li
                     class="{{ Request::is('admin/teachers') || Request::is('admin/teachers/*/edit') ? 'mm-active' : '' }}">
-                    <a href="{{ route('admins.teachers.index') }}"><i class="bx bx-star"></i>Danh sách giáo viên</a>
+                    <a href="{{ route('admins.teachers.index') }}" class="reset-search-action"><i class="bx bx-star"></i>Danh sách giáo viên</a>
                 </li>
 
                 @if(canAccess('admins.teachers.create'))
@@ -95,7 +95,7 @@
                 @endif
 
                 <li class="{{ Request::is('admin/calendars/learning') ? 'mm-active' : '' }}">
-                    <a href="{{ route('admins.calendars.learning') }}"><i class="bx bx-calendar-exclamation"></i>Lịch làm việc giáo viên</a>
+                    <a href="{{ route('admins.calendars.learning-date') }}" class="reset-search-action"><i class="bx bx-calendar-exclamation"></i>Lịch làm việc giáo viên</a>
                 </li>
             </ul>
         </li>
@@ -112,22 +112,22 @@
             <ul class="{{ Request::is('admin/courses*') ? 'mm-show' : '' }}">
                 <li
                     class="{{ Request::is('admin/courses') || Request::is('admin/courses/create') || Request::is('admin/courses/*/edit') ? 'mm-active' : '' }}">
-                    <a href="{{ route('admins.courses.index') }}"><i class="bx bx-star"></i>Danh sách khoá học</a>
+                    <a href="{{ route('admins.courses.index') }}" class="reset-search-action"><i class="bx bx-star"></i>Danh sách khoá học</a>
                 </li>
 
                 <li
                     class="{{ Request::is('admin/users') || Request::is('admin/users/create') || Request::is('admin/users/*/edit') ? 'mm-active' : '' }}">
-                    <a href="{{ route('admins.users.index') }}"><i class="bx bx-star"></i>Quản lý học viên</a>
+                    <a href="{{ route('admins.users.index') }}" class="reset-search-action"><i class="bx bx-star"></i>Quản lý học viên</a>
                 </li>
 
                 <li class="{{ Request::is('admin/course-user/*') ? 'mm-active' : '' }}">
-                    <a href="{{ route('admins.course-user.index') }}"><i class="bx bx-star"></i>Danh sách học viên -
+                    <a href="{{ route('admins.course-user.index') }}" class="reset-search-action"><i class="bx bx-star"></i>Danh sách học viên -
                         Khoá học</a>
                 </li>
 
                 <li
                     class="{{ Request::is('admin/fees') || Request::is('admin/fees/create') || Request::is('admin/fees/*/edit') ? 'mm-active' : '' }}">
-                    <a href="{{ route('admins.fees.index') }}"><i class="bx bx-star"></i>Lịch sử nộp tiền</a>
+                    <a href="{{ route('admins.fees.index') }}" class="reset-search-action"><i class="bx bx-star"></i>Lịch sử nộp tiền</a>
                 </li>
             </ul>
         </li>
@@ -142,7 +142,7 @@
         @if(canAccess('admins.exam-fields.index'))
         <li
             class="{{ Request::is('admin/exam-fields') || Request::is('admin/exam-fields/create') || Request::is('admin/exam-fields/*/edit') ? 'mm-active' : '' }}">
-            <a href="{{ route('admins.exam-fields.index') }}">
+            <a href="{{ route('admins.exam-fields.index') }}" class="reset-search-action">
                 <div class="parent-icon icon-color-3">
                     <i class="bx bx-slider-alt"></i>
                 </div>
@@ -154,7 +154,7 @@
         @if(canAccess('admins.lead-sources.index'))
         <li
             class="{{ Request::is('admin/lead-sources') || Request::is('admin/lead-sources/create') || Request::is('admin/lead-sources/*/edit') ? 'mm-active' : '' }}">
-            <a href="{{ route('admins.lead-sources.index') }}">
+            <a href="{{ route('admins.lead-sources.index') }}" class="reset-search-action">
                 <div class="parent-icon icon-color-4">
                     <i class="bx bx-shape-polygon"></i>
                 </div>
@@ -166,7 +166,7 @@
         @if (canAccess('admins.vehicles.index'))
         <li
             class="{{ Request::is('admin/vehicles') || Request::is('admin/vehicles/create') || Request::is('admin/vehicles/*/edit') ? 'mm-active' : '' }}">
-            <a href="{{ route('admins.vehicles.index') }}">
+            <a href="{{ route('admins.vehicles.index') }}" class="reset-search-action">
                 <div class="parent-icon icon-color-2">
                     <i class="bx bx-car"></i>
                 </div>
@@ -178,7 +178,7 @@
         @if(canAccess('admins.vehicle-expenses.index'))
         <li
             class="{{ Request::is('admin/vehicle-expenses') || Request::is('admin/vehicle-expenses/create') || Request::is('admin/vehicle-expenses/*/edit') ? 'mm-active' : '' }}">
-            <a href="{{ route('admins.vehicle-expenses.index') }}">
+            <a href="{{ route('admins.vehicle-expenses.index') }}" class="reset-search-action">
                 <div class="parent-icon icon-color-6">
                     <i class="bx bx-money"></i>
                 </div>

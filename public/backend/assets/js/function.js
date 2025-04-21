@@ -207,7 +207,6 @@ function initializeSelect2AjaxAll() {
         var url = $select.data("url"); // Lấy URL từ thuộc tính data-url
         var selectedId = $select.data("selected-id"); // Lấy giá trị từ data-selected-id
 
-
         // Gửi AJAX để tải toàn bộ dữ liệu một lần
         $.ajax({
             url: url,
@@ -218,7 +217,9 @@ function initializeSelect2AjaxAll() {
                 var options = [];
                 data.items.forEach(function (item) {
                     let _selected = item.id == selectedId ? true : false;
-                    options.push(new Option(item.name, item.id, _selected, _selected));
+                    options.push(
+                        new Option(item.name, item.id, _selected, _selected)
+                    );
                 });
 
                 $select.append(options).trigger("change");
@@ -282,11 +283,11 @@ function caculatorDayByDate(input, number) {
 }
 
 function runTimePicker() {
-    flatpickr('.cs-time-picker', {
+    flatpickr(".cs-time-picker", {
         enableTime: true,
         noCalendar: true,
         dateFormat: "H:i",
-        time_24hr: true
+        time_24hr: true,
     });
 }
 
@@ -375,18 +376,24 @@ function resetNumericText() {
 
         // Nếu input có giá trị, tiến hành định dạng tương ứng
         if (value) {
-            if (input.hasClass('numeric-text')) {
+            if (input.hasClass("numeric-text")) {
                 value = formatCsNumerics(input);
-            } else if (input.hasClass('thousand-text')) {
+            } else if (input.hasClass("thousand-text")) {
                 value = formatCsThousands(input);
             }
             input.val(value);
         }
 
         // Tạo input ẩn và cập nhật giá trị đã định dạng
-        input.removeAttr('name');
-        input.attr('data-name', name);
-        input.after('<input type="hidden" name="' + name + '" value="' + value.replace(/,/g, '') + '">');
+        input.removeAttr("name");
+        input.attr("data-name", name);
+        input.after(
+            '<input type="hidden" name="' +
+                name +
+                '" value="' +
+                value.replace(/,/g, "") +
+                '">'
+        );
     });
 }
 
@@ -456,7 +463,9 @@ $(function () {
         $spinner.show();
         $button.prop("disabled", true);
 
-        let _url = $(`div[data-search="#${$elmLoadDataAjax}"]`).attr("data-url");
+        let _url = $(`div[data-search="#${$elmLoadDataAjax}"]`).attr(
+            "data-url"
+        );
         $($elmLoadDataAjax).data("url", _url);
 
         loadDataAjax($elReload, function () {
@@ -562,7 +571,25 @@ $(function () {
                 $(elmModal).remove();
                 $("body").append(response);
                 $(elmModal).modal("show");
-                $(elmModal).find('.form-search-submit').submit();
+                $(elmModal).find(".form-search-submit").submit();
+            },
+            error: function (xhr) {
+                console.error("Error loading create modal:", xhr);
+            },
+        });
+    });
+
+    $(document).on("click", ".btn-show-list-ajax-dat", function (e) {
+        e.preventDefault();
+        $(".course-user-table-container").removeClass("show-to-table");
+        $(".table-course-right").html('');
+        var url = $(this).attr("href");
+        $.ajax({
+            url: url,
+            method: "GET",
+            success: function (response) {
+                $(".course-user-table-container").addClass("show-to-table");
+                $(".table-course-right").html(response);
             },
             error: function (xhr) {
                 console.error("Error loading create modal:", xhr);
@@ -612,51 +639,46 @@ $(function () {
             cancelButtonText: "Hủy",
         }).then((result) => {
             if (result.isConfirmed) {
-                $.ajax({
-                    url: url,
-                    method: method,
-                    data: data,
-                    success: function (response) {
-                        if (response.success) {
-                            Swal.fire({
-                                icon: "success",
-                                title: "Xoá thành công",
-                                text: response.success,
-                                timer: 2000,
-                                showConfirmButton: false,
-                            });
-                            loadDataAjax();
-                        }
-                    },
-                    error: function (xhr) {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Lỗi",
-                            text: "Không thể xóa.",
-                            timer: 2000,
-                            showConfirmButton: false,
+                // Xác nhận lần thứ hai
+                Swal.fire({
+                    title: "Xác nhận lần cuối!",
+                    text: "Bạn có chắc chắn muốn xóa bản ghi này? Hành động này không thể hoàn tác!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Vâng, Xóa!",
+                    cancelButtonText: "Hủy",
+                }).then((finalResult) => {
+                    if (finalResult.isConfirmed) {
+                        $.ajax({
+                            url: url,
+                            method: method,
+                            data: data,
+                            success: function (response) {
+                                if (response.success) {
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "Xoá thành công",
+                                        text: response.success,
+                                        timer: 2000,
+                                        showConfirmButton: false,
+                                    });
+                                    loadDataAjax();
+                                }
+                            },
+                            error: function (xhr) {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Lỗi",
+                                    text: "Không thể xóa.",
+                                    timer: 2000,
+                                    showConfirmButton: false,
+                                });
+                            },
                         });
-                    },
+                    }
                 });
-            }
-        });
-    });
-
-    $(document).on("click", ".delete-btn-confirm", function (event) {
-        event.preventDefault();
-        var form = $(this).closest("form");
-        Swal.fire({
-            title: "Bạn có chắc không?",
-            text: "Khi bạn đồng ý, bạn sẽ không thể quay lại!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Vâng, Xóa!",
-            cancelButtonText: "Hủy",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                form.submit();
             }
         });
     });
@@ -769,37 +791,37 @@ $(function () {
 
     resetSelectAjax();
 
-    $("body").on("input", '.numeric-text', function (e) {
+    $("body").on("input", ".numeric-text", function (e) {
         var input = $(this);
         formatCsNumerics(input);
     });
 
-    $("body").on("input", '.thousand-text', function (e) {
+    $("body").on("input", ".thousand-text", function (e) {
         var input = $(this);
         formatCsThousands(input);
     });
 
-    $("body").on("click", '.btn-outline-danger', function (e) {
-        $('#modal-leads-convert-ajax').modal('show');
+    $("body").on("click", ".btn-outline-danger", function (e) {
+        $("#modal-leads-convert-ajax").modal("show");
     });
 
-    $("body").on("change", '.select-option-type-user-lead', function (e) {
-        $('.box-lead-exist-user').hide();
-        $('.box-lead-not-user').hide();
+    $("body").on("change", ".select-option-type-user-lead", function (e) {
+        $(".box-lead-exist-user").hide();
+        $(".box-lead-not-user").hide();
         if ($(this).val() == 1) {
-            $('.box-lead-exist-user').show();
+            $(".box-lead-exist-user").show();
         } else {
-            $('.box-lead-not-user').show();
+            $(".box-lead-not-user").show();
         }
     });
 
-    $("body").on("change", '.select-option-type-course-lead', function (e) {
-        $('.box-lead-exist-course').hide();
-        $('.box-lead-not-course').hide();
+    $("body").on("change", ".select-option-type-course-lead", function (e) {
+        $(".box-lead-exist-course").hide();
+        $(".box-lead-not-course").hide();
         if ($(this).val() == 1) {
-            $('.box-lead-exist-course').show();
+            $(".box-lead-exist-course").show();
         } else {
-            $('.box-lead-not-course').show();
+            $(".box-lead-not-course").show();
         }
     });
 
@@ -827,8 +849,7 @@ $(function () {
                     $form.closest(".modal").modal("hide");
                     setTimeout(function () {
                         window.location.reload();
-                    }, 2000)
-
+                    }, 2000);
                 }
             },
             error: function (xhr) {
@@ -850,27 +871,59 @@ $(function () {
         });
     });
 
-    $(document).on('change', '.select2-ajax-single-calendar', function (e) {
+    $(document).on("change", ".select2-ajax-single-calendar", function (e) {
         let selectedValue = $(this).val();
-        $('.diem-thi-cs').remove();
+        $(".diem-thi-cs").remove();
         if (!selectedValue) return;
         var _this = $(this);
 
         // Ví dụ: Gửi AJAX để lấy dữ liệu liên quan
         $.ajax({
             url: `/admin/course-user/${selectedValue}/detail`, // Thay bằng URL API của bạn
-            method: 'GET',
+            method: "GET",
             data: { id: selectedValue },
             success: function (response) {
                 if (response.exam) {
-                    _this.parent().append(`<p class="diem-thi-cs text-danger mt-1"><i>Điểm thi:</i> ${response.exam}</p>`);
+                    _this
+                        .parent()
+                        .append(
+                            `<p class="diem-thi-cs text-danger mt-1"><i>Điểm thi:</i> ${response.exam}</p>`
+                        );
                 }
                 // Xử lý dữ liệu trả về
             },
             error: function (xhr) {
-                console.error('Lỗi khi gọi API:', xhr);
+                console.error("Lỗi khi gọi API:", xhr);
             },
         });
     });
 
+    $(document).ready(function () {
+        // Lắng nghe sự kiện click trên các liên kết trong sidebar
+        $('a.reset-search-action').on('click', function (e) {
+            e.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
+
+            var link = $(this).attr('href'); // Lấy URL của liên kết
+
+            // Gửi yêu cầu AJAX để xóa filters
+            $.ajax({
+                url: '/clear-filters',
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Thêm CSRF token
+                },
+                success: function (response) {
+                    if (response.success) {
+                        // Sau khi xóa filters, điều hướng đến URL của liên kết
+                        window.location.href = link;
+                    }
+                },
+                error: function () {
+                    console.error('Không thể xóa filters.');
+                    // Điều hướng đến URL ngay cả khi có lỗi
+                    window.location.href = link;
+                }
+            });
+        });
+    });
 });

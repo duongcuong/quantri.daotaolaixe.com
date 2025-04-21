@@ -33,7 +33,7 @@ Tất cả lịch học
             class="mb-3 form-search-submit">
             @csrf
             @php
-            $showColumn = 'date_start,date_end,name_hocvien,dob,teacher_id,diem_don,san,course_code,loai_hoc,km,approval,so_gio_chay_duoc,is_tudong,is_bandem';
+            $showColumn = 'date_start,time,date_end,name_hocvien,dob,teacher_id,diem_don,san,course_code,loai_hoc,km,approval,so_gio_chay_duoc,is_tudong,is_bandem';
             $typeColumn = 'class_schedule';
             $reload = 'load-data-ajax-class-calendars';
             @endphp
@@ -53,12 +53,12 @@ Tất cả lịch học
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="start_date" class="mr-2">Ngày bắt đầu</label>
                     <input type="date" name="start_date" id="start_date" class="form-control"
-                        value="{{ session('calendar_filters.start_date') }}">
+                        value="{{ request()->date_start ?? session('calendar_filters.start_date') }}">
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="end_date" class="mr-2">Ngày kết thúc</label>
                     <input type="date" name="end_date" id="end_date" class="form-control"
-                        value="{{ session('calendar_filters.end_date') }}">
+                        value="{{ request()->date_start ?? session('calendar_filters.end_date') }}">
                 </div>
                 <div class="form-group col-md-3">
                     <label for="exam_field_id">Sân thi</label>
@@ -98,11 +98,22 @@ Tất cả lịch học
                     </select>
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
+                    <label for="approval">Xét duyệt</label>
+                    <select name="approval" id="approval" class="form-control">
+                        <option value="">Chọn xét duyệt</option>
+                        <option value="0" {{ session('calendar_filters.approval') === '0' ? 'selected' : '' }}>Chưa duyệt</option>
+                        <option value="1" {{ session('calendar_filters.approval') === '1' ? 'selected' : '' }}>Đã duyệt</option>
+                    </select>
+                </div>
+                <div class="form-group col-sm-6 col-md-3">
                     <label for="status22" class="mr-2 opacity-0">Hành động </label><br>
                     <button type="submit" class="btn btn-primary">
                         <span class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true"
                             style="display: none"></span>
                         Tìm kiếm
+                    </button>
+                    <button type="reset" class="btn btn-outline-danger m-1">
+                        <i class="bx bx-refresh mr-1"></i>Refresh
                     </button>
                 </div>
             </div>

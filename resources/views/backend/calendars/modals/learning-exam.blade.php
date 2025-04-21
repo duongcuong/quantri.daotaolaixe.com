@@ -14,7 +14,7 @@
                     @csrf
                     @php
                     $type = 'class_schedule,exam_schedule';
-                    $showColumn = 'type,name,date_start,date_end,name_hocvien,km,so_gio_chay_duoc';
+                    $showColumn = 'type,name,date_start,time,date_end,name_hocvien,km,so_gio_chay_duoc';
                     $courseUserId = request()->get('course_user_id');
                     @endphp
                     <input type="hidden" name="type" value="{{ $type }}">

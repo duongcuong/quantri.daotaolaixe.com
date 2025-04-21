@@ -15,7 +15,7 @@
                                         <input type="hidden" value="{{ $courseUser->id }}" name="course_user_id">
                                         <input type="hidden" name="type" value="exam_schedule">
                                         <input type="hidden" name="show_column"
-                                            value="name,priority,status,date_start,date_end,loai_thi,tuition_fee,ngay_dong_hoc_phi,sbd">
+                                            value="name,priority,status,date_start,time,date_end,loai_thi,tuition_fee,ngay_dong_hoc_phi,sbd">
                                         <input type="hidden" name="reload" value="load-data-ajax-exam-calendars">
                                         <div class="mr-2">
                                             <select class="form-control form-control-sm" name="loai_hoc">

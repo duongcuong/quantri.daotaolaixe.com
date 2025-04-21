@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Calendar;
+use App\Models\CourseUser;
 use App\Models\ExamField;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -169,6 +170,10 @@ class CalendarController extends Controller
             $query->where('status', $request->status);
         }
 
+        if ($request->has('approval') && ($request->approval === '0' || $request->approval === '1')) {
+            $query->where('approval', $request->approval);
+        }
+
         if ($request->has('priority') && $request->priority) {
             $query->where('priority', $request->priority);
         }
@@ -208,6 +213,18 @@ class CalendarController extends Controller
             $query->where('exam_field_id', $request->exam_field_id);
         }
 
+        // Xử lý group_by = date
+        if ($request->has('group_by') && $request->group_by === 'date') {
+            $calendars = $query->selectRaw('DATE(date_start) as date, COUNT(*) as total_calendars')
+                ->groupByRaw('DATE(date_start)')
+                ->orderBy('date', 'DESC')
+                ->paginate(LIMIT);
+
+            if ($request->ajax()) {
+                return view('backend.calendars.partials.data-date', compact('calendars'))->render();
+            }
+        }
+
         $calendars = $query->with(['admin', 'user', 'courseUser', 'lead'])->latest('date_start')->paginate(LIMIT);
 
         if ($request->ajax()) {
@@ -223,15 +240,51 @@ class CalendarController extends Controller
         return view('backend.calendars.learning', compact('examFields'));
     }
 
+    public function learningDate()
+    {
+        $examFields = ExamField::all();
+        return view('backend.calendars.learning-date', compact('examFields'));
+    }
+
     public function exam()
     {
         $examFields = ExamField::all();
         return view('backend.calendars.exam', compact('examFields'));
     }
 
-    public function dat()
+    public function dat(Request $request)
     {
-        return view('backend.calendars.modals.dat');
+        $course_user_id = $request->has('course_user_id') ? $request->course_user_id : '';
+
+        // Lấy thông tin học viên và tổng số km, giờ chạy được
+        $courseUser = null;
+        $totalKm = 0;
+        $totalHours = 0;
+        $calendars = [];
+
+        if ($course_user_id) {
+            $courseUser = CourseUser::with('user')
+                ->withSum(['calendars as total_km' => function ($query) {
+                    $query->whereIn('loai_hoc', listStatusApprovedKm());
+                }], 'km')
+                ->withSum(['calendars as total_hours' => function ($query) {
+                    $query->whereIn('loai_hoc', listStatusApprovedKm());
+                }], 'so_gio_chay_duoc')
+                ->find($course_user_id);
+
+            $totalKm = $courseUser->total_km ?? 0;
+            $totalHours = $courseUser->total_hours ?? 0;
+
+            // Lấy danh sách lịch học với loai_hoc là chay_dat và thuc_hanh
+            $calendars = Calendar::where('course_user_id', $course_user_id)
+                ->whereIn('loai_hoc', listStatusApprovedKm())
+                ->orderBy('date_start', 'asc')
+                ->get();
+        }
+
+        if ($request->ajax()) {
+            return view('backend.calendars.modals.dat', compact('calendars', 'totalKm', 'totalHours', 'courseUser'))->render();
+        }
     }
 
     public function learningExam()

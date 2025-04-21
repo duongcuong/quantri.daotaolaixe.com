@@ -10,6 +10,8 @@
             <th>Số GPTL</th>
             {{-- <th>Ngày hết hạn GPTL</th> --}}
             <th>Năm SX</th>
+            <th>Số giờ chạy được</th>
+            <th>Ghi chú</th>
             <th class="fixed-column text-center">Hành động</th>
         </tr>
     </thead>
@@ -25,6 +27,8 @@
             <td>{{ $vehicle->gptl_number }}</td>
             {{-- <td>{{ getDateTimeStamp($vehicle->gptl_expiry_date, 'd/m/Y') }}</td> --}}
             <td>{{ $vehicle->manufacture_year }}</td>
+            <td>{{ getFormattedSoGioChayDuocAttribute($vehicle->calendars_sum_so_gio_chay_duoc) }}</td>
+            <td>{{ $vehicle->note }}</td>
             <td class="fixed-column text-center">
                 <div class="d-inline-flex">
                     <a href="{{ route('admins.vehicles.show', ['vehicle' => $vehicle->id]) }}"

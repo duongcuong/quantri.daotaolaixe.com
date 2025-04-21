@@ -73,6 +73,10 @@ Tạo xe
                             <label for="manufacture_year">Năm sản xuất</label>
                             <input type="number" name="manufacture_year" id="manufacture_year" class="form-control" value="{{ old('manufacture_year') }}">
                         </div>
+                        <div class="form-group col-md-4">
+                            <label for="note">Ghi chú</label>
+                            <textarea name="note" id="" class="form-control">{{ old('note') }}</textarea>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary"><i class="bx bxs-save mr-1"></i>Lưu</button>
                 </div>

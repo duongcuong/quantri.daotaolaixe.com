@@ -80,7 +80,7 @@ class VehicleController extends Controller
         session(['vehicle_filters' => $filters]);
 
         $hasSearch = false;
-        $query = Vehicle::latest();
+        $query = Vehicle::withSum('calendars', 'so_gio_chay_duoc')->latest();
 
         if ($request->has('license_plate') && $request->license_plate) {
             $query->where('license_plate', 'like', '%' . $request->license_plate . '%');

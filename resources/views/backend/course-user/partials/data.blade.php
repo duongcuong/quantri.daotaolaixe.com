@@ -84,10 +84,9 @@
             </td>
             <td>
                 @if ($courseUser->calendars_sum_km > 0)
-                <a class="btn-show-list-ajax"
-                    href="{{ route('admins.calendars.dat', ['course_user_id' => $courseUser->id]) }}"
-                    data-cs-modal="#modal-dat-calendars-ajax" data-reload="#load-data-ajax-dat-calendars">{{
-                    number_format($courseUser->calendars_sum_km) }}</a>
+                <a class="btn-show-list-ajax-dat"
+                    href="{{ route('admins.calendars.dat', ['course_user_id' => $courseUser->id]) }}">{{
+                    number_format($courseUser->calendars_sum_km, 2) }}</a>
                 @else
                 {{ number_format($courseUser->calendars_sum_km) }}
                 @endif

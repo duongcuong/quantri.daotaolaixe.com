@@ -350,3 +350,27 @@ body {
     width: 20px;
     height: 20px;
 }
+
+.card-body.show-to-table{
+    display: flex;
+    gap: 1%;
+}
+
+.card-body.show-to-table .table-course-left{
+    -ms-flex: 0 0 64%;
+    flex: 0 0 64%;
+    max-width: 64%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+
+}
+
+.card-body.show-to-table .table-course-right{
+    -ms-flex: 0 0 35%;
+    flex: 0 0 35%;
+    max-width: 35%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}

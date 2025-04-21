@@ -1,41 +1,33 @@
-<div class="modal fade no-remove" id="modal-dat-calendars-ajax" aria-labelledby="modal-dat-calendars-ajaxLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modal-dat-calendars-ajaxLabel">Lịch sử chạy DAT</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form data-reload="#load-data-ajax-class-chaydat-calendars" id="search-form-class-chaydat-calendars"
-                    class="mb-3 form-search-submit">
-                    @csrf
-                    @php
-                    $type = 'class_schedule';
-                    $showColumn = 'name,date_start,date_end,name_hocvien,km,so_gio_chay_duoc';
-                    $loaiHoc = 'chay_dat';
-                    $courseUserId = request()->get('course_user_id');
-                    @endphp
-                    <input type="hidden" name="type" value="{{ $type }}">
-                    <input type="hidden" name="show_column" value="{{ $showColumn }}">
-                    <input type="hidden" name="loai_hoc" value="{{ $loaiHoc }}">
-                    <input type="hidden" name="course_user_id" value="{{ $courseUserId }}">
-                </form>
-                <div id="load-data-ajax-class-chaydat-calendars" class="table-header-fixed mt-1 mb-1 load-data-ajax"
-                    data-search="#search-form-class-chaydat-calendars" data-url="{{ route('admins.calendars.data') }}">
-                    <div class="loading-overlay">
-                        <div class="loading-spinner"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light px-5 mr-2" data-dismiss="modal">
-                    <i class="bx bx-window-close me-1"></i>
-                    Hủy
-                </button>
-            </div>
-        </div>
-    </div>
+@if ($courseUser)
+<div class="alert alert-primary alert-dismissible">
+    <h5 class="mb-0">{{ $courseUser->user->name }}</h5>
 </div>
+<div class="mb-3 d-flex">
+    <p class="mr-3"><strong>Tổng KM:</strong> <span class="text-danger">{{ number_format($totalKm,2) }}</span></p>
+    <p><strong>Tổng giờ:</strong> <span class="text-danger">{{ getFormattedSoGioChayDuocAttribute($totalHours) }}</span></p>
+</div>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Ngày/giờ</th>
+            <th>Xe</th>
+            <th>KM</th>
+            <th>Giờ</th>
+            <th>Duyệt</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($calendars as $calendar)
+        <tr>
+            <td>{{ \Carbon\Carbon::parse($calendar->date_start)->format('d/m/Y H:i') }}</td>
+            <td>{{ $calendar->vehicle->license_plate ?? 'N/A' }}</td>
+            <td>{{ $calendar->km }}</td>
+            <td>{{ $calendar->so_gio_chay_duoc }}</td>
+            <td>{!! getStatusApprovedKm($calendar->approval, $calendar->loai_hoc, $calendar->type) !!}</td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
+@else
+<p>Không tìm thấy thông tin học viên.</p>
+@endif

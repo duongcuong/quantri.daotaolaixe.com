@@ -33,6 +33,24 @@ use App\Http\Controllers\Backend\SaleController;
 use App\Http\Controllers\Backend\TeacherController;
 use App\Http\Controllers\Backend\UserController;
 
+use Illuminate\Support\Facades\Session;
+Route::post('/clear-filters', function () {
+    // Xóa tất cả các filters được lưu trong session
+    Session::forget([
+        'calendar_filters',
+        'user_filters',
+        'sale_filters',
+        'teacher_filters',
+        'vehicle_filters',
+        'vehicle_expenses_filters',
+        'course_user_filters',
+        'leads_filters',
+        'exam_schedules',
+    ]);
+
+    return response()->json(['success' => true]);
+})->name('clear.filters');
+
 Route::prefix('admin')->as('admins.')->group(function () {
     Route::get('login', [AdminLoginController::class, 'showLoginForm'])->name('login');
     Route::post('login', [AdminLoginController::class, 'login']);
@@ -84,6 +102,7 @@ Route::prefix('admin')->as('admins.')->group(function () {
         // calendars
         Route::get('calendars/data', [CalendarController::class, 'data'])->name('calendars.data');
         Route::get('calendars/learning', [CalendarController::class, 'learning'])->name('calendars.learning');
+        Route::get('calendars/learning-date', [CalendarController::class, 'learningDate'])->name('calendars.learning-date');
         Route::get('calendars/exam', [CalendarController::class, 'exam'])->name('calendars.exam');
         Route::get('calendars/dat', [CalendarController::class, 'dat'])->name('calendars.dat');
         Route::get('calendars/learning-exam', [CalendarController::class, 'learningExam'])->name('calendars.learningExam');
