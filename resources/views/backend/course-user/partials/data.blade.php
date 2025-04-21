@@ -95,7 +95,7 @@
             <td>{{ getFormattedSoGioChayDuocAttribute($courseUser->total_so_gio_chay_duoc_bandem) }}</td>
             <td>{!! getMoney($courseUser->course->tuition_fee) !!}</td>
             <td>{!! getMoney($courseUser->fees_sum_amount) !!}</td>
-            <td>{!! getMoneyConThieu($courseUser->tuition_fee, $courseUser->fees_sum_amount) !!}</td>
+            <td>{!! getMoneyConThieu($courseUser->course->tuition_fee, $courseUser->fees_sum_amount) !!}</td>
             <td>{!! getStatusCalendarByType2($courseUser->latestCalendar->type ?? '',
                 $courseUser->latestCalendar->status ?? '') !!}</td>
             <td class="fixed-column text-center">
