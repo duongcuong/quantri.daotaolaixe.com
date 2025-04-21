@@ -75,9 +75,8 @@
 
             <td>
                 @if ($courseUser->calendars_sum_km > 0)
-                <a class="btn-show-list-ajax"
-                    href="{{ route('admins.calendars.dat', ['course_user_id' => $courseUser->id]) }}"
-                    data-cs-modal="#modal-dat-calendars-ajax" data-reload="#load-data-ajax-dat-calendars">{{
+                <a class="btn-show-list-ajax-dat"
+                    href="{{ route('admins.calendars.dat', ['course_user_id' => $courseUser->id]) }}">{{
                     getFormattedSoGioChayDuocAttribute($courseUser->calendars_sum_so_gio_chay_duoc) }}</a>
                 @else
                 {{ getFormattedSoGioChayDuocAttribute($courseUser->calendars_sum_so_gio_chay_duoc) }}

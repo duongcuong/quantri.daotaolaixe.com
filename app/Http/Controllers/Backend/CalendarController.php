@@ -227,8 +227,8 @@ class CalendarController extends Controller
 
         // Xử lý group_by = date
         if ($request->has('group_by') && $request->group_by === 'date_exam') {
-            $calendars = $query->selectRaw('DATE(date_start) as date, COUNT(*) as total_calendars')
-                ->groupByRaw('DATE(date_start)')
+            $calendars = $query->selectRaw('DATE(date_start) as date, exam_field_id, COUNT(*) as total_calendars')
+                ->groupByRaw('DATE(date_start), exam_field_id')
                 ->orderBy('date', 'DESC')
                 ->paginate(LIMIT);
 

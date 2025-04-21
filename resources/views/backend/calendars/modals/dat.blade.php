@@ -1,10 +1,14 @@
 @if ($courseUser)
-<div class="alert alert-primary alert-dismissible">
+<div class="alert alert-primary alert-dismissible" role="alert">
     <h5 class="mb-0">{{ $courseUser->user->name }}</h5>
+    <button type="button" class="close close-show-dat" aria-label="Close">
+        <span aria-hidden="true">×</span>
+    </button>
 </div>
 <div class="mb-3 d-flex">
     <p class="mr-3"><strong>Tổng KM:</strong> <span class="text-danger">{{ number_format($totalKm,2) }}</span></p>
-    <p><strong>Tổng giờ:</strong> <span class="text-danger">{{ getFormattedSoGioChayDuocAttribute($totalHours) }}</span></p>
+    <p><strong>Tổng giờ:</strong> <span class="text-danger">{{ getFormattedSoGioChayDuocAttribute($totalHours) }}</span>
+    </p>
 </div>
 <table class="table table-bordered">
     <thead>

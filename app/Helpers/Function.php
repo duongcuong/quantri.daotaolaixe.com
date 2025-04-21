@@ -621,6 +621,22 @@ function formatDateTimeVn($dateTime)
     return $dayOfWeek[$date->format('l')] . ', ' . $date->format('d/m/Y');
 }
 
+function formatDateTimeVnThu($dateTime)
+{
+    if (!$dateTime) return '';
+    $date = Carbon::parse($dateTime);
+    $dayOfWeek = [
+        'Sunday' => 'Chủ nhật',
+        'Monday' => 'Thứ 2',
+        'Tuesday' => 'Thứ 3',
+        'Wednesday' => 'Thứ 4',
+        'Thursday' => 'Thứ 5',
+        'Friday' => 'Thứ 6',
+        'Saturday' => 'Thứ 7',
+    ];
+    return $dayOfWeek[$date->format('l')];
+}
+
 function formatTimeVn($dateTime)
 {
     if (!$dateTime) return '';

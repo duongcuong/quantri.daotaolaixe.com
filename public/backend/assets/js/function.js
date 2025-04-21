@@ -597,6 +597,30 @@ $(function () {
         });
     });
 
+    $(document).on("click", ".close-show-dat", function (e) {
+        e.preventDefault();
+        $(".table-course-right").html('');
+        $(".course-user-table-container").removeClass("show-to-table");
+    });
+
+    $(document).on("click", ".btn-show-list-ajax-dat", function (e) {
+        e.preventDefault();
+        $(".course-user-table-container").removeClass("show-to-table");
+        $(".table-course-right").html('');
+        var url = $(this).attr("href");
+        $.ajax({
+            url: url,
+            method: "GET",
+            success: function (response) {
+                $(".course-user-table-container").addClass("show-to-table");
+                $(".table-course-right").html(response);
+            },
+            error: function (xhr) {
+                console.error("Error loading create modal:", xhr);
+            },
+        });
+    });
+
     $(document).on("click", ".btn-edit-ajax", function (e) {
         e.preventDefault();
         removeAllModals();
