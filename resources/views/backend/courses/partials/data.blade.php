@@ -4,15 +4,16 @@
             <th>STT</th>
             <th>Mã</th>
             <th>Hạng</th>
-            <th>Hạng GP</th>
+            <th>Ngày học Cabin</th>
+            {{-- <th>Hạng GP</th> --}}
             <th>Số BC</th>
             <th>Ngày BCI</th>
             <th>Khai giảng</th>
             <th>Bế giảng</th>
             <th>Số HS</th>
-            <th>QĐKG</th>
+            {{-- <th>QĐKG</th> --}}
             <th>Thời gian</th>
-            <th>Học phí</th>
+            {{-- <th>Học phí</th> --}}
             <th class="fixed-column text-center">Hành động</th>
         </tr>
     </thead>
@@ -26,15 +27,16 @@
                 </a>
             </td>
             <td>{{ $course->rank }}</td>
-            <td>{{ $course->rank_gp }}</td>
+            <td>{{ getDateTimeStamp($course->ngay_hoc_cabin, 'd/m/Y') }}</td>
+            {{-- <td>{{ $course->rank_gp }}</td> --}}
             <td>{{ $course->number_bc }}</td>
             <td>{{ \Carbon\Carbon::parse($course->date_bci)->format('d/m/Y') }}</td>
             <td>{{ \Carbon\Carbon::parse($course->start_date)->format('d/m/Y') }}</td>
             <td>{{ \Carbon\Carbon::parse($course->end_date)->format('d/m/Y') }}</td>
             <td>{{ $course->course_users_count }}</td>
-            <td>{{ $course->decision_kg }}</td>
+            {{-- <td>{{ $course->decision_kg }}</td> --}}
             <td>{{ $course->duration }}</td>
-            <td>{!! getMoney($course->tuition_fee) !!}</td>
+            {{-- <td>{!! getMoney($course->tuition_fee) !!}</td> --}}
             <td class="fixed-column text-center">
                 <div class="d-flex">
                     @if(canAccess('admins.courses.edit'))

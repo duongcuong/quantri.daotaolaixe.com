@@ -19,7 +19,11 @@
         @foreach ($vehicles as $vehicle)
         <tr>
             <td>{{ getSTT($vehicles, $loop->iteration) }}</td>
-            <td>{{ $vehicle->license_plate }}</td>
+            <td>
+                <a href="{{ route('admins.vehicles.show', ['vehicle' => $vehicle->id]) }}">
+                    {{ $vehicle->license_plate }}
+                </a>
+            </td>
             <td>{{ $vehicle->model }}</td>
             <td>{{ $vehicle->rank }}</td>
             <td>{{ $vehicle->type }}</td>

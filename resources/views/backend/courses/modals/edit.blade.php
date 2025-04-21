@@ -34,6 +34,10 @@
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">
+                            <label for="ngay_hoc_cabin" class="form-label">Ngày học Cabin</label>
+                            <input type="date" name="ngay_hoc_cabin" id="ngay_hoc_cabin" class="form-control" value="{{ $course->ngay_hoc_cabin }}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
                             <label for="number_bc" class="form-label">Số BC</label>
                             <input type="text" name="number_bc" id="number_bc" class="form-control" value="{{ $course->number_bc }}" required>
                         </div>
@@ -51,7 +55,7 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="tuition_fee" class="form-label">Học phí</label>
-                            <input type="number" name="tuition_fee" id="tuition_fee" class="form-control" value="{{ old('tuition_fee', $course->tuition_fee) }}">
+                            <input type="text" name="tuition_fee" id="tuition_fee" class="form-control thousand-text" value="{{ old('tuition_fee', $course->tuition_fee) }}">
                         </div>
                         {{-- <div class="col-md-6 mb-3">
                             <label for="number_students" class="form-label">Số lượng học viên</label>

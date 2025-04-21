@@ -18,6 +18,7 @@
                             <label for="code" class="form-label">Mã khóa học</label>
                             <input type="text" name="code" id="code" class="form-control" required>
                         </div>
+
                         <div class="col-md-6 mb-3">
                             <label for="rank" class="form-label">Hạng</label>
                             <select name="rank" id="rank" class="form-control single-select">
@@ -37,6 +38,10 @@
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">
+                            <label for="ngay_hoc_cabin" class="form-label">Ngày học Cabin</label>
+                            <input type="date" name="ngay_hoc_cabin" id="ngay_hoc_cabin" class="form-control" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
                             <label for="number_bc" class="form-label">Số BC</label>
                             <input type="text" name="number_bc" id="number_bc" class="form-control" required>
                         </div>
@@ -54,7 +59,7 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="tuition_fee" class="form-label">Học phí</label>
-                            <input type="number" name="tuition_fee" id="tuition_fee" class="form-control">
+                            <input type="text" name="tuition_fee" id="tuition_fee" class="form-control thousand-text">
                         </div>
                         {{-- <div class="col-md-6 mb-3">
                             <label for="number_students" class="form-label">Số học viên</label>

@@ -23,6 +23,7 @@ class Course extends Model
         'duration',
         'tuition_fee',
         'status',
+        'ngay_hoc_cabin',
     ];
 
     protected $casts = [

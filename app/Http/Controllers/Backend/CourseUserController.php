@@ -244,13 +244,6 @@ class CourseUserController extends Controller
         }
 
         if ($request->has('tuition_status') && $request->tuition_status != '') {
-            $query->whereHas('fees', function ($q) use ($request) {
-                if ($request->tuition_status == 'paid') {
-                    $q->havingRaw('SUM(amount) >= course_users.tuition_fee');
-                } else {
-                    $q->havingRaw('SUM(amount) < course_users.tuition_fee');
-                }
-            });
             $hasSearch = true;
         }
 
@@ -611,7 +604,7 @@ class CourseUserController extends Controller
                 }
 
                 // Thêm hoặc lấy Sân tập
-                if($sanTap){
+                if ($sanTap) {
                     $examField = ExamField::firstOrCreate(
                         ['name' => $sanTap],
                         ['status' => 1]
