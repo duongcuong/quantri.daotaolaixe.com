@@ -244,6 +244,15 @@ class CourseUserController extends Controller
         }
 
         if ($request->has('tuition_status') && $request->tuition_status != '') {
+            if ($request->tuition_status == 'paid') {
+                $query->whereHas('course', function($q) {
+                    $q->whereColumn('courses.tuition_fee', '<=', DB::raw('(SELECT COALESCE(SUM(fees.amount), 0) FROM fees WHERE fees.course_user_id = course_users.id)'));
+                });
+            } elseif ($request->tuition_status == 'unpaid') {
+                $query->whereHas('course', function($q) {
+                    $q->whereColumn('courses.tuition_fee', '>', DB::raw('(SELECT COALESCE(SUM(fees.amount), 0) FROM fees WHERE fees.course_user_id = course_users.id)'));
+                });
+            }
             $hasSearch = true;
         }
 
@@ -256,13 +265,15 @@ class CourseUserController extends Controller
                 $query->where('is_bandem', true); // Điều kiện is_bandem = true
             }], 'so_gio_chay_duoc');
 
-        if ($hasSearch) {
-            $query->join('users', 'course_users.user_id', '=', 'users.id')
-                ->orderBy('users.name', 'asc')
-                ->select('course_users.*');
-        } else {
-            $query->latest();
-        }
+        // if ($hasSearch) {
+        //     $query->join('users', 'course_users.user_id', '=', 'users.id')
+        //         ->orderBy('users.name', 'asc')
+        //         ->select('course_users.*');
+        // } else {
+        //     $query->latest();
+        // }
+
+        $query->latest();
 
         $courseUsers = $query->paginate(LIMIT);
 
