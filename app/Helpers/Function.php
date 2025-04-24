@@ -772,10 +772,10 @@ function listFeeTypes()
         '2' => 'Lệ phí giờ đăng ký',
         '3' => 'Lệ phí cọc chíp',
         '4' => 'Lệ phí đưa đón',
-        '4' => 'Hết môn lý thuyết',
-        '4' => 'Hết môn thực hành',
-        '4' => 'Thi tốt nghiệp',
-        '5' => 'Khác',
+        '5' => 'Hết môn lý thuyết',
+        '6' => 'Hết môn thực hành',
+        '7' => 'Thi tốt nghiệp',
+        '8' => 'Khác',
     ];
 }
 
