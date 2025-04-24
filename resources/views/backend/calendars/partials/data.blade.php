@@ -134,13 +134,17 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <th>Giờ</th>
             @endif
 
-            @if (!request()->has('show_column') || in_array('tuition_fee', $columns))
-            <th>Lệ phí thi</th>
+            @if (!request()->has('show_column') || in_array('pickup_registered', $columns))
+            <th class="text-center">Đưa đón</th>
             @endif
 
-            @if (!request()->has('show_column') || in_array('ngay_dong_hoc_phi', $columns))
+            {{-- @if (!request()->has('show_column') || in_array('tuition_fee', $columns))
+            <th>Lệ phí thi</th>
+            @endif --}}
+
+            {{-- @if (!request()->has('show_column') || in_array('ngay_dong_hoc_phi', $columns))
             <th>Ngày nộp lệ phí</th>
-            @endif
+            @endif --}}
 
             @if (!request()->has('show_column') || in_array('gifted_hours', $columns))
             <th>Giờ tặng</th>
@@ -288,13 +292,17 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <td>{!! $calendar->so_gio_chay_duoc !!}</td>
             @endif
 
-            @if (!request()->has('show_column') || in_array('tuition_fee', $columns))
-            <td>{!! getMoney($calendar->tuition_fee) !!}</td>
+            @if (!request()->has('show_column') || in_array('pickup_registered', $columns))
+            <td class="text-center fs-5">{!! getTickTrueOrFalse($calendar->pickup_registered) !!}</td>
             @endif
 
-            @if (!request()->has('show_column') || in_array('ngay_dong_hoc_phi', $columns))
+            {{-- @if (!request()->has('show_column') || in_array('tuition_fee', $columns))
+            <td>{!! getMoney($calendar->tuition_fee) !!}</td>
+            @endif --}}
+
+            {{-- @if (!request()->has('show_column') || in_array('ngay_dong_hoc_phi', $columns))
             <td>{{ getDateTimeStamp($calendar->ngay_dong_hoc_phi, 'd/m/Y') }}</td>
-            @endif
+            @endif --}}
 
             @if (!request()->has('show_column') || in_array('gifted_hours', $columns))
             <td>{{ $calendar->courseUser->gifted_hours ?? '' }}</td>

@@ -15,9 +15,9 @@
                                         <input type="hidden" value="{{ $courseUser->id }}" name="course_user_id">
                                         <input type="hidden" name="type" value="exam_schedule">
                                         <input type="hidden" name="show_column"
-                                            value="name,priority,status,date_start,time,date_end,loai_thi,tuition_fee,ngay_dong_hoc_phi,sbd">
+                                            value="name,status,date_start,time,date_end,loai_thi,sbd,pickup_registered,description">
                                         <input type="hidden" name="reload" value="load-data-ajax-exam-calendars">
-                                        <div class="mr-2">
+                                        {{-- <div class="mr-2">
                                             <select class="form-control form-control-sm" name="loai_hoc">
                                                 <option value="">Loại học</option>
                                                 @foreach (listLoaiHocs() as $key => $item)
@@ -25,7 +25,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <button type="submit" class="btn btn-sm btn-primary ml-2">Tìm kiếm</button>
+                                        <button type="submit" class="btn btn-sm btn-primary ml-2">Tìm kiếm</button> --}}
                                     </div>
                                 </form>
                                 <div class="ml-2">

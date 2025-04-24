@@ -38,7 +38,8 @@ class Calendar extends Model
         'diem_don',
         'so_gio_chay_duoc',
         'sbd',
-        'vehicle_id'
+        'vehicle_id',
+        'pickup_registered'
     ];
 
     protected $casts = [

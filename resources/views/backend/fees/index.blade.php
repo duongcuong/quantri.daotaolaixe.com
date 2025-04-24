@@ -48,6 +48,24 @@ Tất cả Lịch sử nộp tiền
                     </select>
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
+                    <label for="type">Loại thu</label>
+                    <select class="form-control" name="type" id="type">
+                        <option value="">-- Chọn loại thu --</option>
+                        @foreach (listFeeTypes() as $key => $item)
+                        <option value="{{ $key }}" {{ session('fees_filters.type')==$key ? 'selected' : '' }}>{{
+                            $item }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group col-sm-6 col-md-3">
+                    <label for="is_received">Tiền đã về công ty</label>
+                    <select name="is_received" id="is_received" class="form-control">
+                        <option value="">-- Chọn trạng thái --</option>
+                        <option value="0" {{ session('fees_filters.is_received') == 0 ? 'selected' : '' }}>Chưa về</option>
+                        <option value="1" {{ session('fees_filters.is_received') == 1 ? 'selected' : '' }}>Đã về</option>
+                    </select>
+                </div>
+                <div class="form-group col-sm-6 col-md-3">
                     <label for="status22" class="mr-2 opacity-0">Hành động </label><br>
                     <button type="submit" class="btn btn-primary">
                         <span class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true"

@@ -29,6 +29,7 @@ class FeeController extends Controller
             'note' => 'nullable|string',
             'admin_id' => 'required|exists:admins,id',
             'is_received' => 'required|boolean',
+            'type' => 'required|integer',
         ]);
 
         if ($validator->fails()) {
@@ -54,6 +55,7 @@ class FeeController extends Controller
             'note' => 'nullable|string',
             'admin_id' => 'required|exists:admins,id',
             'is_received' => 'required|boolean',
+            'type' => 'required|integer',
         ]);
 
         if ($validator->fails()) {
@@ -80,6 +82,14 @@ class FeeController extends Controller
 
         if ($request->has('course_user_id') && $request->course_user_id != '') {
             $query->where('course_user_id', $request->course_user_id);
+        }
+
+        if ($request->has('type') && $request->type != '') {
+            $query->where('type', $request->type);
+        }
+
+        if ($request->has('is_received') && $request->is_received != '') {
+            $query->where('is_received', $request->is_received);
         }
 
         if ($request->has('student_name') && $request->student_name) {

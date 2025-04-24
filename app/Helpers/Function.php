@@ -764,3 +764,40 @@ if (!function_exists('canAccess')) {
         return Auth::guard('admin')->user()->hasPermission($permission);
     }
 }
+
+function listFeeTypes()
+{
+    return [
+        '1' => 'Học phí',
+        '2' => 'Lệ phí giờ đăng ký',
+        '3' => 'Lệ phí cọc chíp',
+        '4' => 'Lệ phí đưa đón',
+        '5' => 'Khác',
+    ];
+}
+
+function getFeeType($type)
+{
+    if (!$type) return '';
+    $types = listFeeTypes();
+    switch ($type) {
+        case '1':
+            return '<span class="badge badge-primary">' . $types[$type] . '</span>';
+            break;
+        case '2':
+            return '<span class="badge badge-warning">' . $types[$type] . '</span>';
+            break;
+        case '3':
+            return '<span class="badge badge-success">' . $types[$type] . '</span>';
+            break;
+        case '4':
+            return '<span class="badge badge-danger">' . $types[$type] . '</span>';
+            break;
+        case '5':
+            return '<span class="badge badge-secondary">' . $types[$type] . '</span>';
+            break;
+        default:
+            return '';
+            break;
+    }
+}

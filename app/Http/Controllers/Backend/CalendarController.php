@@ -69,6 +69,7 @@ class CalendarController extends Controller
             'is_tudong' => 'nullable|boolean',
             'is_bandem' => 'nullable|boolean',
             'vehicle_id' => 'nullable|exists:vehicles,id',
+            'pickup_registered' => 'nullable|boolean',
         ]);
 
         $validator->after(function ($validator) use ($request) {
@@ -84,6 +85,7 @@ class CalendarController extends Controller
         $data = $request->all();
         $data['is_tudong'] = $request->has('is_tudong') ? true : false;
         $data['is_bandem'] = $request->has('is_bandem') ? true : false;
+        $data['pickup_registered'] = $request->has('pickup_registered') ? true : false;
         $data['approval'] = $request->has('approval') ? true : false;
 
         // Nếu course_user_id có giá trị, lưu từng bản ghi riêng
@@ -125,6 +127,7 @@ class CalendarController extends Controller
             'is_tudong' => 'nullable|boolean',
             'is_bandem' => 'nullable|boolean',
             'vehicle_id' => 'nullable|exists:vehicles,id',
+            'pickup_registered' => 'nullable|boolean',
         ]);
 
         $validator->after(function ($validator) use ($request) {
@@ -140,6 +143,7 @@ class CalendarController extends Controller
         $data = $request->all();
         $data['is_tudong'] = $request->has('is_tudong') ? true : false;
         $data['is_bandem'] = $request->has('is_bandem') ? true : false;
+        $data['pickup_registered'] = $request->has('pickup_registered') ? true : false;
         $data['approval'] = $request->has('approval') ? true : false;
 
         $calendar->update($data);

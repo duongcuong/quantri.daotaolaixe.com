@@ -7,6 +7,7 @@
         <tr>
             <th>STT</th>
             <th>Học viên</th>
+            <th>Loại thu</th>
             <th>Khóa học</th>
             <th>Số tiền</th>
             <th>Ngày nộp</th>
@@ -21,6 +22,7 @@
         <tr>
             <td>{{ getSTT($fees, $loop->iteration) }}</td>
             <td>{{ $fee->courseUser->user->name }}</td>
+            <td>{!! getFeeType($fee->type) !!}</td>
             <td>{{ $fee->courseUser->course->code }}</td>
             <td>{{ number_format($fee->amount) }}</td>
             <td>{{ \Carbon\Carbon::parse($fee->payment_date)->format('d/m/Y') }}</td>

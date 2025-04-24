@@ -125,6 +125,14 @@
                                         value="{{ old('sbd', $calendar->sbd) }}" />
                                 </div>
                                 <div class="form-group col-md-6">
+                                    <label for="pickup_registered">Đăng ký</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" name="pickup_registered" type="checkbox"
+                                            value="1" id="pickup_registered" {{ $calendar->pickup_registered ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="pickup_registered">Đăng ký đưa đón</label>
+                                    </div>
+                                </div>
+                                {{-- <div class="form-group col-md-6">
                                     <label for="ngay_dong_hoc_phi">Ngày nộp tiền</label>
                                     <input type="datetime-local" name="ngay_dong_hoc_phi" id="ngay_dong_hoc_phi"
                                         class="form-control"
@@ -135,7 +143,7 @@
                                     <input type="text" name="tuition_fee" id="tuition_fee"
                                         class="form-control thousand-text"
                                         value="{{ old('tuition_fee', $calendar->tuition_fee) }}" />
-                                </div>
+                                </div> --}}
                             </div>
                             @endif
                             @if ($calendar->type == 'class_schedule'|| $calendar->type == 'exam_schedule')

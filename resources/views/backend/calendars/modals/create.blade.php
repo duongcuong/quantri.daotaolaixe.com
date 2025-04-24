@@ -112,11 +112,20 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-6">
                                     <label for="sbd">SBD</label>
                                     <input type="number" name="sbd" id="sbd" class="form-control">
                                 </div>
                                 <div class="form-group col-md-6">
+                                    <label for="pickup_registered">Đăng ký</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" name="pickup_registered" type="checkbox"
+                                            value="1" id="pickup_registered">
+                                        <label class="form-check-label" for="pickup_registered">Đăng ký đưa đón</label>
+                                    </div>
+                                </div>
+
+                                {{-- <div class="form-group col-md-6">
                                     <label for="ngay_dong_hoc_phi">Ngày nộp tiền</label>
                                     <input type="datetime-local" name="ngay_dong_hoc_phi" id="ngay_dong_hoc_phi"
                                         class="form-control">
@@ -125,7 +134,7 @@
                                     <label for="tuition_fee">Số tiền</label>
                                     <input type="text" name="tuition_fee" id="tuition_fee"
                                         class="form-control thousand-text">
-                                </div>
+                                </div> --}}
                             </div>
                             @endif
                             @if (request()->type == 'class_schedule')

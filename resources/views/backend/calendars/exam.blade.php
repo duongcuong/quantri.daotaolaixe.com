@@ -34,7 +34,7 @@ Tất cả lịch thi của học viên
             @csrf
             @php
             $showColumn =
-            'name_hocvien,cccd,phone,date_start,time,course_code,loai_thi,tuition_fee,ngay_dong_hoc_phi,sbd,status,health_check_date,san,dob,gifted_hours,chip_hours';
+            'name_hocvien,cccd,phone,date_start,time,course_code,loai_thi,tuition_fee,ngay_dong_hoc_phi,sbd,status,health_check_date,san,dob,gifted_hours,chip_hours,pickup_registered,description';
             $typeColumn = 'exam_schedule';
             $reload = 'load-data-ajax-class-calendars';
             @endphp

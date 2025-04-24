@@ -10,6 +10,7 @@ class Fee extends Model
     use HasFactory;
 
     protected $fillable = [
+        'type',
         'course_user_id',
         'amount',
         'payment_date',

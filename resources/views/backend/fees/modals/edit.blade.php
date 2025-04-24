@@ -25,6 +25,14 @@
                         </div>
                         @endif
                         <div class="col-md-6 mb-3">
+                            <label for="type">Loại thu</label>
+                            <select class="form-control" name="type" id="type" required>
+                                @foreach (listFeeTypes() as $key => $item)
+                                    <option value="{{ $key }}" {{ $fee->type == $key ? 'selected' : '' }}>{{ $item }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
                             <label for="amount">Số tiền</label>
                             <input type="text" name="amount" id="amount" class="form-control thousand-text" required value="{{ $fee->amount }}">
                         </div>
