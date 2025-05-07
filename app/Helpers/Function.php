@@ -618,6 +618,7 @@ function formatDateTimeVn($dateTime)
         'Friday' => 'Thứ 6',
         'Saturday' => 'Thứ 7',
     ];
+    // return $dayOfWeek[$date->format('l')] . ', ' . $date->format('d/m/Y');
     return $dayOfWeek[$date->format('l')] . ', ' . $date->format('d/m/Y');
 }
 

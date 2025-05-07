@@ -114,10 +114,6 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <th>Khám SK</th>
             @endif
 
-            @if (!request()->has('show_column') || in_array('km', $columns))
-            <th>Km</th>
-            @endif
-
             @if (!request()->has('show_column') || in_array('is_tudong', $columns))
             <th>Tự động</th>
             @endif
@@ -128,6 +124,10 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
 
             @if (!request()->has('show_column') || in_array('approval', $columns))
             <th>Duyệt Km</th>
+            @endif
+
+            @if (!request()->has('show_column') || in_array('km', $columns))
+            <th>Km</th>
             @endif
 
             @if (!request()->has('show_column') || in_array('so_gio_chay_duoc', $columns))
@@ -272,10 +272,6 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             </td>
             @endif
 
-            @if (!request()->has('show_column') || in_array('km', $columns))
-            <td>{!! number_format($calendar->km) !!}</td>
-            @endif
-
             @if (!request()->has('show_column') || in_array('is_tudong', $columns))
             <th class="fs-20 text-center">{!! getTickTrueOrFalse($calendar->is_tudong) !!}</th>
             @endif
@@ -286,6 +282,10 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
 
             @if (!request()->has('show_column') || in_array('approval', $columns))
             <td>{!! getStatusApprovedKm($calendar->approval, $calendar->loai_hoc, $calendar->type) !!}</td>
+            @endif
+
+            @if (!request()->has('show_column') || in_array('km', $columns))
+            <td>{!! number_format($calendar->km) !!}</td>
             @endif
 
             @if (!request()->has('show_column') || in_array('so_gio_chay_duoc', $columns))
@@ -355,7 +355,7 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
 </table>
 {{ $calendars->links() }}
 
-{{-- <script>
+<script>
     jQuery(document).ready(function () {
         function mergeTableRows(selector) {
             var previousText = null;
@@ -382,4 +382,4 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
         // Gọi hàm để gộp các ô trong cột `date-start-column`
         mergeTableRows('.date-start-column');
     });
-</script> --}}
+</script>
