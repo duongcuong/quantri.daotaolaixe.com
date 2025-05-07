@@ -219,13 +219,15 @@ class CalendarController extends Controller
 
         // Xử lý group_by = date
         if ($request->has('group_by') && $request->group_by === 'date') {
+            $totalCalendars = $query->count();
+
             $calendars = $query->selectRaw('DATE(date_start) as date, COUNT(*) as total_calendars')
                 ->groupByRaw('DATE(date_start)')
                 ->orderBy('date', 'DESC')
                 ->paginate(LIMIT);
 
             if ($request->ajax()) {
-                return view('backend.calendars.partials.data-date', compact('calendars'))->render();
+                return view('backend.calendars.partials.data-date', compact('calendars', 'totalCalendars'))->render();
             }
         }
 
