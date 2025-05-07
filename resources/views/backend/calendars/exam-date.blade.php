@@ -107,7 +107,17 @@ Tất cả lịch học
                     </select>
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
-                    <label for="status22" class="mr-2 opacity-0">Hành động </label><br>
+                    <label for="start_date" class="mr-2">Ngày bắt đầu</label>
+                    <input type="date" name="start_date" id="start_date" class="form-control"
+                        value="{{ request()->date_start ?? session('calendar_filters.start_date') }}">
+                </div>
+                <div class="form-group col-sm-6 col-md-3">
+                    <label for="end_date" class="mr-2">Ngày kết thúc</label>
+                    <input type="date" name="end_date" id="end_date" class="form-control"
+                        value="{{ request()->date_start ?? session('calendar_filters.end_date') }}">
+                </div>
+                <div class="form-group col-sm-6 col-md-3">
+                    {{-- <label for="status22" class="mr-2 opacity-0">Hành động </label><br> --}}
                     <button type="submit" class="btn btn-primary">
                         <span class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true"
                             style="display: none"></span>
