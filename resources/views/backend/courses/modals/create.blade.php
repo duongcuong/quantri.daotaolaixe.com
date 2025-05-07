@@ -42,9 +42,13 @@
                             <input type="date" name="ngay_hoc_cabin" id="ngay_hoc_cabin" class="form-control" required>
                         </div>
                         <div class="col-md-6 mb-3">
+                            <label for="ngay_hoc_dat" class="form-label">Ngày học DAT</label>
+                            <input type="date" name="ngay_hoc_dat" id="ngay_hoc_dat" class="form-control" required>
+                        </div>
+                        {{-- <div class="col-md-6 mb-3">
                             <label for="number_bc" class="form-label">Số BC</label>
                             <input type="text" name="number_bc" id="number_bc" class="form-control" required>
-                        </div>
+                        </div> --}}
                         <div class="col-md-6 mb-3">
                             <label for="date_bci" class="form-label">Ngày BCI</label>
                             <input type="date" name="date_bci" id="date_bci" class="form-control" required>

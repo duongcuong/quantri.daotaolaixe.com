@@ -5,6 +5,7 @@
             <th>Mã</th>
             <th>Hạng</th>
             <th>Ngày học Cabin</th>
+            <th>Ngày học DAT</th>
             {{-- <th>Hạng GP</th> --}}
             <th>Số BC</th>
             <th>Ngày BCI</th>
@@ -28,6 +29,7 @@
             </td>
             <td>{{ $course->rank }}</td>
             <td>{{ getDateTimeStamp($course->ngay_hoc_cabin, 'd/m/Y') }}</td>
+            <td>{{ getDateTimeStamp($course->ngay_hoc_dat, 'd/m/Y') }}</td>
             {{-- <td>{{ $course->rank_gp }}</td> --}}
             <td>{{ $course->number_bc }}</td>
             <td>{{ \Carbon\Carbon::parse($course->date_bci)->format('d/m/Y') }}</td>

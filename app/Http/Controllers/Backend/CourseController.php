@@ -34,7 +34,8 @@ class CourseController extends Controller
             'number_students' => 'nullable|integer',
             'decision_kg' => 'nullable|string|max:255',
             'duration' => 'nullable|integer',
-            'tuition_fee' => 'nullable|integer'
+            'tuition_fee' => 'nullable|integer',
+            'ngay_hoc_dat' => 'nullable|date',
         ]);
 
         if ($validator->fails()) {
@@ -70,7 +71,8 @@ class CourseController extends Controller
             'number_students' => 'nullable|integer',
             'decision_kg' => 'nullable|string|max:255',
             'duration' => 'nullable|integer',
-            'tuition_fee' => 'nullable|integer'
+            'tuition_fee' => 'nullable|integer',
+            'ngay_hoc_dat' => 'nullable|date',
         ]);
 
         if ($validator->fails()) {
