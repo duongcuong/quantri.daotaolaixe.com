@@ -208,24 +208,24 @@ class CourseUserController extends Controller
             $hasSearch = true;
         }
 
-        $latestCalendarSub = DB::table('calendars as a')
-            ->selectRaw('MAX(a.id) as id')
-            ->whereIn('a.type', ['exam_schedule', 'class_schedule'])
-            ->groupBy('a.course_user_id');
-
-
         if ($request->has('status') && $request->status != '') {
-            $query->whereHas('latestCalendar', function ($q) use ($request) {
-                $q->whereIn('calendars.type', ['exam_schedule', 'class_schedule'])
-                    ->where('calendars.status', $request->status)
-                    ->whereRaw('calendars.id = (
-                        SELECT id FROM calendars a
-                        WHERE a.course_user_id = course_users.id
-                        AND a.type IN ("exam_schedule", "class_schedule")
-                        ORDER BY a.date_start DESC
-                        LIMIT 1
-                    )');
-            });
+            $query->join(
+                DB::raw('(SELECT a.course_user_id, a.status
+                           FROM calendars a
+                           WHERE a.type IN ("exam_schedule", "class_schedule")
+                           AND a.id = (
+                               SELECT id FROM calendars b
+                               WHERE b.course_user_id = a.course_user_id
+                               AND b.type IN ("exam_schedule", "class_schedule")
+                               ORDER BY b.date_start DESC
+                               LIMIT 1
+                           )
+                          ) as latest_calendar'),
+                function ($join) {
+                    $join->on('course_users.id', '=', 'latest_calendar.course_user_id');
+                }
+            )
+                ->where('latest_calendar.status', $request->status);
             $hasSearch = true;
         }
 
