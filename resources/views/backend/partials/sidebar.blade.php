@@ -77,59 +77,57 @@
         <!--Giáo viên-->
         <li class="menu-label">Quản lý Giáo viên</li>
         <li class="{{ Request::is('admin/teachers/*') ? 'mm-active' : '' }}">
-            <a class="has-arrow" href="javascript:;">
+            <a href="{{ route('admins.teachers.index') }}" class="reset-search-action">
                 <div class="parent-icon icon-color-11"><i class="bx bx-group"></i>
                 </div>
-                <div class="menu-title">Quản lý Giáo viên</div>
+                <div class="menu-title">Danh sách giáo viên</div>
             </a>
-            <ul class="{{ Request::is('admin/teachers*') ? 'mm-show' : '' }}">
-                <li
-                    class="{{ Request::is('admin/teachers') || Request::is('admin/teachers/*/edit') ? 'mm-active' : '' }}">
-                    <a href="{{ route('admins.teachers.index') }}" class="reset-search-action"><i class="bx bx-star"></i>Danh sách giáo viên</a>
-                </li>
-
-                @if(canAccess('admins.teachers.create'))
-                <li class="{{ Request::is('admin/teachers/create') ? '' : '' }}">
-                    <a href="{{ route('admins.teachers.create') }}"><i class="bx bx-star"></i>Thêm giáo viên</a>
-                </li>
-                @endif
-
-                <li class="{{ Request::is('admin/calendars/learning') ? 'mm-active' : '' }}">
-                    <a href="{{ route('admins.calendars.learning-date') }}" class="reset-search-action"><i class="bx bx-calendar-exclamation"></i>Lịch làm việc giáo viên</a>
-                </li>
-            </ul>
+        </li>
+        <li class="{{ Request::is('admin/teachers/create') ? 'mm-active' : '' }}">
+            <a href="{{ route('admins.teachers.create') }}" class="reset-search-action">
+                <div class="parent-icon icon-color-11"><i class="bx bx-group"></i>
+                </div>
+                <div class="menu-title">Thêm giáo viên</div>
+            </a>
+        </li>
+        <li class="{{ Request::is('admin/teachers/learning-date') ? 'mm-active' : '' }}">
+            <a href="{{ route('admins.calendars.learning-date') }}" class="reset-search-action">
+                <div class="parent-icon icon-color-11"><i class="bx bx-calendar-exclamation"></i>
+                </div>
+                <div class="menu-title">Lịch làm việc giáo viên</div>
+            </a>
         </li>
         <!--End Giáo viên-->
 
         <!--Giáo viên-->
         <li class="menu-label">Quản lý học viên</li>
         <li class="{{ Request::is('admin/courses/*') ? 'mm-active' : '' }}">
-            <a class="has-arrow" href="javascript:;">
-                <div class="parent-icon icon-color-11"><i class="bx bx-user-plus"></i>
+            <a href="{{ route('admins.courses.index') }}" class="reset-search-action">
+                <div class="parent-icon icon-color-11"><i class="bx bx-shape-polygon"></i>
                 </div>
-                <div class="menu-title">Học viên</div>
+                <div class="menu-title">Danh sách khoá học</div>
             </a>
-            <ul class="{{ Request::is('admin/courses*') ? 'mm-show' : '' }}">
-                <li
-                    class="{{ Request::is('admin/courses') || Request::is('admin/courses/create') || Request::is('admin/courses/*/edit') ? 'mm-active' : '' }}">
-                    <a href="{{ route('admins.courses.index') }}" class="reset-search-action"><i class="bx bx-star"></i>Danh sách khoá học</a>
-                </li>
-
-                <li
-                    class="{{ Request::is('admin/users') || Request::is('admin/users/create') || Request::is('admin/users/*/edit') ? 'mm-active' : '' }}">
-                    <a href="{{ route('admins.users.index') }}" class="reset-search-action"><i class="bx bx-star"></i>Quản lý học viên</a>
-                </li>
-
-                <li class="{{ Request::is('admin/course-user/*') ? 'mm-active' : '' }}">
-                    <a href="{{ route('admins.course-user.index') }}" class="reset-search-action"><i class="bx bx-star"></i>Danh sách học viên -
-                        Khoá học</a>
-                </li>
-
-                <li
-                    class="{{ Request::is('admin/fees') || Request::is('admin/fees/create') || Request::is('admin/fees/*/edit') ? 'mm-active' : '' }}">
-                    <a href="{{ route('admins.fees.index') }}" class="reset-search-action"><i class="bx bx-star"></i>Lịch sử nộp tiền</a>
-                </li>
-            </ul>
+        </li>
+        <li class="{{ Request::is('admin/users/*') ? 'mm-active' : '' }}">
+            <a href="{{ route('admins.users.index') }}" class="reset-search-action">
+                <div class="parent-icon icon-color-11"><i class="bx bx-user"></i>
+                </div>
+                <div class="menu-title">Quản lý học viên</div>
+            </a>
+        </li>
+        <li class="{{ Request::is('admin/course-user/*') ? 'mm-active' : '' }}">
+            <a href="{{ route('admins.course-user.index') }}" class="reset-search-action">
+                <div class="parent-icon icon-color-11"><i class="bx bx-shield-alt"></i>
+                </div>
+                <div class="menu-title">Danh sách học viên - Khoá học</div>
+            </a>
+        </li>
+        <li class="{{ Request::is('admin/fees/*') ? 'mm-active' : '' }}">
+            <a href="{{ route('admins.fees.index') }}" class="reset-search-action">
+                <div class="parent-icon icon-color-11"><i class="bx bx-money"></i>
+                </div>
+                <div class="menu-title">Lịch sử nộp tiền</div>
+            </a>
         </li>
 
         @if(canAccess('admins.exam-fields.index') ||

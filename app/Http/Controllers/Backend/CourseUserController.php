@@ -208,6 +208,12 @@ class CourseUserController extends Controller
             $hasSearch = true;
         }
 
+        $latestCalendarSub = DB::table('calendars as a')
+            ->selectRaw('MAX(a.id) as id')
+            ->whereIn('a.type', ['exam_schedule', 'class_schedule'])
+            ->groupBy('a.course_user_id');
+
+
         if ($request->has('status') && $request->status != '') {
             $query->whereHas('latestCalendar', function ($q) use ($request) {
                 $q->whereIn('calendars.type', ['exam_schedule', 'class_schedule'])
@@ -245,11 +251,11 @@ class CourseUserController extends Controller
 
         if ($request->has('tuition_status') && $request->tuition_status != '') {
             if ($request->tuition_status == 'paid') {
-                $query->whereHas('course', function($q) {
+                $query->whereHas('course', function ($q) {
                     $q->whereColumn('courses.tuition_fee', '<=', DB::raw('(SELECT COALESCE(SUM(fees.amount), 0) FROM fees WHERE fees.course_user_id = course_users.id)'));
                 });
             } elseif ($request->tuition_status == 'unpaid') {
-                $query->whereHas('course', function($q) {
+                $query->whereHas('course', function ($q) {
                     $q->whereColumn('courses.tuition_fee', '>', DB::raw('(SELECT COALESCE(SUM(fees.amount), 0) FROM fees WHERE fees.course_user_id = course_users.id)'));
                 });
             }
