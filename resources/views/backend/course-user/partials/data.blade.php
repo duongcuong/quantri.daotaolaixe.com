@@ -1,3 +1,7 @@
+<div class="alert alert-info alert-dismissible fade show" role="alert">
+    <strong class="mr-1">Tổng số lượng học viên: </strong>
+    <strong class="mr-2 text-danger">{{ number_format($courseUsers->total()) }}</strong>
+</div>
 <table id="example" class="table table-sm table-bordered table-hover">
     <thead>
         <tr>
