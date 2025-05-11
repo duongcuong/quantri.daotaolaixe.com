@@ -58,12 +58,33 @@
         @endif
 
         {{-- Lịch thi sát hạch --}}
-        <li class="menu-label">Lịch thi sát hạch</li>
-        <li class="{{ Request::is('admin/comments/*') ? 'mm-active' : '' }}">
+        <li class="menu-label">Lịch thi sát hạch Ô TÔ</li>
+        <li class="{{ Request::is('admin/calendars/exam-date') ? 'mm-active' : '' }}">
             <a href="{{ route('admins.calendars.exam-date') }}" class="reset-search-action">
                 <div class="parent-icon icon-color-11"><i class="bx bx-calendar-check"></i>
                 </div>
                 <div class="menu-title">Lịch thi sát hạch</div>
+            </a>
+        </li>
+        <li class="{{ Request::is('admin/calendars/exam-edu-date') ? 'mm-active' : '' }}">
+            <a href="{{ route('admins.calendars.exam-edu-date') }}" class="reset-search-action">
+                <div class="parent-icon icon-color-11"><i class="bx bx-calendar-check"></i>
+                </div>
+                <div class="menu-title">Lịch thi tốt nghiệp</div>
+            </a>
+        </li>
+        <li class="{{ Request::is('admin/calendars/thi-ly-thuyet-ngay') ? 'mm-active' : '' }}">
+            <a href="{{ route('admins.calendars.thi-ly-thuyet-ngay') }}" class="reset-search-action">
+                <div class="parent-icon icon-color-11"><i class="bx bx-calendar-check"></i>
+                </div>
+                <div class="menu-title">Lịch thi hết môn lý thuyết</div>
+            </a>
+        </li>
+        <li class="{{ Request::is('admin/calendars/thi-thuc-hanh-ngay') ? 'mm-active' : '' }}">
+            <a href="{{ route('admins.calendars.thi-thuc-hanh-ngay') }}" class="reset-search-action">
+                <div class="parent-icon icon-color-11"><i class="bx bx-calendar-check"></i>
+                </div>
+                <div class="menu-title">Lịch thi hết môn thực hành</div>
             </a>
         </li>
         <li class="{{ Request::is('admin/exam-schedules/*') ? 'mm-active' : '' }}">

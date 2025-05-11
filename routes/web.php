@@ -105,6 +105,19 @@ Route::prefix('admin')->as('admins.')->group(function () {
         Route::get('calendars/learning-date', [CalendarController::class, 'learningDate'])->name('calendars.learning-date');
         Route::get('calendars/exam-date', [CalendarController::class, 'examDate'])->name('calendars.exam-date');
         Route::get('calendars/exam', [CalendarController::class, 'exam'])->name('calendars.exam');
+
+        //Thi tốt nghiệp
+        Route::get('calendars/exam-edu-date', [CalendarController::class, 'examEduDate'])->name('calendars.exam-edu-date');
+        Route::get('calendars/exam-edu', [CalendarController::class, 'examEdu'])->name('calendars.exam-edu');
+
+        //Thi lý thuyết
+        Route::get('calendars/thi-ly-thuyet-ngay', [CalendarController::class, 'thiLyThuyetNgay'])->name('calendars.thi-ly-thuyet-ngay');
+        Route::get('calendars/thi-ly-thuyet', [CalendarController::class, 'thiLyThuyet'])->name('calendars.thi-ly-thuyet');
+
+        //Thi thực hành
+        Route::get('calendars/thi-thuc-hanh-ngay', [CalendarController::class, 'thiThucHanhNgay'])->name('calendars.thi-thuc-hanh-ngay');
+        Route::get('calendars/thi-thuc-hanh', [CalendarController::class, 'thiThucHanh'])->name('calendars.thi-thuc-hanh');
+
         Route::get('calendars/dat', [CalendarController::class, 'dat'])->name('calendars.dat');
         Route::get('calendars/learning-exam', [CalendarController::class, 'learningExam'])->name('calendars.learningExam');
         Route::resource('calendars', CalendarController::class);

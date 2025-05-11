@@ -13,7 +13,7 @@ Tất cả lịch thi
                     <li class="breadcrumb-item"><a href="{{ route('admins.dashboard') }}"><i
                                 class='bx bx-home-alt'></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Lịch thi sát hạch</li>
+                    <li class="breadcrumb-item active" aria-current="page">Lịch thi hết môn lý thuyết</li>
                 </ol>
             </nav>
         </div>
@@ -21,7 +21,7 @@ Tất cả lịch thi
     <div class="ml-auto">
         @if (canAccess('admins.calendars.create'))
         <a class="btn btn-outline-primary btn-sm btn-create-ajax"
-            href="{{ route('admins.calendars.create', ['type' => 'exam_schedule', 'reload' => 'load-data-ajax-class-calendars']) }}"
+            href="{{ route('admins.calendars.create', ['type' => 'lythuyet', 'reload' => 'load-data-ajax-class-calendars']) }}"
             data-cs-modal="#modal-calendars-create-ajax" title="Tạo Lịch Thi"><i class="bx bx-plus"></i>Tạo Lịch Thi</a>
         @endif
     </div>
@@ -34,13 +34,13 @@ Tất cả lịch thi
             @csrf
             @php
             $showColumn = 'date_start,total_calendar';
-            $typeColumn = 'exam_schedule';
+            $typeColumn = 'lythuyet';
             $reload = 'load-data-ajax-class-calendars';
             @endphp
             <input type="hidden" name="show_column" value="{{ $showColumn }}">
             <input type="hidden" name="type" value="{{ $typeColumn }}">
             <input type="hidden" name="reload" value="{{ $reload }}">
-            <input type="hidden" name="group_by" value="date_exam">
+            <input type="hidden" name="group_by" value="date_lythuyet">
             <div class="row">
                 <div class="form-group col-md-3">
                     <label for="exam_field_id">Sân thi</label>

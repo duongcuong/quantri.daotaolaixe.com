@@ -13,17 +13,20 @@ Tất cả lịch thi của học viên
                     <li class="breadcrumb-item"><a href="{{ route('admins.dashboard') }}"><i
                                 class='bx bx-home-alt'></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Lịch thi học viên</li>
+                    <li class="breadcrumb-item active" aria-current="page">Lịch thi sát hạch</li>
                 </ol>
             </nav>
         </div>
     </div>
     <div class="ml-auto">
+        <a class="btn btn-outline-danger btn-sm mr-2 reset-search-action" href="{{ route('admins.calendars.exam-date') }}"
+            data-toggle="tooltip" title="Quay về"><i class="bx bx-rewind"></i>Quay lại</a>
         {{-- @if (Auth::user()->hasPermission('admins.exam-schedules.index')) --}}
         <a class="btn btn-outline-primary btn-sm btn-create-ajax"
-            href="{{ route('admins.calendars.create', ['type' => 'exam_schedule', 'reload' => 'load-data-ajax-class-calendars']) }}"
-            data-cs-modal="#modal-calendars-create-ajax" title="Thêm mới"><i class="bx bx-plus"></i>Thêm mới</a>
+            href="{{ route('admins.calendars.create', ['type' => 'exam_schedule', 'date_start' => request()->date_start, 'reload' => 'load-data-ajax-class-calendars']) }}"
+            data-cs-modal="#modal-calendars-create-ajax" title="Thêm mới"><i class="bx bx-plus"></i>Thêm học viên</a>
         {{-- @endif --}}
+
     </div>
 </div>
 
@@ -32,15 +35,10 @@ Tất cả lịch thi của học viên
         <form data-reload="#load-data-ajax-class-calendars" id="search-form-class-calendars"
             class="mb-3 form-search-submit">
             @csrf
-            @php
-            $showColumn =
-            'name_hocvien,cccd,phone,date_start,time,course_code,loai_thi,tuition_fee,ngay_dong_hoc_phi,sbd,status,health_check_date,san,dob,gifted_hours,chip_hours,pickup_registered,description';
-            $typeColumn = 'exam_schedule';
-            $reload = 'load-data-ajax-class-calendars';
-            @endphp
-            <input type="hidden" name="show_column" value="{{ $showColumn }}">
-            <input type="hidden" name="type" value="{{ $typeColumn }}">
-            <input type="hidden" name="reload" value="{{ $reload }}">
+            <input type="hidden" name="type" value="exam_schedule">
+            <input type="hidden" name="view" value="data-sathach">
+            <input type="hidden" name="buoi_hoc" value="{{ request()->buoi_hoc }}">
+            <input type="hidden" name="reload" value="load-data-ajax-class-calendars">
             <div class="row">
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="course_id" class="mr-2">Học viên</label>
@@ -73,19 +71,10 @@ Tất cả lịch thi của học viên
                         value="{{ request()->date_start ?? session('calendar_filters.end_date') }}">
                 </div>
 
-                <div class="form-group col-sm-6 col-md-3">
-                    <label for="interest_level">Mức độ ưu tiên</label>
-                    <select name="interest_level" id="interest_level" class="form-control">
-                        <option value="">Chọn mức độ ưu tiên</option>
-                        @foreach (listLevels() as $key => $item)
-                        <option value="{{ $key }}" {{ old('interest_level')==$key ? 'selected' : '' }} {{ session('calendar_filters.interest_level') == $key ? 'selected' : '' }}>{{ $item
-                            }}</option>
-                        @endforeach
-                    </select>
-                </div>
+
 
                 <div class="form-group col-sm-6 col-md-3">
-                    <label for="status22" class="mr-2 opacity-0">Hành động </label><br>
+                    {{-- <label for="status22" class="mr-2 opacity-0">Hành động </label><br> --}}
                     <button type="submit" class="btn btn-primary">
                         <label for=""></label>
                         <span class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true"

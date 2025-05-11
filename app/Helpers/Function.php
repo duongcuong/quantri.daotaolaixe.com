@@ -136,7 +136,7 @@ function listRanks()
 function getRank($rank = '', $json = true)
 {
     if (!$rank) return '';
-    if ($json){
+    if ($json) {
         $rank = json_decode($rank);
     }
 
@@ -322,7 +322,10 @@ function listTypeCalendars()
         'meeting' => 'Lịch họp',
         'call' => 'Lịch gọi',
         'class_schedule' => 'Lịch học',
-        'exam_schedule' => 'Lịch thi',
+        'exam_schedule' => 'Lịch thi sát hạch',
+        'exam_edu' => 'Lịch thi tốt nghiệp',
+        'lythuyet' => 'Lịch thi lý thuyết',
+        'thuchanh' => 'Lịch thi thực hành',
     ];
 }
 
@@ -342,13 +345,28 @@ function getTypeCalendar($type)
         case 'exam_schedule':
             return '<span class="text-info">' . $types[$type] . '</span>';
             break;
+        case 'exam_edu':
+            return '<span class="text-info">' . $types[$type] . '</span>';
+            break;
         case 'class_schedule':
             return '<span class="text-primary">' . $types[$type] . '</span>';
+            break;
+        case 'lythuyet':
+            return '<span class="text-info">' . $types[$type] . '</span>';
+            break;
+        case 'thuchanh':
+            return '<span class="text-info">' . $types[$type] . '</span>';
             break;
         default:
             return '';
             break;
     }
+}
+
+function getTypeTextCalendar($type)
+{
+    $types = listTypeCalendars();
+    return $types[$type];
 }
 
 function listStatusCalendars()
@@ -384,6 +402,24 @@ function listStatusCalendars()
             43 => 'Thiếu giáo viên',
             44 => 'Huỷ ca',
         ],
+        'exam_edu' => [
+            50 => 'Đang chờ',
+            51 => 'Đỗ',
+            52 => 'Thi lại',
+            53 => 'Thi mới',
+        ],
+        'lythuyet' => [
+            60 => 'Đang chờ',
+            61 => 'Đỗ',
+            62 => 'Thi lại',
+            63 => 'Thi mới',
+        ],
+        'thuchanh' => [
+            70 => 'Đang chờ',
+            71 => 'Đỗ',
+            72 => 'Thi lại',
+            73 => 'Thi mới',
+        ],
         // Add other types and their statuses as needed
     ];
 }
@@ -392,7 +428,7 @@ function getStatusCalendarByType($type, $status)
 {
     $statuses = listStatusCalendars();
 
-    if(!isset($statuses[$type][$status])) return '';
+    if (!isset($statuses[$type][$status])) return '';
 
     switch ($status) {
         case '0':
@@ -465,8 +501,8 @@ function getStatusCalendarByType2($type, $status)
 {
     $statuses = listStatusCalendars();
 
-    if(!$type || !$status) return '';
-    if(!isset($statuses[$type][$status])) return '';
+    if (!$type || !$status) return '';
+    if (!isset($statuses[$type][$status])) return '';
 
     switch ($status) {
         case '30':
@@ -568,7 +604,7 @@ function getLoaiHoc($loaiHoc)
 {
     if (!$loaiHoc) return '';
     $loaiHocs = listLoaiHocs();
-    if(!isset($loaiHocs[$loaiHoc])) return '';
+    if (!isset($loaiHocs[$loaiHoc])) return '';
     return '<span class="badge badge-secondary">' . $loaiHocs[$loaiHoc] . '</span>' ?? '';
 }
 
@@ -577,6 +613,22 @@ function listLoaiThis()
     return [
         'thi_ly_thuyet' => 'Thi lý thuyết',
         'thi_mo_phong' => 'Thi mô phỏng',
+        'thi_thuc_hanh' => 'Thi sa hình',
+        'thi_duong_truong' => 'Thi đường trường'
+    ];
+}
+
+function listLoaiThiLyThuyets()
+{
+    return [
+        'thi_ly_thuyet' => 'Thi lý thuyết',
+        'thi_mo_phong' => 'Thi mô phỏng',
+    ];
+}
+
+function listLoaiThiThucHanhs()
+{
+    return [
         'thi_thuc_hanh' => 'Thi sa hình',
         'thi_duong_truong' => 'Thi đường trường'
     ];
@@ -649,8 +701,8 @@ function formatTimeBetweenVn($dateStart, $dateEnd)
 {
     if (!$dateStart && !$dateEnd) return '';
     $stringArr = [];
-    if($dateStart) $stringArr[] = formatTimeVn($dateStart);
-    if($dateEnd) $stringArr[] = formatTimeVn($dateEnd);
+    if ($dateStart) $stringArr[] = formatTimeVn($dateStart);
+    if ($dateEnd) $stringArr[] = formatTimeVn($dateEnd);
     return implode(' - ', $stringArr);
 }
 
@@ -708,16 +760,18 @@ function convertHoursExcelToSeconds($value)
     return $value * 24 * 60;
 }
 
-function listStatusApprovedKm(){
+function listStatusApprovedKm()
+{
     return ['chay_dat', 'thuc_hanh', 'hoc_ky_nang'];
 }
 
-function getStatusApprovedKm($value, $loai_hoc, $type){
-    if($type == 'class_schedule'){
-        if(in_array($loai_hoc, listStatusApprovedKm())){
-            if($value == 1){
+function getStatusApprovedKm($value, $loai_hoc, $type)
+{
+    if ($type == 'class_schedule') {
+        if (in_array($loai_hoc, listStatusApprovedKm())) {
+            if ($value == 1) {
                 return '<span class="badge badge-success">Đã duyệt</span>';
-            }else{
+            } else {
                 return '<span class="badge badge-danger">Chưa duyệt</span>';
             }
         }
@@ -750,7 +804,7 @@ function getTypeVahicleExpense($value, $note = null)
     if (!$value) return '';
     $lists = listTypeVahicleExpenses();
     $result = $lists[$value];
-    if($value == 'khac' && $note){
+    if ($value == 'khac' && $note) {
         $result = $note;
     }
     return '<span class="badge badge-secondary">' . $result . '</span>';
@@ -803,5 +857,26 @@ function getFeeType($type)
         default:
             return '';
             break;
+    }
+}
+
+function listLans()
+{
+    $lts = [];
+    for ($i = 1; $i <= 20; $i++) {
+        $lts[$i] = 'Lần ' . $i;
+    }
+    return $lts;
+}
+
+function getSangChieu($dateTime)
+{
+    if (!$dateTime) return '';
+    $date = Carbon::parse($dateTime);
+    $hour = $date->format('H');
+    if ($hour < 13) {
+        return '<span class="badge badge-success">Sáng</span>';
+    } else {
+        return '<span class="badge badge-danger">Chiều</span>';
     }
 }

@@ -39,7 +39,8 @@ class Calendar extends Model
         'so_gio_chay_duoc',
         'sbd',
         'vehicle_id',
-        'pickup_registered'
+        'pickup_registered',
+        'exam_attempts'
     ];
 
     protected $casts = [

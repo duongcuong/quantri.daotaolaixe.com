@@ -59,7 +59,7 @@ class CalendarController extends Controller
             'name' => 'required|string|max:255',
             'type' => 'required|string',
             'date_start' => 'required|date',
-            'date_end' => 'required|date|after_or_equal:date_start',
+            'date_end' => 'date|after_or_equal:date_start',
             'admin_id' => 'nullable|exists:admins,id',
             'user_id' => 'nullable|exists:users,id',
             'course_user_id' => 'nullable|array',
@@ -70,9 +70,22 @@ class CalendarController extends Controller
             'is_bandem' => 'nullable|boolean',
             'vehicle_id' => 'nullable|exists:vehicles,id',
             'pickup_registered' => 'nullable|boolean',
+            'exam_attempts' => 'nullable|integer|min:1',
         ]);
 
         $validator->after(function ($validator) use ($request) {
+            // Kiểm tra nếu course_user_id và exam_attempts đã tồn tại
+            if ($request->course_user_id && $request->exam_attempts) {
+                $exists = Calendar::where('course_user_id', $request->course_user_id)
+                    ->where('exam_attempts', $request->exam_attempts)
+                    ->where('type', $request->type)
+                    ->exists();
+
+                if ($exists) {
+                    $validator->errors()->add('exam_attempts', 'Lần thi này đã tồn tại cho học viên khóa học này.');
+                }
+            }
+
             if (!$request->admin_id && !$request->user_id && !$request->course_user_id && !$request->lead_id && !$request->teacher_id) {
                 $validator->errors()->add('admin_id', 'You must select at least one of admin_id, user_id, course_user_id, teacher_id, or lead_id.');
             }
@@ -87,6 +100,10 @@ class CalendarController extends Controller
         $data['is_bandem'] = $request->has('is_bandem') ? true : false;
         $data['pickup_registered'] = $request->has('pickup_registered') ? true : false;
         $data['approval'] = $request->has('approval') ? true : false;
+
+        if (!$request->has('date_end')) {
+            $data['date_end'] = Carbon::parse($request->date_start)->addHours(4);
+        }
 
         // Nếu course_user_id có giá trị, lưu từng bản ghi riêng
         if ($request->has('course_user_id') && is_array($request->course_user_id)) {
@@ -118,7 +135,7 @@ class CalendarController extends Controller
             'name' => 'required|string|max:255',
             'type' => 'required|string',
             'date_start' => 'required|date',
-            'date_end' => 'required|date|after_or_equal:date_start',
+            'date_end' => 'date|after_or_equal:date_start',
             'admin_id' => 'nullable|exists:admins,id',
             'user_id' => 'nullable|exists:users,id',
             'course_user_id' => 'nullable|exists:course_users,id',
@@ -128,9 +145,23 @@ class CalendarController extends Controller
             'is_bandem' => 'nullable|boolean',
             'vehicle_id' => 'nullable|exists:vehicles,id',
             'pickup_registered' => 'nullable|boolean',
+            'exam_attempts' => 'nullable|integer|min:1',
         ]);
 
-        $validator->after(function ($validator) use ($request) {
+        $validator->after(function ($validator) use ($request, $calendar) {
+            // Kiểm tra nếu course_user_id và exam_attempts đã tồn tại (ngoại trừ bản ghi hiện tại)
+            if ($request->course_user_id && $request->exam_attempts) {
+                $exists = Calendar::where('course_user_id', $request->course_user_id)
+                    ->where('exam_attempts', $request->exam_attempts)
+                    ->where('type', $request->type)
+                    ->where('id', '!=', $calendar->id) // Loại trừ bản ghi hiện tại
+                    ->exists();
+
+                if ($exists) {
+                    $validator->errors()->add('exam_attempts', 'Lần thi này đã tồn tại cho học viên trong khóa học.');
+                }
+            }
+
             if (!$request->admin_id && !$request->user_id && !$request->course_user_id && !$request->lead_id) {
                 $validator->errors()->add('admin_id', 'You must select at least one of admin_id, user_id, course_user_id, or lead_id.');
             }
@@ -145,6 +176,10 @@ class CalendarController extends Controller
         $data['is_bandem'] = $request->has('is_bandem') ? true : false;
         $data['pickup_registered'] = $request->has('pickup_registered') ? true : false;
         $data['approval'] = $request->has('approval') ? true : false;
+
+        if (!$request->has('date_end')) {
+            $data['date_end'] = Carbon::parse($request->date_start)->addHours(4);
+        }
 
         $calendar->update($data);
 
@@ -231,13 +266,26 @@ class CalendarController extends Controller
             }
         }
 
+        // Thêm điều kiện lọc theo buổi học (Sáng/Chiều)
+        if ($request->has('buoi_hoc') && in_array($request->buoi_hoc, ['Sáng', 'Chiều'])) {
+            $query->whereRaw('CASE WHEN HOUR(date_start) < 13 THEN "Sáng" ELSE "Chiều" END = ?', [$request->buoi_hoc]);
+        }
+
         // Xử lý group_by = date
         if ($request->has('group_by') && $request->group_by === 'date_exam') {
 
             $totalCalendars = $query->count();
 
-            $calendars = $query->selectRaw('DATE(date_start) as date, exam_field_id, COUNT(*) as total_calendars')
-                ->groupByRaw('DATE(date_start), exam_field_id')
+            $calendars = $query->selectRaw('
+                DATE(date_start) as date,
+                CASE
+                    WHEN HOUR(date_start) < 13 THEN "Sáng"
+                    ELSE "Chiều"
+                END as session,
+                exam_field_id,
+                COUNT(*) as total_calendars
+            ')
+                ->groupByRaw('DATE(date_start), session, exam_field_id')
                 ->orderBy('date', 'DESC')
                 ->paginate(LIMIT);
 
@@ -246,9 +294,84 @@ class CalendarController extends Controller
             }
         }
 
+        // Xử lý group_by = date
+        if ($request->has('group_by') && $request->group_by === 'date_exam_edu') {
+
+            $totalCalendars = $query->count();
+
+            $calendars = $query->selectRaw('
+                DATE(date_start) as date,
+                CASE
+                    WHEN HOUR(date_start) < 13 THEN "Sáng"
+                    ELSE "Chiều"
+                END as session,
+                exam_field_id,
+                COUNT(*) as total_calendars
+            ')
+                ->groupByRaw('DATE(date_start), session, exam_field_id')
+                ->orderBy('date', 'DESC')
+                ->paginate(LIMIT);
+
+            if ($request->ajax()) {
+                return view('backend.calendars.partials.data-date-exam-edu', compact('calendars', 'totalCalendars'))->render();
+            }
+        }
+
+        // Xử lý group_by = date
+        if ($request->has('group_by') && $request->group_by === 'date_lythuyet') {
+
+            $totalCalendars = $query->count();
+
+            $calendars = $query->selectRaw('
+                DATE(date_start) as date,
+                CASE
+                    WHEN HOUR(date_start) < 13 THEN "Sáng"
+                    ELSE "Chiều"
+                END as session,
+                exam_field_id,
+                COUNT(*) as total_calendars
+            ')
+                ->groupByRaw('DATE(date_start), session, exam_field_id')
+                ->orderBy('date', 'DESC')
+                ->paginate(LIMIT);
+
+            if ($request->ajax()) {
+                return view('backend.calendars.partials.data-date-exam-edu', compact('calendars', 'totalCalendars'))->render();
+            }
+        }
+
+        // Xử lý group_by = date
+        if ($request->has('group_by') && $request->group_by === 'date_thuchanh') {
+
+            $totalCalendars = $query->count();
+
+            $calendars = $query->selectRaw('
+                DATE(date_start) as date,
+                CASE
+                    WHEN HOUR(date_start) < 13 THEN "Sáng"
+                    ELSE "Chiều"
+                END as session,
+                exam_field_id,
+                COUNT(*) as total_calendars
+            ')
+                ->groupByRaw('DATE(date_start), session, exam_field_id')
+                ->orderBy('date', 'DESC')
+                ->paginate(LIMIT);
+
+            if ($request->ajax()) {
+                return view('backend.calendars.partials.data-date-exam-edu', compact('calendars', 'totalCalendars'))->render();
+            }
+        }
+
         $calendars = $query->with(['admin', 'user', 'courseUser', 'lead'])->latest('date_start')->paginate(LIMIT);
 
         if ($request->ajax()) {
+
+            if ($request->has('view')) {
+                $view = "backend.calendars.partials." . $request->view;
+                return view($view, compact('calendars'))->render();
+            }
+
             return view('backend.calendars.partials.data', compact('calendars'))->render();
         }
 
@@ -277,6 +400,42 @@ class CalendarController extends Controller
     {
         $examFields = ExamField::all();
         return view('backend.calendars.exam', compact('examFields'));
+    }
+
+    public function examEduDate()
+    {
+        $examFields = ExamField::all();
+        return view('backend.calendars.exam-edu-date', compact('examFields'));
+    }
+
+    public function examEdu()
+    {
+        $examFields = ExamField::all();
+        return view('backend.calendars.exam-edu', compact('examFields'));
+    }
+
+    public function thiLyThuyetNgay()
+    {
+        $examFields = ExamField::all();
+        return view('backend.calendars.lythuyet.index-date', compact('examFields'));
+    }
+
+    public function thiLyThuyet()
+    {
+        $examFields = ExamField::all();
+        return view('backend.calendars.lythuyet.index', compact('examFields'));
+    }
+
+    public function thiThucHanhNgay()
+    {
+        $examFields = ExamField::all();
+        return view('backend.calendars.thuchanh.index-date', compact('examFields'));
+    }
+
+    public function thiThucHanh()
+    {
+        $examFields = ExamField::all();
+        return view('backend.calendars.thuchanh.index', compact('examFields'));
     }
 
     public function dat(Request $request)

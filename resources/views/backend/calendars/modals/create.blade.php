@@ -1,6 +1,6 @@
 <!-- Modal add -->
 <div class="modal fade" id="modal-calendars-create-ajax" aria-labelledby="modal-calendars-create-ajaxLabel"
-    aria-hidden="true">
+    aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <form class="row g-3 needs-validation form-submit-ajax" method="POST"
             action="{{ route('admins.calendars.store') }}"
@@ -17,6 +17,29 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-8">
+                            @if ((request()->type == 'exam_schedule' || request()->type == 'exam_edu' || request()->type == 'lythuyet' || request()->type == 'thuchanh') && request()->date_start)
+                            <input type="hidden" value="{{ getTypeTextCalendar(request()->type) }}" name="name">
+                            <input type="hidden" name="type" value="{{ request()->type }}" class="type-calendars">
+                            <div class="row mb-3">
+                                <div class="form-group col-md-6">
+                                    <label for="name">Chọn thời gian <span class="text-danger">*</span></label>
+                                    <select class="form-control" required name="date_start" id="date_start">
+                                        <option>Chọn thời gian</option>
+                                        <option value="{{ request()->date_start . " 07:00:00" }}">Sáng</option>
+                                        <option value="{{ request()->date_start . " 13:00:00" }}">Chiều</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="exam_attempts">Lần thi <span class="text-danger">*</span></label>
+                                    <select class="form-control" required name="exam_attempts" id="exam_attempts">
+                                        @foreach (listLans() as $key => $item)
+                                        <option value="{{ $key }}">{{ $item }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            @else
                             <div class="row">
                                 <input type="hidden" name="type" value="{{ request()->type }}" class="type-calendars">
                                 <div class="form-group col-md-12">
@@ -35,6 +58,7 @@
                                         required>
                                 </div>
                             </div>
+                            @endif
                             {{-- <div class="form-group col-md-6">
                                 <label for="duration">Thời lượng (phút)</label>
                                 <select name="duration" id="duration" class="form-control" required>
@@ -96,14 +120,22 @@
                             </div>
                             @endif
 
-                            @if (request()->type == 'exam_schedule')
+                            @if (request()->type == 'exam_schedule' || request()->type == 'exam_edu' || request()->type == 'lythuyet' || request()->type == 'thuchanh')
                             <div class="border radius-10 p-15 mb-3">
                                 <div class="row">
-                                    @foreach (listLoaiThis() as $key => $item)
+                                    @php
+                                    $listLoaiThis = listLoaiThis();
+                                    if(request()->type == 'lythuyet'){
+                                        $listLoaiThis = listLoaiThiLyThuyets();
+                                    }elseif(request()->type == 'thuchanh'){
+                                        $listLoaiThis = listLoaiThiThucHanhs();
+                                    }
+                                    @endphp
+                                    @foreach ($listLoaiThis as $key => $item)
                                     <div class="col-md-6">
                                         <div class="form-check">
                                             <input class="form-check-input" name="loai_thi[]" type="checkbox"
-                                                value="{{ $key }}" id="flexCheckChecked{{ $key }}">
+                                                value="{{ $key }}" id="flexCheckChecked{{ $key }}" {{ request()->type == 'lythuyet' || request()->type == 'thuchanh' ? 'checked' : '' }}>
                                             <label class="form-check-label" for="flexCheckChecked{{ $key }}">{{ $item
                                                 }}</label>
                                         </div>
@@ -137,16 +169,16 @@
                                 </div> --}}
                             </div>
                             @endif
-                            @if (request()->type == 'class_schedule')
+                            @if (request()->type == 'class_schedule' || request()->type == 'exam_schedule' || request()->type == 'exam_edu' || request()->type == 'thuchanh')
                             <div class="row">
                                 <div class="form-group col-md-12">
                                     <label for="exam_field_id" class="d-flex justify-content-between">
                                         <span>Sân</span>
                                         <a href="{{ route('admins.exam-fields.index') }}" title="Thêm mới"
-                                            target="_blank"><i class="bx bx-plus"></i>Thêm sân học</a>
+                                            target="_blank"><i class="bx bx-plus"></i>Thêm sân</a>
                                     </label>
                                     <select name="exam_field_id" id="exam_field_id" class="form-control single-select"
-                                        data-placeholder="Chọn sân học" data-allow-clear="true">
+                                        data-placeholder="Chọn sân" data-allow-clear="true">
                                         <option></option>
                                         @foreach ($examFields as $examField)
                                         <option value="{{ $examField->id }}"> {{ $examField->name }}</option>
@@ -157,15 +189,15 @@
                             @endif
 
                             <div class="row">
-                                <div class="form-group col-md-6">
+                                {{-- <div class="form-group col-md-6">
                                     <label for="priority">Độ ưu tiên</label>
                                     <select name="priority" id="priority" class="form-control" required>
                                         @foreach (listPriorities() as $key => $item)
                                         <option value="{{ $key }}">{{ $item }}</option>
                                         @endforeach
                                     </select>
-                                </div>
-                                <div class="form-group col-md-6">
+                                </div> --}}
+                                <div class="form-group col-md-12">
                                     <label for="status">Trạng thái</label>
                                     <select name="status" id="status-calendar" class="form-control status-calendar"
                                         required>
@@ -230,7 +262,7 @@
                             </div>
                             @endif --}}
 
-                            @if (request()->type == 'class_schedule' || request()->type == 'exam_schedule')
+                            @if (request()->type == 'class_schedule' || request()->type == 'exam_schedule' || request()->type == 'exam_edu' || request()->type == 'lythuyet' || request()->type == 'thuchanh')
                             <div class="form-group">
                                 <label for="course_user_id">Học viên khóa học</label>
                                 <select multiple class="select2-ajax-single form-control select2-ajax-single-calendar"

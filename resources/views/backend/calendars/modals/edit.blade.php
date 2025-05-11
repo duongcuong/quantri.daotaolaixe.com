@@ -1,6 +1,6 @@
 <!-- Modal edit -->
 <div class="modal fade" id="modal-calendars-edit-ajax" tabindex="-1" aria-labelledby="modal-calendars-edit-ajaxLabel"
-    aria-hidden="true">
+    aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <form class="row g-3 needs-validation form-submit-ajax" method="POST"
             action="{{ route('admins.calendars.update', $calendar->id) }}"
@@ -17,6 +17,28 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-8">
+                            @if ( $calendar->type == 'exam_schedule' || $calendar->type == 'exam_edu' || $calendar->type == 'lythuyet' || $calendar->type == 'thuchanh' )
+                            <input type="hidden" value="{{ $calendar->name }}" name="name">
+                            <input type="hidden" name="type" value="{{ $calendar->type }}" class="type-calendars">
+                            <div class="row mb-3">
+                                <div class="form-group col-md-6">
+                                    <label for="name">Chọn thời gian <span class="text-danger">*</span></label>
+                                    <select class="form-control" required name="date_start" id="date_start">
+                                        <option>Chọn thời gian</option>
+                                        <option value="{{ getDateTimeStamp($calendar->date_start, 'Y-m-d') . " 07:00:00" }}" {{ \Carbon\Carbon::parse($calendar->date_start)->hour < 13 ? 'selected' : '' }}>Sáng</option>
+                                        <option value="{{ getDateTimeStamp($calendar->date_start, 'Y-m-d') . " 13:00:00" }}" {{ \Carbon\Carbon::parse($calendar->date_start)->hour >= 13 ? 'selected' : '' }}>Chiều</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="exam_attempts">Lần thi <span class="text-danger">*</span></label>
+                                    <select class="form-control" required name="exam_attempts" id="exam_attempts">
+                                        @foreach (listLans() as $key => $item)
+                                        <option value="{{ $key }}" {{ $calendar->exam_attempts == $key ? 'selected' : '' }}>{{ $item }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            @else
                             <div class="row">
 
                                 <input type="hidden" name="type" value="{{ $calendar->type }}" class="type-calendars">
@@ -47,6 +69,7 @@
                                 </div> --}}
 
                             </div>
+                            @endif
                             @if ($calendar->type == 'class_schedule')
                             <div class="border radius-10 p-15 mb-3">
                                 <div class="row">
@@ -81,13 +104,16 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <div class="custom-control custom-checkbox">
-                                            <input name="is_tudong" value="1" type="checkbox" class="custom-control-input" id="is_tudong" {{ $calendar->is_tudong ? 'checked' : '' }}>
+                                            <input name="is_tudong" value="1" type="checkbox"
+                                                class="custom-control-input" id="is_tudong" {{ $calendar->is_tudong ?
+                                            'checked' : '' }}>
                                             <label class="custom-control-label" for="is_tudong">Học tự động</label>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" value="1" class="custom-control-input" id="is_bandem" {{ $calendar->is_bandem ? 'checked' : '' }} name="is_bandem">
+                                            <input type="checkbox" value="1" class="custom-control-input" id="is_bandem"
+                                                {{ $calendar->is_bandem ? 'checked' : '' }} name="is_bandem">
                                             <label class="custom-control-label" for="is_bandem">Học ban đêm</label>
                                         </div>
                                     </div>
@@ -101,7 +127,7 @@
                                 </div>
                             </div>
                             @endif
-                            @if ($calendar->type == 'exam_schedule')
+                            @if ($calendar->type == 'exam_schedule' || $calendar->type == 'exam_edu' || $calendar->type == 'lythuyet' || $calendar->type == 'thuchanh')
                             <div class="border radius-10 p-15 mb-3">
                                 <div class="row">
                                     @foreach (listLoaiThis() as $key => $item)
@@ -128,7 +154,8 @@
                                     <label for="pickup_registered">Đăng ký</label>
                                     <div class="form-check">
                                         <input class="form-check-input" name="pickup_registered" type="checkbox"
-                                            value="1" id="pickup_registered" {{ $calendar->pickup_registered ? 'checked' : '' }}>
+                                            value="1" id="pickup_registered" {{ $calendar->pickup_registered ? 'checked'
+                                        : '' }}>
                                         <label class="form-check-label" for="pickup_registered">Đăng ký đưa đón</label>
                                     </div>
                                 </div>
@@ -146,16 +173,16 @@
                                 </div> --}}
                             </div>
                             @endif
-                            @if ($calendar->type == 'class_schedule'|| $calendar->type == 'exam_schedule')
+                            @if ($calendar->type == 'class_schedule'|| $calendar->type == 'exam_schedule' || $calendar->type == 'exam_edu' || $calendar->type == 'lythuyet' || $calendar->type == 'thuchanh')
                             <div class="row">
                                 <div class="form-group col-md-12">
                                     <label for="exam_field_id" class="d-flex justify-content-between">
                                         <span>Sân</span>
                                         <a href="{{ route('admins.exam-fields.index') }}" title="Thêm mới"
-                                            target="_blank"><i class="bx bx-plus"></i>Thêm sân thi</a>
+                                            target="_blank"><i class="bx bx-plus"></i>Thêm sân</a>
                                     </label>
                                     <select name="exam_field_id" id="exam_field_id" class="form-control single-select"
-                                        data-placeholder="Chọn sân thi" data-allow-clear="true">
+                                        data-placeholder="Chọn sân" data-allow-clear="true">
                                         <option></option>
                                         @foreach ($examFields as $examField)
                                         <option value="{{ $examField->id }}" {{ $examField->id ==
@@ -169,7 +196,7 @@
 
                             <div class="row">
 
-                                <div class="form-group col-md-6">
+                                {{-- <div class="form-group col-md-6">
                                     <label for="priority">Độ ưu tiên</label>
                                     <select name="priority" id="priority" class="form-control" required>
                                         @foreach (listPriorities() as $key => $item)
@@ -177,8 +204,8 @@
                                             'selected' : '' }}>{{ $item }}</option>
                                         @endforeach
                                     </select>
-                                </div>
-                                <div class="form-group col-md-6">
+                                </div> --}}
+                                <div class="form-group col-md-12">
                                     <label for="status">Trạng thái</label>
                                     <select name="status" id="status-calendar" class="form-control status-calendar"
                                         required>
@@ -247,11 +274,11 @@
                             </div>
                             @endif --}}
 
-                            @if ($calendar->type == 'class_schedule' || $calendar->type == 'exam_schedule')
+                            @if ($calendar->type == 'class_schedule' || $calendar->type == 'exam_schedule' || $calendar->type == 'exam_edu' || $calendar->type == 'lythuyet' || $calendar->type == 'thuchanh')
                             <div class="form-group">
                                 <label for="course_user_id">Học viên khóa học</label>
-                                <select class="select2-ajax-single form-control select2-ajax-single-calendar" name="course_user_id"
-                                    data-placeholder="Chọn học viên khóa học"
+                                <select class="select2-ajax-single form-control select2-ajax-single-calendar"
+                                    name="course_user_id" data-placeholder="Chọn học viên khóa học"
                                     data-url="{{ route('admins.course-user.list') }}"
                                     data-selected-id="{{ old('course_user_id', $calendar->course_user_id) }}">
                                 </select>
