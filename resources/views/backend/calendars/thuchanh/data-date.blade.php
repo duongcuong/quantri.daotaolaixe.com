@@ -6,9 +6,9 @@
     <thead>
         <tr>
             <th>STT</th>
+            <th>Buổi thi</th>
             <th>Thứ</th>
             <th>Ngày</th>
-            <th>Buổi thi</th>
             <th>Sân thi</th>
             <th>Số lượng học viên</th>
         </tr>
@@ -17,6 +17,11 @@
         @foreach ($calendars as $calendar)
             <tr>
                 <td>{{ getSTT($calendars, $loop->iteration) }}</td>
+                <td>
+                    <a href="{{ route('admins.calendars.th', ['date_start' => $calendar->date, 'buoi_hoc' => $calendar->session ]) }}" data-start-date="{{ $calendar->date }}" class="btn-show-exam-schedule">
+                        {{  $calendar->session  }}
+                    </a>
+                </td>
                 <td class="date-start-column">
                     <a href="{{ route('admins.calendars.th', ['date_start' => $calendar->date]) }}" data-start-date="{{ $calendar->date }}" class="btn-show-exam-schedule">
                         {!! formatDateTimeVnThu($calendar->date) !!}
@@ -27,11 +32,7 @@
                         {!! getDateTimeStamp($calendar->date, 'd/m/Y') !!}
                     </a>
                 </td>
-                <td>
-                    <a href="{{ route('admins.calendars.th', ['date_start' => $calendar->date, 'buoi_hoc' => $calendar->session ]) }}" data-start-date="{{ $calendar->date }}" class="btn-show-exam-schedule">
-                        {{  $calendar->session  }}
-                    </a>
-                </td>
+
                 <td>{{ $calendar->exam_field_id ? \App\Models\ExamField::find($calendar->exam_field_id)->name : 'N/A' }}</td>
                 <td>{{ $calendar->total_calendars }}</td>
             </tr>
