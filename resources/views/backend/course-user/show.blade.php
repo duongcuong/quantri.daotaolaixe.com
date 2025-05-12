@@ -140,6 +140,8 @@ Xem chi tiết {{ $courseUser->user->name }} - {{ $courseUser->course->code }}
 </div>
 
 @include('backend.course-user.partials.class_schedule')
+@include('backend.course-user.partials.lythuyet_schedule')
+@include('backend.course-user.partials.thuchanh_schedule')
 @include('backend.course-user.partials.exam_schedule')
 @include('backend.course-user.partials.fees')
 

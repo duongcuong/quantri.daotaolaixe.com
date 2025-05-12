@@ -59,29 +59,29 @@
 
         {{-- Lịch thi sát hạch --}}
         <li class="menu-label">Lịch thi sát hạch Ô TÔ</li>
-        <li class="{{ Request::is('admin/calendars/exam-date') ? 'mm-active' : '' }}">
+        <li class="{{ Request::is('admin/calendars/exam-date') || Request::is('admin/calendars/exam') ? 'mm-active' : '' }}">
             <a href="{{ route('admins.calendars.exam-date') }}" class="reset-search-action">
                 <div class="parent-icon icon-color-11"><i class="bx bx-calendar-check"></i>
                 </div>
                 <div class="menu-title">Lịch thi sát hạch</div>
             </a>
         </li>
-        <li class="{{ Request::is('admin/calendars/exam-edu-date') ? 'mm-active' : '' }}">
+        <li class="{{ Request::is('admin/calendars/exam-edu-date') || Request::is('admin/calendars/exam-edu') ? 'mm-active' : '' }}">
             <a href="{{ route('admins.calendars.exam-edu-date') }}" class="reset-search-action">
                 <div class="parent-icon icon-color-11"><i class="bx bx-calendar-check"></i>
                 </div>
                 <div class="menu-title">Lịch thi tốt nghiệp</div>
             </a>
         </li>
-        <li class="{{ Request::is('admin/calendars/thi-ly-thuyet-ngay') ? 'mm-active' : '' }}">
-            <a href="{{ route('admins.calendars.thi-ly-thuyet-ngay') }}" class="reset-search-action">
+        <li class="{{ Request::is('admin/calendars/lt-date') || Request::is('admin/calendars/lt') ? 'mm-active' : '' }}">
+            <a href="{{ route('admins.calendars.lt-date') }}" class="reset-search-action">
                 <div class="parent-icon icon-color-11"><i class="bx bx-calendar-check"></i>
                 </div>
                 <div class="menu-title">Lịch thi hết môn lý thuyết</div>
             </a>
         </li>
-        <li class="{{ Request::is('admin/calendars/thi-thuc-hanh-ngay') ? 'mm-active' : '' }}">
-            <a href="{{ route('admins.calendars.thi-thuc-hanh-ngay') }}" class="reset-search-action">
+        <li class="{{ Request::is('admin/calendars/th-date') || Request::is('admin/calendars/th') ? 'mm-active' : '' }}">
+            <a href="{{ route('admins.calendars.th-date') }}" class="reset-search-action">
                 <div class="parent-icon icon-color-11"><i class="bx bx-calendar-check"></i>
                 </div>
                 <div class="menu-title">Lịch thi hết môn thực hành</div>
@@ -111,7 +111,7 @@
                 <div class="menu-title">Thêm giáo viên</div>
             </a>
         </li>
-        <li class="{{ Request::is('admin/teachers/learning-date') ? 'mm-active' : '' }}">
+        <li class="{{ Request::is('admin/calendars/learning-date') || Request::is('admin/calendars/learning') ? 'mm-active' : '' }}">
             <a href="{{ route('admins.calendars.learning-date') }}" class="reset-search-action">
                 <div class="parent-icon icon-color-11"><i class="bx bx-calendar-exclamation"></i>
                 </div>

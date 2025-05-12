@@ -950,4 +950,20 @@ $(function () {
             });
         });
     });
+
+    // Lắng nghe sự kiện change trên trường date_start_change
+    $(document).on('change', '.date_start_change', function () {
+        // Lấy giá trị ngày từ trường date_start_change
+        let selectedDate = $(this).val();
+
+        // Kiểm tra nếu ngày được chọn
+        if (selectedDate) {
+            // Cập nhật các tùy chọn trong select#date_start
+            $('#date_start').html(`
+                <option>Chọn thời gian</option>
+                <option value="${selectedDate} 07:00:00">Sáng</option>
+                <option value="${selectedDate} 13:00:00">Chiều</option>
+            `);
+        }
+    });
 });

@@ -18,17 +18,17 @@
             <tr>
                 <td>{{ getSTT($calendars, $loop->iteration) }}</td>
                 <td class="date-start-column">
-                    <a href="{{ route('admins.calendars.lt', ['date_start' => $calendar->date]) }}" data-start-date="{{ $calendar->date }}" class="btn-show-exam-schedule">
+                    <a href="{{ route('admins.calendars.exam-edu', ['date_start' => $calendar->date]) }}" data-start-date="{{ $calendar->date }}" class="btn-show-exam-schedule">
                         {!! formatDateTimeVnThu($calendar->date) !!}
                     </a>
                 </td>
                 <td class="date-start-column2">
-                    <a href="{{ route('admins.calendars.lt', ['date_start' => $calendar->date]) }}" data-start-date="{{ $calendar->date }}" class="btn-show-exam-schedule">
+                    <a href="{{ route('admins.calendars.exam-edu', ['date_start' => $calendar->date]) }}" data-start-date="{{ $calendar->date }}" class="btn-show-exam-schedule">
                         {!! getDateTimeStamp($calendar->date, 'd/m/Y') !!}
                     </a>
                 </td>
                 <td>
-                    <a href="{{ route('admins.calendars.lt', ['date_start' => $calendar->date, 'buoi_hoc' => $calendar->session ]) }}" data-start-date="{{ $calendar->date }}" class="btn-show-exam-schedule">
+                    <a href="{{ route('admins.calendars.exam-edu', ['date_start' => $calendar->date, 'buoi_hoc' => $calendar->session ]) }}" data-start-date="{{ $calendar->date }}" class="btn-show-exam-schedule">
                         {{  $calendar->session  }}
                     </a>
                 </td>

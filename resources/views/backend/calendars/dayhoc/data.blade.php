@@ -4,56 +4,57 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
 <table id="example" class="table table-sm table-bordered table-hover">
     <thead>
         <tr>
-            <th rowspan="2">STT</th>
-            <th rowspan="2">Buổi thi</th>
-            <th rowspan="2">Học viên</th>
-            <th rowspan="2">Ngày sinh</th>
-            <th rowspan="2">CCCD</th>
-            <th rowspan="2">SĐT</th>
-            <th rowspan="2">SBD</th>
-            {{-- <th rowspan="2">Sân thi</th> --}}
-            <th rowspan="2">Khoá học</th>
-            <th rowspan="2">Môn thi</th>
-            <th rowspan="2">Khám SK</th>
-            <th rowspan="2">Đưa đón</th>
-            <th colspan="2" class="text-center">Xe chíp</th>
-            <th rowspan="2" class="text-center">Ghi chú</th>
-            <th rowspan="2" class="fixed-column text-center">Hành động</th>
-        </tr>
-        <tr>
-            <th>Giờ tặng</th>
-            <th>Số giờ đăng ký</th>
+            <th>STT</th>
+            <th>Ngày</th>
+            <th>Thời gian</th>
+            <th>Học viên</th>
+            <th>Ngày sinh</th>
+            <th>Buổi học</th>
+            <th>Giáo viên</th>
+            <th>Điểm đón</th>
+            <th>Sân học</th>
+            <th>Khoá học</th>
+            <th>Tự động</th>
+            <th>Ban đêm</th>
+            <th>Duyệt Km</th>
+            <th>Km</th>
+            <th>Giờ</th>
+            <th class="fixed-column text-center">Hành động</th>
         </tr>
     </thead>
     <tbody>
         @foreach ($calendars as $calendar)
         <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{!! getSangChieu($calendar->date_start) !!}</td>
+            <td class="date-start-column">
+                <a href="javascript:;" data-start-date="{{ $calendar->date_start }}" class="btn-show-exam-schedule">
+                    {!! formatDateTimeVn($calendar->date_start) !!}
+                </a>
+            </td>
+            <td>{!! formatTimeBetweenVn($calendar->date_start, $calendar->date_end) !!}</td>
             <td>{{ $calendar->courseUser->user->name ?? '' }}</td>
             <td>{{ $calendar->courseUser && $calendar->courseUser->user ?
                 getDateTimeStamp($calendar->courseUser->user->dob, 'd/m/Y') : "" }}</td>
-            <td>{{ $calendar->courseUser->user->identity_card ?? '' }}</td>
-            <td>{{ $calendar->courseUser->user->phone ?? '' }}</td>
-            <td>{{ $calendar->sbd ?? '' }}</td>
-            {{-- <td>
+            <td>{!! getLoaiHoc($calendar->loai_hoc) !!}</td>
+            <td>{{ $calendar->teacher->name ?? '' }}</td>
+            <td>{{ $calendar->diem_don }}</td>
+            <td>
                 <a href="#" data-exam-field="{{ $calendar->examField->id ?? '' }}" class="btn-show-exam-field">
                     {{ $calendar->examField->name ?? '' }}
                 </a>
-            </td> --}}
-            <td>{{ $calendar->courseUser->course->code ?? '' }}</td>
-            <td>{!! getLoaiThi($calendar->loai_thi) !!}</td>
-            <td>{{ $calendar->courseUser ? getDateTimeStamp($calendar->courseUser->health_check_date, 'd/m/Y') : '' }}
             </td>
-            <td class="text-center fs-5">{!! getTickTrueOrFalse($calendar->pickup_registered) !!}</td>
-            <td>{{ $calendar->courseUser->gifted_hours ?? '' }}</td>
-            <td>{{ $calendar->courseUser->chip_hours ?? '' }}</td>
-            <td>{{ $calendar->description }}</td>
+            <td>{{ $calendar->courseUser->course->code ?? '' }}</td>
+            <td class="fs-20 text-center">{!! getTickTrueOrFalse($calendar->is_tudong) !!}</td>
+            <td class="fs-20 text-center">{!! getTickTrueOrFalse($calendar->is_bandem) !!}</td>
+            <td>{!! getStatusApprovedKm($calendar->approval, $calendar->loai_hoc, $calendar->type) !!}</td>
+            <td>{!! number_format($calendar->km) !!}</td>
+            <td>{!! $calendar->so_gio_chay_duoc !!}</td>
+
             <td class="fixed-column text-center">
                 <div class="d-flex">
                     @if (canAccess('admins.calendars.edit'))
                     <a href="{{ route('admins.calendars.edit', ['calendar' => $calendar->id, 'reload' => request()->reload]) }}"
-                        class="btn btn-warning btn-sm mr-2 btn-edit-ajax" data-cs-modal="#modal-calendars-edit-ajax">
+                        class="btn btn-warning btn-sm mr-2 btn-edit-ajax" data-cs-modal="#modal-calendars-day-hoc-edit-ajax">
                         <i class="bx bx-edit"></i>
                     </a>
                     @endif

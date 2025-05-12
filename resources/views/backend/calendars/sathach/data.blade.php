@@ -36,11 +36,6 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <td>{{ $calendar->courseUser->user->identity_card ?? '' }}</td>
             <td>{{ $calendar->courseUser->user->phone ?? '' }}</td>
             <td>{{ $calendar->sbd ?? '' }}</td>
-            {{-- <td>
-                <a href="#" data-exam-field="{{ $calendar->examField->id ?? '' }}" class="btn-show-exam-field">
-                    {{ $calendar->examField->name ?? '' }}
-                </a>
-            </td> --}}
             <td>{{ $calendar->courseUser->course->code ?? '' }}</td>
             <td>{!! getLoaiThi($calendar->loai_thi) !!}</td>
             <td>{{ $calendar->courseUser ? getDateTimeStamp($calendar->courseUser->health_check_date, 'd/m/Y') : '' }}
@@ -53,7 +48,7 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
                 <div class="d-flex">
                     @if (canAccess('admins.calendars.edit'))
                     <a href="{{ route('admins.calendars.edit', ['calendar' => $calendar->id, 'reload' => request()->reload]) }}"
-                        class="btn btn-warning btn-sm mr-2 btn-edit-ajax" data-cs-modal="#modal-calendars-edit-ajax">
+                        class="btn btn-warning btn-sm mr-2 btn-edit-ajax" data-cs-modal="#modal-calendars-sat-hach-edit-ajax">
                         <i class="bx bx-edit"></i>
                     </a>
                     @endif

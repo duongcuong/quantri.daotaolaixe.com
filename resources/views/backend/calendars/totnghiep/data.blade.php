@@ -48,7 +48,7 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
                 <div class="d-flex">
                     @if (canAccess('admins.calendars.edit'))
                     <a href="{{ route('admins.calendars.edit', ['calendar' => $calendar->id, 'reload' => request()->reload]) }}"
-                        class="btn btn-warning btn-sm mr-2 btn-edit-ajax" data-cs-modal="#modal-calendars-ly-thuyet-edit-ajax">
+                        class="btn btn-warning btn-sm mr-2 btn-edit-ajax" data-cs-modal="#modal-calendars-tot-nghiep-edit-ajax">
                         <i class="bx bx-edit"></i>
                     </a>
                     @endif

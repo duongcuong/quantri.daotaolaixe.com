@@ -28,8 +28,7 @@
                                     <div class="d-flex">
                                         <input type="hidden" value="{{ $courseUser->id }}" name="course_user_id">
                                         <input type="hidden" name="type" value="class_schedule">
-                                        <input type="hidden" name="show_column"
-                                            value="name,date_start,time,date_end,name_hocvien,diem_don,san,course_code,loai_hoc,km,approval,so_gio_chay_duoc,is_tudong,is_bandem,status">
+                                        <input type="hidden" name="view" value="backend.calendars.dayhoc.data">
                                         <input type="hidden" name="reload" value="load-data-ajax-class-calendars">
                                         <div class="mr-2">
                                             <select class="form-control form-control-sm" name="loai_hoc">
@@ -46,7 +45,7 @@
                                     {{-- @if (Auth::user()->hasPermission('admins.course-user.index')) --}}
                                     <a class="btn btn-outline-primary btn-sm btn-create-ajax"
                                         href="{{ route('admins.calendars.create', ['course_user_id' => $courseUser->id, 'type' => 'class_schedule', 'reload' => 'load-data-ajax-class-calendars']) }}"
-                                        data-cs-modal="#modal-calendars-create-ajax" title="Thêm mới"><i
+                                        data-cs-modal="#modal-calendars-day-hoc-create-ajax" title="Thêm mới"><i
                                             class="bx bx-plus"></i>Thêm mới</a>
                                     {{-- @endif --}}
                                 </div>

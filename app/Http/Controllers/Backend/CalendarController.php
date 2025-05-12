@@ -50,7 +50,7 @@ class CalendarController extends Controller
     {
         $examFields = ExamField::all();
         $course_user_id = $request->has('course_user_id') ? $request->course_user_id : '';
-        return view('backend.calendars.modals.create', compact('course_user_id', 'examFields'));
+        return view('backend.calendars.create', compact('course_user_id', 'examFields'));
     }
 
     public function store(Request $request)
@@ -126,7 +126,7 @@ class CalendarController extends Controller
     public function edit(Calendar $calendar, Request $request)
     {
         $examFields = ExamField::all();
-        return view('backend.calendars.modals.edit', compact('calendar', 'examFields'));
+        return view('backend.calendars.edit', compact('calendar', 'examFields'));
     }
 
     public function update(Request $request, Calendar $calendar)
@@ -252,53 +252,31 @@ class CalendarController extends Controller
             $query->where('exam_field_id', $request->exam_field_id);
         }
 
-        // Xử lý group_by = date
-        if ($request->has('group_by') && $request->group_by === 'date') {
-            $totalCalendars = $query->count();
-
-            $calendars = $query->selectRaw('DATE(date_start) as date, COUNT(*) as total_calendars')
-                ->groupByRaw('DATE(date_start)')
-                ->orderBy('date', 'DESC')
-                ->paginate(LIMIT);
-
-            if ($request->ajax()) {
-                return view('backend.calendars.partials.data-date', compact('calendars', 'totalCalendars'))->render();
-            }
-        }
-
         // Thêm điều kiện lọc theo buổi học (Sáng/Chiều)
         if ($request->has('buoi_hoc') && in_array($request->buoi_hoc, ['Sáng', 'Chiều'])) {
             $query->whereRaw('CASE WHEN HOUR(date_start) < 13 THEN "Sáng" ELSE "Chiều" END = ?', [$request->buoi_hoc]);
         }
 
         // Xử lý group_by = date
-        if ($request->has('group_by') && $request->group_by === 'date_exam') {
-
-            $totalCalendars = $query->count();
-
-            $calendars = $query->selectRaw('
-                DATE(date_start) as date,
-                CASE
-                    WHEN HOUR(date_start) < 13 THEN "Sáng"
-                    ELSE "Chiều"
-                END as session,
-                exam_field_id,
-                COUNT(*) as total_calendars
-            ')
-                ->groupByRaw('DATE(date_start), session, exam_field_id')
+        if ($request->has('group_by') && $request->group_by === 'date_dayhoc') {
+            $calendars = $query->selectRaw('DATE(date_start) as date, COUNT(*) as total_calendars')
+                ->groupByRaw('DATE(date_start)')
                 ->orderBy('date', 'DESC')
                 ->paginate(LIMIT);
 
             if ($request->ajax()) {
-                return view('backend.calendars.partials.data-date-exam', compact('calendars', 'totalCalendars'))->render();
+                return view('backend.calendars.dayhoc.data-date', compact('calendars'))->render();
             }
         }
 
         // Xử lý group_by = date
-        if ($request->has('group_by') && $request->group_by === 'date_exam_edu') {
-
-            $totalCalendars = $query->count();
-
+        if (
+            $request->has('group_by') &&
+            ($request->group_by === 'date_exam'
+                || $request->group_by === 'date_exam_edu'
+                || $request->group_by === 'date_lythuyet'
+                || $request->group_by === 'date_thuchanh')
+        ) {
             $calendars = $query->selectRaw('
                 DATE(date_start) as date,
                 CASE
@@ -312,54 +290,24 @@ class CalendarController extends Controller
                 ->orderBy('date', 'DESC')
                 ->paginate(LIMIT);
 
-            if ($request->ajax()) {
-                return view('backend.calendars.partials.data-date-exam-edu', compact('calendars', 'totalCalendars'))->render();
+            $view = "";
+            switch ($request->group_by) {
+                case 'date_exam':
+                    $view = 'backend.calendars.sathach.data-date';
+                    break;
+                case 'date_exam_edu':
+                    $view = 'backend.calendars.totnghiep.data-date';
+                    break;
+                case 'date_lythuyet':
+                    $view = 'backend.calendars.lythuyet.data-date';
+                    break;
+                case 'date_thuchanh':
+                    $view = 'backend.calendars.thuchanh.data-date';
+                    break;
             }
-        }
-
-        // Xử lý group_by = date
-        if ($request->has('group_by') && $request->group_by === 'date_lythuyet') {
-
-            $totalCalendars = $query->count();
-
-            $calendars = $query->selectRaw('
-                DATE(date_start) as date,
-                CASE
-                    WHEN HOUR(date_start) < 13 THEN "Sáng"
-                    ELSE "Chiều"
-                END as session,
-                exam_field_id,
-                COUNT(*) as total_calendars
-            ')
-                ->groupByRaw('DATE(date_start), session, exam_field_id')
-                ->orderBy('date', 'DESC')
-                ->paginate(LIMIT);
 
             if ($request->ajax()) {
-                return view('backend.calendars.partials.data-date-exam-edu', compact('calendars', 'totalCalendars'))->render();
-            }
-        }
-
-        // Xử lý group_by = date
-        if ($request->has('group_by') && $request->group_by === 'date_thuchanh') {
-
-            $totalCalendars = $query->count();
-
-            $calendars = $query->selectRaw('
-                DATE(date_start) as date,
-                CASE
-                    WHEN HOUR(date_start) < 13 THEN "Sáng"
-                    ELSE "Chiều"
-                END as session,
-                exam_field_id,
-                COUNT(*) as total_calendars
-            ')
-                ->groupByRaw('DATE(date_start), session, exam_field_id')
-                ->orderBy('date', 'DESC')
-                ->paginate(LIMIT);
-
-            if ($request->ajax()) {
-                return view('backend.calendars.partials.data-date-exam-edu', compact('calendars', 'totalCalendars'))->render();
+                return view($view, compact('calendars'))->render();
             }
         }
 
@@ -368,8 +316,7 @@ class CalendarController extends Controller
         if ($request->ajax()) {
 
             if ($request->has('view')) {
-                $view = "backend.calendars.partials." . $request->view;
-                return view($view, compact('calendars'))->render();
+                return view($request->view, compact('calendars'))->render();
             }
 
             return view('backend.calendars.partials.data', compact('calendars'))->render();
@@ -381,61 +328,61 @@ class CalendarController extends Controller
     public function learning()
     {
         $examFields = ExamField::all();
-        return view('backend.calendars.learning', compact('examFields'));
+        return view('backend.calendars.dayhoc.exam', compact('examFields'));
     }
 
     public function learningDate()
     {
         $examFields = ExamField::all();
-        return view('backend.calendars.learning-date', compact('examFields'));
+        return view('backend.calendars.dayhoc.exam-date', compact('examFields'));
     }
 
     public function examDate()
     {
         $examFields = ExamField::all();
-        return view('backend.calendars.exam-date', compact('examFields'));
+        return view('backend.calendars.sathach.exam-date', compact('examFields'));
     }
 
     public function exam()
     {
         $examFields = ExamField::all();
-        return view('backend.calendars.exam', compact('examFields'));
+        return view('backend.calendars.sathach.exam', compact('examFields'));
     }
 
     public function examEduDate()
     {
         $examFields = ExamField::all();
-        return view('backend.calendars.exam-edu-date', compact('examFields'));
+        return view('backend.calendars.totnghiep.exam-date', compact('examFields'));
     }
 
     public function examEdu()
     {
         $examFields = ExamField::all();
-        return view('backend.calendars.exam-edu', compact('examFields'));
+        return view('backend.calendars.totnghiep.exam', compact('examFields'));
     }
 
-    public function thiLyThuyetNgay()
+    public function ltDate()
     {
         $examFields = ExamField::all();
-        return view('backend.calendars.lythuyet.index-date', compact('examFields'));
+        return view('backend.calendars.lythuyet.exam-date', compact('examFields'));
     }
 
-    public function thiLyThuyet()
+    public function lt()
     {
         $examFields = ExamField::all();
-        return view('backend.calendars.lythuyet.index', compact('examFields'));
+        return view('backend.calendars.lythuyet.exam', compact('examFields'));
     }
 
-    public function thiThucHanhNgay()
+    public function thDate()
     {
         $examFields = ExamField::all();
-        return view('backend.calendars.thuchanh.index-date', compact('examFields'));
+        return view('backend.calendars.thuchanh.exam-date', compact('examFields'));
     }
 
-    public function thiThucHanh()
+    public function th()
     {
         $examFields = ExamField::all();
-        return view('backend.calendars.thuchanh.index', compact('examFields'));
+        return view('backend.calendars.thuchanh.exam', compact('examFields'));
     }
 
     public function dat(Request $request)

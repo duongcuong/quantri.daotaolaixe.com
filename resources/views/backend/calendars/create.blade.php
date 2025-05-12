@@ -1,0 +1,13 @@
+@if (request()->type == 'exam_schedule')
+@include('backend.calendars.sathach.modals.create')
+@elseif (request()->type == 'exam_edu')
+@include('backend.calendars.totnghiep.modals.create')
+@elseif (request()->type == 'lythuyet')
+@include('backend.calendars.lythuyet.modals.create')
+@elseif (request()->type == 'thuchanh')
+@include('backend.calendars.thuchanh.modals.create')
+@elseif (request()->type == 'class_schedule')
+@include('backend.calendars.dayhoc.modals.create')
+@else
+@include('backend.calendars.modals.create')
+@endif

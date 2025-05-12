@@ -5,17 +5,17 @@
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="left">
-                            <h5>Lịch thi sát hạch</h5>
+                            <h5>Lịch thi hết môn lý thuyết</h5>
                         </div>
                         <div class="ml-auto">
                             <div class="d-flex">
-                                <form data-reload="#load-data-ajax-exam-calendars" id="search-form-exam-calendars"
+                                <form data-reload="#load-data-ajax-ly-thuyet-calendars" id="search-form-ly-thuyet-calendars"
                                     class="mb-3 form-search-submit">
                                     <div class="d-flex">
                                         <input type="hidden" value="{{ $courseUser->id }}" name="course_user_id">
-                                        <input type="hidden" name="type" value="exam_schedule">
-                                        <input type="hidden" name="view" value="backend.calendars.sathach.data">
-                                        <input type="hidden" name="reload" value="load-data-ajax-exam-calendars">
+                                        <input type="hidden" name="type" value="lythuyet">
+                                        <input type="hidden" name="view" value="backend.calendars.lythuyet.data">
+                                        <input type="hidden" name="reload" value="load-data-ajax-ly-thuyet-calendars">
                                         {{-- <div class="mr-2">
                                             <select class="form-control form-control-sm" name="loai_hoc">
                                                 <option value="">Loại học</option>
@@ -30,8 +30,8 @@
                                 <div class="ml-2">
                                     {{-- @if (Auth::user()->hasPermission('admins.course-user.index')) --}}
                                     <a class="btn btn-outline-primary btn-sm btn-create-ajax"
-                                        href="{{ route('admins.calendars.create', ['course_user_id' => $courseUser->id, 'type' => 'exam_schedule', 'reload' => 'load-data-ajax-exam-calendars']) }}"
-                                        data-cs-modal="#modal-calendars-sat-hach-create-ajax" title="Thêm mới"><i
+                                        href="{{ route('admins.calendars.create', ['course_user_id' => $courseUser->id, 'type' => 'lythuyet', 'reload' => 'load-data-ajax-ly-thuyet-calendars']) }}"
+                                        data-cs-modal="#modal-calendars-ly-thuyet-create-ajax" title="Thêm mới"><i
                                             class="bx bx-plus"></i>Thêm mới</a>
                                     {{-- @endif --}}
                                 </div>
@@ -39,8 +39,8 @@
                         </div>
                     </div>
 
-                    <div id="load-data-ajax-exam-calendars" class="table-header-fixed mt-1 mb-1 load-data-ajax"
-                        data-search="#search-form-exam-calendars" data-url="{{ route('admins.calendars.data') }}">
+                    <div id="load-data-ajax-ly-thuyet-calendars" class="table-header-fixed mt-1 mb-1 load-data-ajax"
+                        data-search="#search-form-ly-thuyet-calendars" data-url="{{ route('admins.calendars.data') }}">
                         <div class="loading-overlay">
                             <div class="loading-spinner"></div>
                         </div>

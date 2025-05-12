@@ -1,6 +1,6 @@
 <div class="alert alert-info alert-dismissible fade show" role="alert">
     <strong class="mr-1">Tổng số lượng học viên: </strong>
-    <strong class="mr-2 text-danger">{{ number_format($totalCalendars) }}</strong>
+    <strong class="mr-2 text-danger">{{ number_format($calendars->total()) }}</strong>
 </div>
 <table class="table table-sm table-bordered table-hover">
     <thead>
@@ -18,17 +18,17 @@
             <tr>
                 <td>{{ getSTT($calendars, $loop->iteration) }}</td>
                 <td class="date-start-column">
-                    <a href="{{ route('admins.calendars.exam-edu', ['date_start' => $calendar->date]) }}" data-start-date="{{ $calendar->date }}" class="btn-show-exam-schedule">
+                    <a href="{{ route('admins.calendars.exam', ['date_start' => $calendar->date]) }}" data-start-date="{{ $calendar->date }}" class="btn-show-exam-schedule">
                         {!! formatDateTimeVnThu($calendar->date) !!}
                     </a>
                 </td>
                 <td class="date-start-column2">
-                    <a href="{{ route('admins.calendars.exam-edu', ['date_start' => $calendar->date]) }}" data-start-date="{{ $calendar->date }}" class="btn-show-exam-schedule">
+                    <a href="{{ route('admins.calendars.exam', ['date_start' => $calendar->date]) }}" data-start-date="{{ $calendar->date }}" class="btn-show-exam-schedule">
                         {!! getDateTimeStamp($calendar->date, 'd/m/Y') !!}
                     </a>
                 </td>
                 <td>
-                    <a href="{{ route('admins.calendars.exam-edu', ['date_start' => $calendar->date, 'buoi_hoc' => $calendar->session ]) }}" data-start-date="{{ $calendar->date }}" class="btn-show-exam-schedule">
+                    <a href="{{ route('admins.calendars.exam', ['date_start' => $calendar->date, 'buoi_hoc' => $calendar->session ]) }}" data-start-date="{{ $calendar->date }}" class="btn-show-exam-schedule">
                         {{  $calendar->session  }}
                     </a>
                 </td>
