@@ -1,6 +1,6 @@
 @extends('backend.app')
 @section('title')
-Tất cả sân thi
+Tất cả sân
 @endsection
 @push('css')
 @endpush
@@ -21,7 +21,7 @@ Tất cả sân thi
     <div class="ml-auto">
         {{-- @if (Auth::user()->hasPermission('admins.exam-fields.index')) --}}
         <a class="btn btn-outline-primary btn-sm btn-create-ajax" href="{{ route('admins.exam-fields.create') }}" data-cs-modal="#modal-exam-fields-create-ajax"
-            title="Thêm mới"><i class="bx bx-plus"></i>Thêm mới</a>
+            title="Tạo sân"><i class="bx bx-plus"></i>Tạo sân</a>
         {{-- @endif --}}
     </div>
 </div>

@@ -21,7 +21,7 @@ Tất cả xe
     <div class="ml-auto">
         {{-- @if (Auth::user()->hasPermission('admins.vehicles.index')) --}}
         <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.vehicles.create') }}" data-toggle="tooltip"
-            title="Thêm mới"><i class="bx bx-plus"></i>Thêm mới</a>
+            title="Tạo Xe"><i class="bx bx-plus"></i>Tạo Xe</a>
         {{-- @endif --}}
     </div>
 </div>

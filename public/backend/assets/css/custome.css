@@ -374,3 +374,11 @@ body {
     border: 1px solid #ccc;
     border-radius: 10px;
 }
+
+.w-110{
+    width: 110px;
+}
+
+.w-130{
+    width: 130px;
+}

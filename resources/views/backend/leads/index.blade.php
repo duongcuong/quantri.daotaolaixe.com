@@ -20,8 +20,8 @@ Tất cả Leads
     </div>
     <div class="ml-auto">
         {{-- @if (Auth::user()->hasPermission('admins.leads.index')) --}}
-        <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.leads.create') }}" title="Thêm mới"><i
-                class="bx bx-plus"></i>Thêm mới</a>
+        <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.leads.create') }}" title="Tạo Lead"><i
+                class="bx bx-plus"></i>Tạo Lead</a>
         {{-- @endif --}}
     </div>
 </div>

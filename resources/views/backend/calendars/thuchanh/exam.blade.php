@@ -24,7 +24,7 @@ Tất cả lịch thi của học viên
         {{-- @if (Auth::user()->hasPermission('admins.exam-schedules.index')) --}}
         <a class="btn btn-outline-primary btn-sm btn-create-ajax"
             href="{{ route('admins.calendars.create', ['type' => 'thuchanh', 'date_start' => request()->date_start, 'reload' => 'load-data-ajax-exam-thuc-hanh-calendars']) }}"
-            data-cs-modal="#modal-calendars-thuc-hanh-create-ajax" title="Thêm mới"><i class="bx bx-plus"></i>Thêm học viên</a>
+            data-cs-modal="#modal-calendars-thuc-hanh-create-ajax" title="Tạo Lịch Thi Thực Hành"><i class="bx bx-plus"></i>Tạo Lịch Thi Thực Hành</a>
         {{-- @endif --}}
 
     </div>

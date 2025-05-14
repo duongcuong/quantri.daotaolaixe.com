@@ -46,6 +46,7 @@ Route::post('/clear-filters', function () {
         'course_user_filters',
         'leads_filters',
         'exam_schedules',
+        'fees_filters'
     ]);
 
     return response()->json(['success' => true]);

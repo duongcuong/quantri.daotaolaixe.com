@@ -173,7 +173,7 @@ class CourseUserController extends Controller
         $filters = $request->all();
         session(['course_user_filters' => $filters]);
 
-        $query = CourseUser::with('user', 'course', 'teacher', 'sale', 'latestCalendar');
+        $query = CourseUser::with('user', 'course', 'teacher', 'sale', 'latestCalendar', 'latestCalendarLyThuyet', 'latestCalendarThucHanh', 'latestCalendarTotNghiep');
 
         $hasSearch = false;
 
@@ -313,7 +313,8 @@ class CourseUserController extends Controller
 
         // Thêm thuộc tính name vào từng item của $courseUsers
         foreach ($courseUsers as $courseUser) {
-            $courseUser->name = $courseUser->user->name . ' - ' . $courseUser->course->code;
+            $dob = $courseUser->user->dob ? getDateTimeStamp($courseUser->user->dob, '(d/m/Y)') : '';
+            $courseUser->name = $courseUser->user->name . $dob . ' - ' . $courseUser->course->code;
         }
 
         if ($request->ajax()) {

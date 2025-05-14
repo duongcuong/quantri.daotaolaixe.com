@@ -8,9 +8,9 @@
             <th>STT</th>
             <th>Biển số Xe</th>
             <th>Loại chi phí</th>
+            <th>Số tiền</th>
             <th>Thời gian</th>
             <th>Người chi</th>
-            <th>Số tiền</th>
             <th class="fixed-column text-center">Hành động</th>
         </tr>
     </thead>
@@ -20,9 +20,9 @@
             <td>{{ getSTT($vehicle_expenses, $loop->iteration) }}</td>
             <td>{{ $vehicle_expense->vehicle->license_plate }}</td>
             <td>{!! getTypeVahicleExpense($vehicle_expense->type, $vehicle_expense->note) !!}</td>
+            <td>{!! getMoney($vehicle_expense->amount) !!}</td>
             <td>{{ getDateTimeStamp($vehicle_expense->expense_date, 'd/m/Y') }}</td>
             <td>{{ $vehicle_expense->admin->name }}</td>
-            <td>{!! getMoney($vehicle_expense->amount) !!}</td>
 
             <td class="fixed-column text-center">
                 <div class="d-inline-flex">

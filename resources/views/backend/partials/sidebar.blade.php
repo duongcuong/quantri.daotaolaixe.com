@@ -97,13 +97,7 @@
 
         <!--Giáo viên-->
         <li class="menu-label">Quản lý Giáo viên</li>
-        <li class="{{ Request::is('admin/teachers/*') ? 'mm-active' : '' }}">
-            <a href="{{ route('admins.teachers.index') }}" class="reset-search-action">
-                <div class="parent-icon icon-color-11"><i class="bx bx-group"></i>
-                </div>
-                <div class="menu-title">Danh sách giáo viên</div>
-            </a>
-        </li>
+        @if (canAccess('admins.teachers.create'))
         <li class="{{ Request::is('admin/teachers/create') ? 'mm-active' : '' }}">
             <a href="{{ route('admins.teachers.create') }}" class="reset-search-action">
                 <div class="parent-icon icon-color-11"><i class="bx bx-group"></i>
@@ -111,6 +105,15 @@
                 <div class="menu-title">Thêm giáo viên</div>
             </a>
         </li>
+        @endif
+        <li class="{{ Request::is('admin/teachers/*') ? 'mm-active' : '' }}">
+            <a href="{{ route('admins.teachers.index') }}" class="reset-search-action">
+                <div class="parent-icon icon-color-11"><i class="bx bx-group"></i>
+                </div>
+                <div class="menu-title">Danh sách giáo viên</div>
+            </a>
+        </li>
+
         <li class="{{ Request::is('admin/calendars/learning-date') || Request::is('admin/calendars/learning') ? 'mm-active' : '' }}">
             <a href="{{ route('admins.calendars.learning-date') }}" class="reset-search-action">
                 <div class="parent-icon icon-color-11"><i class="bx bx-calendar-exclamation"></i>

@@ -21,7 +21,7 @@ Tất cả nguồn
     <div class="ml-auto">
         {{-- @if (Auth::user()->hasPermission('admins.lead-sources.index')) --}}
         <a class="btn btn-outline-primary btn-sm btn-create-ajax" href="{{ route('admins.lead-sources.create') }}" data-cs-modal="#modal-lead-sources-create-ajax"
-            title="Thêm mới"><i class="bx bx-plus"></i>Thêm mới</a>
+            title="Tạo Leadsource"><i class="bx bx-plus"></i>Tạo Leadsource</a>
         {{-- @endif --}}
     </div>
 </div>

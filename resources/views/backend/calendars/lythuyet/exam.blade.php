@@ -24,7 +24,7 @@ Tất cả lịch thi của học viên
         {{-- @if (Auth::user()->hasPermission('admins.exam-schedules.index')) --}}
         <a class="btn btn-outline-primary btn-sm btn-create-ajax"
             href="{{ route('admins.calendars.create', ['type' => 'lythuyet', 'date_start' => request()->date_start, 'reload' => 'load-data-ajax-exam-ly-thuyet-calendars']) }}"
-            data-cs-modal="#modal-calendars-ly-thuyet-create-ajax" title="Thêm mới"><i class="bx bx-plus"></i>Thêm học viên</a>
+            data-cs-modal="#modal-calendars-ly-thuyet-create-ajax" title="Tạo Lịch Thi Lý Thuyết"><i class="bx bx-plus"></i>Tạo Lịch Thi Lý Thuyết</a>
         {{-- @endif --}}
 
     </div>

@@ -21,7 +21,7 @@ Tất cả giáo viên
     <div class="ml-auto">
         @if (canAccess('admins.teachers.create'))
         <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.teachers.create') }}" data-toggle="tooltip"
-            title="Thêm mới"><i class="bx bx-plus"></i>Thêm mới</a>
+            title="Thêm giáo viên mới"><i class="bx bx-plus"></i>Thêm giáo viên mới</a>
         @endif
     </div>
 </div>

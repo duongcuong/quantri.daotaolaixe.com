@@ -21,7 +21,7 @@ Tất cả Lịch sử nộp tiền
     <div class="ml-auto">
         @if (canAccess('admins.fees.create'))
         <a class="btn btn-outline-primary btn-sm btn-create-ajax" href="{{ route('admins.fees.create') }}"
-            data-cs-modal="#modal-fees-create-ajax" title="Thêm mới"><i class="bx bx-plus"></i>Thêm mới</a>
+            data-cs-modal="#modal-fees-create-ajax" title="Thêm mới nộp tiền"><i class="bx bx-plus"></i>Thêm mới nộp tiền</a>
         @endif
     </div>
 </div>
@@ -39,6 +39,13 @@ Tất cả Lịch sử nộp tiền
                     <label for="end_date" class="mr-2">Đến ngày</label>
                     <input type="date" name="end_date" id="end_date" class="form-control"
                         value="{{ session('fees_filters.end_date') }}">
+                </div>
+                <div class="form-group col-sm-6 col-md-3">
+                    <label for="course_user_id" class="mr-2">Học viên - Khoá học</label>
+                    <select class="select2-ajax-single form-control" name="course_user_id"
+                        data-selected-id="{{ session('fees_filters.course_user_id') }}" data-placeholder="Chọn Học viên - Khoá học"
+                        data-url="{{ route('admins.course-user.list') }}">
+                    </select>
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
                     <label for="user_id" class="mr-2">Học viên</label>
@@ -61,7 +68,7 @@ Tất cả Lịch sử nộp tiền
                     <label for="is_received">Tiền đã về công ty</label>
                     <select name="is_received" id="is_received" class="form-control">
                         <option value="">-- Chọn trạng thái --</option>
-                        <option value="0" {{ session('fees_filters.is_received') == 0 ? 'selected' : '' }}>Chưa về</option>
+                        <option value="0" {{ session('fees_filters.is_received') === '0' ? 'selected' : '' }}>Chưa về</option>
                         <option value="1" {{ session('fees_filters.is_received') == 1 ? 'selected' : '' }}>Đã về</option>
                     </select>
                 </div>

@@ -149,6 +149,11 @@ class TeacherController extends Controller
             $hasSearch = true;
         }
 
+        $currentUser = auth('admin')->user();
+        if ($currentUser->hasPermission('admins.teachers.data.own')) {
+            $query->where('id', $currentUser->id);
+        }
+
         if ($hasSearch) {
             $query->orderBy('name', 'asc');
         } else {

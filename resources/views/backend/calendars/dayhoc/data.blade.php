@@ -6,11 +6,11 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
         <tr>
             <th>STT</th>
             <th>Ngày</th>
-            <th>Thời gian</th>
+            <th class="w-110">Thời gian</th>
             <th>Học viên</th>
             <th>Ngày sinh</th>
             <th>Buổi học</th>
-            <th>Giáo viên</th>
+            <th class="w-130">Giáo viên</th>
             <th>Điểm đón</th>
             <th>Sân học</th>
             <th>Khoá học</th>

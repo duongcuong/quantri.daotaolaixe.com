@@ -21,7 +21,7 @@ Tất cả sale
     <div class="ml-auto">
         {{-- @if (Auth::user()->hasPermission('admins.sales.index')) --}}
         <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.sales.create') }}" data-toggle="tooltip"
-            title="Thêm mới"><i class="bx bx-plus"></i>Thêm mới</a>
+            title="Tạo Sale"><i class="bx bx-plus"></i>Tạo Sale</a>
         {{-- @endif --}}
     </div>
 </div>

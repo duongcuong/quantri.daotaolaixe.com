@@ -7,6 +7,8 @@
         <tr>
             <th>STT</th>
             <th>Học viên</th>
+            <th>Ngày sinh</th>
+            <th>Số điện thoại</th>
             <th>Loại thu</th>
             <th>Khóa học</th>
             <th>Số tiền</th>
@@ -22,6 +24,8 @@
         <tr>
             <td>{{ getSTT($fees, $loop->iteration) }}</td>
             <td>{{ $fee->courseUser->user->name }}</td>
+            <td>{{ getDateTimeStamp($fee->courseUser->user->dob, 'd/m/Y') }}</td>
+            <td>{{ $fee->courseUser->user->phone }}</td>
             <td>{!! getFeeType($fee->type) !!}</td>
             <td>{{ $fee->courseUser->course->code }}</td>
             <td>{{ number_format($fee->amount) }}</td>

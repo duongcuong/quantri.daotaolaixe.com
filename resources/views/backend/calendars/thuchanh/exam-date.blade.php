@@ -22,7 +22,7 @@ Tất cả lịch thi
         @if (canAccess('admins.calendars.create'))
         <a class="btn btn-outline-primary btn-sm btn-create-ajax"
             href="{{ route('admins.calendars.create', ['type' => 'thuchanh', 'reload' => 'load-data-ajax-exam-date-calendars']) }}"
-            data-cs-modal="#modal-calendars-thuc-hanh-create-ajax" title="Tạo Lịch Thi"><i class="bx bx-plus"></i>Tạo Lịch Thi</a>
+            data-cs-modal="#modal-calendars-thuc-hanh-create-ajax" title="Tạo Lịch Thi Thực Hành"><i class="bx bx-plus"></i>Tạo Lịch Thi Thực Hành</a>
         @endif
     </div>
 </div>

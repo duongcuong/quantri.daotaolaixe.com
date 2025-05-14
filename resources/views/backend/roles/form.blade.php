@@ -91,7 +91,7 @@
                                 </div>
                             </div>
                         </div>
-                        @forelse ($modules->chunk(2) as $chunks)
+                        @forelse ($modules->chunk(3) as $chunks)
                         <div class="row">
                             @foreach ($chunks as $key => $module)
                             <div class="col-12 col-lg-4 col-xl-4">

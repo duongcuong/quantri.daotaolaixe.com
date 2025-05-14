@@ -129,6 +129,11 @@ Xem chi tiết {{ $courseUser->user->name }} - {{ $courseUser->course->code }}
                                 !!}</span></td>
                         </tr>
                         <tr>
+                            <th colspan="2">Tổng học phí còn thiếu</th>
+                            <td class="text-warning">{!! getMoneyConThieu($courseUser->course->tuition_fee, $courseUser->fees_sum_amount)
+                                !!}</span></td>
+                        </tr>
+                        <tr>
                             <th colspan="2">Trạng thái</th>
                             <td>{!! getStatus($courseUser->status) !!}</td>
                         </tr>
@@ -142,6 +147,7 @@ Xem chi tiết {{ $courseUser->user->name }} - {{ $courseUser->course->code }}
 @include('backend.course-user.partials.class_schedule')
 @include('backend.course-user.partials.lythuyet_schedule')
 @include('backend.course-user.partials.thuchanh_schedule')
+@include('backend.course-user.partials.totnghiep_schedule')
 @include('backend.course-user.partials.exam_schedule')
 @include('backend.course-user.partials.fees')
 

@@ -100,6 +100,18 @@ class CourseUser extends Model
         return $this->hasOne(Calendar::class)->whereIn('type', ['exam_schedule', 'class_schedule'])->latest('date_start');
     }
 
+    public function latestCalendarLyThuyet(){
+        return $this->hasOne(Calendar::class)->where('type', 'lythuyet')->orderByDesc('exam_attempts');
+    }
+
+    public function latestCalendarThucHanh(){
+        return $this->hasOne(Calendar::class)->where('type', 'thuchanh')->orderByDesc('exam_attempts');
+    }
+
+    public function latestCalendarTotNghiep(){
+        return $this->hasOne(Calendar::class)->where('type', 'exam_edu')->orderByDesc('exam_attempts');
+    }
+
     /**
      * Mutator: Convert gifted_hours from HH:MM to minutes before saving to database.
      */

@@ -20,7 +20,7 @@ Tất cả khoá học
     </div>
     <div class="ml-auto">
         @if(canAccess('admins.courses.create'))
-        <a class="btn btn-outline-primary btn-sm btn-create-ajax" href="{{ route('admins.courses.create') }}" data-cs-modal="#modal-courses-create-ajax" title="Thêm mới"><i class="bx bx-plus"></i>Thêm mới</a>
+        <a class="btn btn-outline-primary btn-sm btn-create-ajax" href="{{ route('admins.courses.create') }}" data-cs-modal="#modal-courses-create-ajax" title="Tạo Khoá Học"><i class="bx bx-plus"></i>Tạo Khoá Học</a>
         @endif
     </div>
 </div>

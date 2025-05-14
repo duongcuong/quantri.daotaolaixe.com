@@ -73,9 +73,15 @@
 
             <td>{{ $courseUser->teacher->name ?? '' }}</td>
 
-            <td class="text-center fs-5">{!! getTickTrueOrFalse($courseUser->theory_exam) !!}</td>
+            {{-- <td class="text-center fs-5">{!! getTickTrueOrFalse($courseUser->theory_exam) !!}</td>
             <td class="text-center fs-5">{!! getTickTrueOrFalse($courseUser->practice_exam) !!}</td>
-            <td class="text-center fs-5">{!! getTickTrueOrFalse($courseUser->graduation_exam) !!}</td>
+            <td class="text-center fs-5">{!! getTickTrueOrFalse($courseUser->graduation_exam) !!}</td> --}}
+            <td>{!! getStatusCalendarByType('lythuyet',
+                $courseUser->latestCalendarLyThuyet->status ?? '') !!}</td>
+            <td>{!! getStatusCalendarByType('thuchanh',
+                $courseUser->latestCalendarThucHanh->status ?? '') !!}</td>
+            <td>{!! getStatusCalendarByType('exam_edu',
+                $courseUser->latestCalendarTotNghiep->status ?? '') !!}</td>
 
             <td>
                 @if ($courseUser->calendars_sum_km > 0)

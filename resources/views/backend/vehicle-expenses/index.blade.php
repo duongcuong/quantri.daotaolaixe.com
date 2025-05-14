@@ -21,7 +21,7 @@ Tất cả chi phí xe
     <div class="ml-auto">
         {{-- @if (Auth::user()->hasPermission('admins.vehicle-expenses.index')) --}}
         <a class="btn btn-outline-primary btn-sm btn-create-ajax" href="{{ route('admins.vehicle-expenses.create') }}"
-            data-cs-modal="#modal-vehicle-expenses-create-ajax" title="Thêm mới"><i class="bx bx-plus"></i>Thêm mới</a>
+            data-cs-modal="#modal-vehicle-expenses-create-ajax" title="Tạo Chi Phí Xe"><i class="bx bx-plus"></i>Tạo Chi Phí Xe</a>
         {{-- @endif --}}
     </div>
 </div>

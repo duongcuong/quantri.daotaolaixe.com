@@ -24,7 +24,7 @@ Tất cả lịch thi của học viên
         {{-- @if (Auth::user()->hasPermission('admins.exam-schedules.index')) --}}
         <a class="btn btn-outline-primary btn-sm btn-create-ajax"
             href="{{ route('admins.calendars.create', ['type' => 'exam_edu', 'date_start' => request()->date_start, 'reload' => 'load-data-ajax-exam-tot-nghiep-calendars']) }}"
-            data-cs-modal="#modal-calendars-tot-nghiep-create-ajax" title="Thêm mới"><i class="bx bx-plus"></i>Thêm học viên</a>
+            data-cs-modal="#modal-calendars-tot-nghiep-create-ajax" title="Tạo Lịch Thi Tốt Nghiệp"><i class="bx bx-plus"></i>Tạo Lịch Thi Tốt Nghiệp</a>
         {{-- @endif --}}
 
     </div>

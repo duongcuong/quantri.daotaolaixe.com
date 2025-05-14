@@ -150,7 +150,14 @@ class UserController extends Controller
 
     public function list(Request $request)
     {
-        $query = User::orderBy('id', 'desc');
+        $query = User::selectRaw("
+        id,
+        CASE
+            WHEN dob IS NULL THEN name
+            ELSE CONCAT(name, ' - ', DATE_FORMAT(dob, '%d/%m/%Y'))
+        END as name
+    ")
+    ->orderBy('id', 'desc');
 
         if ($request->has('id')) {
             $query->where('id', $request->id);

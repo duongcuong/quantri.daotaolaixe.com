@@ -491,6 +491,42 @@ function getStatusCalendarByType($type, $status)
         case '44':
             return '<span class="badge badge-danger">' . $statuses[$type][$status] . '</span>';
             break;
+        case '50':
+            return '<span class="badge badge-warning">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '51':
+            return '<span class="badge badge-success">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '52':
+            return '<span class="badge badge-danger">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '53':
+            return '<span class="badge badge-secondary">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '60':
+            return '<span class="badge badge-warning">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '61':
+            return '<span class="badge badge-success">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '62':
+            return '<span class="badge badge-danger">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '63':
+            return '<span class="badge badge-secondary">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '70':
+            return '<span class="badge badge-warning">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '71':
+            return '<span class="badge badge-success">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '72':
+            return '<span class="badge badge-danger">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '73':
+            return '<span class="badge badge-secondary">' . $statuses[$type][$status] . '</span>';
+            break;
         default:
             return "";
             break;
@@ -824,7 +860,7 @@ function listFeeTypes()
 {
     return [
         '1' => 'Học phí',
-        '2' => 'Lệ phí giờ đăng ký',
+        '2' => 'Lệ phí đăng ký xe chip',
         '3' => 'Lệ phí cọc chíp',
         '4' => 'Lệ phí đưa đón',
         '5' => 'Hết môn lý thuyết',

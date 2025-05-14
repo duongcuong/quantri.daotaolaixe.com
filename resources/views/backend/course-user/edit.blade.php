@@ -48,32 +48,6 @@ Sửa Khoá học - Học Viên
                             </select>
                         </div>
                     </div>
-                    <div class="border radius-10 p-15 mb-3">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" name="theory_exam" type="checkbox" value="1" {{
-                                        $courseUser->theory_exam ? 'checked' : '' }} id="flexCheckChecked">
-                                    <label class="form-check-label" for="flexCheckChecked">Thi hết môn lí thuyết</label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="practice_exam" value="1" {{
-                                        $courseUser->practice_exam ? 'checked' : '' }} id="flexCheckChecked1">
-                                    <label class="form-check-label" for="flexCheckChecked1">Thi hết môn thực
-                                        hành</label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="graduation_exam" value="1" {{
-                                        $courseUser->graduation_exam ? 'checked' : '' }} id="flexCheckChecked2">
-                                    <label class="form-check-label" for="flexCheckChecked2">Thi tốt nghiệp</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="row">
                         {{-- <div class="col-md-6 mb-3">
                             <label for="tuition_fee" class="form-label">Học phí</label>
@@ -201,7 +175,10 @@ Sửa Khoá học - Học Viên
 </form>
 
 @include('backend.course-user.partials.class_schedule')
+@include('backend.course-user.partials.lythuyet_schedule')
+@include('backend.course-user.partials.thuchanh_schedule')
 @include('backend.course-user.partials.exam_schedule')
+@include('backend.course-user.partials.totnghiep_schedule')
 @include('backend.course-user.partials.fees')
 
 @endsection
