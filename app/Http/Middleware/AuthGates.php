@@ -10,7 +10,7 @@ class AuthGates
     public function handle($request, Closure $next, $guard = null)
     {
         $user = Auth::guard('admin')->user();
-        if($user->roles){
+        if(!empty($user->roles)){
             foreach ($user->roles as $role) {
                 if($role->slug == ROLE_SUPERADMIN) {
                     return $next($request);
