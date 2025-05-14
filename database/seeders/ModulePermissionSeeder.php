@@ -189,6 +189,9 @@ class ModulePermissionSeeder extends Seeder
             'Log hệ thống' => [
                 'Danh sách' => 'admins.activity-logs.index',
             ],
+            'Dashboard' => [
+                'Danh sách' => 'admins.dashboard',
+            ],
         ];
 
         // Tạo module và permission
