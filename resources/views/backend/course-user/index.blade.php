@@ -61,7 +61,7 @@ Tất cả Khoá học - Học Viên
                     </select>
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
-                    <label for="start_date" class="mr-2">Ngày kí hợp đồng bắt đầu</label>
+                    <label for="start_date" class="mr-2">Ngày kýhợp đồng bắt đầu</label>
                     <input type="date" name="start_date" id="start_date" class="form-control"
                         value="{{ session('course_user_filters.start_date') }}">
                 </div>

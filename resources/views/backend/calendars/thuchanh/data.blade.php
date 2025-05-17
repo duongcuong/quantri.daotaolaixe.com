@@ -16,7 +16,7 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <th rowspan="2">Môn thi</th>
             <th rowspan="2">Khám SK</th>
             <th rowspan="2">Đưa đón</th>
-            <th colspan="2" class="text-center">Xe chíp</th>
+            <th colspan="2" class="text-center">Xe chip</th>
             <th rowspan="2" class="text-center">Ghi chú</th>
             <th rowspan="2" class="fixed-column text-center">Hành động</th>
         </tr>

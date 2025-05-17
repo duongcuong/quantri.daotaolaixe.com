@@ -8,6 +8,8 @@
 @include('backend.calendars.thuchanh.modals.create')
 @elseif (request()->type == 'class_schedule')
 @include('backend.calendars.dayhoc.modals.create')
+@elseif (request()->type == 'student_class_schedule')
+@include('backend.calendars.lichhoc.modals.create')
 @else
 @include('backend.calendars.modals.create')
 @endif

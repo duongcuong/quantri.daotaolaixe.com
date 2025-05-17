@@ -42,18 +42,18 @@ Sửa Khoá học - Học Viên
                         </div>
                         <div class="form-group col-md-6">
                             <label for="course_id">Chọn khóa học</label>
-                            <select class="select2-ajax-single form-control" name="course_id"
+                            <select id="change-khoa-hoc" class="select2-ajax-single form-control" name="course_id"
                                 data-selected-id="{{ $courseUser->course_id }}" data-placeholder="Chọn khóa học"
                                 data-url="{{ route('admins.courses.list') }}">
                             </select>
                         </div>
                     </div>
                     <div class="row">
-                        {{-- <div class="col-md-6 mb-3">
+                        <div class="col-md-6 mb-3">
                             <label for="tuition_fee" class="form-label">Học phí</label>
-                            <input type="number" name="tuition_fee" id="tuition_fee" class="form-control"
+                            <input type="text" name="tuition_fee" id="tuition_fee" class="form-control thousand-text"
                                 value="{{ old('tuition_fee', $courseUser->tuition_fee) }}">
-                        </div> --}}
+                        </div>
                         {{-- <div class="form-group col-md-6">
                             <label for="practice_field">Sân tập</label>
                             <input type="text" name="practice_field" id="practice_field" class="form-control"
@@ -111,17 +111,17 @@ Sửa Khoá học - Học Viên
                                 value="{{ old('ngay_hoc_cabin', getDateTimeStamp($courseUser->ngay_hoc_cabin)) }}" />
                         </div> --}}
                         <div class="form-group col-md-6">
-                            <label for="contract_date">Ngày kí hợp đồng</label>
+                            <label for="contract_date">Ngày kýhợp đồng</label>
                             <input type="date" name="contract_date" id="contract_date" class="form-control"
                                 value="{{ old('contract_date', \Carbon\Carbon::parse($courseUser->contract_date)->format('Y-m-d')) }}" />
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="gifted_hours">Số giờ chíp tặng</label>
+                            <label for="gifted_hours">Số giờ chip tặng</label>
                             <input type="text" name="gifted_hours" id="gifted_hours"
                                 class="form-control cs-time-picker" placeholder="HH:MM" value="{{ old('gifted_hours', $courseUser->gifted_hours) }}">
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="chip_hours">Số giờ đặt chíp</label>
+                            <label for="chip_hours">Số giờ đặt chip</label>
                             <input type="text" name="chip_hours" id="chip_hours"
                                 class="form-control cs-time-picker" placeholder="HH:MM" value="{{ old('chip_hours', $courseUser->chip_hours) }}">
                         </div>

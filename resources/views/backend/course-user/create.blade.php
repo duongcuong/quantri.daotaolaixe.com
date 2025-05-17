@@ -34,24 +34,23 @@ Tạo Khoá Học - User
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label for="user_id">Chọn học viên</label>
-                            <select class="select2-ajax-single form-control" name="user_id" data-selected-id=""
+                            <select class="select2-ajax-single form-control" name="user_id" data-selected-id="{{  old('user_id') }}"
                                 data-placeholder="Chọn học viên" data-url="{{ route('admins.users.list') }}">
                             </select>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="course_id">Chọn khóa học</label>
-                            <select class="select2-ajax-single form-control" name="course_id" data-selected-id=""
+                            <select id="change-khoa-hoc" class="select2-ajax-single form-control" name="course_id" data-selected-id="{{  old('course_id') }}"
                                 data-placeholder="Chọn khóa học" data-url="{{ route('admins.courses.list') }}">
                             </select>
                         </div>
 
                     </div>
                     <div class="row">
-
-                        {{-- <div class="col-md-6 mb-3">
+                        <div class="col-md-6 mb-3">
                             <label for="tuition_fee" class="form-label">Học phí</label>
-                            <input type="number" name="tuition_fee" id="tuition_fee" class="form-control" required>
-                        </div> --}}
+                            <input type="text" name="tuition_fee" id="tuition_fee" class="form-control thousand-text" required value="{{  old('tuition_fee') }}">
+                        </div>
 
                         {{-- <div class="form-group col-md-6">
                             <label for="practice_field">Sân tập</label>
@@ -90,7 +89,7 @@ Tạo Khoá Học - User
                                 data-placeholder="Chọn sân thi" data-allow-clear="true">
                                 <option></option>
                                 @foreach ($examFields as $examField)
-                                <option value="{{ $examField->id }}"> {{ $examField->name }}</option>
+                                <option value="{{ $examField->id }}" {{ $examField->id == old('exam_field_id') ? 'selected' : '' }} > {{ $examField->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -110,17 +109,17 @@ Tạo Khoá Học - User
                                 value="{{ old('ngay_hoc_cabin') }}" />
                         </div> --}}
                         <div class="form-group col-md-6">
-                            <label for="contract_date">Ngày kí hợp đồng</label>
+                            <label for="contract_date">Ngày kýhợp đồng</label>
                             <input type="date" name="contract_date" id="contract_date" class="form-control"
                                 value="{{ old('contract_date') }}" />
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="gifted_hours">Số giờ chíp tặng</label>
+                            <label for="gifted_hours">Số giờ chip tặng</label>
                             <input type="text" name="gifted_hours" id="gifted_hours"
                                 class="form-control cs-time-picker" placeholder="HH:MM" value="{{ old('gifted_hours') }}">
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="chip_hours">Số giờ đặt chíp</label>
+                            <label for="chip_hours">Số giờ đặt chip</label>
                             <input type="text" name="chip_hours" id="chip_hours"
                                 class="form-control cs-time-picker" placeholder="HH:MM" value="{{ old('chip_hours') }}">
                         </div>
@@ -151,7 +150,7 @@ Tạo Khoá Học - User
                 <div class="card-body">
                     <div class="form-group">
                         <label for="teacher_id">Giáo viên hướng dẫn</label>
-                        <select class="select2-ajax-single-all form-control" name="teacher_id" data-selected-id=""
+                        <select class="select2-ajax-single-all form-control" name="teacher_id" data-selected-id="{{ old('teacher_id') }}"
                             data-placeholder="Chọn giáo viên"
                             data-url="{{ route('admins.admins.lists', ['role'=> ROLE_TEACHER]) }}">
                             <option></option>
@@ -159,7 +158,7 @@ Tạo Khoá Học - User
                     </div>
                     <div class="form-group">
                         <label for="sale_id">Nhân viên Sale</label>
-                        <select class="select2-ajax-single form-control" name="sale_id" data-selected-id=""
+                        <select class="select2-ajax-single form-control" name="sale_id" data-selected-id="{{ old('sale_id') }}"
                             data-placeholder="Chọn nhân viên Sale"
                             data-url="{{ route('admins.admins.list', ['role'=> ROLE_SALES]) }}">
                         </select>

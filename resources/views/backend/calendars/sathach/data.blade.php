@@ -6,6 +6,7 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
         <tr>
             <th rowspan="2">STT</th>
             <th rowspan="2">Buổi thi</th>
+            <th rowspan="2">Lần thi</th>
             <th rowspan="2">Học viên</th>
             <th rowspan="2">Ngày sinh</th>
             <th rowspan="2">CCCD</th>
@@ -16,7 +17,7 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <th rowspan="2">Môn thi</th>
             <th rowspan="2">Khám SK</th>
             <th rowspan="2">Đưa đón</th>
-            <th colspan="2" class="text-center">Xe chíp</th>
+            <th colspan="2" class="text-center">Xe chip</th>
             <th rowspan="2" class="text-center">Ghi chú</th>
             <th rowspan="2" class="fixed-column text-center">Hành động</th>
         </tr>
@@ -30,6 +31,7 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
         <tr>
             <td>{{ $loop->iteration }}</td>
             <td>{!! getSangChieu($calendar->date_start) !!}</td>
+            <td>{!! getLanThi($calendar->exam_attempts) !!}</td>
             <td>{{ $calendar->courseUser->user->name ?? '' }}</td>
             <td>{{ $calendar->courseUser && $calendar->courseUser->user ?
                 getDateTimeStamp($calendar->courseUser->user->dob, 'd/m/Y') : "" }}</td>

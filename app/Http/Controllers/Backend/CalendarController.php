@@ -275,7 +275,8 @@ class CalendarController extends Controller
             ($request->group_by === 'date_exam'
                 || $request->group_by === 'date_exam_edu'
                 || $request->group_by === 'date_lythuyet'
-                || $request->group_by === 'date_thuchanh')
+                || $request->group_by === 'date_thuchanh'
+                || $request->group_by === 'date_loaihoc')
         ) {
             $calendars = $query->selectRaw('
                 DATE(date_start) as date,
@@ -303,6 +304,9 @@ class CalendarController extends Controller
                     break;
                 case 'date_thuchanh':
                     $view = 'backend.calendars.thuchanh.data-date';
+                    break;
+                case 'date_loaihoc':
+                    $view = 'backend.calendars.lichhoc.data-date';
                     break;
             }
 
@@ -383,6 +387,18 @@ class CalendarController extends Controller
     {
         $examFields = ExamField::all();
         return view('backend.calendars.thuchanh.exam', compact('examFields'));
+    }
+
+    public function lhDate()
+    {
+        $examFields = ExamField::all();
+        return view('backend.calendars.lichhoc.exam-date', compact('examFields'));
+    }
+
+    public function lh()
+    {
+        $examFields = ExamField::all();
+        return view('backend.calendars.lichhoc.exam', compact('examFields'));
     }
 
     public function dat(Request $request)

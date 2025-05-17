@@ -27,7 +27,7 @@
                     {{ $course->code }}
                 </a>
             </td>
-            <td>{{ $course->rank }}</td>
+            <td>{!! getRankOne($course->rank) !!}</td>
             <td>{{ getDateTimeStamp($course->ngay_hoc_cabin, 'd/m/Y') }}</td>
             <td>{{ getDateTimeStamp($course->ngay_hoc_dat, 'd/m/Y') }}</td>
             {{-- <td>{{ $course->rank_gp }}</td> --}}

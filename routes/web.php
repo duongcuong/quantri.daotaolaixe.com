@@ -75,6 +75,7 @@ Route::prefix('admin')->as('admins.')->group(function () {
         Route::resource('sales', SaleController::class);
 
         //course
+        Route::get('courses/{id}/detail', [CourseController::class, 'detail'])->name('courses.detail');
         Route::get('courses/data', [CourseController::class, 'data'])->name('courses.data');
         Route::get('courses/list', [CourseController::class, 'list'])->name('courses.list');
         Route::resource('courses', CourseController::class);
@@ -85,6 +86,8 @@ Route::prefix('admin')->as('admins.')->group(function () {
         Route::resource('users', UserController::class);
 
         // course-user
+        Route::get('course-user/update-tuition-fee', [CourseUserController::class, 'updateTuitionFee'])->name('course-user.update-tuition-fee');
+
         Route::get('course-user/{id}/detail', [CourseUserController::class, 'detail'])->name('course-user.detail');
         Route::get('course-user/data', [CourseUserController::class, 'data'])->name('course-user.data');
         Route::get('course-user/list', [CourseUserController::class, 'list'])->name('course-user.list');
@@ -114,6 +117,9 @@ Route::prefix('admin')->as('admins.')->group(function () {
         //Thi lý thuyết
         Route::get('calendars/lt-date', [CalendarController::class, 'ltDate'])->name('calendars.lt-date');
         Route::get('calendars/lt', [CalendarController::class, 'lt'])->name('calendars.lt');
+
+        Route::get('calendars/lh-date', [CalendarController::class, 'lhDate'])->name('calendars.lh-date');
+        Route::get('calendars/lh', [CalendarController::class, 'lh'])->name('calendars.lh');
 
         //Thi thực hành
         Route::get('calendars/th-date', [CalendarController::class, 'thDate'])->name('calendars.th-date');

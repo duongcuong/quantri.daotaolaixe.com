@@ -146,6 +146,13 @@
                 <div class="menu-title">Danh sách học viên - Khoá học</div>
             </a>
         </li>
+        <li class="{{ Request::is('admin/calendars/lh-date') || Request::is('admin/calendars/lh') ? 'mm-active' : '' }}">
+            <a href="{{ route('admins.calendars.lh-date') }}" class="reset-search-action">
+                <div class="parent-icon icon-color-11"><i class="bx bx-calendar-exclamation"></i>
+                </div>
+                <div class="menu-title">Lịch học lý thuyết - cabin</div>
+            </a>
+        </li>
         <li class="{{ Request::is('admin/fees/*') ? 'mm-active' : '' }}">
             <a href="{{ route('admins.fees.index') }}" class="reset-search-action">
                 <div class="parent-icon icon-color-11"><i class="bx bx-money"></i>

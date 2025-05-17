@@ -124,9 +124,9 @@ function listRanks()
     return [
         'A1' => 'A1',
         'A2' => 'A2',
-        'B1' => 'B tự động',
-        'B2' => 'B số sàn',
-        'C' => 'C',
+        'B1' => 'B.01',
+        'B2' => 'B',
+        'C' => 'C1',
         'D' => 'D',
         'E' => 'E',
         'F' => 'F',
@@ -321,7 +321,8 @@ function listTypeCalendars()
         'task' => 'Công việc',
         'meeting' => 'Lịch họp',
         'call' => 'Lịch gọi',
-        'class_schedule' => 'Lịch học',
+        'class_schedule' => 'Lịch làm việc giáo viên',
+        'student_class_schedule' => 'Lịch học lý thuyết - cabin',
         'exam_schedule' => 'Lịch thi sát hạch',
         'exam_edu' => 'Lịch thi tốt nghiệp',
         'lythuyet' => 'Lịch thi lý thuyết',
@@ -396,6 +397,13 @@ function listStatusCalendars()
             33 => 'Thi mới',
         ],
         'class_schedule' => [
+            40 => 'Đang chờ',
+            41 => 'Đang học',
+            42 => 'Hoàn thành',
+            43 => 'Thiếu giáo viên',
+            44 => 'Huỷ ca',
+        ],
+        'student_class_schedule' => [
             40 => 'Đang chờ',
             41 => 'Đang học',
             42 => 'Hoàn thành',
@@ -627,10 +635,10 @@ function listLoaiHocs()
 {
     return [
         'hoc_ky_nang' => 'Học kỹ năng',
-        'ly_thuyet' => 'Lý thuyết',
+        // 'ly_thuyet' => 'Lý thuyết',
         'thuc_hanh' => 'Sa hình',
-        'mo_phong' => 'Mô phỏng',
-        'cabin' => 'Cabin',
+        // 'mo_phong' => 'Mô phỏng',
+        // 'cabin' => 'Cabin',
         'chay_dat' => 'Chạy DAT',
         // 'duong_truong' => 'Đường trường',
     ];
@@ -640,6 +648,22 @@ function getLoaiHoc($loaiHoc)
 {
     if (!$loaiHoc) return '';
     $loaiHocs = listLoaiHocs();
+    if (!isset($loaiHocs[$loaiHoc])) return '';
+    return '<span class="badge badge-secondary">' . $loaiHocs[$loaiHoc] . '</span>' ?? '';
+}
+
+function listLoaiHoc2s()
+{
+    return [
+        'ly_thuyet' => 'Lý thuyết',
+        'cabin' => 'Cabin',
+    ];
+}
+
+function getLoaiHoc2($loaiHoc)
+{
+    if (!$loaiHoc) return '';
+    $loaiHocs = listLoaiHoc2s();
     if (!isset($loaiHocs[$loaiHoc])) return '';
     return '<span class="badge badge-secondary">' . $loaiHocs[$loaiHoc] . '</span>' ?? '';
 }
@@ -861,7 +885,7 @@ function listFeeTypes()
     return [
         '1' => 'Học phí',
         '2' => 'Lệ phí đăng ký xe chip',
-        '3' => 'Lệ phí cọc chíp',
+        '3' => 'Lệ phí cọc chip',
         '4' => 'Lệ phí đưa đón',
         '5' => 'Hết môn lý thuyết',
         '6' => 'Hết môn thực hành',
@@ -903,6 +927,12 @@ function listLans()
         $lts[$i] = 'Lần ' . $i;
     }
     return $lts;
+}
+
+function getLanThi($lan){
+    if (!$lan) return '';
+    $lans = listLans();
+    return '<span class="badge badge-secondary">' . $lans[$lan] . '</span>';
 }
 
 function getSangChieu($dateTime)

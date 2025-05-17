@@ -249,16 +249,27 @@ class CourseUserController extends Controller
             $hasSearch = true;
         }
 
+        // if ($request->has('tuition_status') && $request->tuition_status != '') {
+        //     if ($request->tuition_status == 'paid') {
+        //         $query->whereHas('course', function ($q) {
+        //             $q->whereColumn('courses.tuition_fee', '<=', DB::raw('(SELECT COALESCE(SUM(fees.amount), 0) FROM fees WHERE fees.course_user_id = course_users.id)'));
+        //         });
+        //     } elseif ($request->tuition_status == 'unpaid') {
+        //         $query->whereHas('course', function ($q) {
+        //             $q->whereColumn('courses.tuition_fee', '>', DB::raw('(SELECT COALESCE(SUM(fees.amount), 0) FROM fees WHERE fees.course_user_id = course_users.id)'));
+        //         });
+        //     }
+        //     $hasSearch = true;
+        // }
+
         if ($request->has('tuition_status') && $request->tuition_status != '') {
-            if ($request->tuition_status == 'paid') {
-                $query->whereHas('course', function ($q) {
-                    $q->whereColumn('courses.tuition_fee', '<=', DB::raw('(SELECT COALESCE(SUM(fees.amount), 0) FROM fees WHERE fees.course_user_id = course_users.id)'));
-                });
-            } elseif ($request->tuition_status == 'unpaid') {
-                $query->whereHas('course', function ($q) {
-                    $q->whereColumn('courses.tuition_fee', '>', DB::raw('(SELECT COALESCE(SUM(fees.amount), 0) FROM fees WHERE fees.course_user_id = course_users.id)'));
-                });
-            }
+            $query->whereHas('fees', function ($q) use ($request) {
+                if ($request->tuition_status == 'paid') {
+                    $q->havingRaw('SUM(amount) >= course_users.tuition_fee');
+                } else {
+                    $q->havingRaw('SUM(amount) < course_users.tuition_fee');
+                }
+            });
             $hasSearch = true;
         }
 
@@ -805,5 +816,30 @@ class CourseUserController extends Controller
         $courseUser = CourseUser::find($id);
         $exam = $courseUser->examField->name ?? '';
         return response()->json(['exam' => $exam]);
+    }
+
+    public function updateTuitionFee()
+    {
+        // Lấy danh sách course_users cùng với thông tin khóa học
+        $courseUsers = CourseUser::with('course:id,tuition_fee')->latest()->get();
+
+        // DB::beginTransaction();
+        try {
+            foreach ($courseUsers as $courseUser) {
+                // Kiểm tra nếu khóa học tồn tại và có học phí
+                if ($courseUser->course && $courseUser->course->tuition_fee !== null && !$courseUser->tuition_fee) {
+                    // Cập nhật tuition_fee trong bảng course_users
+                    $courseUser->update(['tuition_fee' => $courseUser->course->tuition_fee]);
+                }
+            }
+
+            // DB::commit();
+
+            return response()->json(['success' => 'Cập nhật học phí thành công.']);
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return response()->json(['error' => 'Có lỗi xảy ra: ' . $e->getMessage()], 500);
+        }
     }
 }

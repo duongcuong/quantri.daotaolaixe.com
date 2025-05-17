@@ -121,7 +121,7 @@ Xem chi tiết {{ $courseUser->user->name }} - {{ $courseUser->course->code }}
                         </tr>
                         <tr>
                             <th colspan="2">Tổng học phí phải đóng</th>
-                            <td class="text-danger">{!! getMoney($courseUser->course->tuition_fee) !!}</td>
+                            <td class="text-danger">{!! getMoney($courseUser->tuition_fee) !!}</td>
                         </tr>
                         <tr>
                             <th colspan="2">Tổng học phí đã nộp</th>
@@ -130,7 +130,7 @@ Xem chi tiết {{ $courseUser->user->name }} - {{ $courseUser->course->code }}
                         </tr>
                         <tr>
                             <th colspan="2">Tổng học phí còn thiếu</th>
-                            <td class="text-warning">{!! getMoneyConThieu($courseUser->course->tuition_fee, $courseUser->fees_sum_amount)
+                            <td class="text-warning">{!! getMoneyConThieu($courseUser->tuition_fee, $courseUser->fees_sum_amount)
                                 !!}</span></td>
                         </tr>
                         <tr>

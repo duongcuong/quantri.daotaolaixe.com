@@ -12,7 +12,7 @@
             <th rowspan="2">Họ tên</th>
             <th rowspan="2">Ngày sinh</th>
             <th rowspan="2">Giới tính</th>
-            <th rowspan="2">Ngày kí hợp đồng</th>
+            <th rowspan="2">Ngày kýhợp đồng</th>
             <th rowspan="2">CMT/CCCD</th>
             {{-- <th rowspan="2">Id thẻ</th> --}}
             <th rowspan="2">Số thẻ</th>
@@ -103,9 +103,9 @@
             </td>
             <td>{{ getFormattedSoGioChayDuocAttribute($courseUser->total_so_gio_chay_duoc_tudong) }}</td>
             <td>{{ getFormattedSoGioChayDuocAttribute($courseUser->total_so_gio_chay_duoc_bandem) }}</td>
-            <td>{!! getMoney($courseUser->course->tuition_fee) !!}</td>
+            <td>{!! getMoney($courseUser->tuition_fee) !!}</td>
             <td>{!! getMoney($courseUser->fees_sum_amount) !!}</td>
-            <td>{!! getMoneyConThieu($courseUser->course->tuition_fee, $courseUser->fees_sum_amount) !!}</td>
+            <td>{!! getMoneyConThieu($courseUser->tuition_fee, $courseUser->fees_sum_amount) !!}</td>
             <td>{!! getStatusCalendarByType2($courseUser->latestCalendar->type ?? '',
                 $courseUser->latestCalendar->status ?? '') !!}</td>
             <td class="fixed-column text-center">

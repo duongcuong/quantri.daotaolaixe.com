@@ -370,7 +370,7 @@ function formatCsThousands(input) {
 function resetNumericText() {
     jQuery(".numeric-text, .thousand-text").each(function () {
         var input = jQuery(this);
-        var name = input.attr("name");
+        var name = input.attr("name") ?? input.attr("data-name");
         var value = input.val();
         input.siblings('input[type="hidden"]').remove();
 
@@ -397,10 +397,9 @@ function resetNumericText() {
     });
 }
 
-resetNumericText();
-
 $(function () {
     runTimePicker();
+    resetNumericText();
 
     function initializeSelect2() {
         $(".single-select").each(function () {
@@ -727,6 +726,29 @@ $(function () {
                     },
                     error: function () {
                         alert("Failed to fetch user details.");
+                    },
+                });
+            }
+        }
+    );
+
+    //THay đổi khoá học, hiển thị học phí
+    $("body").on(
+        "change",
+        "#change-khoa-hoc",
+        function (e, extraData = { isAjax: true }) {
+            var courseID = $(this).val();
+            if (courseID && extraData.isAjax) {
+                $.ajax({
+                    url: `/admin/courses/${courseID}/detail`,
+                    type: "GET",
+                    success: function (data) {
+                        $("#tuition_fee").val(data.tuition_fee > 0 ? data.tuition_fee : '');
+                        resetNumericText();
+
+                    },
+                    error: function () {
+                        alert("Failed to fetch course details.");
                     },
                 });
             }

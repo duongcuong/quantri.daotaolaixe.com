@@ -15,7 +15,7 @@ class AddGiftedHoursAndChipHoursToCourseUsersTable extends Migration
     {
         Schema::table('course_users', function (Blueprint $table) {
             $table->integer('gifted_hours')->nullable()->after('hours'); // Cột giờ tặng
-            $table->integer('chip_hours')->nullable()->after('gifted_hours'); // Cột số giờ đặt chíp
+            $table->integer('chip_hours')->nullable()->after('gifted_hours'); // Cột số giờ đặt chip
         });
     }
 

@@ -131,4 +131,9 @@ class CourseController extends Controller
             ]);
         }
     }
+
+    public function detail($id){
+        $course = Course::find($id);
+        return response()->json($course);
+    }
 }

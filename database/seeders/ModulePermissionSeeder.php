@@ -87,8 +87,8 @@ class ModulePermissionSeeder extends Seeder
                 'Xem' => 'admins.teachers.show',
             ],
             'Quản lý lịch làm việc giáo viên' => [
-                'Danh sách' => 'admins.calendar.learning',
-                'Danh sách(Theo ngày)' => 'admins.calendar.learning-date',
+                'Danh sách' => 'admins.calendars.learning',
+                'Danh sách(Theo ngày)' => 'admins.calendars.learning-date',
             ],
             'Quản lý học viên' => [
                 'Danh sách' => 'admins.users.index',
