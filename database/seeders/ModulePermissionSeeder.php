@@ -65,6 +65,10 @@ class ModulePermissionSeeder extends Seeder
                 'Danh sách' => 'admins.calendars.lt',
                 'Danh sách(Theo ngày)' => 'admins.calendars.lt-date',
             ],
+            'Quản lý lịch lịch học Lý thuyêt - Cabin' => [
+                'Danh sách' => 'admins.calendars.lh',
+                'Danh sách(Theo ngày)' => 'admins.calendars.lh-date',
+            ],
             'Quản lý lịch thi thực hành' => [
                 'Danh sách' => 'admins.calendars.th',
                 'Danh sách(Theo ngày)' => 'admins.calendars.th-date',
