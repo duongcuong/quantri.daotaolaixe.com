@@ -24,7 +24,7 @@ Tất cả lịch thi của học viên
         {{-- @if (Auth::user()->hasPermission('admins.exam-schedules.index')) --}}
         <a class="btn btn-outline-primary btn-sm btn-create-ajax"
             href="{{ route('admins.calendars.create', ['type' => 'exam_schedule', 'date_start' => request()->date_start, 'reload' => 'load-data-ajax-exam-sat-hach-calendars']) }}"
-            data-cs-modal="#modal-calendars-sat-hach-create-ajax" title="Tạo Lịch Thi Sát Hạch"><i class="bx bx-plus"></i>Tạo Lịch Thi Sát Hạch</a>
+            data-cs-modal="#modal-calendars-sat-hach-create-ajax" title="Tạo học viên"><i class="bx bx-plus"></i>Tạo học viên</a>
         {{-- @endif --}}
 
     </div>
