@@ -13,7 +13,7 @@ Tất cả lịch Học
                     <li class="breadcrumb-item"><a href="{{ route('admins.dashboard') }}"><i
                                 class='bx bx-home-alt'></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Lịch làm việc giáo viên</li>
+                    <li class="breadcrumb-item active" aria-current="page">Lịch học lý thuyết - Cabin</li>
                 </ol>
             </nav>
         </div>
@@ -22,7 +22,7 @@ Tất cả lịch Học
         @if (canAccess('admins.calendars.create'))
         <a class="btn btn-outline-primary btn-sm btn-create-ajax"
             href="{{ route('admins.calendars.create', ['type' => 'student_class_schedule', 'reload' => 'load-data-ajax-exam-date-calendars']) }}"
-            data-cs-modal="#modal-calendars-lich-hoc-create-ajax" title="Tạo Lịch Học"><i class="bx bx-plus"></i>Tạo Lịch Dạy Mới</a>
+            data-cs-modal="#modal-calendars-lich-hoc-create-ajax" title="Tạo Lịch Học"><i class="bx bx-plus"></i>Tạo Lịch Học Mới</a>
         @endif
     </div>
 </div>
@@ -34,7 +34,7 @@ Tất cả lịch Học
             @csrf
             <input type="hidden" name="type" value="student_class_schedule">
             <input type="hidden" name="reload" value="load-data-ajax-exam-date-calendars">
-            <input type="hidden" name="group_by" value="date_loaihoc">
+            <input type="hidden" name="group_by" value="date_lichhoc">
             <div class="row">
                 <div class="form-group col-md-3">
                     <label for="exam_field_id">Sân học</label>

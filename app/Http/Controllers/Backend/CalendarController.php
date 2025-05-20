@@ -269,6 +269,17 @@ class CalendarController extends Controller
             }
         }
 
+        if ($request->has('group_by') && $request->group_by === 'date_lichday') {
+            $calendars = $query->selectRaw('DATE(date_start) as date, COUNT(*) as total_calendars')
+                ->groupByRaw('DATE(date_start)')
+                ->orderBy('date', 'DESC')
+                ->paginate(LIMIT);
+
+            if ($request->ajax()) {
+                return view('backend.calendars.lichday.data-date', compact('calendars'))->render();
+            }
+        }
+
         // Xử lý group_by = date
         if (
             $request->has('group_by') &&
@@ -276,7 +287,7 @@ class CalendarController extends Controller
                 || $request->group_by === 'date_exam_edu'
                 || $request->group_by === 'date_lythuyet'
                 || $request->group_by === 'date_thuchanh'
-                || $request->group_by === 'date_loaihoc')
+                || $request->group_by === 'date_lichhoc')
         ) {
             $calendars = $query->selectRaw('
                 DATE(date_start) as date,
@@ -305,7 +316,7 @@ class CalendarController extends Controller
                 case 'date_thuchanh':
                     $view = 'backend.calendars.thuchanh.data-date';
                     break;
-                case 'date_loaihoc':
+                case 'date_lichhoc':
                     $view = 'backend.calendars.lichhoc.data-date';
                     break;
             }
@@ -439,5 +450,25 @@ class CalendarController extends Controller
     public function learningExam()
     {
         return view('backend.calendars.modals.learning-exam');
+    }
+
+    public function updateStudentClassScheduleType()
+    {
+        // Lấy các bản ghi Calendar cần cập nhật
+        $calendars = Calendar::where('type', 'class_schedule')
+            ->whereIn('loai_hoc', ['ly_thuyet', 'cabin'])
+            ->get();
+
+        $count = 0;
+        foreach ($calendars as $calendar) {
+            $calendar->type = 'student_class_schedule';
+            $calendar->save();
+            $count++;
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => "Đã cập nhật $count lịch sang type student_class_schedule."
+        ]);
     }
 }

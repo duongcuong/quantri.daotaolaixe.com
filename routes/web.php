@@ -104,6 +104,7 @@ Route::prefix('admin')->as('admins.')->group(function () {
         Route::resource('comments', CommentController::class);
 
         // calendars
+        Route::get('calendars/update-student-class-schedule-type', [CalendarController::class, 'updateStudentClassScheduleType'])->name('calendars.updateStudentClassScheduleType');
         Route::get('calendars/data', [CalendarController::class, 'data'])->name('calendars.data');
         Route::get('calendars/learning', [CalendarController::class, 'learning'])->name('calendars.learning');
         Route::get('calendars/learning-date', [CalendarController::class, 'learningDate'])->name('calendars.learning-date');

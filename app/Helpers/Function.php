@@ -358,6 +358,9 @@ function getTypeCalendar($type)
         case 'thuchanh':
             return '<span class="text-info">' . $types[$type] . '</span>';
             break;
+        case 'student_class_schedule':
+            return '<span class="text-info">' . $types[$type] . '</span>';
+            break;
         default:
             return '';
             break;

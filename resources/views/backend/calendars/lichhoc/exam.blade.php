@@ -13,7 +13,7 @@ Tất cả lịch thi của học viên
                     <li class="breadcrumb-item"><a href="{{ route('admins.dashboard') }}"><i
                                 class='bx bx-home-alt'></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Lịch dạy giáo viên ngày {{ getDateTimeStamp(request()->date_start, 'd/m/Y')}}</li>
+                    <li class="breadcrumb-item active" aria-current="page">Lịch học lý thuyết - cabin ngày {{ getDateTimeStamp(request()->date_start, 'd/m/Y')}}</li>
                 </ol>
             </nav>
         </div>
@@ -36,7 +36,7 @@ Tất cả lịch thi của học viên
             class="mb-3 form-search-submit">
             @csrf
             <input type="hidden" name="type" value="student_class_schedule">
-            <input type="hidden" name="view" value="backend.calendars.dayhoc.data">
+            <input type="hidden" name="view" value="backend.calendars.lichhoc.data">
             <input type="hidden" name="reload" value="load-data-ajax-exam-lich-hoc-calendars">
             <div class="row">
                 <div class="form-group col-sm-6 col-md-3">

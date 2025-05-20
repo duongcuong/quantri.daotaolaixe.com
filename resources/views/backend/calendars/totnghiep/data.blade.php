@@ -71,31 +71,3 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
 </table>
 {{ $calendars->links() }}
 
-<script>
-    jQuery(document).ready(function () {
-        function mergeTableRows(selector) {
-            var previousText = null;
-            var rowspan = 1;
-            var previousElement = null;
-
-            $(selector).each(function () {
-                var currentText = $(this).text().trim();
-
-                if (previousText === currentText) {
-                    // Nếu giá trị giống nhau, ẩn ô hiện tại và tăng rowspan của ô trước đó
-                    $(this).remove(); // Xóa ô hiện tại
-                    $(previousElement).attr('rowspan', rowspan + 1); // Tăng rowspan
-                    rowspan++;
-                } else {
-                    // Nếu giá trị khác nhau, đặt lại rowspan và cập nhật giá trị trước đó
-                    previousText = currentText;
-                    previousElement = this; // Lưu lại ô hiện tại
-                    rowspan = 1;
-                }
-            });
-        }
-
-        // Gọi hàm để gộp các ô trong cột `date-start-column`
-        mergeTableRows('.date-start-column');
-    });
-</script>
