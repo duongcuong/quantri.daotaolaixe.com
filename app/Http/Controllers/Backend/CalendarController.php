@@ -269,14 +269,14 @@ class CalendarController extends Controller
             }
         }
 
-        if ($request->has('group_by') && $request->group_by === 'date_lichday') {
-            $calendars = $query->selectRaw('DATE(date_start) as date, COUNT(*) as total_calendars')
-                ->groupByRaw('DATE(date_start)')
+        if ($request->has('group_by') && $request->group_by === 'date_lichhoc') {
+            $calendars = $query->selectRaw('DATE(date_start) as date, loai_hoc, COUNT(*) as total_calendars')
+                ->groupByRaw('DATE(date_start), loai_hoc')
                 ->orderBy('date', 'DESC')
                 ->paginate(LIMIT);
 
             if ($request->ajax()) {
-                return view('backend.calendars.lichday.data-date', compact('calendars'))->render();
+                return view('backend.calendars.lichhoc.data-date', compact('calendars'))->render();
             }
         }
 
