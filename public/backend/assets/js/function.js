@@ -398,6 +398,29 @@ function resetNumericText() {
 }
 
 $(function () {
+    // sidebar scroll top active
+    function scrollTopMenuSidebar() {
+        var $sidebarWrapper = $(".sidebar-wrapper");
+        var $contentWrapper = $sidebarWrapper.find(
+            ".simplebar-content-wrapper"
+        );
+        var $firstActive = $sidebarWrapper.find("li.mm-active").first();
+
+        if ($firstActive.length && $contentWrapper.length) {
+            // Tính vị trí của item so với content wrapper
+            var itemOffset =
+                $firstActive.offset().top - $contentWrapper.offset().top;
+            var scrollTo = itemOffset - 100;
+            if (scrollTo < 0) scrollTo = 0;
+
+            $contentWrapper.animate({ scrollTop: scrollTo }, 400);
+        }
+    }
+    $(window).on("load", function () {
+        scrollTopMenuSidebar();
+    });
+    // end scroll top
+
     runTimePicker();
     resetNumericText();
 
@@ -581,7 +604,7 @@ $(function () {
     $(document).on("click", ".btn-show-list-ajax-dat", function (e) {
         e.preventDefault();
         $(".course-user-table-container").removeClass("show-to-table");
-        $(".table-course-right").html('');
+        $(".table-course-right").html("");
         var url = $(this).attr("href");
         $.ajax({
             url: url,
@@ -598,14 +621,14 @@ $(function () {
 
     $(document).on("click", ".close-show-dat", function (e) {
         e.preventDefault();
-        $(".table-course-right").html('');
+        $(".table-course-right").html("");
         $(".course-user-table-container").removeClass("show-to-table");
     });
 
     $(document).on("click", ".btn-show-list-ajax-dat", function (e) {
         e.preventDefault();
         $(".course-user-table-container").removeClass("show-to-table");
-        $(".table-course-right").html('');
+        $(".table-course-right").html("");
         var url = $(this).attr("href");
         $.ajax({
             url: url,
@@ -743,9 +766,10 @@ $(function () {
                     url: `/admin/courses/${courseID}/detail`,
                     type: "GET",
                     success: function (data) {
-                        $("#tuition_fee").val(data.tuition_fee > 0 ? data.tuition_fee : '');
+                        $("#tuition_fee").val(
+                            data.tuition_fee > 0 ? data.tuition_fee : ""
+                        );
                         resetNumericText();
-
                     },
                     error: function () {
                         alert("Failed to fetch course details.");
@@ -946,17 +970,19 @@ $(function () {
 
     $(document).ready(function () {
         // Lắng nghe sự kiện click trên các liên kết trong sidebar
-        $('a.reset-search-action').on('click', function (e) {
+        $("a.reset-search-action").on("click", function (e) {
             e.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
 
-            var link = $(this).attr('href'); // Lấy URL của liên kết
+            var link = $(this).attr("href"); // Lấy URL của liên kết
 
             // Gửi yêu cầu AJAX để xóa filters
             $.ajax({
-                url: '/clear-filters',
-                method: 'POST',
+                url: "/clear-filters",
+                method: "POST",
                 headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Thêm CSRF token
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                        "content"
+                    ), // Thêm CSRF token
                 },
                 success: function (response) {
                     if (response.success) {
@@ -965,23 +991,23 @@ $(function () {
                     }
                 },
                 error: function () {
-                    console.error('Không thể xóa filters.');
+                    console.error("Không thể xóa filters.");
                     // Điều hướng đến URL ngay cả khi có lỗi
                     window.location.href = link;
-                }
+                },
             });
         });
     });
 
     // Lắng nghe sự kiện change trên trường date_start_change
-    $(document).on('change', '.date_start_change', function () {
+    $(document).on("change", ".date_start_change", function () {
         // Lấy giá trị ngày từ trường date_start_change
         let selectedDate = $(this).val();
 
         // Kiểm tra nếu ngày được chọn
         if (selectedDate) {
             // Cập nhật các tùy chọn trong select#date_start
-            $('#date_start').html(`
+            $("#date_start").html(`
                 <option>Chọn thời gian</option>
                 <option value="${selectedDate} 07:00:00">Sáng</option>
                 <option value="${selectedDate} 13:00:00">Chiều</option>

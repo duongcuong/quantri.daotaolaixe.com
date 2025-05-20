@@ -932,7 +932,8 @@ function listLans()
     return $lts;
 }
 
-function getLanThi($lan){
+function getLanThi($lan)
+{
     if (!$lan) return '';
     $lans = listLans();
     return '<span class="badge badge-secondary">' . $lans[$lan] . '</span>';
@@ -948,4 +949,15 @@ function getSangChieu($dateTime)
     } else {
         return '<span class="badge badge-danger">Chiều</span>';
     }
+}
+
+function sumTime($t1, $t2)
+{
+    if (!$t1 && !$t2) return '';
+    [$h1, $m1] = $t1 ? explode(':', $t1) : [0, 0];
+    [$h2, $m2] = $t2 ? explode(':', $t2) : [0, 0];
+    $total = ($h1 * 60 + $m1) + ($h2 * 60 + $m2);
+    $h = floor($total / 60);
+    $m = $total % 60;
+    return sprintf('%02d:%02d', $h, $m);
 }

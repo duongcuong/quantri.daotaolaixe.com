@@ -16,13 +16,14 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <th rowspan="2">Môn thi</th>
             <th rowspan="2">Khám SK</th>
             <th rowspan="2">Đưa đón</th>
-            <th colspan="2" class="text-center">Xe chip</th>
+            <th colspan="3" class="text-center">Xe chip</th>
             <th rowspan="2" class="text-center">Ghi chú</th>
             <th rowspan="2" class="fixed-column text-center">Hành động</th>
         </tr>
         <tr>
             <th>Giờ tặng</th>
             <th>Số giờ đăng ký</th>
+            <th>Tổng giờ</th>
         </tr>
     </thead>
     <tbody>
@@ -43,6 +44,7 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <td class="text-center fs-5">{!! getTickTrueOrFalse($calendar->pickup_registered) !!}</td>
             <td>{{ $calendar->courseUser->gifted_hours ?? '' }}</td>
             <td>{{ $calendar->courseUser->chip_hours ?? '' }}</td>
+            <td>{{ sumTime($calendar->courseUser->chip_hours, $calendar->courseUser->gifted_hours) }}</td>
             <td>{{ $calendar->description }}</td>
             <td class="fixed-column text-center">
                 <div class="d-flex">

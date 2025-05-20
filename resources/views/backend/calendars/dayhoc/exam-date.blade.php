@@ -22,7 +22,7 @@ Tất cả lịch Học
         @if (canAccess('admins.calendars.create'))
         <a class="btn btn-outline-primary btn-sm btn-create-ajax"
             href="{{ route('admins.calendars.create', ['type' => 'class_schedule', 'reload' => 'load-data-ajax-exam-date-calendars']) }}"
-            data-cs-modal="#modal-calendars-day-hoc-create-ajax" title="Tạo Lịch Học"><i class="bx bx-plus"></i>Tạo Lịch Dạy Mới</a>
+            data-cs-modal="#modal-calendars-day-hoc-create-ajax" title="Tạo Lịch Học"><i class="bx bx-plus"></i>Tạo Lịch Học Mới</a>
         @endif
     </div>
 </div>

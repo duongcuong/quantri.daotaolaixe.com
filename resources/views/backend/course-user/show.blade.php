@@ -34,9 +34,9 @@ Xem chi tiết {{ $courseUser->user->name }} - {{ $courseUser->course->code }}
                 <div class="card-body">
                     <h5>Thông tin <strong>{{ $courseUser->user->name }} - {{ $courseUser->course->code }}</strong>
                     </h5>
-                    <table class="table table-bordered table-sm">
+                    <table class="table table-bordered table-sm" style="table-layout: fixed;">
                         <tr>
-                            <th colspan="2">Avatar</th>
+                            <th colspan="2" style="width: 400px;">Avatar</th>
                             <td>
                                 <img src="{{ getImageUpload($courseUser->user->thumbnail, 'users', 'small') }}"
                                     alt="User Thumbnail" class="avatar" width="50">
