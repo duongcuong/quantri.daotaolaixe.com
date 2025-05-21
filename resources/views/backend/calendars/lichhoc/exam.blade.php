@@ -19,7 +19,7 @@ Tất cả lịch thi của học viên
         </div>
     </div>
     <div class="ml-auto">
-        <a class="btn btn-outline-danger btn-sm mr-2 reset-search-action" href="{{ route('admins.calendars.learning-date') }}"
+        <a class="btn btn-outline-danger btn-sm mr-2 reset-search-action" href="{{ route('admins.calendars.lh-date') }}"
             data-toggle="tooltip" title="Quay về"><i class="bx bx-rewind"></i>Quay lại</a>
         {{-- @if (Auth::user()->hasPermission('admins.exam-schedules.index')) --}}
         <a class="btn btn-outline-primary btn-sm btn-create-ajax"

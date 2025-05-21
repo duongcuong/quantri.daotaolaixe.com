@@ -10,15 +10,9 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <th>Học viên</th>
             <th>Ngày sinh</th>
             <th>Buổi học</th>
-            <th class="w-130">Giáo viên</th>
             <th>Điểm đón</th>
             <th>Sân học</th>
             <th>Khoá học</th>
-            <th>Tự động</th>
-            <th>Ban đêm</th>
-            <th>Duyệt Km</th>
-            <th>Km</th>
-            <th>Giờ</th>
             <th class="fixed-column text-center">Hành động</th>
         </tr>
     </thead>
@@ -36,7 +30,6 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <td>{{ $calendar->courseUser && $calendar->courseUser->user ?
                 getDateTimeStamp($calendar->courseUser->user->dob, 'd/m/Y') : "" }}</td>
             <td>{!! getLoaiHoc($calendar->loai_hoc) !!}</td>
-            <td>{{ $calendar->teacher->name ?? '' }}</td>
             <td>{{ $calendar->diem_don }}</td>
             <td>
                 <a href="#" data-exam-field="{{ $calendar->examField->id ?? '' }}" class="btn-show-exam-field">
@@ -44,11 +37,6 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
                 </a>
             </td>
             <td>{{ $calendar->courseUser->course->code ?? '' }}</td>
-            <td class="fs-20 text-center">{!! getTickTrueOrFalse($calendar->is_tudong) !!}</td>
-            <td class="fs-20 text-center">{!! getTickTrueOrFalse($calendar->is_bandem) !!}</td>
-            <td>{!! getStatusApprovedKm($calendar->approval, $calendar->loai_hoc, $calendar->type) !!}</td>
-            <td>{!! number_format($calendar->km) !!}</td>
-            <td>{!! $calendar->so_gio_chay_duoc !!}</td>
 
             <td class="fixed-column text-center">
                 <div class="d-flex">

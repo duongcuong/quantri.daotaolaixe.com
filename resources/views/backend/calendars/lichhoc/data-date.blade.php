@@ -8,7 +8,7 @@
             <th>STT</th>
             <th>Thứ</th>
             <th>Ngày</th>
-            <th>Loại học</th>
+            <th>Môn học</th>
             <th>Số lượng học viên</th>
         </tr>
     </thead>
