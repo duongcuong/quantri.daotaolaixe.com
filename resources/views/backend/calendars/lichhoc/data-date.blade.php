@@ -5,10 +5,10 @@
 <table class="table table-sm table-bordered table-hover">
     <thead>
         <tr>
-            <th>STT</th>
-            <th>Thứ</th>
-            <th>Ngày</th>
-            <th>Môn học</th>
+            <th class="w-50px">STT</th>
+            <th class="w-80px">Thứ</th>
+            <th class="w-100px">Ngày</th>
+            <th class="w-100px">Môn học</th>
             <th>Số lượng học viên</th>
         </tr>
     </thead>
@@ -37,3 +37,9 @@
 <div class="mt-3">
     {{ $calendars->links() }}
 </div>
+
+<script>
+    jQuery(document).ready(function () {
+        addBgToTableByDate(".date-start-column2 a");
+    })
+</script>

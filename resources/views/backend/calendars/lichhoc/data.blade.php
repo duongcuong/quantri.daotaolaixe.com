@@ -7,9 +7,9 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <th>STT</th>
             <th>Ngày</th>
             <th class="w-110">Thời gian</th>
-            <th>Học viên</th>
+            <th class="w-150px">Học viên</th>
             <th>Ngày sinh</th>
-            <th>Buổi học</th>
+            <th>Môn học</th>
             <th>Điểm đón</th>
             <th>Sân học</th>
             <th>Khoá học</th>
@@ -29,7 +29,7 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <td>{{ $calendar->courseUser->user->name ?? '' }}</td>
             <td>{{ $calendar->courseUser && $calendar->courseUser->user ?
                 getDateTimeStamp($calendar->courseUser->user->dob, 'd/m/Y') : "" }}</td>
-            <td>{!! getLoaiHoc($calendar->loai_hoc) !!}</td>
+            <td>{!! getLoaiHoc2($calendar->loai_hoc) !!}</td>
             <td>{{ $calendar->diem_don }}</td>
             <td>
                 <a href="#" data-exam-field="{{ $calendar->examField->id ?? '' }}" class="btn-show-exam-field">
