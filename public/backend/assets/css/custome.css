@@ -382,3 +382,52 @@ body {
 .w-130{
     width: 130px;
 }
+
+.table thead th,
+.table td, .table th{
+    border-color: #b0bac2 !important;
+}
+
+.bg-aa{
+    background-color: #cff4fc;
+}
+
+.table-fixed-layout{
+    table-layout: fixed;
+}
+
+.mw-100px{
+    min-width: 100px;
+}
+
+.w-50px{
+    width: 50px;
+}
+
+.w-80px{
+    width: 80px;
+}
+
+.w-100px{
+    width: 100px;
+}
+
+.w-120px{
+    width: 120px;
+}
+
+.w-150px{
+    width: 150px;
+}
+
+.w-200px{
+    width: 200px;
+}
+
+.w-250px{
+    width: 250px;
+}
+
+.w-300px{
+    width: 300px;
+}

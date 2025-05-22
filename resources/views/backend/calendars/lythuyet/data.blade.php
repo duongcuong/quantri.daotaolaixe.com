@@ -6,7 +6,7 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
         <tr>
             <th rowspan="2">STT</th>
             <th rowspan="2">Buổi thi</th>
-            <th rowspan="2">Học viên</th>
+            <th rowspan="2" class="w-150px">Học viên</th>
             <th rowspan="2">Ngày sinh</th>
             <th rowspan="2">CCCD</th>
             <th rowspan="2">SĐT</th>
@@ -15,6 +15,7 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <th rowspan="2">Khoá học</th>
             <th rowspan="2">Môn thi</th>
             <th rowspan="2">Khám SK</th>
+            <th rowspan="2">Sân</th>
             <th rowspan="2">Đưa đón</th>
             <th colspan="3" class="text-center">Xe chip</th>
             <th rowspan="2" class="text-center">Ghi chú</th>
@@ -41,6 +42,7 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <td>{!! getLoaiThi($calendar->loai_thi) !!}</td>
             <td>{{ $calendar->courseUser ? getDateTimeStamp($calendar->courseUser->health_check_date, 'd/m/Y') : '' }}
             </td>
+            <td>{{ $calendar->examField->name ?? '' }}</td>
             <td class="text-center fs-5">{!! getTickTrueOrFalse($calendar->pickup_registered) !!}</td>
             <td>{{ $calendar->courseUser->gifted_hours ?? '' }}</td>
             <td>{{ $calendar->courseUser->chip_hours ?? '' }}</td>

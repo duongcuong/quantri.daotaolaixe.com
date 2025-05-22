@@ -397,6 +397,29 @@ function resetNumericText() {
     });
 }
 
+function addBgToTableByDate(elem) {
+    const rows = $("table tbody tr");
+    let currentDate = null;
+    let toggleClass = false;
+    console.log(rows.length);
+
+    rows.each(function (index) {
+        const row = $(this);
+        const dateText = row.find(elem).text().trim();
+
+        // Nếu ngày khác với ngày trước đó, đảo trạng thái toggle
+        if (dateText !== currentDate) {
+            currentDate = dateText;
+            toggleClass = !toggleClass;
+        }
+
+        // Nếu toggleClass đang true thì thêm class
+        if (toggleClass) {
+            row.addClass("bg-aa");
+        }
+    });
+}
+
 $(function () {
     // sidebar scroll top active
     function scrollTopMenuSidebar() {

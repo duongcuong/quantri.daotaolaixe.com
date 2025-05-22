@@ -1,12 +1,9 @@
-@php
-$columns = request()->has('show_column') ? explode(',', request()->show_column) : [];
-@endphp
-<table id="example" class="table table-sm table-bordered table-hover">
+<table id="example" class="table table-sm table-bordered">
     <thead>
         <tr>
             <th>STT</th>
             <th>Buổi thi</th>
-            <th>Học viên</th>
+            <th class="w-150px">Học viên</th>
             <th>Ngày sinh</th>
             <th>CCCD</th>
             <th>SĐT</th>
@@ -15,6 +12,7 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <th>Khoá học</th>
             <th>Môn thi</th>
             <th>Khám SK</th>
+            <th>Sân</th>
             <th>Đưa đón</th>
             <th class="text-center">Ghi chú</th>
             <th class="fixed-column text-center">Hành động</th>
@@ -35,6 +33,7 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <td>{!! getLoaiThi($calendar->loai_thi) !!}</td>
             <td>{{ $calendar->courseUser ? getDateTimeStamp($calendar->courseUser->health_check_date, 'd/m/Y') : '' }}
             </td>
+            <td>{{ $calendar->examField->name ?? '' }}</td>
             <td class="text-center fs-5">{!! getTickTrueOrFalse($calendar->pickup_registered) !!}</td>
             <td>{{ $calendar->description }}</td>
             <td class="fixed-column text-center">

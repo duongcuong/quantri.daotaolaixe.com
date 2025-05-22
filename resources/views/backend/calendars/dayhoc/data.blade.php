@@ -7,7 +7,7 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <th>STT</th>
             <th>Ngày</th>
             <th class="w-110">Thời gian</th>
-            <th>Học viên</th>
+            <th class="w-150px">Học viên</th>
             <th>Ngày sinh</th>
             <th>Buổi học</th>
             <th class="w-130">Giáo viên</th>
