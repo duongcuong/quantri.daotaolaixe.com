@@ -84,12 +84,29 @@ class CourseUserController extends Controller
         $admins = Admin::where('status', 1)->get();
 
         $courseUser->loadSum('fees', 'amount');
-        $courseUser->loadSum(['calendars' => function ($query) {
+
+        //Đã duyệt
+        $courseUser->loadSum(['calendars as total_km_approved' => function ($query) {
             $query->where('approval', true);
         }], 'km');
-        $courseUser->loadSum(['calendars' => function ($query) {
+        $courseUser->loadSum(['calendars as so_gio_chay_duoc_approved' => function ($query) {
             $query->where('approval', true);
         }], 'so_gio_chay_duoc');
+        // Thêm withSum cho tổng km với điều kiện is_tudong = true
+        $courseUser->loadSum(['calendars as total_km_tudong_approved' => function ($query) {
+            $query->where('approval', true);
+            $query->where('is_tudong', true);
+        }], 'km');
+
+        // Thêm withSum cho tổng so_gio_chay_duoc với điều kiện is_bandem = true
+        $courseUser->loadSum(['calendars as total_so_gio_chay_duoc_bandem_approved' => function ($query) {
+            $query->where('approval', true);
+            $query->where('is_bandem', true);
+        }], 'so_gio_chay_duoc');
+
+        // Chưa duyệt
+        $courseUser->loadSum('calendars', 'km');
+        $courseUser->loadSum('calendars', 'so_gio_chay_duoc');
         // Thêm withSum cho tổng km với điều kiện is_tudong = true
         $courseUser->loadSum(['calendars as total_km_tudong' => function ($query) {
             $query->where('is_tudong', true);
@@ -106,6 +123,27 @@ class CourseUserController extends Controller
     public function edit(CourseUser $courseUser)
     {
         $examFields = ExamField::all();
+
+        //Đã duyệt
+        $courseUser->loadSum(['calendars as total_km_approved' => function ($query) {
+            $query->where('approval', true);
+        }], 'km');
+        $courseUser->loadSum(['calendars as so_gio_chay_duoc_approved' => function ($query) {
+            $query->where('approval', true);
+        }], 'so_gio_chay_duoc');
+        // Thêm withSum cho tổng km với điều kiện is_tudong = true
+        $courseUser->loadSum(['calendars as total_km_tudong_approved' => function ($query) {
+            $query->where('approval', true);
+            $query->where('is_tudong', true);
+        }], 'km');
+
+        // Thêm withSum cho tổng so_gio_chay_duoc với điều kiện is_bandem = true
+        $courseUser->loadSum(['calendars as total_so_gio_chay_duoc_bandem_approved' => function ($query) {
+            $query->where('approval', true);
+            $query->where('is_bandem', true);
+        }], 'so_gio_chay_duoc');
+
+        // Chưa duyệt
         $courseUser->loadSum('calendars', 'km');
         $courseUser->loadSum('calendars', 'so_gio_chay_duoc');
         // Thêm withSum cho tổng km với điều kiện is_tudong = true
@@ -117,6 +155,7 @@ class CourseUserController extends Controller
         $courseUser->loadSum(['calendars as total_so_gio_chay_duoc_bandem' => function ($query) {
             $query->where('is_bandem', true);
         }], 'so_gio_chay_duoc');
+
         return view('backend.course-user.edit', compact('courseUser', 'examFields'));
     }
 

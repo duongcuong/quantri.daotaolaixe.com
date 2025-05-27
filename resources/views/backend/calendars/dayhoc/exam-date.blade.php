@@ -47,11 +47,20 @@ Tất cả lịch Học
                         @endforeach
                     </select>
                 </div>
-                <div class="form-group col-sm-6 col-md-3">
+                {{-- <div class="form-group col-sm-6 col-md-3">
                     <label for="course_id" class="mr-2">Học viên</label>
                     <select class="select2-ajax-single form-control" name="user_id"
                         data-selected-id="{{ session('calendar_filters.user_id') }}" data-placeholder="Chọn học viên"
                         data-url="{{ route('admins.users.list') }}">
+                    </select>
+                </div> --}}
+                <div class="form-group col-sm-6 col-md-3">
+                    <label for="course_id" class="mr-2">Giáo viên</label>
+                    <select class="select2-ajax-single-all form-control" name="teacher_id"
+                        data-selected-id="{{ session('calendar_filters.teacher_id') }}"
+                        data-placeholder="Chọn giáo viên"
+                        data-url="{{ route('admins.admins.lists', ['role'=> ROLE_TEACHER]) }}">
+                        <option></option>
                     </select>
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
@@ -65,7 +74,7 @@ Tất cả lịch Học
                         value="{{ request()->date_start ?? session('calendar_filters.end_date') }}">
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
-                    {{-- <label for="status22" class="mr-2 opacity-0">Hành động </label><br> --}}
+                    <label for="status22" class="mr-2 opacity-0">Hành động </label><br>
                     <button type="submit" class="btn btn-primary">
                         <span class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true"
                             style="display: none"></span>

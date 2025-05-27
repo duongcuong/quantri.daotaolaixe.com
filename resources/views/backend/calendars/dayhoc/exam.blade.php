@@ -39,11 +39,21 @@ Tất cả lịch thi của học viên
             <input type="hidden" name="view" value="backend.calendars.dayhoc.data">
             <input type="hidden" name="reload" value="load-data-ajax-exam-day-hoc-calendars">
             <div class="row">
-                <div class="form-group col-sm-6 col-md-3">
+                {{-- <div class="form-group col-sm-6 col-md-3">
                     <label for="course_id" class="mr-2">Học viên</label>
                     <select class="select2-ajax-single form-control" name="user_id"
                         data-selected-id="{{ session('calendar_filters.user_id') }}" data-placeholder="Chọn học viên"
                         data-url="{{ route('admins.users.list') }}">
+                    </select>
+                </div> --}}
+
+                <div class="form-group col-sm-6 col-md-3">
+                    <label for="course_id" class="mr-2">Giáo viên</label>
+                    <select class="select2-ajax-single-all form-control" name="teacher_id"
+                        data-selected-id="{{ session('calendar_filters.teacher_id') }}"
+                        data-placeholder="Chọn giáo viên"
+                        data-url="{{ route('admins.admins.lists', ['role'=> ROLE_TEACHER]) }}">
+                        <option></option>
                     </select>
                 </div>
 
@@ -76,11 +86,11 @@ Tất cả lịch thi của học viên
                     {{-- <label for="status22" class="mr-2 opacity-0">Hành động </label><br> --}}
                     <button type="submit" class="btn btn-primary">
                         <label for=""></label>
-                        <span class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true"
+                        <span class="spinner-border spinner-border-sm mx-1" role="status" aria-hidden="true"
                             style="display: none"></span>
                         Tìm kiếm
                     </button>
-                    <button type="reset" class="btn btn-outline-danger m-1">
+                    <button type="reset" class="btn btn-outline-danger mx-1">
                         <i class="bx bx-refresh mr-1"></i>Refresh
                     </button>
                 </div>

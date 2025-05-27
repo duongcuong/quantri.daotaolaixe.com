@@ -7,10 +7,11 @@
                         <div class="left">
                             <h5>Lịch học</h5>
                             <div class="d-flex">
+                                <strong class="mr-1 text-danger">Tổng: </strong>
                                 <strong class="mr-1">Tổng km: </strong> <strong class="mr-2 text-danger"> {{
-                                    number_format($courseUser->calendars_sum_km) }}</strong>
+                                    number_format($courseUser->calendars_sum_km, 2) }}</strong>
                                 <strong class="mr-1">Tổng km tự động: </strong> <strong class="mr-2 text-danger"> {{
-                                    number_format($courseUser->total_km_tudong) }}</strong>
+                                    number_format($courseUser->total_km_tudong, 2) }}</strong>
                                 <strong class="mr-1">Tổng giờ chạy được: </strong>
                                 <strong class="mr-2 text-danger"> {{
                                     getFormattedSoGioChayDuocAttribute($courseUser->calendars_sum_so_gio_chay_duoc)
@@ -18,6 +19,21 @@
                                 <strong class="mr-1">Tổng giờ ban đêm: </strong>
                                 <strong class="text-danger"> {{
                                     getFormattedSoGioChayDuocAttribute($courseUser->total_so_gio_chay_duoc_bandem)
+                                    }}</strong>
+                            </div>
+                            <div class="d-flex">
+                                <strong class="mr-1 text-success">Đã duyệt: </strong>
+                                <strong class="mr-1">Tổng km: </strong> <strong class="mr-2 text-success"> {{
+                                    number_format($courseUser->total_km_approved, 2) }}</strong>
+                                <strong class="mr-1">Tổng km tự động: </strong> <strong class="mr-2 text-success"> {{
+                                    number_format($courseUser->total_km_tudong_approved, 2) }}</strong>
+                                <strong class="mr-1">Tổng giờ chạy được: </strong>
+                                <strong class="mr-2 text-success"> {{
+                                    getFormattedSoGioChayDuocAttribute($courseUser->so_gio_chay_duoc_approved)
+                                    }}</strong>
+                                <strong class="mr-1">Tổng giờ ban đêm: </strong>
+                                <strong class="text-success"> {{
+                                    getFormattedSoGioChayDuocAttribute($courseUser->total_so_gio_chay_duoc_bandem_approved)
                                     }}</strong>
                             </div>
                         </div>

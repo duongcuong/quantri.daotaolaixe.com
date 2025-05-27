@@ -21,7 +21,7 @@ Tất cả học viên
     <div class="ml-auto">
         @if (canAccess('admins.users.create'))
         <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.users.create') }}" data-toggle="tooltip"
-            title="Tạo người dùng"><i class="bx bx-plus"></i>Tạo người dùng</a>
+            title="Tạo người dùng"><i class="bx bx-plus"></i>Thêm học viên</a>
         @endif
     </div>
 </div>

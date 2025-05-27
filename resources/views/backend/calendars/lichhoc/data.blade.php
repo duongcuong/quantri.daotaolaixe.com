@@ -10,7 +10,7 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <th class="w-150px">Học viên</th>
             <th>Ngày sinh</th>
             <th>Môn học</th>
-            <th>Điểm đón</th>
+            <th>Trạng thái</th>
             <th>Sân học</th>
             <th>Khoá học</th>
             <th class="fixed-column text-center">Hành động</th>
@@ -30,7 +30,7 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <td>{{ $calendar->courseUser && $calendar->courseUser->user ?
                 getDateTimeStamp($calendar->courseUser->user->dob, 'd/m/Y') : "" }}</td>
             <td>{!! getLoaiHoc2($calendar->loai_hoc) !!}</td>
-            <td>{{ $calendar->diem_don }}</td>
+            <td>{!! getStatusCalendarByType($calendar->type, $calendar->status) !!}</td>
             <td>
                 <a href="#" data-exam-field="{{ $calendar->examField->id ?? '' }}" class="btn-show-exam-field">
                     {{ $calendar->examField->name ?? '' }}

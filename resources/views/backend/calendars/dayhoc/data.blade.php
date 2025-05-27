@@ -47,7 +47,7 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <td class="fs-20 text-center">{!! getTickTrueOrFalse($calendar->is_tudong) !!}</td>
             <td class="fs-20 text-center">{!! getTickTrueOrFalse($calendar->is_bandem) !!}</td>
             <td>{!! getStatusApprovedKm($calendar->approval, $calendar->loai_hoc, $calendar->type) !!}</td>
-            <td>{!! number_format($calendar->km) !!}</td>
+            <td>{!! number_format($calendar->km, 2) !!}</td>
             <td>{!! $calendar->so_gio_chay_duoc !!}</td>
 
             <td class="fixed-column text-center">

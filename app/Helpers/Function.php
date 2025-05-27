@@ -398,6 +398,7 @@ function listStatusCalendars()
             31 => 'Đỗ',
             32 => 'Thi lại',
             33 => 'Thi mới',
+            34 => 'Bỏ thi'
         ],
         'class_schedule' => [
             40 => 'Đang chờ',
@@ -418,18 +419,21 @@ function listStatusCalendars()
             51 => 'Đỗ',
             52 => 'Thi lại',
             53 => 'Thi mới',
+            54 => 'Bỏ thi'
         ],
         'lythuyet' => [
             60 => 'Đang chờ',
             61 => 'Đỗ',
             62 => 'Thi lại',
             63 => 'Thi mới',
+            64 => 'Bỏ thi'
         ],
         'thuchanh' => [
             70 => 'Đang chờ',
             71 => 'Đỗ',
             72 => 'Thi lại',
             73 => 'Thi mới',
+            74 => 'Bỏ thi'
         ],
         // Add other types and their statuses as needed
     ];
@@ -487,6 +491,9 @@ function getStatusCalendarByType($type, $status)
         case '33':
             return '<span class="badge badge-secondary">' . $statuses[$type][$status] . '</span>';
             break;
+        case '34':
+            return '<span class="badge badge-dark">' . $statuses[$type][$status] . '</span>';
+            break;
         case '40':
             return '<span class="badge badge-warning">' . $statuses[$type][$status] . '</span>';
             break;
@@ -514,6 +521,9 @@ function getStatusCalendarByType($type, $status)
         case '53':
             return '<span class="badge badge-secondary">' . $statuses[$type][$status] . '</span>';
             break;
+        case '54':
+            return '<span class="badge badge-dark">' . $statuses[$type][$status] . '</span>';
+            break;
         case '60':
             return '<span class="badge badge-warning">' . $statuses[$type][$status] . '</span>';
             break;
@@ -526,6 +536,9 @@ function getStatusCalendarByType($type, $status)
         case '63':
             return '<span class="badge badge-secondary">' . $statuses[$type][$status] . '</span>';
             break;
+        case '64':
+            return '<span class="badge badge-dark">' . $statuses[$type][$status] . '</span>';
+            break;
         case '70':
             return '<span class="badge badge-warning">' . $statuses[$type][$status] . '</span>';
             break;
@@ -537,6 +550,9 @@ function getStatusCalendarByType($type, $status)
             break;
         case '73':
             return '<span class="badge badge-secondary">' . $statuses[$type][$status] . '</span>';
+            break;
+        case '74':
+            return '<span class="badge badge-dark">' . $statuses[$type][$status] . '</span>';
             break;
         default:
             return "";
@@ -917,8 +933,17 @@ function getFeeType($type)
         case '5':
             return '<span class="badge badge-secondary">' . $types[$type] . '</span>';
             break;
+        case '6':
+            return '<span class="badge badge-info">' . $types[$type] . '</span>';
+            break;
+        case '7':
+            return '<span class="badge badge-dark">' . $types[$type] . '</span>';
+            break;
+        case '8':
+            return '<span class="badge badge-light">' . $types[$type] . '</span>';
+            break;
         default:
-            return '';
+            return '<span class="badge badge-secondary">' . $types[$type] . '</span>';
             break;
     }
 }
@@ -960,4 +985,16 @@ function sumTime($t1, $t2)
     $h = floor($total / 60);
     $m = $total % 60;
     return sprintf('%02d:%02d', $h, $m);
+}
+
+function countDaysBetween($start, $end)
+{
+    if (!$start || !$end) return 'N/A';
+    try {
+        $startDate = Carbon::parse($start)->startOfDay();
+        $endDate = Carbon::parse($end)->startOfDay();
+        return $startDate->diffInDays($endDate) + 1; // +1 để tính cả ngày bắt đầu và kết thúc
+    } catch (\Exception $e) {
+        return 'N/A';
+    }
 }

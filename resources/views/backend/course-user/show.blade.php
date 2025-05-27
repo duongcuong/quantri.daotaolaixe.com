@@ -99,7 +99,7 @@ Xem chi tiết {{ $courseUser->user->name }} - {{ $courseUser->course->code }}
                         </tr>
                         <tr>
                             <th rowspan="3">Thông tin</th>
-                            <th>Thi hết môn lí thuyết</th>
+                            <th>Thi hết môn lý thuyết</th>
                             <td class="fs-5">{!! getTickTrueOrFalse($courseUser->theory_exam) !!}</td>
                         </tr>
                         <tr>

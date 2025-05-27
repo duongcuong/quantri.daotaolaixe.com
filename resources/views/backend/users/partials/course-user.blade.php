@@ -18,7 +18,7 @@
                             <input type="hidden" value="{{ $user->id }}" name="user_id">
                         </div>
                     </form>
-                    <div class="table-header-fixed mt-1 mb-1 load-data-ajax"
+                    <div class="table-responsive mt-1 mb-1 load-data-ajax"
                         data-url="{{ route('admins.course-user.data') }}" id="load-data-ajax-course-user"
                         data-search="#search-form-course-user">
                         <div class="loading-overlay">

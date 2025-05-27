@@ -4,27 +4,22 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
 <table id="example" class="table table-sm table-bordered table-hover">
     <thead>
         <tr>
-            <th rowspan="2">STT</th>
-            <th rowspan="2">Buổi thi</th>
-            <th rowspan="2" class="w-150px">Học viên</th>
-            <th rowspan="2">Ngày sinh</th>
-            <th rowspan="2">CCCD</th>
-            <th rowspan="2">SĐT</th>
-            <th rowspan="2">SBD</th>
-            {{-- <th rowspan="2">Sân thi</th> --}}
-            <th rowspan="2">Khoá học</th>
-            <th rowspan="2">Môn thi</th>
-            <th rowspan="2">Khám SK</th>
-            <th rowspan="2">Sân</th>
-            <th rowspan="2">Đưa đón</th>
-            <th colspan="3" class="text-center">Xe chip</th>
-            <th rowspan="2" class="text-center">Ghi chú</th>
-            <th rowspan="2" class="fixed-column text-center">Hành động</th>
-        </tr>
-        <tr>
-            <th>Giờ tặng</th>
-            <th>Số giờ đăng ký</th>
-            <th>Tổng giờ</th>
+            <th>STT</th>
+            <th>Buổi thi</th>
+            <th class="w-150px">Học viên</th>
+            <th>Ngày sinh</th>
+            <th>CCCD</th>
+            <th>SĐT</th>
+            <th>SBD</th>
+            {{-- <th>Sân thi</th> --}}
+            <th>Khoá học</th>
+            <th>Môn thi</th>
+            <th>Khám SK</th>
+            <th>Sân</th>
+            <th>Đưa đón</th>
+            <th>Kết quả</th>
+            <th class="text-center">Ghi chú</th>
+            <th class="fixed-column text-center">Hành động</th>
         </tr>
     </thead>
     <tbody>
@@ -44,10 +39,8 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             </td>
             <td>{{ $calendar->examField->name ?? '' }}</td>
             <td class="text-center fs-5">{!! getTickTrueOrFalse($calendar->pickup_registered) !!}</td>
-            <td>{{ $calendar->courseUser->gifted_hours ?? '' }}</td>
-            <td>{{ $calendar->courseUser->chip_hours ?? '' }}</td>
+            <td>{!! getStatusCalendarByType($calendar->type, $calendar->status) !!}</td>
             <td>{{ $calendar->description }}</td>
-            <td>{{ sumTime($calendar->courseUser->chip_hours, $calendar->courseUser->gifted_hours) }}</td>
             <td class="fixed-column text-center">
                 <div class="d-flex">
                     @if (canAccess('admins.calendars.edit'))

@@ -37,7 +37,7 @@
             <td>{{ \Carbon\Carbon::parse($course->end_date)->format('d/m/Y') }}</td>
             <td>{{ $course->course_users_count }}</td>
             {{-- <td>{{ $course->decision_kg }}</td> --}}
-            <td>{{ $course->duration }}</td>
+            <td>{{ countDaysBetween($course->start_date, $course->end_date) }}</td>
             {{-- <td>{!! getMoney($course->tuition_fee) !!}</td> --}}
             <td class="fixed-column text-center">
                 <div class="d-flex">

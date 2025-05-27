@@ -14,6 +14,7 @@
             <th>Khám SK</th>
             <th>Sân</th>
             <th>Đưa đón</th>
+            <th>Kết quả</th>
             <th class="text-center">Ghi chú</th>
             <th class="fixed-column text-center">Hành động</th>
         </tr>
@@ -35,6 +36,7 @@
             </td>
             <td>{{ $calendar->examField->name ?? '' }}</td>
             <td class="text-center fs-5">{!! getTickTrueOrFalse($calendar->pickup_registered) !!}</td>
+            <td>{!! getStatusCalendarByType($calendar->type, $calendar->status) !!}</td>
             <td>{{ $calendar->description }}</td>
             <td class="fixed-column text-center">
                 <div class="d-flex">
