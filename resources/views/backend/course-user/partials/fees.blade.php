@@ -1,4 +1,4 @@
-<div class="container-fluid p-0">
+<div class="container-fluid p-0" id="fees-section">
     <div class="row">
         <div class="col-12">
             <div class="card">
