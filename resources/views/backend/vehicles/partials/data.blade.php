@@ -1,18 +1,22 @@
 <table id="example" class="table table-sm table-bordered table-hover">
     <thead>
         <tr>
-            <th>STT</th>
-            <th>Biển số</th>
-            <th>Model</th>
-            <th>Hạng</th>
-            <th>Loại</th>
-            <th>Màu sắc</th>
-            <th>Số GPTL</th>
+            <th rowspan="2">STT</th>
+            <th rowspan="2">Biển số</th>
+            <th rowspan="2">Model</th>
+            <th rowspan="2">Hạng</th>
+            <th rowspan="2">Loại</th>
+            <th rowspan="2">Màu sắc</th>
+            <th rowspan="2">Số GPTL</th>
             {{-- <th>Ngày hết hạn GPTL</th> --}}
-            <th>Năm SX</th>
-            <th>Số giờ chạy được</th>
-            <th>Ghi chú</th>
-            <th class="fixed-column text-center">Hành động</th>
+            <th rowspan="2">Năm SX</th>
+            <th colspan="2">Số giờ chạy được</th>
+            <th rowspan="2">Ghi chú</th>
+            <th class="fixed-column text-center" rowspan="2">Hành động</th>
+        </tr>
+        <tr>
+            <th>Sa hình</th>
+            <th>Chạy DAT</th>
         </tr>
     </thead>
     <tbody>
@@ -31,7 +35,8 @@
             <td>{{ $vehicle->gptl_number }}</td>
             {{-- <td>{{ getDateTimeStamp($vehicle->gptl_expiry_date, 'd/m/Y') }}</td> --}}
             <td>{{ $vehicle->manufacture_year }}</td>
-            <td>{{ getFormattedSoGioChayDuocAttribute($vehicle->calendars_sum_so_gio_chay_duoc) }}</td>
+            <td>{{ getFormattedSoGioChayDuocAttribute($vehicle->so_gio_chay_duoc_thuc_hanh) }}</td>
+            <td>{{ getFormattedSoGioChayDuocAttribute($vehicle->so_gio_chay_duoc_chay_dat) }}</td>
             <td>{{ $vehicle->note }}</td>
             <td class="fixed-column text-center">
                 <div class="d-inline-flex">

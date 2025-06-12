@@ -69,7 +69,13 @@ class Admin extends Authenticatable
         return $this->hasMany(CourseUser::class, 'sale_id');
     }
 
-    public function leads(){
+    public function leads()
+    {
         return $this->hasMany(Lead::class, 'assigned_to');
+    }
+
+    public function vehicle()
+    {
+        return $this->belongsTo(Vehicle::class, 'vehicle_id', 'id');
     }
 }

@@ -31,8 +31,8 @@ Tất cả Khoá học - Học Viên
         @endif
 
         @if (canAccess('admins.course-user.create'))
-        <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.course-user.create') }}" title="Tạo Khoá Học - Học Viên"><i
-                class="bx bx-plus"></i>Tạo Khoá Học - Học Viên</a>
+        <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.course-user.create') }}" title="Thêm học viên vào khoá học"><i
+                class="bx bx-plus"></i>Thêm học viên vào khoá học</a>
         @endif
     </div>
 </div>

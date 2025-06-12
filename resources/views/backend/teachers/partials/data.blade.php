@@ -41,7 +41,7 @@
             <td>{{ $teacher->identity_card }}</td>
             <td>{{ $teacher->address }}</td>
             <td>{!! getRank($teacher->rank) !!}</td>
-            <td>{{ $teacher->license_plate }}</td>
+            <td>{{ $teacher->vehicle ? $teacher->vehicle->license_plate : '' }}</td>
             <td>{{ $teacher->phone }}</td>
             <td style="color: red">{{ getFormattedSoGioChayDuocAttribute($teacher->calendars_sum_so_gio_chay_duoc) }}</td>
             <td>{{ getFormattedSoGioChayDuocAttribute($teacher->so_gio_chay_duoc_hoc_ky_nang) }}</td>
