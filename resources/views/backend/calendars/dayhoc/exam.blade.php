@@ -55,6 +55,7 @@ Tất cả lịch thi của học viên
                         data-url="{{ route('admins.admins.lists', ['role'=> ROLE_TEACHER]) }}">
                         <option></option>
                     </select>
+                    <input type="hidden" name="teacher_id" value="{{ session('calendar_filters.teacher_id') }}" class="remove-loaded-ajax">
                 </div>
 
                 <div class="form-group col-md-3">

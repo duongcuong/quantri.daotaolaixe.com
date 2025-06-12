@@ -231,6 +231,8 @@ function initializeSelect2AjaxAll() {
                     allowClear: true,
                     minimumInputLength: 0, // Không yêu cầu nhập ký tự
                 });
+
+                $('.remove-loaded-ajax').remove();
             },
             error: function (xhr) {
                 console.error("Error loading data for Select2:", xhr);
