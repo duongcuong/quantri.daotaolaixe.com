@@ -83,7 +83,9 @@ class CourseUserController extends Controller
         $courseUsers = CourseUser::with('user', 'course', 'teacher', 'sale')->get();
         $admins = Admin::where('status', 1)->get();
 
-        $courseUser->loadSum('fees', 'amount');
+        $courseUser->loadSum([ 'fees' => function ($query) {
+            $query->where('type', 1);
+        }], 'amount');
 
         //Đã duyệt
         $courseUser->loadSum(['calendars as total_km_approved' => function ($query) {

@@ -9,6 +9,7 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <th class="w-110">Thời gian</th>
             <th class="w-150px">Học viên</th>
             <th>Ngày sinh</th>
+            <th>Số điện thoại</th>
             <th>Buổi học</th>
             <th class="w-130">Giáo viên</th>
             <th>Điểm đón</th>
@@ -35,6 +36,7 @@ $columns = request()->has('show_column') ? explode(',', request()->show_column) 
             <td>{{ $calendar->courseUser->user->name ?? '' }}</td>
             <td>{{ $calendar->courseUser && $calendar->courseUser->user ?
                 getDateTimeStamp($calendar->courseUser->user->dob, 'd/m/Y') : "" }}</td>
+            <td>{{ $calendar->courseUser->user->phone ?? '' }}</td>
             <td>{!! getLoaiHoc($calendar->loai_hoc) !!}</td>
             <td>{{ $calendar->teacher->name ?? '' }}</td>
             <td>{{ $calendar->diem_don }}</td>
