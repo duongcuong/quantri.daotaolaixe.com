@@ -396,6 +396,7 @@ function listStatusCalendars()
         'exam_schedule' => [
             30 => 'Đang chờ',
             31 => 'Đỗ',
+            35 => 'Trượt',
             32 => 'Thi lại',
             33 => 'Thi mới',
             34 => 'Bỏ thi'
@@ -417,6 +418,7 @@ function listStatusCalendars()
         'exam_edu' => [
             50 => 'Đang chờ',
             51 => 'Đỗ',
+            55 => 'Trượt',
             52 => 'Thi lại',
             53 => 'Thi mới',
             54 => 'Bỏ thi'
@@ -424,6 +426,7 @@ function listStatusCalendars()
         'lythuyet' => [
             60 => 'Đang chờ',
             61 => 'Đỗ',
+            65 => 'Trượt',
             62 => 'Thi lại',
             63 => 'Thi mới',
             64 => 'Bỏ thi'
@@ -431,6 +434,7 @@ function listStatusCalendars()
         'thuchanh' => [
             70 => 'Đang chờ',
             71 => 'Đỗ',
+            75 => 'Trượt',
             72 => 'Thi lại',
             73 => 'Thi mới',
             74 => 'Bỏ thi'
@@ -555,7 +559,7 @@ function getStatusCalendarByType($type, $status)
             return '<span class="badge badge-dark">' . $statuses[$type][$status] . '</span>';
             break;
         default:
-            return "";
+            return '<span class="badge badge-dark">' . $statuses[$type][$status] . '</span>';
             break;
     }
 }
@@ -596,7 +600,7 @@ function getStatusCalendarByType2($type, $status)
             return '<strong>Học: </strong><span class="badge badge-danger">' . $statuses[$type][$status] . '</span>';
             break;
         default:
-            return "";
+            return '<strong>Thi: </strong><span class="badge badge-secondary">' . $statuses[$type][$status] . '</span>';
             break;
     }
 }
