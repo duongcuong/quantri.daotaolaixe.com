@@ -12,7 +12,7 @@
             <th rowspan="2">Họ tên</th>
             <th rowspan="2">Ngày sinh</th>
             <th rowspan="2">Giới tính</th>
-            <th rowspan="2">Ngày kýhợp đồng</th>
+            <th rowspan="2">Ngày ký hợp đồng</th>
             <th rowspan="2">CMT/CCCD</th>
             {{-- <th rowspan="2">Id thẻ</th> --}}
             <th rowspan="2">Số thẻ</th>
@@ -30,8 +30,8 @@
             <th class="fixed-column text-center" rowspan="2">Hành động</th>
         </tr>
         <tr>
-            <th>Thi hết LT</th>
-            <th>Thi hết TH</th>
+            <th>Thi hết môn LT</th>
+            <th>Thi hết môn TH</th>
             <th>Thi tốt nghiệp</th>
             <th>Giờ</th>
             <th>Km</th>

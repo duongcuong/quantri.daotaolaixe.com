@@ -20,8 +20,8 @@ Tất cả Khoá học - Học Viên
     </div>
     <div class="ml-auto">
         @if(request()->course_id)
-        <a class="btn btn-outline-primary btn-sm mr-2" href="{{ route('admins.course-user.index') }}"
-            data-toggle="tooltip" title="Quay về trang quản lý Khoá học - User &#9194;"><i class="bx bx-rewind"></i>Quay
+        <a class="btn btn-outline-primary btn-sm mr-2" href="{{ url()->previous() }}"
+            data-toggle="tooltip" title="Quay lại &#9194;"><i class="bx bx-rewind"></i>Quay
             lại</a>
         @endif
 
@@ -61,7 +61,7 @@ Tất cả Khoá học - Học Viên
                     </select>
                 </div>
                 <div class="form-group col-sm-6 col-md-3">
-                    <label for="start_date" class="mr-2">Ngày kýhợp đồng bắt đầu</label>
+                    <label for="start_date" class="mr-2">Ngày ký hợp đồng bắt đầu</label>
                     <input type="date" name="start_date" id="start_date" class="form-control"
                         value="{{ session('course_user_filters.start_date') }}">
                 </div>

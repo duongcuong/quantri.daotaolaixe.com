@@ -111,7 +111,7 @@ Sửa Khoá học - Học Viên
                                 value="{{ old('ngay_hoc_cabin', getDateTimeStamp($courseUser->ngay_hoc_cabin)) }}" />
                         </div> --}}
                         <div class="form-group col-md-6">
-                            <label for="contract_date">Ngày kýhợp đồng</label>
+                            <label for="contract_date">Ngày ký hợp đồng</label>
                             <input type="date" name="contract_date" id="contract_date" class="form-control"
                                 value="{{ old('contract_date', \Carbon\Carbon::parse($courseUser->contract_date)->format('Y-m-d')) }}" />
                         </div>

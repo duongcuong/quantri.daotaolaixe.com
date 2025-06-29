@@ -399,7 +399,8 @@ function listStatusCalendars()
             35 => 'Trượt',
             32 => 'Thi lại',
             33 => 'Thi mới',
-            34 => 'Bỏ thi'
+            34 => 'Bỏ thi',
+            36 => 'Hoãn thi'
         ],
         'class_schedule' => [
             40 => 'Đang chờ',
@@ -407,6 +408,7 @@ function listStatusCalendars()
             42 => 'Hoàn thành',
             43 => 'Thiếu giáo viên',
             44 => 'Huỷ ca',
+            45 => 'Hoãn thi'
         ],
         'student_class_schedule' => [
             40 => 'Đang chờ',
@@ -414,6 +416,7 @@ function listStatusCalendars()
             42 => 'Hoàn thành',
             43 => 'Thiếu giáo viên',
             44 => 'Huỷ ca',
+            45 => 'Hoãn thi'
         ],
         'exam_edu' => [
             50 => 'Đang chờ',
@@ -421,7 +424,8 @@ function listStatusCalendars()
             55 => 'Trượt',
             52 => 'Thi lại',
             53 => 'Thi mới',
-            54 => 'Bỏ thi'
+            54 => 'Bỏ thi',
+            56 => 'Hoãn thi'
         ],
         'lythuyet' => [
             60 => 'Đang chờ',
@@ -429,7 +433,8 @@ function listStatusCalendars()
             65 => 'Trượt',
             62 => 'Thi lại',
             63 => 'Thi mới',
-            64 => 'Bỏ thi'
+            64 => 'Bỏ thi',
+            66 => 'Hoãn thi'
         ],
         'thuchanh' => [
             70 => 'Đang chờ',
@@ -437,7 +442,8 @@ function listStatusCalendars()
             75 => 'Trượt',
             72 => 'Thi lại',
             73 => 'Thi mới',
-            74 => 'Bỏ thi'
+            74 => 'Bỏ thi',
+            76 => 'Hoãn thi'
         ],
         // Add other types and their statuses as needed
     ];
