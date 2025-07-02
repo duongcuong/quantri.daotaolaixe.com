@@ -10,7 +10,7 @@
             <th rowspan="2">Số GPTL</th>
             {{-- <th>Ngày hết hạn GPTL</th> --}}
             <th rowspan="2">Năm SX</th>
-            <th colspan="2">Số giờ chạy được</th>
+            <th colspan="2" class="text-center">Số giờ chạy được</th>
             <th rowspan="2">Ghi chú</th>
             <th class="fixed-column text-center" rowspan="2">Hành động</th>
         </tr>
@@ -29,7 +29,7 @@
                 </a>
             </td>
             <td>{{ $vehicle->model }}</td>
-            <td>{{ $vehicle->rank }}</td>
+            <td>{!! getRankOne($vehicle->rank) !!}</td>
             <td>{{ $vehicle->type }}</td>
             <td>{{ $vehicle->color }}</td>
             <td>{{ $vehicle->gptl_number }}</td>
