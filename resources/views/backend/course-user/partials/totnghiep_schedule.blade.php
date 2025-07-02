@@ -22,8 +22,8 @@
                                     {{-- @if (Auth::user()->hasPermission('admins.course-user.index')) --}}
                                     <a class="btn btn-outline-primary btn-sm btn-create-ajax"
                                         href="{{ route('admins.calendars.create', ['course_user_id' => $courseUser->id, 'type' => 'exam_edu', 'reload' => 'load-data-ajax-tot-nghiep-calendars']) }}"
-                                        data-cs-modal="#modal-calendars-tot-nghiep-create-ajax" title="Thêm mới"><i
-                                            class="bx bx-plus"></i>Thêm  lịch thi tốt nghiệp</a>
+                                        data-cs-modal="#modal-calendars-tot-nghiep-create-ajax" title="Tạo Lịch Thi Tốt Nghiệp"><i
+                                            class="bx bx-plus"></i>Tạo Lịch Thi Tốt Nghiệp</a>
                                     {{-- @endif --}}
                                 </div>
                             </div>

@@ -31,8 +31,8 @@
                                     {{-- @if (Auth::user()->hasPermission('admins.course-user.index')) --}}
                                     <a class="btn btn-outline-primary btn-sm btn-create-ajax"
                                         href="{{ route('admins.calendars.create', ['course_user_id' => $courseUser->id, 'type' => 'student_class_schedule', 'reload' => 'load-data-ajax-exam-lich-hoc-calendars']) }}"
-                                        data-cs-modal="#modal-calendars-lich-hoc-create-ajax" title="Thêm mới"><i
-                                            class="bx bx-plus"></i>Thêm mới</a>
+                                        data-cs-modal="#modal-calendars-lich-hoc-create-ajax" title="Tạo Lịch Học Lý Thuyết - Cabin"><i
+                                            class="bx bx-plus"></i>Tạo Lịch Học Lý Thuyết - Cabin</a>
                                     {{-- @endif --}}
                                 </div>
                             </div>

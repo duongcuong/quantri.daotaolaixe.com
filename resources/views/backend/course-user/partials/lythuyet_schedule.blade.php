@@ -31,8 +31,8 @@
                                     {{-- @if (Auth::user()->hasPermission('admins.course-user.index')) --}}
                                     <a class="btn btn-outline-primary btn-sm btn-create-ajax"
                                         href="{{ route('admins.calendars.create', ['course_user_id' => $courseUser->id, 'type' => 'lythuyet', 'reload' => 'load-data-ajax-ly-thuyet-calendars']) }}"
-                                        data-cs-modal="#modal-calendars-ly-thuyet-create-ajax" title="Thêm mới"><i
-                                            class="bx bx-plus"></i>Thêm mới</a>
+                                        data-cs-modal="#modal-calendars-ly-thuyet-create-ajax" title="Tạo Lịch Thi Hết Môn Lý Thuyết"><i
+                                            class="bx bx-plus"></i>Tạo Lịch Thi Hết Môn Lý Thuyết</a>
                                     {{-- @endif --}}
                                 </div>
                             </div>

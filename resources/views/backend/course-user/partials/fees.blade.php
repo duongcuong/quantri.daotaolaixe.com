@@ -8,8 +8,8 @@
                         </h5>
                         <div class="ml-auto">
                             {{-- @if (Auth::user()->hasPermission('admins.course-user.index')) --}}
-                            <a class="btn btn-outline-primary btn-sm btn-create-ajax" href="{{ route('admins.fees.create', ['course_user_id' => $courseUser->id]) }}" data-cs-modal="#modal-fees-create-ajax" title="Thêm mới"><i
-                                    class="bx bx-plus"></i>Thêm mới</a>
+                            <a class="btn btn-outline-primary btn-sm btn-create-ajax" href="{{ route('admins.fees.create', ['course_user_id' => $courseUser->id]) }}" data-cs-modal="#modal-fees-create-ajax" title="Tạo Học Phí"><i
+                                    class="bx bx-plus"></i>Tạo Học Phí</a>
                             {{-- @endif --}}
                         </div>
                     </div>
