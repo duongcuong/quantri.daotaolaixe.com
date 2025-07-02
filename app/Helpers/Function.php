@@ -408,7 +408,8 @@ function listStatusCalendars()
             42 => 'Hoàn thành',
             43 => 'Thiếu giáo viên',
             44 => 'Huỷ ca',
-            45 => 'Hoãn thi'
+            45 => 'Hoãn thi',
+            46 => 'Bỏ ca học',
         ],
         'student_class_schedule' => [
             40 => 'Đang chờ',

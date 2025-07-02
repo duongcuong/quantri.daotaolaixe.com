@@ -109,6 +109,10 @@ class VehicleExpenseController extends Controller
             $hasSearch = true;
         }
 
+        if ($request->has('admin_id') && $request->admin_id) {
+            $query->where('admin_id', $request->admin_id);
+        }
+
         // Tính tổng chi phí theo điều kiện lọc
         $totalExpense = $query->sum('amount');
 

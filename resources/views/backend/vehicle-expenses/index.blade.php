@@ -21,7 +21,8 @@ Tất cả chi phí xe
     <div class="ml-auto">
         {{-- @if (Auth::user()->hasPermission('admins.vehicle-expenses.index')) --}}
         <a class="btn btn-outline-primary btn-sm btn-create-ajax" href="{{ route('admins.vehicle-expenses.create') }}"
-            data-cs-modal="#modal-vehicle-expenses-create-ajax" title="Tạo Chi Phí Xe"><i class="bx bx-plus"></i>Tạo Chi Phí Xe</a>
+            data-cs-modal="#modal-vehicle-expenses-create-ajax" title="Tạo Chi Phí Xe"><i class="bx bx-plus"></i>Tạo Chi
+            Phí Xe</a>
         {{-- @endif --}}
     </div>
 </div>
@@ -44,7 +45,8 @@ Tất cả chi phí xe
                     <select name="type" id="type" class="form-control">
                         <option value="">Chọn loại chi phí</option>
                         @foreach (listTypeVahicleExpenses() as $key => $value)
-                        <option value="{{ $key }}" {{ session('expenses_filters.type') == $key ? 'selected' : '' }}>{{ $value }}</option>
+                        <option value="{{ $key }}" {{ session('expenses_filters.type')==$key ? 'selected' : '' }}>{{
+                            $value }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -58,14 +60,22 @@ Tất cả chi phí xe
                     <input type="date" name="end_date" id="end_date" class="form-control"
                         value="{{ session('vehicle-expenses_filters.end_date') }}">
                 </div>
+                <div class="form-group col-sm-6 col-md-3 mb-3">
+                    <label for="admin_id">Người chi</label>
+                    <select class="select2-ajax-single form-control" name="admin_id" data-selected-id="{{ session('vehicle-expenses_filters.admin_id') }}"
+                        data-placeholder="Chọn người chi"
+                        data-url="{{ route('admins.admins.list', ['role'=> ROLE_VEHICLE_EXPENSE]) }}">
+                    </select>
+                </div>
                 <div class="form-group col-sm-6 col-md-3">
-                    {{-- <label for="status22" class="mr-2 opacity-0">Hành động </label><br> --}}
+                    <label for="status22" class="opacity-0">Hành động </label>
+                    <br>
                     <button type="submit" class="btn btn-primary">
-                        <span class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true"
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
                             style="display: none"></span>
                         Tìm kiếm
                     </button>
-                    <button type="reset" class="btn btn-outline-danger m-1">
+                    <button type="reset" class="btn btn-outline-danger ml-1">
                         <i class="bx bx-refresh mr-1"></i>Refresh
                     </button>
                 </div>
