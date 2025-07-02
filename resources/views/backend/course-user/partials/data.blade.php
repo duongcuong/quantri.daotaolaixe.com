@@ -14,6 +14,7 @@
             <th rowspan="2">Giới tính</th>
             <th rowspan="2">Ngày ký hợp đồng</th>
             <th rowspan="2">CMT/CCCD</th>
+            <th rowspan="2">Khám sức khoẻ</th>
             {{-- <th rowspan="2">Id thẻ</th> --}}
             <th rowspan="2">Số thẻ</th>
             <th rowspan="2">Giáo viên</th>
@@ -68,7 +69,7 @@
                 }}</td>
             <td>{{ getDateTimeStamp($courseUser->contract_date, 'd/m/Y') }}</td>
             <td>{{ $courseUser->user->identity_card }}</td>
-            {{-- <td>{{ $courseUser->user->card_name }}</td> --}}
+            <td>{{ getDateTimeStamp($courseUser->health_check_date, 'd/m/Y') }}</td>
             <td>{{ $courseUser->user->card_number }}</td>
 
             <td>{{ $courseUser->teacher->name ?? '' }}</td>

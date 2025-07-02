@@ -15,6 +15,7 @@
             <th>CMT/CCCD</th>
             <th>Địa chỉ</th>
             <th>Khoá học</th>
+            <th>Khám sức khoẻ</th>
             {{-- <th>Tên thẻ</th> --}}
             <th>Số thẻ</th>
             <th>Trạng thái</th>
@@ -43,9 +44,18 @@
             <td>{{ $user->address }}</td>
             <td>
                 @foreach ($user->courseUsers as $courseUser)
-                <a href="{{ route('admins.course-user.show', $courseUser->id) }}" class="badge badge-primary">
-                    {{ $courseUser->course->code ?? 'N/A' }}
-                </a>
+                <p>
+                    <a href="{{ route('admins.course-user.show', $courseUser->id) }}" class="badge badge-primary">
+                        {{ $courseUser->course->code ?? 'N/A' }}
+                    </a>
+                </p>
+                @endforeach
+            </td>
+            <td>
+                @foreach ($user->courseUsers as $courseUser)
+                <p>
+                    {{ getDateTimeStamp($courseUser->health_check_date, 'd/m/Y') }}
+                </p>
                 @endforeach
             </td>
             {{-- <td>{{ $user->card_name }}</td> --}}
