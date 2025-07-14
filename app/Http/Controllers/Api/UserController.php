@@ -35,10 +35,10 @@ class UserController extends Controller
                 ->map(function ($calendar) {
                     return [
                         'id' => $calendar->id,
-                        'date_start' => $calendar->date_start,
-                        'date_end' => $calendar->date_end,
+                        'date_start' => getDateTimeStamp($calendar->date_start, 'd/m/Y H:i'),
+                        'date_end' => getDateTimeStamp($calendar->date_end, 'd/m/Y H:i'),
                         'loai_hoc' => getLoaiHocAll($calendar->loai_hoc),
-                        'status' => getStatusCalendarByType($calendar->type, $calendar->status),
+                        'status' => $calendar->type == 'class_schedule' ? 'Lịch học' : getStatusCalendarByType($calendar->type, $calendar->status),
                     ];
                 })
                 ->groupBy(function ($calendar) use ($courseUser) {
