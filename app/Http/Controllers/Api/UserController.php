@@ -70,7 +70,7 @@ class UserController extends Controller
                     'id' => $courseUser->course->id,
                     'code' => $courseUser->course->code,
                     'rank' => getRankOne($courseUser->course->rank),
-                    'tuition_fee' => getMoney($courseUser->course->tuition_fee),
+                    'tuition_fee' => getMoney($courseUser->tuition_fee),
                     'total_tien_hoc_phi_da_nap' => getMoney($total_paid_type_1),
                     'total_tien_da_nap' => getMoney($total_paid),
                 ],
