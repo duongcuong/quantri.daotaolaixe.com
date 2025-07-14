@@ -698,6 +698,13 @@ function getLoaiHoc2($loaiHoc)
     return '<span class="badge badge-secondary">' . $loaiHocs[$loaiHoc] . '</span>' ?? '';
 }
 
+function getLoaiHocAll($loaiHoc){
+    if (!$loaiHoc) return '';
+    $listAllLoaiHocs = array_merge(listLoaiHocs(), listLoaiHoc2s());
+    if (!isset($listAllLoaiHocs[$loaiHoc])) return '';
+    return '<span class="badge badge-secondary">' . $listAllLoaiHocs[$loaiHoc] . '</span>' ?? '';
+}
+
 function listLoaiThis()
 {
     return [
