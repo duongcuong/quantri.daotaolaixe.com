@@ -79,6 +79,14 @@ class UserController extends Controller
             ];
         });
 
-        return response()->json(['courses' => $data]);
+        return response()->json([
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'dob' => getDateTimeStamp($user->dob, 'd/m/Y'),
+                'identity_card' => $user->identity_card,
+            ],
+            'courses' => $data
+        ]);
     }
 }
