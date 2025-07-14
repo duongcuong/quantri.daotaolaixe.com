@@ -38,13 +38,13 @@ class UserController extends Controller
                         'date_start' => getDateTimeStamp($calendar->date_start, 'd/m/Y H:i'),
                         'date_end' => getDateTimeStamp($calendar->date_end, 'd/m/Y H:i'),
                         'loai_hoc' => getLoaiHocAll($calendar->loai_hoc),
-                        'status' => $calendar->type == 'class_schedule' ? 'Lịch học' : getStatusCalendarByType($calendar->type, $calendar->status),
+                        'status' => getStatusCalendarByType($calendar->type, $calendar->status),
                     ];
                 })
                 ->groupBy(function ($calendar) use ($courseUser) {
                     // Lấy type text cho key nhóm
                     $calendarType = $courseUser->calendars->firstWhere('id', $calendar['id'])->type ?? '';
-                    return getTypeTextCalendar($calendarType);
+                    return $calendarType == 'class_schedule' ? 'Lịch học' : getTypeTextCalendar($calendarType);
                 });
 
             // Lịch sử nộp học phí
