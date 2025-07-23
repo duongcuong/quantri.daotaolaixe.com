@@ -8,8 +8,13 @@
             @csrf
             <div class="modal-content">
                 <div class="modal-header">
+                    @if(!request()->date_start)
                     <h5 class="modal-title" id="modal-calendars-sat-hach-create-ajaxLabel">Thêm {!!
                         getTypeCalendar(request()->type) !!}</h5>
+                    @else
+                    <h5 class="modal-title d-flex align-items-center" id="modal-calendars-sat-hach-create-ajaxLabel">Thêm học viên <i class="bx bx-right-arrow-alt"></i>  {!!
+                        getTypeCalendar(request()->type) !!}</h5>
+                    @endif
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
