@@ -927,6 +927,7 @@ function listFeeTypes()
         '5' => 'Hết môn lý thuyết',
         '6' => 'Hết môn thực hành',
         '7' => 'Thi tốt nghiệp',
+        '9' => 'Lệ phí thi lại',
         '8' => 'Khác',
     ];
 }
