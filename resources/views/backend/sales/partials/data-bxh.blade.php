@@ -55,7 +55,7 @@
 <table id="example" class="table table-sm table-bordered table-hover">
     <thead>
         <tr>
-            <th>STT</th>
+            <th style="width: 50px;">STT</th>
             <th>Họ tên</th>
             <th>Giới tính</th>
             <th>Ngày sinh</th>
