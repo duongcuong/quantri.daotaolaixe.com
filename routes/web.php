@@ -72,6 +72,8 @@ Route::prefix('admin')->as('admins.')->group(function () {
         Route::resource('teachers', TeacherController::class);
 
         Route::get('sales/data', [SaleController::class, 'data'])->name('sales.data');
+        Route::get('sales/dataBxh', [SaleController::class, 'dataBxh'])->name('sales.dataBxh');
+        Route::get('sales/bxh', [SaleController::class, 'bxh'])->name('sales.bxh');
         Route::resource('sales', SaleController::class);
 
         //course

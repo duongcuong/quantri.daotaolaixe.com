@@ -193,4 +193,64 @@ class SaleController extends Controller
 
         return view('backend.sales.index', compact('sales', 'totalCourseUsers', 'totalLeads'));
     }
+
+    public function bxh(Request $request)
+    {
+        return view('backend.sales.bxh');
+    }
+
+    public function dataBxh(Request $request)
+    {
+        // Lưu filter vào session
+        session(['sale_bxh_filters' => $request->all()]);
+
+        $startDate = $request->start_date;
+        $endDate   = $request->end_date;
+
+        $query = Admin::whereHas('roles', function ($q) {
+            $q->where('slug', ROLE_SALE);
+        })
+            ->withSum(['courseUsers as total_revenue' => function ($q) use ($startDate, $endDate) {
+                if ($startDate) $q->whereDate('contract_date', '>=', $startDate);
+                if ($endDate) $q->whereDate('contract_date', '<=', $endDate);
+            }], 'tuition_fee')
+            ->withCount(['courseUsers as total_contracts' => function ($q) use ($startDate, $endDate) {
+                if ($startDate) $q->whereDate('contract_date', '>=', $startDate);
+                if ($endDate) $q->whereDate('contract_date', '<=', $endDate);
+            }]);
+
+        // Sắp xếp giảm dần theo doanh thu rồi số hợp đồng
+
+        $orderBxh = $request->order_xh;
+
+        if ($orderBxh == 'doanh_thu') {
+            $query->orderByDesc('total_revenue');
+        } else {
+            $query->orderByDesc('total_contracts');
+        }
+
+        $sales = $query->paginate(LIMIT);
+
+        // Tổng cộng để hiển thị trên đầu
+        $totals = Admin::whereHas('roles', function ($q) {
+            $q->where('slug', ROLE_SALE);
+        })
+            ->withSum(['courseUsers as total_revenue' => function ($q) use ($startDate, $endDate) {
+                if ($startDate) $q->whereDate('contract_date', '>=', $startDate);
+                if ($endDate) $q->whereDate('contract_date', '<=', $endDate);
+            }], 'tuition_fee')
+            ->withCount(['courseUsers as total_contracts' => function ($q) use ($startDate, $endDate) {
+                if ($startDate) $q->whereDate('contract_date', '>=', $startDate);
+                if ($endDate) $q->whereDate('contract_date', '<=', $endDate);
+            }])
+            ->get();
+
+        $totalRevenueAll   = $totals->sum('total_revenue');
+        $totalContractsAll = $totals->sum('total_contracts');
+
+        if ($request->ajax()) {
+            return view('backend.sales.partials.data-bxh', compact('sales', 'totalRevenueAll', 'totalContractsAll'))->render();
+        }
+
+    }
 }

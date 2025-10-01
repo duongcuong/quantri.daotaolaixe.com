@@ -28,11 +28,20 @@
             </a>
         </li>
 
-        <li class="{{ Request::is('admin/sales/*') ? 'mm-active' : '' }}">
+        <li class="{{ Request::is('admin/sales/*') && !Request::is('admin/sales/bxh') ? 'mm-active' : '' }}">
             <a href="{{ route('admins.sales.index') }}" class="reset-search-action">
                 <div class="parent-icon icon-color-5"><i class="bx bx-group"></i>
                 </div>
                 <div class="menu-title">Danh sách sale</div>
+            </a>
+        </li>
+
+       <li class="{{ Request::is('admin/sales/bxh') ? 'mm-active' : '' }}">
+            <a href="{{ route('admins.sales.bxh') }}" class="reset-search-action">
+                <div class="parent-icon icon-color-1">
+                    <i class="fadeIn animated bx bx-star"></i>
+                </div>
+                <div class="menu-title">Bảng xếp hạng sale</div>
             </a>
         </li>
 
