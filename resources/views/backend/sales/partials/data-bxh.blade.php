@@ -74,7 +74,7 @@
         $rank = getSTT($sales, $loop->iteration);
         @endphp
         <tr class="{{ $rank <= 3 ? 'rank-' . $rank : '' }}">
-            <td>
+            <td style="text-align: center;">
                 @if($rank <= 3) <span class="rank-badge">
                     @if($rank === 1) 🥇
                     @elseif($rank === 2) 🥈
